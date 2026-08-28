@@ -11,7 +11,7 @@
 - 없음
 
 ## Next Action
-- CASE_001에 필요한 Knowledge를 탐색하고 Case-local knowledge_pack.md를 구성
+- Frozen CASE_001과 Knowledge Pack을 기준으로 최소 Gemma 4 Prototype을 설계·구현
 
 ## Human Decision Needed
 - 없음
