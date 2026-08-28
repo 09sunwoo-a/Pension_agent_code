@@ -1,7 +1,7 @@
 # CASE_001 Status
 
 - Current Stage: FROZEN
-- Latest Run:
+- Latest Run: RUN_001
 - Latest Evaluation:
 
 ## Current Issue
@@ -11,7 +11,7 @@
 - 없음
 
 ## Next Action
-- Frozen CASE_001과 Knowledge Pack을 기준으로 최소 Gemma 4 Prototype을 설계·구현
+- RUN_001을 Frozen Expected Behavior 기준으로 평가하여 EVAL_001 생성
 
 ## Human Decision Needed
 - 없음
