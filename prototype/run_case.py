@@ -63,6 +63,12 @@ def main() -> int:
         print(f"validation  : C1 {v['overall']}")
         for c in v["candidates"]:
             print(f"   [{c['index']}] {c['verdict']:12s} risk_level={c['risk_level']!r}  direction={str(c['direction'])[:70]!r}")
+    v3 = record.get("validation_c3")
+    if v3:
+        print(f"validation  : C3 {v3['overall']}  (ineligible: {v3['ineligible_portfolios']}; findings: {len(v3['findings'])})")
+    v2 = record.get("validation_c2_detect")
+    if v2 and v2["findings"]:
+        print(f"C2 detect   : {v2['findings']}")
     po = record.get("parsed_output")
     if po:
         mn = po.get("management_need", {})

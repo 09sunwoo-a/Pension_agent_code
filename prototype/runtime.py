@@ -74,6 +74,26 @@ INVESTMENT_PROFILE_SCALE: List[str] = [
 # reported as UNVERIFIABLE by the validator, never silently accepted.
 NON_INVESTMENT_RISK_LABELS = {"해당없음", "N/A", "n/a", "없음"}
 
+# ---------------------------------------------------------------------------
+# C3 — Default-option portfolio eligibility by investment profile
+# (Human-approved HD-2, golden/HUMAN_DECISIONS.md; mapping per SRC-089 L43-54,
+#  recorded in cases/CONSTRAINT_MAP.md C3). Execution-enabling implementation
+#  (HD-5.1): the approved mapping is coded as-is, no new rule is introduced.
+# Value = minimum profile index (INVESTMENT_PROFILE_SCALE) allowed to hold it.
+# ---------------------------------------------------------------------------
+DEFAULT_OPTION_MIN_PROFILE: Dict[str, int] = {
+    "지켜드림": 0,   # 초저위험 — 모든 투자성향
+    "알파드림": 1,   # 저위험   — 안정추구형 이상
+    "뿔려드림": 2,   # 중위험   — 위험중립형 이상
+    "모두드림": 4,   # 고위험   — 공격투자형만
+}
+# Fund risk-grade labels as they appear in product data (SRC-095). The
+# profile ↔ fund-grade eligibility mapping (C2) is a Human-approved
+# constraint whose concrete table is NOT yet defined in any approved source
+# (Source Traceability Gap). The validator therefore only DETECTS grade
+# labels in candidates and reports them for the Evaluator; it does not judge.
+FUND_RISK_GRADE_LABELS = ["매우높은위험", "높은위험", "다소높은위험", "보통위험", "낮은위험", "매우낮은위험"]
+
 
 # ===========================================================================
 # 1. Frozen Customer Input
@@ -136,13 +156,22 @@ class ConstraintContext:
     basis: str
 
     def as_text(self) -> str:
+        idx = INVESTMENT_PROFILE_SCALE.index(self.investment_profile)
+        do_ok = [n for n, m in DEFAULT_OPTION_MIN_PROFILE.items() if idx >= m]
+        do_no = [n for n, m in DEFAULT_OPTION_MIN_PROFILE.items() if idx < m]
         return (
             f"[{self.constraint_id}] 투자성향 Hard Constraint\n"
             f"- 고객 투자성향(확인됨): {self.investment_profile}\n"
             f"- 투자성향 5단계: {' < '.join(INVESTMENT_PROFILE_SCALE)}\n"
             f"- 허용 위험수준 (Solution 방향에 사용 가능): {', '.join(self.allowed_levels)}\n"
             f"- 제외 위험수준 (Solution 후보로 생성 금지): {', '.join(self.forbidden_levels)}\n"
-            f"- 근거: {self.basis}"
+            f"- 투자성향은 허용 가능한 최대 위험수준의 상한이다. 고객이 그 수준까지 위험을 부담해야 한다는 뜻이 아니며, "
+            f"더 낮은 위험수준의 운용은 항상 허용된다. 투자성향과 현재 운용상태의 차이만으로 관리 필요·변경 필요를 판정하지 않는다.\n"
+            f"- 근거: {self.basis}\n\n"
+            f"[C3] 디폴트옵션 포트폴리오 Eligibility (Human-approved)\n"
+            f"- 이 고객이 가입 가능한 디폴트옵션 포트폴리오: {', '.join(do_ok)}\n"
+            f"- 가입 불가 (Solution 방향으로 생성 금지): {', '.join(do_no) if do_no else '없음'}\n"
+            f"- 매핑: 지켜드림(초저위험)=모든 성향 / 알파드림(저위험)=안정추구형 이상 / 뿔려드림(중위험)=위험중립형 이상 / 모두드림(고위험)=공격투자형만"
         )
 
 
@@ -165,7 +194,7 @@ def build_constraint_context(customer: CustomerInput) -> ConstraintContext:
         investment_profile=profile,
         allowed_levels=INVESTMENT_PROFILE_SCALE[: idx + 1],
         forbidden_levels=INVESTMENT_PROFILE_SCALE[idx + 1 :],
-        basis="Human-approved Constraint (cases/%s/case.md §4 C1). 공식 적합성 기준 Source는 미확보."
+        basis="Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2; cases/%s/case.md §4). 공식 적합성 기준 원문은 Source Traceability Gap."
         % customer.case_id,
     )
 
@@ -258,11 +287,28 @@ SYSTEM_ROLE = """당신은 은행 직원의 개인형IRP 사후관리 판단을 
 6. 판단의 근거로 사용한 고객정보와 Knowledge를 밝힌다.
 7. 최종 결과는 직원이 고객관리를 수행하기 위한 판단 지원 정보이며, 고객에게 직접 전달하는 문장이 아니다."""
 
-CUSTOMER_CONTEXT_NOTE = (
+CUSTOMER_CONTEXT_NOTE_OBSERVED_ONLY = (
     "아래 항목은 시스템에서 조회된 정보(Observed / Calculated)다. "
     "고객이 직접 밝힌 정보(Customer-stated)는 포함되어 있지 않다. "
     "아래에 없는 정보는 제공되지 않은 것이다."
 )
+CUSTOMER_CONTEXT_NOTE_MIXED = (
+    "아래 항목은 별도 표시가 없으면 시스템에서 조회된 정보(Observed / Calculated)다. "
+    "`[Customer-stated]` 표시가 있는 항목은 고객이 상담·문의에서 직접 밝힌 내용이며, 그 시점의 발화이지 확정된 현재 의사가 아니다. "
+    "`[Event]` 표시는 시스템에서 발생한 사건이다. 아래에 없는 정보는 제공되지 않은 것이다."
+)
+CUSTOMER_STATED_TAG = "[Customer-stated]"
+
+
+def customer_context_note(customer: "CustomerInput") -> str:
+    """Pick the provenance note that is actually true for this input (serialization correctness)."""
+    if any(CUSTOMER_STATED_TAG in ln for ln in customer.lines):
+        return CUSTOMER_CONTEXT_NOTE_MIXED
+    return CUSTOMER_CONTEXT_NOTE_OBSERVED_ONLY
+
+
+# kept for backward reference in run records
+CUSTOMER_CONTEXT_NOTE = CUSTOMER_CONTEXT_NOTE_OBSERVED_ONLY
 
 OUTPUT_INSTRUCTION = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트, 설명, 코드펜스를 붙이지 않는다. 모든 문자열 값은 한국어로 쓴다.
 
@@ -319,7 +365,7 @@ def build_prompt(
     )
     return Prompt(
         system_role=SYSTEM_ROLE,
-        customer_context=CUSTOMER_CONTEXT_NOTE + "\n\n" + customer.as_text(),
+        customer_context=customer_context_note(customer) + "\n\n" + customer.as_text(),
         constraint_context=constraint.as_text(),
         knowledge_context=knowledge_text,
         output_instruction=OUTPUT_INSTRUCTION,
@@ -511,6 +557,62 @@ def validate_c1(obj: Dict[str, Any], constraint: ConstraintContext) -> Dict[str,
     }
 
 
+def _candidate_texts(obj: Dict[str, Any]) -> List[Tuple[int, str, str]]:
+    out = []
+    for i, c in enumerate(obj.get("solution_candidates") or []):
+        if isinstance(c, dict):
+            out.append((i, str(c.get("direction", "")), str(c.get("condition", ""))))
+    return out
+
+
+def validate_c3_default_option(obj: Dict[str, Any], constraint: ConstraintContext) -> Dict[str, Any]:
+    """C3: a default-option portfolio the customer is not eligible for must not be
+    proposed as a solution direction.
+
+    FAIL   : ineligible portfolio name appears in a candidate's `direction`.
+    REVIEW : ineligible name appears only in `condition` or in employee_brief
+             (may be a negation such as '모두드림은 불가') — Evaluator decides.
+    PASS   : otherwise.
+    """
+    idx = INVESTMENT_PROFILE_SCALE.index(constraint.investment_profile)
+    ineligible = [n for n, m in DEFAULT_OPTION_MIN_PROFILE.items() if idx < m]
+    findings = []
+    overall = "PASS"
+    for i, d, c in _candidate_texts(obj):
+        for name in ineligible:
+            if name in d:
+                findings.append({"index": i, "portfolio": name, "where": "direction", "verdict": "FAIL"})
+                overall = "FAIL"
+            elif name in c:
+                findings.append({"index": i, "portfolio": name, "where": "condition", "verdict": "REVIEW"})
+                if overall != "FAIL":
+                    overall = "REVIEW"
+    brief = str(obj.get("employee_brief", ""))
+    for name in ineligible:
+        if name in brief:
+            findings.append({"index": None, "portfolio": name, "where": "employee_brief", "verdict": "REVIEW"})
+            if overall != "FAIL":
+                overall = "REVIEW"
+    return {"constraint_id": "C3", "investment_profile": constraint.investment_profile,
+            "ineligible_portfolios": ineligible, "findings": findings, "overall": overall}
+
+
+def detect_c2_fund_grades(obj: Dict[str, Any]) -> Dict[str, Any]:
+    """C2 detector (not a judge): report fund risk-grade labels named in candidates.
+
+    The profile ↔ fund-grade eligibility table is a Human-approved constraint
+    without an approved concrete mapping yet (Source Traceability Gap), so the
+    runtime cannot pass/fail here. Findings are surfaced for the Evaluator.
+    """
+    findings = []
+    for i, d, c in _candidate_texts(obj):
+        for g in FUND_RISK_GRADE_LABELS:
+            if g in d or g in c:
+                findings.append({"index": i, "grade_label": g})
+    return {"constraint_id": "C2", "mode": "DETECT_ONLY", "findings": findings,
+            "note": "profile↔fund-grade mapping table not yet approved — Evaluator judges"}
+
+
 # ===========================================================================
 # 8. Orchestration
 # ===========================================================================
@@ -607,7 +709,14 @@ def run_case(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
 
     validation = validate_c1(obj, constraint)
     record["validation"] = validation
+    record["validation_c3"] = validate_c3_default_option(obj, constraint)
+    record["validation_c2_detect"] = detect_c2_fund_grades(obj)
     record["employee_brief"] = obj.get("employee_brief", "")
-    record.update(status=(VALIDATION_ERROR if validation["overall"] == "FAIL" else SUCCESS),
-                  error=("C1 violated by a solution candidate" if validation["overall"] == "FAIL" else ""))
+    failed = validation["overall"] == "FAIL" or record["validation_c3"]["overall"] == "FAIL"
+    errs = []
+    if validation["overall"] == "FAIL":
+        errs.append("C1 violated by a solution candidate")
+    if record["validation_c3"]["overall"] == "FAIL":
+        errs.append("C3 ineligible default-option portfolio proposed")
+    record.update(status=(VALIDATION_ERROR if failed else SUCCESS), error="; ".join(errs))
     return record
