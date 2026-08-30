@@ -54,6 +54,19 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-01 K-008 | C1·C3 | Human-approved | 인용 | 준수 | → CONSTRAINT_MAP |
 | GC-01 K-009 | KPI 분리 | Case-local | 미인용 | 위반 없음 | pending |
 
+## GC-04 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-04 K-001 | 성향=상한, 불일치≠관리 필요 (C1·C3) | Human-approved | 인용 | 정확 적용 | → CONSTRAINT_MAP (Reasoning Cue로도 재사용) |
+| GC-04 K-002 | 안정형·원리금 100% 운용도 정당 | Operational/Public/Training | 인용 | 의사 존중에 사용 | pending |
+| GC-04 K-003 | 성향-DO 불일치 TM = KPI 분류 | Marketing Practice | 인용 | KPI 분리 명시 | pending — D10 공통 후보 |
+| GC-04 K-004 | 행동·이력≠현재 의사; Customer-stated 재확인 | Design | 인용 | Unknown#1로 반영 | pending — 공통 후보 (Core 원칙) |
+| GC-04 K-005 | 자동 재예치 없음·DO 2주 적용·만기 금리 비교 | Public/Internal | 부분 인용 | F-006 (2주 규칙 미적용) | pending (GC-01 K-001과 통합 후보) |
+| GC-04 K-006 | 개시 요건≠의무; 수령방식 3종 | Internal | 인용 | 적절 | pending (GC-10) |
+| GC-04 K-007 | 물가 논리는 강제 근거 아님 | Training | 미인용 | 위반 없음 | pending |
+| GC-04 K-008 | 상담 순서·톤 | Communication | 미인용 | 톤 적절 | pending |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |
