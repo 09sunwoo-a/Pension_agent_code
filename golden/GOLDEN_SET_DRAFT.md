@@ -816,6 +816,8 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 현재 Prototype(`prototype/README.md`) 은 CASE_001 전용 최소 Runtime 이며 Output Schema 는 `current_situation / management_need / solution_candidates / employee_brief` 다. Golden 을 Runtime 에 맞추지 않고, 아래를 **Runtime 이 커버해야 할 업무공간** 으로 기록한다.
 
+Gap 의 처리 구분(HD-5.1, `AGENTS.md` §9·§20.9): 승인된 Case Fact 를 받는 **입력 스키마·parser·serialization 확장** 과 HD-2 Eligibility 의 **deterministic validator 구현** 은 Execution-enabling Runtime Change 로 Batch 중 Agent 가 자율 수행한다. 반면 **Output Decision Model 변경·새 Constraint 설계·Execution/Conflict Validation 의 새 판정 규칙·새 Retrieval Architecture** 는 Batch 중 임의로 수행하지 않는다(§20.8, Human Gate).
+
 | Gap | 관련 Capability | 관련 Case | 현재 상태 |
 |---|---|---|---|
 | Customer Input 에 거래내역 입금사유·타계좌 행동·고객 발화·EVENT(전출 접수)·PENSION(수령방식·자동이체) 등 필드가 없음 (현재 bullet 텍스트) | C1, C3, C7 | 거의 전부 | 입력 스키마 확장 필요 |
@@ -889,6 +891,8 @@ Verdict: PASS / PARTIAL / FAIL — 정의는 `AGENTS.md` §20.6. Evaluation Arti
 `GC-01 → GC-04 → GC-03 → GC-06 → GC-10 → GC-12 → GC-14 → GC-16`
 — 앞 4개는 D1~D5(상황·관리·성향·상품) 축, 뒤 4개는 D6~D8(제도·실행·이탈) 축이라 Failure Layer 가 Domain 별로 드러난다. 순서 변경은 Agent 재량(Semantic 변경 아님).
 
+실행 중 Runtime 이 Case Fact 를 표현하지 못하거나 C2/C3 검사가 없으면 **멈추지 않고** 최소 Input/Parser/Validator 확장 후 계속한다(HD-5.1). 새 판단 규칙이 필요해지는 경우에만 Human Gate.
+
 ---
 
 ## 12. CASE_001 Mapping (마지막 단계에서만 확인)
@@ -925,4 +929,4 @@ Verdict: PASS / PARTIAL / FAIL — 정의는 `AGENTS.md` §20.6. Evaluation Arti
 ## Appendix B. 작업 메모
 
 - Source 추출 산출물(폴더별 상세 발췌·file:line 참조·폴더 종합)은 `golden/source_extracts/` 에 보관했다. 이는 Golden 설계의 근거 추적용 작업 산출물이며 Source Corpus·Knowledge Base 가 아니다(Registry 에 등록하지 않음). 불필요하면 삭제해도 본 Draft 의 의미는 유지된다.
-- Human Gate ①~③ 는 2026-08-30 확정(§11). 다음 단계는 P0 8 Case 를 `cases/GC-xx/` 에 `templates/case/case.md` 형식으로 구체화·Freeze 하고 Batch 를 실행하는 것이다(`AGENTS.md` §20).
+- Human Gate ①~③ 는 2026-08-30 확정(§11). 다음 단계는 P0 8 Case 를 `cases/GC-xx/` 에 `templates/case/case.md` 형식으로 구체화·Freeze 하고 Batch 를 실행하는 것이다(`AGENTS.md` §20). 실행에 필요한 최소 Input/Parser/Serialization 확장과 HD-2 Validator 구현은 Execution-enabling Runtime Change 로 자율 수행한다(HD-5.1); Output Decision Model 변경·새 Constraint 설계·새 Retrieval Architecture 는 Batch 중 수행하지 않는다.

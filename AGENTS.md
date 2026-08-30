@@ -208,7 +208,7 @@ Evaluation Artifact는 불필요하게 장문화하지 않는다. 최소한 `Ver
 
 ## 9. Change Authority
 
-변경은 `Operational Change`와 `Semantic Change`로 구분한다.
+변경은 `Operational Change`, `Execution-enabling Runtime Change`, `Semantic Change`로 구분한다.
 
 ### Operational Change
 
@@ -217,6 +217,18 @@ Evaluation Artifact는 불필요하게 장문화하지 않는다. 최소한 `Ver
 예: Syntax / Import / Path / Serialization 오류 수정, Typo, Formatting, Dead Code 제거, Behavior-preserving Refactoring.
 
 Builder가 자율적으로 수정할 수 있다.
+
+### Execution-enabling Runtime Change
+
+> 이미 승인된 Case 의미, Customer Fact, Hard Constraint, Expected Judgment 또는 Evaluation Boundary를 변경하지 않고, 그것을 Runtime에서 **표현·전달·검사할 수 있게 만드는 최소 구현**.
+
+예:
+- 승인된 Case의 Customer Input 필드(만기일, 디폴트옵션 상세, 연금개시 여부·지급방식, 중도인출 사유, 입금사유, 고객 발화 등)를 Runtime 입력·parser로 받도록 확장
+- 기존 Customer Input을 Prompt에 누락 없이 전달하도록 serialization 수정
+- Human-approved Hard Constraint(HD-2: 투자성향 ↔ 펀드 위험등급 / 디폴트옵션 Eligibility)를 승인된 Mapping 그대로 deterministic validator로 구현
+- 승인된 Constraint Result·Knowledge Authority를 Prompt Section으로 전달하는 구조 추가 (판단 지시 추가 없이)
+
+**추가 Human 승인 없이 Agent가 수행**하고, 변경 내용을 Run Record 또는 Case status에 기록한다. 이 변경 때문에 Golden Batch를 멈추지 않는다 (§20.9).
 
 ### Semantic Change
 
@@ -236,7 +248,13 @@ Builder가 자율적으로 수정할 수 있다.
 - Semantic Output Schema 변경
 - Model 또는 Generation 설정 변경 (Gemma 4 Variant / Runtime Parameter 변경 포함)
 
-Semantic Change는 Human 승인 없이 실행하지 않는다. 초기에는 애매하면 Human Gate를 거친다.
+Semantic Change는 Human 승인 없이 실행하지 않는다.
+
+**판단 기준** — Runtime 변경이 필요할 때 다음을 묻는다.
+
+> 이 변경은 이미 Human-approved된 의미를 단순히 실행 가능하게 만드는가, 아니면 Agent가 무엇을 어떻게 판단하는지 새롭게 바꾸는가?
+
+보조 질문: *동일한 Approved Golden Case와 동일한 Customer Input에서, 이 변경 전후로 허용되는 판단 또는 Solution의 의미가 달라질 수 있는가?* — `NO` → Execution-enabling Runtime Change (자율) · `YES` → Semantic Change (Human Gate). 구현 중 "기존 Human Decision으로는 판단 기준이 정의되지 않음" 또는 "새 Constraint / 업무 규칙 정의가 필요함"이 드러나면 그 시점에 Human Gate로 전환한다. 위 목록의 `Validation 기준 변경`·`Semantic Output Schema 변경`은 **새 기준·새 의미를 도입하는 경우**를 말하며, 승인된 Constraint를 코드화하거나 승인된 Fact를 담을 필드를 추가하는 것은 해당하지 않는다.
 
 ---
 
@@ -493,7 +511,7 @@ Golden Case Candidate → Case 구체화 → Known / Unknown → Expected Behavi
 - Golden Case의 핵심 Situation 변경 · Expected Good Judgment 방향 변경 · Critical Mistake 의미 변경
 - 새로운 Hard Constraint 추가, 기존 Hard Constraint 삭제·완화
 - Agent 업무 Scope 변경 · Case를 다른 업무문제로 재해석
-- Core Design Semantic Change · Runtime Architecture의 의미 있는 Semantic Change
+- Core Design Semantic Change · Runtime Semantic Change (§9) — Solution/Decision Outcome 분리, 새 Output Schema, 새 Constraint 설계, Retrieval 범위 변경, Execution Validation·Solution Conflict의 새 판정 규칙, Agent/Planner/Node 구조 도입, Model·Generation Parameter 변경. **승인된 Case/Decision을 실행 가능하게 만드는 Execution-enabling Runtime Change(§9)는 Gate 대상이 아니다.**
 
 ### 20.4 Stop Condition (즉시 중단 → Evidence 정리 → Human Review)
 
@@ -519,8 +537,22 @@ Evaluation Source는 Golden Case의 `Expected Good Judgment / Critical Mistakes 
 
 ### 20.7 Deterministic Validation
 
-기계적으로 검증 가능한 Hard Constraint(투자성향 ↔ 펀드 위험등급 Eligibility, 투자성향 ↔ 디폴트옵션 Eligibility 등)는 Runtime에서 deterministic하게 검사한다: `Gemma 4 Builder → Runtime deterministic validation → Claude Evaluator → Verdict`. 현재 구현으로 불가능한 부분은 Runtime Gap으로 기록하고, Batch 시작 시 필요한 최소 구현만 설계한다.
+기계적으로 검증 가능한 Hard Constraint(투자성향 ↔ 펀드 위험등급 Eligibility, 투자성향 ↔ 디폴트옵션 Eligibility 등)는 Runtime에서 deterministic하게 검사한다: `Gemma 4 Builder → Runtime deterministic validation → Claude Evaluator → Verdict`. 현재 구현으로 불가능한 부분은 Runtime Gap으로 기록하고, 필요한 최소 구현은 §20.9에 따라 Agent가 수행한다.
 
 ### 20.8 이번 Batch 전에 확정하지 않는 것
 
 Output Schema 변경, Solution / Decision Outcome 분리, Execution Validation 구체 구현, Solution Conflict Validation 구조, 공통 Knowledge Base 구조, Reusable Knowledge 승격 정책, Dynamic Retrieval / RAG / Vector DB / Knowledge Graph, LangGraph / Multi-Agent, 자동 Evaluator Pipeline, 반복 실행·통계 평가 체계. 이들은 **P0 Batch의 Failure Evidence를 본 뒤** 결정한다. 문서에 Conceptual Hypothesis로 존재하는 것은 유지하되 확정 구현으로 승격하지 않는다.
+
+### 20.9 Batch 중 Runtime Gap 처리
+
+Batch 실행 중 현재 Prototype이 Case의 Input을 표현하지 못하거나 Human-approved Constraint를 아직 검사하지 못하는 것을 발견하는 것은 **Stop Condition이 아니다**.
+
+```text
+GC-01 실행 → Runtime에 만기일 / 디폴트옵션 상세 입력 구조 없음
+→ Approved Case Fact를 전달하기 위한 최소 Input 확장 (Execution-enabling) → Run 계속
+
+GC-06 실행 → 펀드 위험등급 Eligibility validator 미구현
+→ HD-2 Mapping을 그대로 코드화 (Execution-enabling) → Run 계속
+```
+
+흐름: `Gap 발견 → §9 판단 기준 적용 → Execution-enabling이면 최소 구현·기록 후 계속 / Semantic이면 Human Gate`. 구현 중 승인되지 않은 판단 기준이나 새 업무 규칙이 필요해지면 그 지점에서만 Human Gate로 전환한다. 구현은 해당 Case 실행에 필요한 최소 범위로 하며, §20.8의 미결정 구조를 이 과정에서 도입하지 않는다.

@@ -49,3 +49,11 @@ CASE_001 은 기존 Baseline / GC-00 으로 유지 — 재작성하지 않고, R
 ## HD-5. Human Approval 단위
 
 Human 은 업무의 경계와 중요한 변경을 결정하고, Agent 는 승인된 경계 안에서 Case 개발·실행·평가를 자율적으로 반복한다. 자율 범위·Human Gate·Stop Condition 의 구체 규칙은 `AGENTS.md` §20.
+
+### HD-5.1 Runtime Autonomy 경계 (2026-08-31, HD-5 하위 실행규칙)
+
+> Human-approved Golden Semantic Boundary 를 구현하기 위한 최소 Runtime 확장은 Agent 에게 위임한다. 단, Agent 의 판단 의미·허용 Solution·Constraint·Grounding·Evaluation Boundary 를 새롭게 변경하는 Runtime 설계는 Human Gate 대상이다.
+
+- **Execution-enabling Runtime Change (자율)**: 승인된 Case 의 Customer Fact 를 받는 입력 필드·parser·serialization 확장; HD-2 Eligibility Mapping 의 deterministic validator 구현; 승인된 Constraint·Knowledge 를 Prompt 에 전달하는 구조 — 판단 규칙을 새로 만들지 않는 구현.
+- **Runtime Semantic Change (Human Gate)**: Solution / Decision Outcome 분리, 새 Output Schema, 새 Hard Constraint, 기존 Constraint 삭제·완화·의미 변경, Retrieval 범위 변경, Execution Validation·Solution Conflict 의 새 판정 규칙, Agent / Planner / Node 구조 도입, Model·Generation Parameter 변경.
+- 판단 기준과 Batch 중 처리 절차는 `AGENTS.md` §9 · §20.9. 구현 중 기존 Decision 으로 정의되지 않은 판단 기준이 필요해지면 Human Gate 로 전환한다.
