@@ -67,6 +67,19 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-04 K-007 | 물가 논리는 강제 근거 아님 | Training | 미인용 | 위반 없음 | pending |
 | GC-04 K-008 | 상담 순서·톤 | Communication | 미인용 | 톤 적절 | pending |
 
+## GC-03 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-03 K-001 | 현금성 존재≠미운용; 입금사유·사용계획 확인 | Operational (Internal) | 인용 | 핵심 Cue로 작동 | **candidate — CASE_001 K-002/K-003과 동일 의미 (3 Case)** |
+| GC-03 K-002 | DO 의무·최초입금 2주·등록된 경우만 | Public | 인용 | 정확 | candidate — GC-01 K-001/GC-04 K-005와 통합 (4 Case) |
+| GC-03 K-003 | 개시 요건 55세+5년, 퇴직급여 시 55세만 | Internal 이론편 | 인용 | 정확 | candidate (GC-10/12) |
+| GC-03 K-004 | 일시금 vs 연금 세금 구조 | Public 심의필 | 미인용 | F-006 | pending (GC-12/14) |
+| GC-03 K-005 | 환급 전 지급·설계 제한 | Internal (Operational) | 미인용 | F-006 | pending |
+| GC-03 K-006 | 자금 성격→기간→성향 | Training | 인용 | Unknown#3로 반영 | candidate (CASE_001 K-004 동일) |
+| GC-03 K-007 | C1·C3 | Human-approved | 인용 | 준수 (Brief 재진술 오류 F-008) | → CONSTRAINT_MAP |
+| GC-03 K-008 | KPI 분리 | Marketing 표시 | 미인용 | 위반 없음 | candidate — D10 공통 |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |

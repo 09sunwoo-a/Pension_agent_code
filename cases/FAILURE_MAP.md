@@ -43,41 +43,54 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 - **Pattern**: Required Confirmation 중 고객 "현재 의사·인지"에 해당하는 축이 명시되지 않고 Candidate 조건문 속에 암시로만 남거나 누락된다.
 - **Severity**: P2
-- **Cases Observed**: CASE_001, GC-01
+- **Cases Observed**: CASE_001, GC-01, GC-03
 - **Evidence**: RUN_001 unknowns 2건(발생 사유 / 인지·사용계획)만 기재; 현재 운용 의사(암시), 디폴트옵션 미등록 인지 여부(누락), 디폴트옵션 등록/적용 조건(누락) (EVAL_001 §3 Required Confirmation).
 - **Candidate Layer**: LLM Reasoning · Prompt / Schema (unknowns_or_confirmations 단일 리스트)
-- **Reproducibility**: 3/3 (unknown 항목 수 2–3건으로 축소되는 경향); GC-01 RUN_001 재현(만기 길이 선호·채널 누락)
+- **Reproducibility**: 3/3 (unknown 항목 수 2–3건으로 축소되는 경향); GC-01 RUN_001 재현(만기 길이 선호·채널 누락); GC-03 RUN_001 재현(직접/위임 선호·DO 인지·고민 내용 누락)
 - **Revision Status**: OBSERVED
 
 ## F-005 Non-change Path Absent
 
 - **Pattern**: "확인 후 판단" 구조를 취하면서도 확인 결과의 분기가 모두 변경(운용지시·등록) 방향으로만 구성되고, "현 상태 유지 / 판단 보류" 경로가 후보에 나타나지 않는다.
 - **Severity**: P1 (조건부 대안의 논리적 완결성 — Decision/Logical)
-- **Cases Observed**: CASE_001, **GC-01**, **GC-04**
+- **Cases Observed**: CASE_001, **GC-01**, **GC-04**, GC-03(경미)
 - **Evidence**: RUN_001 §7 Candidates 1–4 (확인 / 원리금보장형 / 실적배당형 / 디폴트옵션), §9 "이후 고객 의사에 따라 … 안내" — 유지 경로 없음 (EVAL_001 Acceptable Direction Gap). Smoke_01/02 동일.
 - **Candidate Layer**: LLM Reasoning · Prompt / Schema (solution_candidates에 비변경 결과의 자리 부재) · Concept Model (Solution ≠ 변경 이라는 Core §6.2 원칙의 전달 여부)
 - **Reproducibility**: 3/3; GC-01 RUN_001 재현 — 등록된 지켜드림 자동 적용 수용(현 상태 유지) 경로 부재, reason이 "디폴트옵션에 맡기기보다"로 배제 프레이밍 (EVAL_001 §3)
 - GC-04 RUN_001 변형: 내용은 정보안내·현상유지 존중인데 `management_need.decision`을 "관리가 필요함"으로 라벨링, "관리 필요성 낮음/현 상태 유지 합리" 결론 미명시 (EVAL_001 §2)
-- **Revision Status**: OBSERVED — **Cross-case 3/3 (CASE_001, GC-01, GC-04)** → Batch 종료 시 Architecture Revision Proposal 1순위 후보
+- GC-03 RUN_001: 확인 우선 구조는 정확하나 "당분간 현 상태 유지" 경로 미명시 (경미)
+- **Revision Status**: OBSERVED — **Cross-case 4/4** → Batch 종료 시 Architecture Revision Proposal 1순위 후보
 
 ## F-006 Provided Knowledge Under-use
 
 - **Pattern**: Context에 전달된 Knowledge 중 현재 판단에 직접 필요한 항목(상품 특성·확인 화면·시점 충돌 등)을 인용·사용하지 않아, 판단이 제도 Fact 수준에서 멈추고 상품 비교 축·실행 조건이 빠진다.
 - **Severity**: P2
-- **Cases Observed**: GC-01, GC-04
+- **Cases Observed**: GC-01, GC-04, GC-03
 - **Evidence**: GC-01 RUN_001 — K-002(지켜드림 3년제), K-004(만기별 금리·월 한도·[04-12-17A]·계산기), K-006(예보 한도 충돌) 미인용; Brief에 만기 잠김·비교 축·화면 없음 (EVAL_001 §6).
 - **Candidate Layer**: Prompt / Grounding (Knowledge 9건 평면 나열, Relevance·Limitation 미전달 설계) · LLM Reasoning
 - GC-04 RUN_001 — K-005의 "최초 입금 후 2주 무지시 → 등록 DO 적용" 규칙을 300만원(입금 23일)에 미적용, "운용지시 필요"로만 서술
-- **Reproducibility**: 2/2
+- GC-03 RUN_001 — K-004(55세 전 인출=해지·퇴직소득세)·K-005(환급 전 지급 제한) 미사용 → 확인 질문의 근거·직원 확인 항목 누락
+- **Reproducibility**: 3/3
 - **Revision Status**: OBSERVED
 
 ## F-007 Employee Next Action Absent
 
 - **Pattern**: Employee Brief가 "무엇을 확인·검토하라"까지만 말하고, 직원이 어떤 화면·채널·시점에 무엇을 실행할지(D12 Branch Practicality)를 제시하지 않는다.
 - **Severity**: P2 (Practical Usefulness)
-- **Cases Observed**: GC-01
+- **Cases Observed**: GC-01, GC-04(경미), GC-03
 - **Evidence**: GC-01 RUN_001 §9 — 예약변경 시점(만기 D-30, K-003)·스타뱅킹 URL/내점·[04-12-17A] 확인·고유계정대 200만원 처리 없음 (EVAL_001 §7).
 - **Candidate Layer**: Prompt / Schema (employee_brief 지시에 화면·채널·시점 항목 없음) · Concept Model (D12가 Output에 자리 없음)
+- GC-03 RUN_001 — DO 등록 경로·[04-12-644]·환급 상태 확인 화면 없음
+- **Reproducibility**: 3/3
+- **Revision Status**: OBSERVED
+
+## F-008 Constraint Restatement Drift (Structured → Brief)
+
+- **Pattern**: 구조화 출력(candidate `risk_level`)은 Constraint를 정확히 지키지만, Employee Brief에서 Constraint 범위를 다르게(대개 더 좁게) 재진술하여 Candidate와 모순되고 직원 오독을 유발한다. F-001과 같은 "Structured → Brief 의미 변형" 계열.
+- **Severity**: P2 (Hard Constraint 위반은 아님; 확장 방향으로 변형되면 P0)
+- **Cases Observed**: GC-03
+- **Evidence**: GC-03 RUN_001 §9 "위험중립형을 상한으로 하여, 그 이하의 위험수준(안정형, 안정추구형) 내에서만 Solution을 검토" vs Cand.3 "투자성향 범위 내(안정형~위험중립형)" (EVAL_001 §5).
+- **Candidate Layer**: Presentation · LLM Reasoning · Validation (Brief-Candidate 대조 검사 부재)
 - **Reproducibility**: 1/1
 - **Revision Status**: OBSERVED
 
@@ -89,10 +102,11 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 |---|---|---|---|---|
 | F-001 Uncertainty Loss | P3 | CASE_001, GC-01(경미), GC-04(경미) | 3 cases | OBSERVED |
 | F-002 Knowledge Over-application | P2 | CASE_001 | 3/3 | OBSERVED |
-| F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미) | 3 cases | OBSERVED |
-| F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01 | 3/3 + 1/1 | OBSERVED |
-| F-005 Non-change Path Absent | P1 | CASE_001, GC-01, GC-04 | 3/3 + 1/1 + 1/1 | OBSERVED (**Cross-case 3**) |
-| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04 | 2/2 | OBSERVED |
-| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미) | 2/2 | OBSERVED |
+| F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미), GC-03(경미) | 4 cases | OBSERVED |
+| F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03 | 3 cases | OBSERVED (**Cross-case 3**) |
+| F-005 Non-change Path Absent | P1 | CASE_001, GC-01, GC-04, GC-03(경미) | 4 cases | OBSERVED (**Cross-case 4**) |
+| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04, GC-03 | 3/3 | OBSERVED (**Cross-case 3**) |
+| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03 | 3/3 | OBSERVED (**Cross-case 3**) |
+| F-008 Constraint Restatement Drift | P2 | GC-03 | 1/1 | OBSERVED |
 
-Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04: Stop Condition 해당 없음.
+Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04·GC-03: Stop Condition 해당 없음.
