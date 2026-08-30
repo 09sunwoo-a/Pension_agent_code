@@ -106,6 +106,19 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-10 K-008 | 골든라이프센터 연계·"알려준다" | Internal | 인용 | 연계 반영 | candidate |
 | GC-10 K-009 | 개시 유치 마케팅 분리 | Marketing | 미인용 | 위반 없음 | D10 공통 |
 
+## GC-12 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-12 K-001 | 개시 요건 (퇴직급여 시 5년 불요) | Internal/Operational | 인용 | 정확 | candidate (3 Case) |
+| GC-12 K-002 | 해지 vs 개시 후 인출 구조·자유인출 | Public/Internal | 인용 | Cand.에 정확, Brief에서 한도 조건 소실 | candidate (GC-10 K-003 통합) |
+| GC-12 K-003 | 한도 산식·연차·[02-12-221] | Internal/Operational | 인용 표시했으나 화면·연차 미사용 | F-006/F-007 | pending |
+| GC-12 K-004 | 개시 부작용(추가입금·신규IRP·이전·세액미공제·환급) | Operational | 인용 | 추가입금·신규 IRP 정확; 나머지 미사용 | candidate (GC-10 K-002 통합) |
+| GC-12 K-005 | DO 의무·미등록 | Public | 인용 | 정확 | candidate (5 Case) |
+| GC-12 K-006 | 자금 성격→기간 | Training | 인용 | Cand.2 조건 | candidate |
+| GC-12 K-007 | C1·C3 | Human-approved | 인용 | 준수 | → CONSTRAINT_MAP |
+| GC-12 K-008 | "무조건" 마케팅 분리·센터 연계 | Marketing/Internal | 인용(센터) | 제안 톤 경미 | D10 공통 |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |

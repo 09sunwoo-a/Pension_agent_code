@@ -12,10 +12,10 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 - **Pattern**: 구조화 출력(Unknown / Reason)에서는 불확실성을 유지하지만, 최종 Employee Brief에서 확정 표현으로 변환된다.
 - **Severity**: P3 (Meaning Preservation). 판단 사슬이 그 전제로 진행되면 P1로 상향.
-- **Cases Observed**: CASE_001, GC-01, GC-04, GC-10
+- **Cases Observed**: CASE_001, GC-01, GC-04, GC-10, GC-12
 - **Evidence**: RUN_001 §3 Unknown #1 "발생 사유(단순 미운용 vs 교체매매 대기)" ↔ §9 "현금성자산으로 **방치되어** 수익률 저하가 우려되는 상황" (EVAL_001 §3 Must Not Assume #1 VIOLATED). Smoke_01/02: "우려" 표현은 재현, "방치"는 미재현.
 - **Candidate Layer**: Presentation (primary) · Prompt / Schema (employee_brief 지시 "왜 지금 봐야 하는지") · LLM Reasoning
-- **Reproducibility**: Formal 1/1 (방치), 3/3 (일반 가능성 → 개인 상황 "우려"); GC-01 RUN_001 경미("가능성 높음"→"전형적인"); GC-04 "강력히 선호"; GC-10 situation [추론] 표기가 Brief에서 "63세 전까지 운용 희망"으로 확정
+- **Reproducibility**: Formal 1/1 (방치), 3/3 (일반 가능성 → 개인 상황 "우려"); GC-01 RUN_001 경미("가능성 높음"→"전형적인"); GC-04 "강력히 선호"; GC-10 situation [추론] 표기가 Brief에서 "63세 전까지 운용 희망"으로 확정; GC-12 reason "100% 현금성 자산으로 **방치**"(입금 14일·사용 예정) — CASE_001 동일 어휘
 - **Revision Status**: OBSERVED
 
 ## F-002 Knowledge Over-application
@@ -66,36 +66,38 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 - **Pattern**: Context에 전달된 Knowledge 중 현재 판단에 직접 필요한 항목(상품 특성·확인 화면·시점 충돌 등)을 인용·사용하지 않아, 판단이 제도 Fact 수준에서 멈추고 상품 비교 축·실행 조건이 빠진다.
 - **Severity**: P2
-- **Cases Observed**: GC-01, GC-04, GC-03, GC-06, GC-10
+- **Cases Observed**: GC-01, GC-04, GC-03, GC-06, GC-10, GC-12
 - **Evidence**: GC-01 RUN_001 — K-002(지켜드림 3년제), K-004(만기별 금리·월 한도·[04-12-17A]·계산기), K-006(예보 한도 충돌) 미인용; Brief에 만기 잠김·비교 축·화면 없음 (EVAL_001 §6).
 - **Candidate Layer**: Prompt / Grounding (Knowledge 9건 평면 나열, Relevance·Limitation 미전달 설계) · LLM Reasoning
 - GC-04 RUN_001 — K-005의 "최초 입금 후 2주 무지시 → 등록 DO 적용" 규칙을 300만원(입금 23일)에 미적용, "운용지시 필요"로만 서술
 - GC-03 RUN_001 — K-004(55세 전 인출=해지·퇴직소득세)·K-005(환급 전 지급 제한) 미사용 → 확인 질문의 근거·직원 확인 항목 누락
 - GC-06 RUN_001 — K-002(원인 분석·처분효과)·K-005(등급 확인 절차)·K-006(KPI 분리) 미사용
 - GC-10 RUN_001 — K-003(수령방식·한도/연차·자유인출 ETF)·K-004(수령기간·TDF) 미사용, 센터 연계로 대체
-- **Reproducibility**: 5/5
-- **Revision Status**: OBSERVED — **Cross-case 5** → Architecture Revision Proposal 후보
+- GC-12 RUN_001 — K-003(한도 산식·[02-12-221]·연차) 미사용 → 화면 연결 누락
+- **Reproducibility**: 6/6
+- **Revision Status**: OBSERVED — **Cross-case 6** → Architecture Revision Proposal 후보
 
 ## F-007 Employee Next Action Absent
 
 - **Pattern**: Employee Brief가 "무엇을 확인·검토하라"까지만 말하고, 직원이 어떤 화면·채널·시점에 무엇을 실행할지(D12 Branch Practicality)를 제시하지 않는다.
 - **Severity**: P2 (Practical Usefulness)
-- **Cases Observed**: GC-01, GC-04(경미), GC-03
+- **Cases Observed**: GC-01, GC-04(경미), GC-03, GC-12
 - **Evidence**: GC-01 RUN_001 §9 — 예약변경 시점(만기 D-30, K-003)·스타뱅킹 URL/내점·[04-12-17A] 확인·고유계정대 200만원 처리 없음 (EVAL_001 §7).
 - **Candidate Layer**: Prompt / Schema (employee_brief 지시에 화면·채널·시점 항목 없음) · Concept Model (D12가 Output에 자리 없음)
 - GC-03 RUN_001 — DO 등록 경로·[04-12-644]·환급 상태 확인 화면 없음
 - GC-06 RUN_001: **미재현** — 비교 자료 준비·내점 유도·특정상품 지양이 Brief에 제시됨
-- **Reproducibility**: 3/4
+- GC-12 RUN_001 — [02-12-221] 한도 조회·환급·세액미공제 확인·9월 말 시한 일정 없음 (HD-1 "화면 연결" 누락)
+- **Reproducibility**: 4/5
 - **Revision Status**: OBSERVED
 
-## F-008 Constraint Restatement Drift (Structured → Brief)
+## F-008 Constraint / Condition Drift (Structured → Brief)
 
 - **Pattern**: 구조화 출력(candidate `risk_level`)은 Constraint를 정확히 지키지만, Employee Brief에서 Constraint 범위를 다르게(대개 더 좁게) 재진술하여 Candidate와 모순되고 직원 오독을 유발한다. F-001과 같은 "Structured → Brief 의미 변형" 계열.
 - **Severity**: P2 (Hard Constraint 위반은 아님; 확장 방향으로 변형되면 P0)
-- **Cases Observed**: GC-03
-- **Evidence**: GC-03 RUN_001 §9 "위험중립형을 상한으로 하여, 그 이하의 위험수준(안정형, 안정추구형) 내에서만 Solution을 검토" vs Cand.3 "투자성향 범위 내(안정형~위험중립형)" (EVAL_001 §5).
+- **Cases Observed**: GC-03, GC-12
+- **Evidence**: GC-03 RUN_001 §9 "위험중립형을 상한으로 하여, 그 이하의 위험수준(안정형, 안정추구형) 내에서만 Solution을 검토" vs Cand.3 "투자성향 범위 내(안정형~위험중립형)" (EVAL_001 §5). GC-12 RUN_001: Cand.1 condition "연금수령한도 내 인출 구조"가 Brief에서 탈락해 "퇴직소득세 절감(70% 적용)"만 남음(1억 전액 감면 오독 가능, P1); Cand.2의 확인 조건(기간·목표)도 Brief에서 "제시·등록하십시오" 지시로 소실.
 - **Candidate Layer**: Presentation · LLM Reasoning · Validation (Brief-Candidate 대조 검사 부재)
-- **Reproducibility**: 1/1
+- **Reproducibility**: 2/2 (Pattern 확장: Constraint 범위뿐 아니라 Candidate condition 소실 포함)
 - **Revision Status**: OBSERVED
 
 ## F-009 Marketing Trigger as Management Basis
@@ -114,14 +116,14 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 | Pattern | Severity | Cases | Reproducibility | Status |
 |---|---|---|---|---|
-| F-001 Uncertainty Loss | P3 | CASE_001, GC-01, GC-04, GC-10 (모두 경미) | 4 cases | OBSERVED (**Cross-case 4**) |
+| F-001 Uncertainty Loss | P3 | CASE_001, GC-01, GC-04, GC-10, GC-12 | 5 cases | OBSERVED (**Cross-case 5**) |
 | F-002 Knowledge Over-application | P2 | CASE_001 | 3/3 | OBSERVED |
 | F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미), GC-03(경미) | 4 cases | OBSERVED |
 | F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03, GC-06, GC-10 | 5 cases | OBSERVED (**Cross-case 5**) |
 | F-005 Non-change Path Absent | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06 | 5 cases | OBSERVED (**Cross-case 5**) |
-| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04, GC-03, GC-06, GC-10 | 5/5 | OBSERVED (**Cross-case 5**) |
-| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03 (GC-06 미재현) | 3/4 | OBSERVED (**Cross-case 3**) |
-| F-008 Constraint Restatement Drift | P2 | GC-03 | 1/1 | OBSERVED |
+| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04, GC-03, GC-06, GC-10, GC-12 | 6/6 | OBSERVED (**Cross-case 6**) |
+| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03, GC-12 (GC-06 미재현) | 4/5 | OBSERVED (**Cross-case 4**) |
+| F-008 Constraint/Condition Drift (Structured→Brief) | P2 (GC-12 P1) | GC-03, GC-12 | 2/2 | OBSERVED |
 | F-009 Marketing Trigger as Management Basis | P1 | GC-06 | 1/4 | OBSERVED |
 
-Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04·GC-03·GC-06·GC-10: Stop Condition 해당 없음.
+Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04·GC-03·GC-06·GC-10·GC-12: Stop Condition 해당 없음.
