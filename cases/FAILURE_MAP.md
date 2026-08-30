@@ -49,9 +49,10 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Reproducibility**: 3/3 (unknown 항목 수 2–3건으로 축소되는 경향); GC-01 RUN_001 재현(만기 길이 선호·채널 누락); GC-03 RUN_001 재현(직접/위임 선호·DO 인지·고민 내용 누락); GC-06 RUN_001 재현(결정 시한·익스포저 의사·내점 가능 여부); GC-10 재현(재취업·추가 납입·TDF 유지 의사)
 - **Revision Status**: OBSERVED
 
-## F-005 Non-change / Customer-decision Path Absent
+## F-005 Action / Change Bias (재정의 2026-09-01, HD-6)
 
-- **Pattern**: "확인 후 판단" 구조를 취하면서도 확인 결과의 분기가 모두 변경(운용지시·등록) 방향으로만 구성되고, "현 상태 유지 / 판단 보류" 경로가 후보에 나타나지 않는다.
+- **Pattern (재정의)**: Agent가 Customer Context에 대한 Management Judgment를 충분히 완료하기 전에, Solution을 생성해야 한다는 암묵적 압력 때문에 변경·개입·행동 방향으로 조기 수렴한다. Action 자체가 문제가 아니다 — "왜 이 상태인가 / 최근 입금인가 / 교체매매인가 / 의도적 유지인가 / 사용계획 / 관리 필요성이 실제로 존재하는가"를 거친 뒤의 변경은 정답일 수 있고, 유지·확인·정보안내·고객 결정 지원·실행 불가도 정답일 수 있다. 관찰 형태: 현상유지/고객결정 경로 부재, decision 라벨의 "관리 필요" 수렴, 성향-운용 불일치를 변경 근거로 사용.
+- **초기 정의(2026-08-28)**: "확인 후 판단" 구조를 취하면서도 확인 결과의 분기가 모두 변경(운용지시·등록) 방향으로만 구성되고, "현 상태 유지 / 판단 보류" 경로가 후보에 나타나지 않는다.
 - **Severity**: P1 (조건부 대안의 논리적 완결성 — Decision/Logical)
 - **Cases Observed**: CASE_001, **GC-01**, **GC-04**, GC-03(경미), **GC-06**, GC-16(변형)
 - **Evidence**: RUN_001 §7 Candidates 1–4 (확인 / 원리금보장형 / 실적배당형 / 디폴트옵션), §9 "이후 고객 의사에 따라 … 안내" — 유지 경로 없음 (EVAL_001 Acceptable Direction Gap). Smoke_01/02 동일.
@@ -61,7 +62,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-03 RUN_001: 확인 우선 구조는 정확하나 "당분간 현 상태 유지" 경로 미명시 (경미)
 - GC-06 RUN_001: 판매중단 펀드 "유지(판매재개 가능성 포함)" 선택지 부재, 후보가 매도·전환·내점으로만 구성
 - GC-16 RUN_001 변형: 이탈 Case에서 "고객의 이전 결정을 지원하는 경로"가 후보에 없고 은행 내 대안(비대면 전환·분리 운용)으로만 구성 → Pattern의 본질은 "비변경/고객결정 경로의 자리 부재"
-- **Revision Status**: OBSERVED — **Cross-case 6** → Batch 종료 시 Architecture Revision Proposal 1순위 후보
+- **Revision Status**: **APPROVED → REV-001 (HD-6)** — RUN_002에서 검증. Trade-off 관찰 항목: Intervention Avoidance Bias (Evidence 발생 시에만 신규 Pattern으로 기록)
 
 ## F-006 Provided Knowledge Under-use
 
@@ -78,7 +79,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-14 RUN_001 — K-item은 전부 인용했으나 K-001 내부 세부(신청 시기 1개월·16.5%·90%)·K-004 환매일 탈락 (요약 경향)
 - GC-16 RUN_001 — K-001 Operational 세부(확인전화·해지 후 재신청·취소 절차)·K-004 [04-12-613] 미사용
 - **Reproducibility**: 8/8
-- **Revision Status**: OBSERVED — **Cross-case 8 (전 Case)** → Architecture Revision Proposal 후보
+- **Revision Status**: **APPROVED → REV-001 (HD-6)** — Knowledge Usage Context(Case Relevance·Usage Boundary·Source) 전달; RUN_002에서 검증. F-002도 Secondary로 관찰
 
 ## F-007 Employee Next Action Absent
 
@@ -123,8 +124,8 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 | F-002 Knowledge Over-application | P2 | CASE_001 | 3/3 | OBSERVED |
 | F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미), GC-03(경미) | 4 cases | OBSERVED |
 | F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03, GC-06, GC-10 | 5 cases | OBSERVED (**Cross-case 5**) |
-| F-005 Non-change / Customer-decision Path Absent | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06, GC-16(변형) | 6 cases | OBSERVED (**Cross-case 6**) |
-| F-006 Provided Knowledge Under-use | P2 | GC-01~16 전 Case | 8/8 | OBSERVED (**Cross-case 8**) |
+| F-005 Action / Change Bias | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06, GC-16(변형) | 6 cases | **APPROVED → REV-001** |
+| F-006 Provided Knowledge Under-use | P2 | GC-01~16 전 Case | 8/8 | **APPROVED → REV-001** |
 | F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03, GC-12 (GC-06 미재현) | 4/5 | OBSERVED (**Cross-case 4**) |
 | F-008 Constraint/Condition Drift (Structured→Brief) | P2 (GC-12 P1) | GC-03, GC-12 | 2/2 | OBSERVED |
 | F-009 Marketing Trigger as Management Basis | P1 | GC-06 | 1/4 | OBSERVED |

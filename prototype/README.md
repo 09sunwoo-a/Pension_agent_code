@@ -41,22 +41,24 @@ python prototype/run_case.py CASE_001 --out some.json
 
 기본 출력: `prototype/out/<CASE>_<timestamp>.json` (Run record). `out/`은 git에서 제외된다.
 
-## Runtime Flow
+## Runtime Flow (REV-001, prototype/REVISIONS.md)
 
 ```text
-cases/<CASE>/case.md §2 Customer Input (bullet lines, verbatim)
-→ C1 Constraint Context (투자성향 → allowed / forbidden levels, deterministic)
-→ cases/<CASE>/knowledge_pack.md K-items (Knowledge / Authority·Status 필드만 — Limitation·Case Relevance·Interpretation은 미전달)
-→ Prompt (역할·원칙 / 고객정보 / Constraint / Knowledge / 출력형식)
+cases/<CASE>/case.md §2 Customer Input (bullet lines, verbatim; [Customer-stated]/[Event] 태그 인식)
+→ Constraint Context (deterministic): C1 투자성향 상한 / C2 펀드 위험등급 Eligibility (HD-2.1) / C3 디폴트옵션 Eligibility
+→ cases/<CASE>/knowledge_pack.md K-items — Knowledge / Case Relevance / Usage Boundary(Limitation) / Authority·As-of / Source 전달 (Case-local Interpretation 미전달)
+→ Prompt (역할·원칙[판단 우선·방향 중립·Knowledge Usage] / 고객정보 / Constraint / Knowledge / 출력형식)
 → gemma-4-31b-it REST call
-→ JSON parse (code fence 제거·바깥 중괄호 슬라이스만 허용) + 최소 schema check
-→ deterministic C1 validation (solution_candidates[].risk_level)
-→ run record JSON
+→ JSON parse + schema check: current_situation → known_facts → unknowns → management_judgment{judgment, reasoning, must_confirm_before_action} → next_actions[{action, kind, condition, risk_level}] → employee_brief
+→ deterministic validation: C1 (next_actions[].risk_level) / C2 (불가 등급 라벨: action=FAIL, condition·brief=REVIEW) / C3 (불가 포트폴리오명: action=FAIL, condition·brief=REVIEW)
+→ run record JSON  (python prototype/render_run.py <record> --run-id RUN_00n --out cases/<CASE>/runs/RUN_00n.md 로 전사)
 ```
+
+Management Judgment 유형: `개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가` (복수 가능). 어느 것도 기본값이 아니며, `현 상태 유지 가능`도 Next Action(유지·재점검 조건)을 가진다. `employee_brief`는 최종 UI가 아니라 구조화 판단이 자연어로 옮겨질 때 의미가 보존되는지 보는 Diagnostic Output이다.
 
 ## Run Record (observable fields)
 
-`customer_input`, `constraint_context`, `knowledge_ids_used`, `knowledge_fields_sent`, `prompt`(5 sections), `model_response`(status/http/finish/usage/error), `raw_model_output`, `json_normalizations`, `parsed_output`, `schema_errors`, `validation`, `employee_brief`, `status`, `error`, file sha256 of the frozen case / knowledge pack, git HEAD.
+`runtime_revision`, `customer_input`, `constraint_context`, `knowledge_ids_used`, `knowledge_fields_sent`, `prompt`(5 sections), `model_response`(status/http/finish/usage/error), `raw_model_output`, `json_normalizations`, `parsed_output`, `schema_errors`, `validation`(C1), `validation_c2`, `validation_c3`, `judgment_types_detected`, `employee_brief`, `status`, `error`, file sha256 of the frozen case / knowledge pack, git HEAD.
 
 Status values: `CONFIG_ERROR`, `HTTP_ERROR`, `API_ERROR`, `EMPTY_RESPONSE`, `JSON_PARSE_ERROR`, `SCHEMA_ERROR`, `VALIDATION_ERROR`, `SUCCESS` (and `DRY_RUN`).
 
@@ -64,19 +66,21 @@ Hidden chain-of-thought는 요청하지도 저장하지도 않는다(thought-fla
 
 ## Supported Cases
 
-- `CASE_001` (Frozen — `cases/CASE_001/case.md`, `cases/CASE_001/knowledge_pack.md`)
+- `CASE_001` (Frozen Baseline / GC-00 — RUN_001은 pre-REV-001 스키마)
+- Golden P0: `GC-01, GC-03, GC-04, GC-06, GC-10, GC-12, GC-14, GC-16` (RUN_001 = 601aa1b, RUN_002 = REV-001)
 
-다른 Case는 §2 Customer Input에 `투자성향:` 항목이 있고 knowledge_pack.md가 있으면 같은 방식으로 실행되지만, 검증된 것은 CASE_001뿐이다.
+§2 Customer Input에 `투자성향:` 항목이 있고 knowledge_pack.md가 있으면 같은 방식으로 실행된다.
 
 ## Not Implemented (intentionally)
 
 ```text
 - Dynamic Retrieval / RAG / Vector DB / Embedding / Knowledge Graph
 - LangGraph / LangChain / Multi-Agent / Planner-Executor / Tool Calling
-- Product Recommendation / Product risk-grade mapping / Portfolio optimization
+- Product Recommendation / Portfolio optimization (C2 grade eligibility validation은 구현됨)
 - Evaluator (EVAL) / RUN_001 artifact generation (run record is a smoke-test output, not a formal RUN artifact)
 - Retry / backoff / streaming / async / production logging / monitoring
 - Structured-output API mode (JSON is requested in the prompt and parsed with json.loads)
 - UI / DB / customer memory
-- Any deterministic rule beyond C1 (Expected Behavior stays with the Evaluator)
+- Any deterministic rule beyond C1/C2/C3 (Expected Behavior stays with the Evaluator)
+- Brief↔Reasoning preservation validation (F-001/F-008 — REV-001에서 보류)
 ```

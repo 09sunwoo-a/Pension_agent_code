@@ -34,7 +34,7 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a(f"- Parent Run: {parent}")
     a(f"- Target Model: {rec['model']}")
     a(f"- Endpoint: {rec['endpoint']}")
-    a(f"- Runtime Commit: {rec.get('git_head','')} (prototype/runtime.py at execution)")
+    a(f"- Runtime Commit: {rec.get('git_head','')} (prototype/runtime.py at execution; revision {rec.get('runtime_revision','pre-REV-001')})")
     fc = rec.get("frozen_case", {})
     a(f"- Case Baseline: cases/{case}/case.md sha256 {fc.get('sha256','')} (Status {fc.get('Status','')}, Frozen At {fc.get('Frozen At','')}, Approved By {fc.get('Approved By','')})")
     kp = rec.get("frozen_knowledge_pack", {})
@@ -74,6 +74,9 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a(f"- Basis: {cc.get('basis')}")
     v3 = rec.get("validation_c3", {})
     a(f"- C3 Ineligible Portfolios: {', '.join(v3.get('ineligible_portfolios', [])) or '없음'}")
+    v2 = rec.get("validation_c2", {})
+    if v2:
+        a(f"- C2 Ineligible Fund Grades: {', '.join(v2.get('ineligible_labels', [])) or '없음'} (allowed grade ≥ {v2.get('allowed_min_grade')})")
     a("- Pre-Reasoning Context 적용: YES (prompt `constraint_context` section)")
     a("- Post-Validation: §8\n")
     a("---\n")
@@ -81,27 +84,46 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a(f"Context에 전달된 K-ID: {', '.join(rec.get('knowledge_ids_used', []))} (전달 필드: {', '.join(rec.get('knowledge_fields_sent', []))})\n")
     a(f"모델이 근거로 밝힌 K-ID (`knowledge_ids_used`): {', '.join(po.get('knowledge_ids_used') or []) or '(없음)'}\n")
     a("---\n")
-    mn = po.get("management_need") or {}
     a("## 6. Decision Output\n")
     a("모델 원문 그대로.\n")
-    a(f"- Management Need — decision: {mn.get('decision','')}")
-    a(f"- Management Need — reason: {mn.get('reason','')}\n")
+    if "management_judgment" in po:
+        mj = po.get("management_judgment") or {}
+        a(f"- Management Judgment — judgment: {mj.get('judgment','')}  (detected types: {', '.join(rec.get('judgment_types_detected') or []) or '없음'})")
+        a(f"- Management Judgment — reasoning: {mj.get('reasoning','')}")
+        a("- Must confirm before action:")
+        for x in mj.get("must_confirm_before_action") or []:
+            a(f"  - {x}")
+        a("")
+    else:
+        mn = po.get("management_need") or {}
+        a(f"- Management Need — decision: {mn.get('decision','')}")
+        a(f"- Management Need — reason: {mn.get('reason','')}\n")
     a("---\n")
-    a("## 7. Solution Candidates\n")
     v1 = rec.get("validation", {})
     verdicts = {c["index"]: c["verdict"] for c in v1.get("candidates", [])}
-    for i, c in enumerate(po.get("solution_candidates") or []):
-        a(f"### Candidate {i+1}\n")
-        a(f"- Direction: {c.get('direction','')}")
-        a(f"- Condition: {c.get('condition','')}")
-        a(f"- Risk Level: {c.get('risk_level','')}")
-        a(f"- C1 Check: {verdicts.get(i,'')}\n")
+    if "next_actions" in po:
+        a("## 7. Next Actions\n")
+        for i, c in enumerate(po.get("next_actions") or []):
+            a(f"### Action {i+1}\n")
+            a(f"- Action: {c.get('action','')}")
+            a(f"- Kind: {c.get('kind','')}")
+            a(f"- Condition: {c.get('condition','')}")
+            a(f"- Risk Level: {c.get('risk_level','')}")
+            a(f"- C1 Check: {verdicts.get(i,'')}\n")
+    else:
+        a("## 7. Solution Candidates\n")
+        for i, c in enumerate(po.get("solution_candidates") or []):
+            a(f"### Candidate {i+1}\n")
+            a(f"- Direction: {c.get('direction','')}")
+            a(f"- Condition: {c.get('condition','')}")
+            a(f"- Risk Level: {c.get('risk_level','')}")
+            a(f"- C1 Check: {verdicts.get(i,'')}\n")
     a("---\n")
     a("## 8. Validation\n")
     a(f"- C1 (투자성향 상한): {v1.get('overall')} — {len(v1.get('candidates', []))} candidates; verdicts: {', '.join(c['verdict'] for c in v1.get('candidates', []))}")
     a(f"- C3 (디폴트옵션 Eligibility): {v3.get('overall')} — findings: {json.dumps(v3.get('findings', []), ensure_ascii=False)}")
-    v2 = rec.get("validation_c2_detect", {})
-    a(f"- C2 (펀드 위험등급, DETECT_ONLY): findings: {json.dumps(v2.get('findings', []), ensure_ascii=False)}")
+    v2 = rec.get("validation_c2") or rec.get("validation_c2_detect") or {}
+    a(f"- C2 (펀드 위험등급 Eligibility): {v2.get('overall', v2.get('mode'))} — findings: {json.dumps(v2.get('findings', []), ensure_ascii=False)}")
     a("- Execution Feasibility: (Runtime 미구현 — 검사하지 않음)")
     a("- Solution Conflict: (Runtime 미구현 — 검사하지 않음)")
     a(f"- Required Confirmation: 모델 출력 `unknowns_or_confirmations` {len(po.get('unknowns_or_confirmations') or [])}건 (§3)")

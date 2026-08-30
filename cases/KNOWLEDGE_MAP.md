@@ -36,7 +36,7 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 
 | Gap | 상태 | 영향 |
 |---|---|---|
-| 투자성향 ↔ 펀드 위험등급 Eligibility Mapping (C2) | Corpus에 매핑표 없음 (SRC-095 위험등급 라벨만) | C2는 Human-approved로 적용; Runtime Eligibility 검사는 매핑표 확보 전까지 "확인 절차 필요"로 |
+| 투자성향 ↔ 펀드 위험등급 Eligibility Mapping (C2) | **해소 (HD-2.1, SRC-096 Human-confirmed Official, 2026-09-01)**; 원문 문서는 미수록 → 확보 시 교체 | Runtime validator 구현(REV-001) |
 | 투자성향 ↔ 디폴트옵션 Eligibility (C3) 공식 원문 | SRC-089 정리본만 (심의필 콘텐츠 기반) | C3 적용; 원문 확보 시 교체 |
 | 투자성향 5단계 적합성 원칙 (C1) 공식 원문 | 미확보 | CASE_001 처리 유지 (소급 수정 없음) |
 

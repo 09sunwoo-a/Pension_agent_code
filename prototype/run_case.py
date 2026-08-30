@@ -62,17 +62,18 @@ def main() -> int:
     if v:
         print(f"validation  : C1 {v['overall']}")
         for c in v["candidates"]:
-            print(f"   [{c['index']}] {c['verdict']:12s} risk_level={c['risk_level']!r}  direction={str(c['direction'])[:70]!r}")
+            print(f"   [{c['index']}] {c['verdict']:12s} kind={c.get('kind')!r} risk_level={c['risk_level']!r}  action={str(c.get('action'))[:70]!r}")
     v3 = record.get("validation_c3")
     if v3:
         print(f"validation  : C3 {v3['overall']}  (ineligible: {v3['ineligible_portfolios']}; findings: {len(v3['findings'])})")
-    v2 = record.get("validation_c2_detect")
-    if v2 and v2["findings"]:
-        print(f"C2 detect   : {v2['findings']}")
+    v2 = record.get("validation_c2")
+    if v2:
+        print(f"validation  : C2 {v2['overall']}  (allowed grade >= {v2['allowed_min_grade']}; findings: {len(v2['findings'])})")
     po = record.get("parsed_output")
     if po:
-        mn = po.get("management_need", {})
-        print(f"\nmanagement_need.decision: {mn.get('decision')}")
+        mj = po.get("management_judgment", {})
+        print(f"\nmanagement_judgment: {mj.get('judgment')}  (detected: {record.get('judgment_types_detected')})")
+        print(f"must_confirm_before_action: {len(mj.get('must_confirm_before_action') or [])} items")
         print(f"unknowns_or_confirmations: {len(po.get('unknowns_or_confirmations') or [])} items")
         print(f"knowledge_ids_used (model): {po.get('knowledge_ids_used')}")
         print(f"\nemployee_brief:\n{po.get('employee_brief')}")
