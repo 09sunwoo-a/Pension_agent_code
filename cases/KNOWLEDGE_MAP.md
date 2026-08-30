@@ -92,6 +92,20 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-06 K-006 | 성과저조 TM = KPI | Marketing | 미인용 → **반대로 사용 (F-009)** | — | D10 공통 후보 (전달 방식 검토) |
 | GC-06 K-007 | 손실 고객 상담 순서·톤 | Communication | 인용 | 톤 양호 | pending |
 
+## GC-10 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-10 K-001 | 개시 요건·요건≠의무 | Internal | 미인용 (준수) | — | candidate (GC-03 K-003·GC-04 K-006 통합) |
+| GC-10 K-002 | 개시 전 확인·개시 후 제약(이전·추가입금·자동이체·세액미공제) | Operational + Internal | 인용 | 정확 | candidate (GC-12) |
+| GC-10 K-003 | 수령방식 3종·최소기간·한도 산식·인출순서·자유인출 ETF | Internal 이론편 | 미인용 | F-006 | pending (GC-12에서 재검증) |
+| GC-10 K-004 | 투자가능기간=수령 종료; 연금수령 포트폴리오 | Training + Product | 미인용 | F-006 | pending |
+| GC-10 K-005 | 만기·DO 6주·알파드림1·예약변경 | Public/Internal | 인용 | 정확 | candidate (4 Case 반복) |
+| GC-10 K-006 | C1·C3, 기존 보유 위반 아님 | Human-approved | 인용 | 준수 | → CONSTRAINT_MAP |
+| GC-10 K-007 | 수령 중 AI일임 제외·수수료 면제(확인) | Public/Internal | 미인용 | — | pending |
+| GC-10 K-008 | 골든라이프센터 연계·"알려준다" | Internal | 인용 | 연계 반영 | candidate |
+| GC-10 K-009 | 개시 유치 마케팅 분리 | Marketing | 미인용 | 위반 없음 | D10 공통 |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |
