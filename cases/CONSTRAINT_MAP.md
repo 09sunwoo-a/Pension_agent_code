@@ -9,12 +9,12 @@ Authority 순서(`golden/HUMAN_DECISIONS.md` HD-3): `공식 법·제도·내규�
 | ID | Constraint | Authority | Source Status | Runtime 구현 | Eval 결과 | Cases |
 |---|---|---|---|---|---|---|
 | C1 | 투자성향 5단계(안정형 < 안정추구형 < 위험중립형 < 적극투자형 < 공격투자형); Solution은 고객 성향과 같거나 낮은 위험수준만. 성향은 **상한 제한**이지 해당 수준의 위험 부담을 요구하지 않음 — 성향-운용 불일치를 자동 관리 필요로 보지 않음 | **Human-approved Business Fact (HD-2, 2026-08-30)** | Source Traceability Gap — 공식 적합성 기준 원문 미확보 (SRC-088/024는 정의·축 수준) | Pre-Reasoning: 허용/제외 범위를 독립 Constraint Section으로 전달 · Post: `risk_level` ∈ forbidden → FAIL | CASE_001 RUN_001 PASS (라벨·내용 정합 확인) | CASE_001, P0 전 Case |
-| C2 | 투자성향 ↔ **펀드 위험등급 Eligibility Mapping**: 가입 불가능 펀드는 Reasoning 전 Candidate Space에서 제거하고 Post-Reasoning에서 재검증 | **Human-approved Business Fact (HD-2)** | Source Traceability Gap — 성향↔펀드 위험등급 매핑표가 Corpus에 없음 (SRC-095 위험등급 라벨만 존재). 공식 원문 확보 시 Source-grounded로 교체 | 미구현 (Runtime Gap — 상품별 위험등급 매핑·Eligibility 검사) | — | GC-02, 05, 06, 17 (P0: GC-06) |
-| C3 | 투자성향 ↔ **디폴트옵션 포트폴리오 Eligibility Mapping**: 지켜드림(전 성향) / 알파드림(안정추구형 이상) / 뿔려드림(위험중립형 이상) / 모두드림(공격투자형만) — 가입 불가능 포트폴리오는 Reasoning 전 제거, Post에서 재검증 | **Human-approved Business Fact (HD-2)** | SRC-089 (KB Think 정리본, 심의필 콘텐츠 기반) L43-54; SRC-007 시트32·33과 정합. 공식 원문(상품설명서·공시) 확보 시 교체 | 미구현 (Runtime Gap) | — | GC-03, 09, 17 (P0: GC-03) |
+| C2 | 투자성향 ↔ **펀드 위험등급 Eligibility Mapping**: 가입 불가능 펀드는 Reasoning 전 Candidate Space에서 제거하고 Post-Reasoning에서 재검증 | **Human-approved Business Fact (HD-2)** | Source Traceability Gap — 성향↔펀드 위험등급 매핑표가 Corpus에 없음 (SRC-095 위험등급 라벨만 존재). 공식 원문 확보 시 Source-grounded로 교체 | DETECT_ONLY (601aa1b): candidate에 펀드 위험등급 라벨이 있으면 Evaluator에 보고. 매핑표 미정의로 판정 불가 — **Human Gate 후보: 성향↔펀드 위험등급 매핑표 확정 필요** | GC-01 해당 없음 | GC-02, 05, 06, 17 (P0: GC-06) |
+| C3 | 투자성향 ↔ **디폴트옵션 포트폴리오 Eligibility Mapping**: 지켜드림(전 성향) / 알파드림(안정추구형 이상) / 뿔려드림(위험중립형 이상) / 모두드림(공격투자형만) — 가입 불가능 포트폴리오는 Reasoning 전 제거, Post에서 재검증 | **Human-approved Business Fact (HD-2)** | SRC-089 (KB Think 정리본, 심의필 콘텐츠 기반) L43-54; SRC-007 시트32·33과 정합. 공식 원문(상품설명서·공시) 확보 시 교체 | **구현 (601aa1b, Execution-enabling HD-5.1)**: Pre-Reasoning — 가입 가능/불가 포트폴리오를 Constraint Section으로 전달 · Post — 불가 포트폴리오명이 candidate direction에 있으면 FAIL, condition/brief면 REVIEW | GC-01 RUN_001 PASS (findings 0; 모델이 C3를 인용해 알파드림 가능 판단) | GC-01, 03, 09, 17 |
 
 ## Runtime Validation Limitations (관찰)
 
-- C1 Validator는 모델이 자기 기재한 `risk_level` 라벨만 검사한다. direction 내용과 라벨의 정합성은 Evaluator가 별도 확인 (CASE_001: 정합). 상품별 위험등급 매핑(C2)·디폴트옵션 Eligibility(C3) 검사는 미구현 → P0 Batch 시작 시 최소 구현 설계 대상 (`AGENTS.md` §20.7).
+- C1 Validator는 모델이 자기 기재한 `risk_level` 라벨만 검사한다. direction 내용과 라벨의 정합성은 Evaluator가 별도 확인 (CASE_001·GC-01: 정합). C3는 포트폴리오명 텍스트 스캔(부정문 미구분 → REVIEW 등급 사용). C2는 매핑표 미정의로 DETECT_ONLY.
 - Execution Feasibility / Solution Conflict 검사 미구현 (§20.8 — Batch Evidence 후 결정).
 
 ## Constraint Candidates (Human Gate 대상 — 승격 전에는 Required Confirmation / Operational Check Needed 로 처리)
