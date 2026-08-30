@@ -40,6 +40,20 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | 투자성향 ↔ 디폴트옵션 Eligibility (C3) 공식 원문 | SRC-089 정리본만 (심의필 콘텐츠 기반) | C3 적용; 원문 확보 시 교체 |
 | 투자성향 5단계 적합성 원칙 (C1) 공식 원문 | 미확보 | CASE_001 처리 유지 (소급 수정 없음) |
 
+## GC-01 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-01 K-001 | 자동 재예치 없음; DO 적용 시계(2주/4+2주/옵트인) | Public + Internal TM | 인용 | 정확 사용 | pending — GC-03/09/10 재사용 예상 |
+| GC-01 K-002 | 지켜드림=3년제 정기예금; 성향별 가입범위 | Public + Product Data | 미인용 | F-006 (3년제 잠김 누락) | pending |
+| GC-01 K-003 | 안전자산 선호 판단(펀드 이력) · 만기 D-30 예약변경 · 화면 | Operational (Internal) | 인용 | 판단 근거로 사용, 예약 시점 미사용 | pending |
+| GC-01 K-004 | 원리금보장 4종 특징표 · 월 한도 · 만기별 금리 · 계산기 | Product Fact + Operational | 미인용 | F-006 | pending (GC-08) |
+| GC-01 K-005 | 자금 성격→기간; 연금 수령이면 기간 재산정; 개시 요건 | Training + Internal | 인용 | 적절 | pending (GC-10/12) |
+| GC-01 K-006 | 예보 한도 Source Conflict(5천만 vs 1억) | Conflict record | 미인용 | 위반 없음 | pending |
+| GC-01 K-007 | 상담 순서·용어·금소법 | Communication | 인용 | 순서 반영 | pending |
+| GC-01 K-008 | C1·C3 | Human-approved | 인용 | 준수 | → CONSTRAINT_MAP |
+| GC-01 K-009 | KPI 분리 | Case-local | 미인용 | 위반 없음 | pending |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |
