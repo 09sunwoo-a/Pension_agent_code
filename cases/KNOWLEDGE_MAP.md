@@ -80,6 +80,18 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-03 K-007 | C1·C3 | Human-approved | 인용 | 준수 (Brief 재진술 오류 F-008) | → CONSTRAINT_MAP |
 | GC-03 K-008 | KPI 분리 | Marketing 표시 | 미인용 | 위반 없음 | candidate — D10 공통 |
 
+## GC-06 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-06 K-001 | 판매중단 의미·성과 약속 불가·재개 가능성 | Internal (Comm.+Product) | 인용 | 재개 가능성 미사용 | pending |
+| GC-06 K-002 | 사과 후 액션 vs 예측 금지·처분효과 (긴장) | Training | 미인용 | F-006 | pending |
+| GC-06 K-003 | 손실 한도·분할매도·점검 주기 | Public | 인용 | 분할매도 반영 | pending |
+| GC-06 K-004 | 유선 특정펀드 금지·내점·비교 자료 준비 | Internal (규제 인용) | 인용 | 정확 | **candidate — 채널 공통 (GC-01 K-007과 통합)** |
+| GC-06 K-005 | C1·C2·C3, 위험등급 라벨 | Human-approved + Product | 미인용 (C1/C3 직접 인용) | 등급 확인 절차 미언급 | → CONSTRAINT_MAP |
+| GC-06 K-006 | 성과저조 TM = KPI | Marketing | 미인용 → **반대로 사용 (F-009)** | — | D10 공통 후보 (전달 방식 검토) |
+| GC-06 K-007 | 손실 고객 상담 순서·톤 | Communication | 인용 | 톤 양호 | pending |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |
