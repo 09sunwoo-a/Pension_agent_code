@@ -1,5 +1,7 @@
 # P0 Golden Discovery Batch — Summary (BATCH_001)
 
+> 후속: Architecture Revision #1(REV-001) 적용 후 RUN_002 Regression 결과는 `golden/REVISION_001_REGRESSION.md`.
+
 - 실행일: 2026-08-31 / Builder: Gemma 4 (`gemma-4-31b-it`, API default) / Evaluator: Claude (별도 Context)
 - Runtime: `601aa1b` (Execution-enabling 변경 포함, HD-5.1) / 각 Case 1회 실행 (§20.1)
 - 정책: `AGENTS.md` §20, `golden/HUMAN_DECISIONS.md` HD-1~5. Case-specific Prompt Patch 없음. Stop Condition 발생 없음.
