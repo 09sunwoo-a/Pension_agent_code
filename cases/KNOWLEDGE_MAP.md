@@ -131,6 +131,31 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-14 K-006 | 권유 금지·연저펀드 조합은 다음 기회 | Operational/Golden | 인용 | 권유 금지 명시 | D10 공통 |
 | GC-14 K-007 | C1·C3 | Human-approved | 미인용 (무관) | — | — |
 
+## GC-16 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-16 K-001 | 실물이전 조건·불가 상품·사전체크·거절 사유·확인전화 | Public+Internal+Operational | 인용 | 조건·사전체크 정확; 절차 세부 탈락 | candidate |
+| GC-16 K-002 | 경청→사유→리스크 숫자→취소 절차 | Internal | 인용 | 손실 숫자 안내 반영 | candidate (D8 공통) |
+| GC-16 K-003 | ETF 실시간 불가·3분 분할·24시간 (as-of) | Internal 팩트체크 | 인용 | 정직하게 사용, 라인업 수 미인용 | candidate (as-of 태그 필수) |
+| GC-16 K-004 | 수수료 고객별·비대면 전환·면제 조건 | Internal/Operational | 인용 | 전환 제안; 화면 없음 | candidate |
+| GC-16 K-005 | 증권사 인정·분리 운용·라인업 확인 전 단정 금지 | Operational/Training | 인용 | 분리 운용 반영; 결정권 명시 없음 | candidate |
+| GC-16 K-006 | C1·C3 | Human-approved | 인용(C1) | 준수 | — |
+| GC-16 K-007 | KPI·계열사·비방 분리 | Marketing | 미인용 | 위반 없음 | D10 공통 |
+
+## Reusable Knowledge Candidates (P0 Batch 종료 시점 관찰 — 승격은 Human Gate)
+
+| 후보 | 등장 Case | 안정성 |
+|---|---|---|
+| 자동 재예치 없음·DO 적용 시계(2주/4+2주/옵트인)·지정 의무 | GC-01, 03, 04, 09(예정), 10, 12 | 높음 — 모델 인용률 높고 오류 없음 |
+| 현금성 존재≠미운용; 입금사유·사용계획 확인 | CASE_001, GC-03, (GC-04, 12) | 높음 |
+| 투자성향=상한, 불일치≠관리 필요 (C1 해석) | GC-04, 03, 10 | 높음 (Human-approved) |
+| 연금개시 요건(55세+5년, 퇴직급여 시 55세만)·요건≠의무 | GC-03, 04, 10, 12 | 높음 |
+| 개시 후 제약(추가입금·이전·자동이체·세액미공제) | GC-10, 12, 14 | 중 — Operational 근거, 모델 인용 정확 |
+| 유선 특정펀드 금지·내점 연결·비교 자료 | GC-01, 06 | 높음 |
+| KPI/마케팅 분류 = 근거 아님 (D10) | 전 Case | 중 — GC-06에서 반대로 사용됨(F-009) → 전달 방식 검토 |
+| 수령방식 3종·한도/연차·자유인출 ETF | GC-10, 12 | 낮음 — 2 Case 모두 미사용/부분 사용(F-006) |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |
