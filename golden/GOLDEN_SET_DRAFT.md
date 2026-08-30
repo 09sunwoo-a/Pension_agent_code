@@ -1,6 +1,6 @@
 # 개인형IRP 사후관리 Agent — Golden Set Draft (v0.1)
 
-- Status: **DRAFT** (Freeze 아님, 실행 아님)
+- Status: **DRAFT — P0 Batch Approved** (v0.2, 2026-08-30). Case 별 Freeze 는 Case 작성 시 Agent 가 수행(`AGENTS.md` §20.2). Human Decision 은 `golden/HUMAN_DECISIONS.md`.
 - 작성 기준일: 2026-08-28
 - 작성 방식: Repository Source Corpus(`sources/corpus/01~05`)를 독립적으로 탐색하여 **업무공간(Domain)** 을 먼저 정의하고, 그 위에서 Capability → Portfolio → Case 순으로 설계하였다. CASE_001 및 현재 Prototype 구조는 설계 기준으로 사용하지 않았고, §12에서 마지막으로만 Mapping 하였다.
 - 기준 질문: *"개인형IRP 고객을 실제로 관리하는 숙련된 직원이 이 Agent의 결과를 본다면, 어떤 상황까지 제대로 판단할 줄 알아야 '업무를 이해하는 Agent'라고 인정할까?"*
@@ -17,7 +17,7 @@
 - Source 탐색 결과, 개인형IRP 사후관리 업무공간은 크게 **12개 Domain** 으로 정리된다 (§1). 이 중 "현금성자산/운용상태 관리"는 하나의 Domain 일 뿐이며, **연금단계·세제 제도, 계좌 실행 제약·절차, 이탈·불만 대응, 고객이익-영업압력 분리, 시점 의존성 인식** 이 동등한 비중으로 존재한다.
 - Source 성격은 **Official Rule / Product Fact / Training Knowledge / Branch Know-how / Communication Know-how / Marketing Practice / Public Explanation / Market·Product Data** 로 분리해야 하며, 특히 영업점 Hot Tip 과 캠페인 문서의 상당수는 KPI 동기가 명시되어 있어 **고객 최선이익의 근거로 쓰면 안 된다** (§2, §8).
 - Golden Capability 는 12개로 정의했고(§3), **17개 Case** (3개 Counterfactual Pair, 5개 Negative/현상유지·확인우선 Case, 3개 실행불가 Case 포함)로 초기 Portfolio 를 구성했다(§4, §5). 10~15개 목표보다 많은 이유는 연금단계·이전·중도인출 등 **제도/절차 영역이 CASE_001 계열과 완전히 다른 판단축** 을 요구하기 때문이며, 우선순위(P0/P1/P2)를 병기하여 단계적 Freeze 가 가능하도록 했다.
-- Human Gate 는 3개만 제시한다(§11): ① 연금 수령·세제 설계(연금수령한도·인출순서·과세) 영역을 Agent Scope 에 포함할 것인가, ② 투자성향↔상품 위험등급 적합성 및 디폴트옵션 가입범위를 Hard Constraint 로 채택할 근거 Source 를 무엇으로 볼 것인가, ③ 영업점 Hot Tip(Experiential) 의 절차 지식을 "실행 제약(Feasibility)" 판단 근거로 사용할 수 있는가.
+- v0.1 에서 제시한 Human Gate 3개는 **2026-08-30 확정**되었다(§11, `golden/HUMAN_DECISIONS.md` HD-1~3): 연금·세제는 구조·요건·시한·확인사항까지(최종 계산값 제외), 투자성향 적합성(펀드 위험등급·디폴트옵션 Eligibility)은 Hard Constraint, Hot Tip 은 Operational Knowledge. 첫 Batch 는 P0 8 Case (HD-4).
 
 ---
 
@@ -81,7 +81,7 @@ D7 실행 제약·절차 ──▶ D12 직원 다음 행동 ──▶ D9 설명 
 | Official / Internal Rule | 연금개시 요건, 한도, 인출순서, 수수료표, 디폴트옵션 적용 시계, 위험자산 70% | Critical Mistake 판정 근거 (단, As-of 명시) |
 | Product Fact | GIC/ELB 특성, TDF 빈티지·H/UH, 디폴트옵션 10종 구성, 추천펀드 위험등급 | 상품 추론의 근거; 월별 변경분은 "확인 필요"로 |
 | Training Knowledge | 자금 성격→기간→성향, 연령대별 전략, 상품 5종 | 좋은 판단의 방향성 근거 (규칙 아님) |
-| Branch Know-how | 1개월 무변동 판단, 펀드 이력으로 성향 추정, 실물이전 거절 사유, 계산기 활용 | "권장 절차/확인사항"; 실행 제약으로 쓸지는 Human Gate ③ |
+| Branch Know-how (Operational Knowledge, HD-3) | 1개월 무변동 판단, 펀드 이력으로 성향 추정, 실물이전 거절 사유, 계산기 활용 | 확인 순서·화면·절차로 적극 활용; 단독으로 Hard Constraint·실행 가능 여부 확정 불가 → `Operational Check Needed` |
 | Customer Communication Know-how | 용어 치환, 단정 회피, 경청 우선 | Low-quality 판정 기준 (문구 고정 아님) |
 | Marketing Practice | KPI 가중치, "무조건 IRP", 실물이전 불가 상품 유도 | Critical Mistake(재생산 시) / 편향 원인 컨텍스트 |
 | Public Explanation | KB Think, 웨비나 | 설명 수준 벤치마크 |
@@ -190,7 +190,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — 상품 유형 나열만; 만기일·예약변경 시점 언급 없음; 확인 질문 없이 "저축은행 정기예금으로 변경" 결론; 연금개시 요건 충족 사실을 전혀 활용하지 않음; 직원이 어떤 화면을 봐야 하는지 없음.
 
-**Human Review Needed** — 예금자보호 한도의 현행 수치(1억, SRC-001/087/089) 를 Golden Fact 로 채택할지.
+**Source Traceability Note** — 예금자보호 한도는 최신·공식 Source(1억, SRC-001/087/089 2026) 우선; 구자료(5천만) 로 단정하면 Critical. 원문 확보 시 Knowledge Pack 에 As-of 와 함께 기재.
 
 ---
 
@@ -255,7 +255,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — 확인 질문이 "운용 계획 있으세요?" 수준으로 모호(사용 시점·55세 전 필요 여부를 묻지 않음); 디폴트옵션 의무 안내 누락; 고객이 "생각해 보겠다" 고 한 이력을 무시하고 즉시 권유 톤.
 
-**Human Review Needed** — 디폴트옵션 등록 "의무" 를 Agent 가 고객에게 직접 안내하는 것이 제도안내 범위인지(권유 아님) 확인.
+**Scope Note (HD-1)** — 디폴트옵션 지정 의무·적용 시계 안내는 "제도 구조·적용요건·시한" 에 해당하므로 Agent Scope 내 제도안내다(권유 아님).
 
 ---
 
@@ -385,7 +385,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — "70% 초과입니다, 조정하세요" 만 반복; 고객의 "팔기 싫다" 를 반영한 대안 없음; 예외 상품 범위를 Source 확인 없이 확정적으로 나열.
 
-**Human Review Needed** — 100% 예외 상품 범위(채권혼합형 ETF 포함 여부)와 "페널티 없음" 의 공식 근거 확보.
+**Source Traceability Gap (HD-3)** — 100% 예외 상품 범위와 "페널티 없음" 은 SRC-077(Field) 근거이므로 `Operational Check Needed` 로 처리한다. Critical 판정은 "한도가 없다 / TDF 도 70% 대상" 처럼 공식 Source(SRC-087/003)와 반대로 단정한 경우에만.
 
 ---
 
@@ -482,7 +482,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — 만기 자금 처리만 다루고 연금 단계 맥락 무시(또는 반대); 수령방식·한도 개념을 틀리진 않지만 고객 상황(퇴직급여 포함, 개인부담금 공제분)에 연결하지 않음; 확인 질문 없음.
 
-**Human Review Needed** — 연금 수령 설계(한도·인출순서·과세) 영역을 Agent 가 "정보안내" 까지 다루는지, 계산·설계까지 다루는지 Scope 결정 (Gate ①).
+**Scope Note (HD-1)** — 수령방식·한도/연차·인출순서의 **구조와 적용요건·시한** 은 Agent 가 판단·설명하고, 고객별 최종 수령액·세액은 [02-12-221] 등 화면 조회로 연결한다.
 
 ---
 
@@ -516,7 +516,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — "불가합니다" 로 끝나고 대안 없음; 300만 만기분을 놓침; 배당/인컴 니즈를 파악하려는 질문 없음.
 
-**Human Review Needed** — "금액/기간지정 시 ETF 전량 매도" 의 근거가 Field Know-how(SRC-084) 이므로 공식 근거 확인 (Gate ③ 사례).
+**Authority Note (HD-3)** — "자유인출방식만 ETF 운용 가능" 은 SRC-003(Internal) 근거로 실행 불가 판정에 사용한다. "전량 매도" 절차(SRC-084, Field)는 `Operational Check Needed` 로 남긴다.
 
 ---
 
@@ -550,7 +550,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — 세제 설명이 원론적(고객 숫자에 연결 안 됨); 재취업 가능성을 개시 결정에 반영하지 않음; 1억 인출 시점(9월 말) 대비 매도·지급 일정 언급 없음.
 
-**Human Review Needed** — 연금수령한도·세율 계산을 Agent 가 수행할지, "구조 설명 + 화면 조회 지시" 까지만 할지 (Gate ①).
+**Scope Note (HD-1)** — Agent 는 한도 산식·연차·감면 구조를 이해해 두 경로의 **구조적 차이** 를 설명하고 [02-12-221] 확인을 지시한다. 최종 세액·수령액 확정은 Scope 밖. Evaluation 도 이 기준.
 
 ---
 
@@ -616,7 +616,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — 절차만 나열하고 일정 역산 없음; 어떤 상품을 먼저 매도할지 판단 없음; 무주택 요건 확인을 빠뜨림.
 
-**Human Review Needed** — "최대 90%" 와 "신청 시한 1개월" 이 개인형IRP 에 동일 적용되는지 공식 원문 확인.
+**Source Traceability Gap** — "최대 90%"·"신청 시한 1개월" 은 SRC-003 이론편(검수필요 표시) 근거이므로 `Operational Check Needed`(창구 접수 시 확인). 법정 사유·세전 신청·16.5% 는 SRC-003/087 공식성으로 Critical 판정에 사용.
 
 ---
 
@@ -712,7 +712,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **Low-quality Behaviors** — TDF 일반 설명만 하고 이 고객의 숫자(1992년생, 위험중립) 에 연결하지 않음; 운용사별 차이·위험등급을 언급하지 않음; 디폴트옵션 대안 없음; 고객이 앱에서 무엇을 하면 되는지 없음.
 
-**Human Review Needed** — 투자성향↔펀드 위험등급 적합성 기준(부적합 확인서 절차 포함)의 공식 Source 확보 (Gate ②).
+**Constraint Note (HD-2)** — 투자성향↔펀드 위험등급 Eligibility 는 Hard Constraint(C2) 다. 매핑표는 Source Traceability Gap 이므로 Golden 평가에서는 "위험중립형 상한을 넘는 등급을 적합성 확인 없이 확정 추천" 을 Critical 로 본다.
 
 ---
 
@@ -778,7 +778,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 | ETF 체결·채널·이탈 팩트 | SRC-001, 004, 013, 018, 069, 073 | GC-16, GC-07, GC-11 | — |
 | 연령·투자기간·연금수령 시 기간 재산정 | SRC-020, 024, 019 | GC-10, GC-17, GC-09 | 은퇴 임박 + 일시금 전액 인출 예정 Pair 는 미포함 (P2 후보: GC-10 변형) |
 | 연금개시 요건·개시 전 확인·개시 후 제약 | SRC-049, 003, 070, 086, 062 | GC-10, GC-12, GC-11 | — |
-| 연금수령 방식·한도·연차·인출순서·세율 | SRC-003, 046, 036, 028 | GC-12, GC-10, GC-11 | 계산 수행 여부는 Gate ① |
+| 연금수령 방식·한도·연차·인출순서·세율 | SRC-003, 046, 036, 028 | GC-12, GC-10, GC-11 | 구조·요건·시한까지 평가, 최종 계산값은 Scope 밖 (HD-1) |
 | 퇴직금 과세이연 60일·환급 전 제한 | SRC-003, 058, 076, 011 | GC-03, GC-12 | 통장 수령 후 60일 재입금 절차 자체 Case 없음 (마케팅 성격 강함 → 의도적 제외; P2 후보) |
 | 납입한도·세액공제·ISA 전환 | SRC-087, 003, 072, 080, 083, 064 | GC-13 | 결정세액 부족(공제 실효 없음) 케이스 없음 (P2 후보) |
 | 중도인출·해지·추징 | SRC-003, 043, 087, 041 | GC-14, GC-15 | 세액공제 미신청분 해지(7/1 경계) 케이스 없음 (P2 후보) |
@@ -797,10 +797,10 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 | Gap | 상태 | 영향 Case | 비고 |
 |---|---|---|---|
-| 투자성향 ↔ 펀드 위험등급 적합성 매핑(부적합 확인서 절차 포함) | Corpus 에 없음 (C1 은 Human-approved) | GC-02, 05, 06, 17 | Gate ② |
-| 디폴트옵션 성향별 가입 가능 표의 공식 원문 | SRC-089(KB Think 정리본)만 | GC-09, 17 | Gate ② |
-| 위험자산 100% 예외 상품의 정확한 범위·초과 시 페널티 유무 | SRC-077(Field), 087/003(70%만) | GC-07 | Gate ③ 사례 |
-| 금액/기간지정 수령 중 ETF 보유 불가(전량 매도) 의 공식 근거 | SRC-003(자유인출만 가능) + SRC-084(Field) | GC-11 | Gate ③ 사례 |
+| 투자성향 ↔ 펀드 위험등급 적합성 매핑(부적합 확인서 절차 포함) | Corpus 에 없음 — **Human-approved Hard Constraint C2 (HD-2), Source Traceability Gap** | GC-02, 05, 06, 17 | 공식 원문 확보 시 교체 |
+| 디폴트옵션 성향별 가입 가능 표의 공식 원문 | SRC-089(KB Think 정리본)만 — **Human-approved Hard Constraint C3 (HD-2)** | GC-03, 09, 17 | 공식 원문 확보 시 교체 |
+| 위험자산 100% 예외 상품의 정확한 범위·초과 시 페널티 유무 | SRC-077(Field), 087/003(70%만) | GC-07 | Operational Check Needed (HD-3) |
+| 금액/기간지정 수령 중 ETF 보유 불가(전량 매도) 의 공식 근거 | SRC-003(자유인출만 가능 — Internal) + SRC-084(Field) | GC-11 | 불가 원칙은 SRC-003 으로 사용, 매도 절차는 Operational Check Needed (HD-3) |
 | 중도인출 "최대 90%"·"신청 시한 1개월" 의 개인형IRP 적용 원문 | SRC-003 이론편(검수 필요 표시) | GC-14 | 원문 확인 |
 | 연금저축 간 이전 요건 | SRC-075/009 간접 | GC-15 | 확인 필요로 처리 |
 | 예금자보호 한도 현행(1억) | SRC-001/087/089(2026) vs SRC-002/024(5천만) | GC-01, 08 | 최신 우선 원칙 필요 |
@@ -822,7 +822,7 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 | Hard Constraint 가 C1(성향 상한)뿐 — 디폴트옵션 가입범위, 70% 한도, 연금개시 상태, 수령방식별 운용 제약, 이전 요건, 채널 제약 없음 | C5, C7 | 07, 09, 10, 11, 14, 15, 16 | Constraint Map 후보로 등재됨(Out of Scope) |
 | Execution Feasibility / Solution Conflict Validation 미구현 (README "Not Implemented") | C7, C8 | 09, 11, 12, 15, 16 | — |
 | "현상유지 / 관리 불필요 / 실행 불가" 를 표현할 출력 자리가 없음 (FAILURE_MAP F-005 와 동일 구조) | C2, C7 | 04, 08, 10, 11, 15 | Schema 변경은 Semantic Change |
-| 제도·세제 계산(연금수령한도·세액공제·과세) 및 시한(60일/2주/만기 D-30) 판단 로직 없음 | C4 | 03, 10, 12, 13, 14 | Gate ① 결과에 따라 |
+| 제도·세제 구조·적용요건·시한(60일/2주/만기 D-30) 판단 Knowledge·Validation 없음 (최종 계산값은 HD-1 로 Scope 밖) | C4 | 03, 10, 12, 13, 14 | Batch 시 Knowledge Pack 으로 우선 대응 |
 | 상품 유형·위험등급·빈티지 지식 없음, 상품 추론 Out of Scope | C6 | 01, 02, 06, 08, 17 | 유형 수준까지는 Knowledge 로 가능 |
 | Knowledge Pack 이 Case-local 수동 구성 — Domain 별 Reusable Knowledge/Authority 태그 없음 | C11 | 전부 | KNOWLEDGE_MAP 에 pending |
 | As-of / Source 충돌 표시를 출력에 담을 구조 없음 | C11 | 01, 07, 13, 16 | — |
@@ -852,38 +852,42 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 
 **남은 약점 (솔직한 기록)**
 1. 17개는 초기 목표(10~15)보다 많다. P0 8개만으로 첫 Batch 를 돌리는 것을 권장한다.
-2. 연금·세제 Case(10,12)는 Agent Scope 결정(Gate ①) 전에는 "정보안내 수준" 으로만 평가할 수 있다.
-3. Hot Tip 기반 절차 지식(GC-07 페널티, GC-11 ETF 매도, GC-16 거절 사유)은 공식 근거가 확보되기 전까지 Critical Mistake 판정에 쓰기 어렵다(Gate ③).
+2. 연금·세제 Case(10,12)는 HD-1 에 따라 "구조·요건·시한·확인사항" 까지 평가하고, 최종 계산값은 평가하지 않는다.
+3. Hot Tip 기반 절차 지식(GC-07 페널티, GC-11 ETF 매도, GC-16 거절 사유)은 HD-3 에 따라 `Operational Check Needed` 로 평가하며, Critical 판정은 공식 Source 와 반대로 단정한 경우에만 적용한다.
 4. 상담이력·고객 발화가 Synthetic 이라 실제 고객 언어와 거리가 있을 수 있다 — 웨비나(SRC-028~036) 채팅 Q&A 표현으로 보정 가능.
 5. Counterfactual Pair 가 3쌍뿐이며, "자금목적만 다른 Pair" 는 GC-03/12 처럼 다른 변수도 함께 바뀐다. 순수 Pair 가 필요하면 GC-10 변형(일시금 전액 인출 예정)을 P2 로 추가.
 
 ---
 
-## 11. Human Review Needed (Human Gate — 최대 3개)
+## 11. Human Decisions (확정, 2026-08-30)
 
-### Gate ① — 연금 수령·세제 설계 영역의 Agent Scope
+v0.1 §11 의 Human Gate 3개는 모두 확정되었다. 결정 원문은 `golden/HUMAN_DECISIONS.md`(HD-1~5), 운영 규칙은 `AGENTS.md` §20. 여기서는 Golden Case 에 미치는 영향만 기록한다.
 
-**질문**: 연금수령한도·연금수령연차·인출순서·세율·세액공제 한도 같은 세제 판단을 Agent 가 (a) "제도 구조 설명 + 확인 화면 지시" 까지만 하는가, (b) 고객 숫자로 계산·비교까지 하는가?
+| Decision | Golden 에의 적용 | 영향 Case |
+|---|---|---|
+| **HD-1 연금·세제 Scope** | 제도 구조·적용요건·시한·고려요소·Required Confirmation·확인 화면·설명 방향까지 평가. 최종 세액·수령액·시스템 확정 금액은 Scope 밖 → 화면/계산기 연결 여부를 평가 | GC-10, 12, 13, 14, 11 |
+| **HD-2 투자성향 Hard Constraint** | C1(성향 상한) + C2(펀드 위험등급 Eligibility) + C3(디폴트옵션 Eligibility). Reasoning 전 후보 제거·Post 재검증. 성향-운용 불일치 ≠ 관리 필요(GC-04). 매핑 Source 부재는 Traceability Gap 으로만 기록 | GC-02, 04, 05, 06, 09, 17 |
+| **HD-3 Hot Tip = Operational Knowledge** | 확인 순서·화면·채널·절차는 적극 활용. Hot Tip 단독 근거의 실행 제약은 `Operational Check Needed`; Critical 판정은 공식 Source 와 반대 단정에만 | GC-07, 11, 14, 16 |
+| **HD-4 Batch 범위** | P0 8 Case 각 1회 실행. CASE_001 = GC-00 Baseline (재작성·재실행 없음) | — |
+| **HD-5 Approval 단위** | Case 구체화→Freeze→Run→Eval→Map 갱신은 Agent 자율. Human Gate·Stop Condition 은 `AGENTS.md` §20.3·§20.4 | 전부 |
 
-**Claude Recommendation**: **(a) 를 Golden 의 기본 평가 범위로 채택**하고, (b) 는 GC-12 에서만 "산식 적용 결과가 구조적으로 맞는지" 를 부수 검증. 이유: SRC-003 이론편·SRC-046·SRC-036 은 산식과 규칙을 명시하지만, 정확한 세액은 시스템([02-12-221])·세법 개정에 종속되며 05/README 가 권유 규제 준수를 요구한다. 숙련 직원도 "구조를 설명하고 화면으로 확인" 한다(SRC-003 "오늘부터 챙기는 3가지" 2번, SRC-049).
-**근거 Source**: SRC-003 (L248-323, L603-699), SRC-046, SRC-049, SRC-036, SRC-011(⚠ 한도 계산 생략 사례).
-**영향 Case**: GC-10, GC-12, GC-11, GC-13, GC-14.
+### 11.1 Golden Case → 평가구조 형식화 (Case 작성 시 적용)
 
-### Gate ② — 투자성향 적합성·디폴트옵션 가입범위를 Hard Constraint 로 채택할 근거
+| Golden Draft 항목 | Case 파일(`templates/case/case.md`) 항목 | Evaluation 항목 |
+|---|---|---|
+| Expected Good Judgment | Must Consider / Acceptable Direction | Expected Judgment Check |
+| Expected Good Judgment 의 "확인할 것" | Required Confirmation | Confirmation Check |
+| Critical Mistakes | Forbidden Behavior + Must Not Assume | **Critical Mistake Check** → FAIL 사유 |
+| Constraint (C1~C3, 제도 Fact) | Applicable Constraints | Constraint Check |
+| Relevant Source Candidates / Business Knowledge Needed | Knowledge Pack (Authority 병기) | Grounding Check |
+| Low-quality Behaviors | Evaluation Scope 의 "Practical Usefulness" 기준 | PARTIAL 사유 (단독 FAIL 불가) |
 
-**질문**: (1) 현재 C1(성향 상한, Human-approved)에 더해 **디폴트옵션 포트폴리오별 가입 가능 성향 표**(SRC-089) 를 Hard Constraint 로 채택할 것인가, (2) 성향↔펀드 위험등급 적합성은 Corpus 에 없는데 Golden 에서 "부적합 시 확인 절차 필요" 수준으로 다룰 것인가?
+Verdict: PASS / PARTIAL / FAIL — 정의는 `AGENTS.md` §20.6. Evaluation Artifact 는 `Verdict / Expected Judgment Check / Critical Mistake Check / Constraint Check / Grounding Check / Observed Failures / Failure Map Mapping / Evidence` 만 추적되면 되며 CASE_001 EVAL 수준으로 장문화하지 않는다.
 
-**Claude Recommendation**: (1) **채택** — SRC-089 는 KB Think 심의필 콘텐츠의 정리본으로 표 형태가 명확하며 SRC-007(시트32·33)의 TM 대상 설계와 정합한다. 단 Registry 에 "정리본(원문 비복제)" 임을 명시하고 공식 원문 확보를 병행. (2) 매핑표 없이는 **"위험중립형에게 높은위험 등급 펀드를 확정 추천하면 Critical"** 정도의 방향성 기준만 두고, 세부 등급 매핑은 Source 확보 후로 미룬다.
-**근거 Source**: SRC-089 (L43-54), SRC-007 (시트32·33), SRC-095 (위험등급 라벨), cases/CONSTRAINT_MAP C1.
-**영향 Case**: GC-02, 05, 06, 09, 17.
+### 11.2 P0 Batch 실행 순서 (제안)
 
-### Gate ③ — 영업점 Hot Tip(Experiential) 절차 지식의 Feasibility 근거 사용 여부
-
-**질문**: 실물이전 거절 사유 4종(SRC-065/067), 위험자산 초과 시 페널티 없음(SRC-077), 금액/기간지정 수령 중 ETF 전량 매도(SRC-084), 전화센터 거래 범위(SRC-069) 등 **직원 경험 기반 절차 지식** 을 Golden 의 "실행 가능/불가" 판정 근거로 쓸 수 있는가?
-
-**Claude Recommendation**: **조건부 사용** — Golden 에서는 이들을 "Agent 가 알고 있어야 할 확인사항(Required Confirmation / 실행 전 확인)" 으로 평가하고, Critical Mistake 판정은 **정반대로 단정한 경우**(예: "실물이전 전부 가능", "금액지정에서도 ETF 가능")에만 적용한다. 공식 원문(SRC-003 §03 사전체크, SRC-087 실물이전 3조건, SRC-003 L286 "자유인출방식만 ETF")과 정합하는 항목부터 우선 채택한다.
-**근거 Source**: SRC-003 (L856-885, L286), SRC-087 (FAQ), SRC-061/065/067, SRC-077, SRC-084, SRC-069.
-**영향 Case**: GC-07, GC-11, GC-16, GC-09.
+`GC-01 → GC-04 → GC-03 → GC-06 → GC-10 → GC-12 → GC-14 → GC-16`
+— 앞 4개는 D1~D5(상황·관리·성향·상품) 축, 뒤 4개는 D6~D8(제도·실행·이탈) 축이라 Failure Layer 가 Domain 별로 드러난다. 순서 변경은 Agent 재량(Semantic 변경 아님).
 
 ---
 
@@ -921,4 +925,4 @@ Counterfactual Pair: (GC-01, GC-02), (GC-04, GC-05), (GC-03, GC-12: 퇴직금 �
 ## Appendix B. 작업 메모
 
 - Source 추출 산출물(폴더별 상세 발췌·file:line 참조·폴더 종합)은 `golden/source_extracts/` 에 보관했다. 이는 Golden 설계의 근거 추적용 작업 산출물이며 Source Corpus·Knowledge Base 가 아니다(Registry 에 등록하지 않음). 불필요하면 삭제해도 본 Draft 의 의미는 유지된다.
-- 본 Draft 는 Freeze 대상이 아니며, Human Gate ①~③ 답변 후 P0 8개부터 `templates/case/case.md` 형식으로 개별 Case 를 작성하는 것을 다음 단계로 제안한다.
+- Human Gate ①~③ 는 2026-08-30 확정(§11). 다음 단계는 P0 8 Case 를 `cases/GC-xx/` 에 `templates/case/case.md` 형식으로 구체화·Freeze 하고 Batch 를 실행하는 것이다(`AGENTS.md` §20).

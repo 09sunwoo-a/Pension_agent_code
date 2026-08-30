@@ -102,6 +102,8 @@ Agent는 모든 애매한 사항을 Human에게 질문하지 않는다.
 
 파일명, 함수명, 코드 정리 방식, 동일 의미의 표현 선택 등 구현 세부사항은 가능한 한 Agent가 스스로 결정한다.
 
+Human-approved Golden Batch 안에서는 Case Freeze · Knowledge Pack · Run · Evaluation · 다음 Case 진행 같은 **Step 별 확인을 요청하지 않는다** (§20). 이미 확정된 Human Decision(`golden/HUMAN_DECISIONS.md`)을 다시 질문하지 않는다.
+
 ---
 
 ## 6. Case Lifecycle
@@ -172,7 +174,9 @@ Builder는 현재 Case를 실행하는 데 필요한 최소 구조를 우선한�
 
 ## 8. Evaluator Responsibility
 
-Evaluator는 Builder와 역할을 분리한다. 동일한 Base Model을 사용해도 되지만 별도 Call / Context로 평가한다.
+Evaluator는 Builder와 역할을 분리한다. Golden Discovery Batch에서는 **Builder = Gemma 4, Evaluator = Claude** 이며 별도 Context에서 평가한다 (§17, §20).
+
+Evaluator의 질문은 "더 좋은 Solution은 무엇인가"가 아니라 **"Golden Case가 요구하는 Semantic Boundary를 Builder가 준수했는가"** 다.
 
 Evaluator는 Frozen Case, Expected Behavior, Applied Constraints, Used Knowledge / Source, Run Artifact를 비교한다.
 
@@ -194,9 +198,11 @@ Evaluator는 Frozen Case, Expected Behavior, Applied Constraints, Used Knowledge
 - 허용 범위를 벗어난 Solution
 - 핵심 전제 또는 Context Interpretation 오류
 
-점수제는 사용하지 않는다.
+점수제는 사용하지 않는다. **Low-quality Behavior만으로 FAIL을 주지 않는다.**
 
-Evaluator는 직접 코드, Prompt, Knowledge 또는 Constraint를 수정하지 않는다.
+Evaluator는 직접 코드, Prompt, Knowledge 또는 Constraint를 수정하지 않는다. 수정이 필요하다고 판단되면 Failure Layer와 Suggested Direction만 기록한다.
+
+Evaluation Artifact는 불필요하게 장문화하지 않는다. 최소한 `Verdict / Expected Judgment Check / Critical Mistake Check / Constraint Check / Grounding Check / Observed Failures / Failure Map Mapping / Evidence` 가 추적 가능하면 된다.
 
 ---
 
@@ -295,7 +301,9 @@ Case-local Knowledge 구성
 - Source에 없는 업무 Fact를 임의로 생성하지 않는다.
 - Source 간 충돌을 임의로 해소하지 않는다.
 - Source의 Authority와 As-of를 고려한다.
-- Field Know-how가 공식 Constraint를 덮어쓰지 않도록 한다.
+- Source Authority 순서: `공식 법·제도·내규·시스템 기준 > 행내 공식 업무가이드/매뉴얼 > 영업점 Hot Tip / Field Know-how`.
+- Hot Tip / Field Know-how는 **Operational Knowledge**(확인 순서·화면·채널·준비사항·현장 예외·커뮤니케이션)로 적극 활용하되, 단독으로 Hard Constraint · 법·제도 Constraint · 가입/실행 가능 여부를 확정하지 않는다. Hot Tip에만 있는 실행 제약은 `Operational Check Needed / Required Confirmation`으로 처리하고, 공식 Source 또는 시스템 기준에서 확인되면 Execution Constraint로 승격한다 (`golden/HUMAN_DECISIONS.md` HD-3).
+- Source 충돌은 임의로 평균·통합하지 않고 공식성·최신성·적용범위로 판단하며 필요 시 `Source Conflict`로 기록한다.
 - 실제 사용한 Knowledge는 원 Source까지 Trace 가능해야 한다.
 
 Knowledge Schema, Knowledge Graph, Vector DB 등의 구조는 사전에 확정하지 않는다.
@@ -415,7 +423,7 @@ Gemma 4의 실제 수행 특성에 맞춰 다음을 조정하는 것은 허용�
 
 ### Builder / Evaluator
 
-Builder와 Evaluator는 초기에는 모두 Gemma 4를 사용할 수 있다. 역할 분리는 다른 모델을 사용하는 방식이 아니라 별도의 Role / Context / Call로 구현한다 (8. Evaluator Responsibility).
+Golden Discovery Batch부터 **Builder = Gemma 4 (Target Runtime Model), Evaluator = Claude** 로 확정한다. Evaluator는 Builder와 별도 Context에서 Semantic Boundary 준수 여부만 평가한다 (8. Evaluator Responsibility). 기계적으로 검증 가능한 Hard Constraint(투자성향 ↔ 펀드 위험등급 / 디폴트옵션 Eligibility 등)는 Runtime에서 deterministic하게 검사한다 (§20.7).
 
 ### Regression
 
@@ -442,6 +450,9 @@ Gemma 4의 Variant 또는 Runtime Parameter를 변경하는 경우 기존 Semant
 - Human 승인 없는 Core Design 변경
 - Gemma 4의 판단 실패를 다른 모델로 교체하여 회피
 - Human 승인 없는 Gemma 4 Variant / Runtime Parameter 변경
+- Hot Tip / Field Know-how 단독으로 Hard Constraint · 실행 가능 여부 확정
+- 확정된 Human Decision을 다시 `Human Review Needed`로 되돌리기
+- Golden Batch 안에서 Step 별 승인을 Human에게 반복 요청
 
 ---
 
@@ -449,4 +460,67 @@ Gemma 4의 Variant 또는 Runtime Parameter를 변경하는 경우 기존 Semant
 
 > **가장 작은 Case, 가장 작은 Knowledge, 가장 작은 구현으로 먼저 검증한다.**
 
+> **Human은 업무의 경계와 중요한 변경을 결정한다. Agent는 승인된 경계 안에서 Case 개발·실행·평가를 자율적으로 반복한다.**
+
+> **(Golden Discovery 단계) 한 Case의 실패를 바로 고치지 말고, 여러 Case에서 반복되는 Failure Evidence를 먼저 수집한다.**
+
 Architecture는 Case를 설명하기 위해 존재한다. Case를 Architecture에 맞추지 않는다.
+
+---
+
+## 20. Golden Discovery Batch 운영
+
+Golden Set(`golden/GOLDEN_SET_DRAFT.md`)의 Human-approved Case를 대상으로 하는 Batch 운영 규칙이다. 확정된 업무 Decision(연금·세제 Scope, 투자성향 Hard Constraint, Hot Tip Authority, Batch 범위)은 `golden/HUMAN_DECISIONS.md`에 있으며 여기서 반복하지 않는다.
+
+### 20.1 범위
+
+- 첫 Batch: **P0 8 Case** (GC-01, 03, 04, 06, 10, 12, 14, 16). CASE_001은 GC-00 Baseline으로 유지하며 재실행·재작성하지 않는다.
+- 각 Case **1회 실행**. 재현성 검증·Regression은 Batch 종료 후 별도 수행한다.
+
+### 20.2 Agent 자율 범위
+
+Golden Draft에 정의되고 Human이 승인한 Case 의미 안에서 Agent는 다음을 Human 확인 없이 연속 수행한다.
+
+```text
+Golden Case Candidate → Case 구체화 → Known / Unknown → Expected Behavior 형식화
+→ Source 후보 탐색 → 원문 확인 → Case-local Knowledge Pack → Case Freeze
+→ Runtime Run → Evaluation → Failure Analysis
+→ FAILURE_MAP / KNOWLEDGE_MAP / CONSTRAINT_MAP 갱신 → 다음 Case
+```
+
+### 20.3 Human Gate (이 경우에만 Human Review 요청)
+
+- Golden Case의 핵심 Situation 변경 · Expected Good Judgment 방향 변경 · Critical Mistake 의미 변경
+- 새로운 Hard Constraint 추가, 기존 Hard Constraint 삭제·완화
+- Agent 업무 Scope 변경 · Case를 다른 업무문제로 재해석
+- Core Design Semantic Change · Runtime Architecture의 의미 있는 Semantic Change
+
+### 20.4 Stop Condition (즉시 중단 → Evidence 정리 → Human Review)
+
+1. Hard Constraint 위반
+2. 중대한 법·제도·업무 실행가능성 오류
+3. 고객에게 중대한 불이익을 줄 가능성이 있는 Solution
+4. Golden Case 자체의 Semantic Boundary가 잘못되었다는 Evidence
+5. 현재 Source만으로 해결할 수 없는 중대한 Source Conflict
+
+다음은 중단 사유가 아니다 — `Failure 기록 → Failure Map 연결 → 다음 Case`: 중요 Fact 일부 누락, Required Confirmation 누락, Grounding 부족, Employee Brief 표현 문제, Uncertainty Loss, Knowledge Over-application, 현상유지 경로 누락, Candidate 품질 부족, 실무성 낮음. `FAIL` 자체는 중단 사유가 아니다.
+
+### 20.5 Failure Discovery 정책
+
+Batch의 목표는 Case별 정답이 아니라 **Gemma 4의 반복 Failure Pattern 발견**이다. Case-specific Prompt Patch 금지(§11). 기본 흐름은 `Run → Evaluation → Failure Pattern 기록 → 다음 Case`. 둘 이상의 Case에서 같은 Pattern이 반복될 때만 `Cross-case Failure → Root Cause 후보 → Architecture Revision Proposal → Human Gate`로 올린다.
+
+### 20.6 Golden Evaluation
+
+Evaluation Source는 Golden Case의 `Expected Good Judgment / Critical Mistakes / Low-quality Behaviors`이며, Case 작성 시 `Must Consider / Must Not Assume / Required Confirmation / Acceptable Direction / Critical Mistake Check / Constraint Check / Grounding Check / Practical Usefulness`로 형식화한다.
+
+- **PASS**: 핵심 판단방향 충족 · Critical Mistake 없음 · Hard Constraint 위반 없음 · 중요한 Fact / Confirmation 누락 없음
+- **PARTIAL**: 핵심 방향 적절 · 일부 Confirmation / Grounding / Fact / 실무성 부족 · Low-quality Behavior 있으나 핵심 판단 유지
+- **FAIL**: Critical Mistake · Hard Constraint 위반 · 핵심 판단방향 오류 · Case Semantic Boundary 밖의 판단
+
+### 20.7 Deterministic Validation
+
+기계적으로 검증 가능한 Hard Constraint(투자성향 ↔ 펀드 위험등급 Eligibility, 투자성향 ↔ 디폴트옵션 Eligibility 등)는 Runtime에서 deterministic하게 검사한다: `Gemma 4 Builder → Runtime deterministic validation → Claude Evaluator → Verdict`. 현재 구현으로 불가능한 부분은 Runtime Gap으로 기록하고, Batch 시작 시 필요한 최소 구현만 설계한다.
+
+### 20.8 이번 Batch 전에 확정하지 않는 것
+
+Output Schema 변경, Solution / Decision Outcome 분리, Execution Validation 구체 구현, Solution Conflict Validation 구조, 공통 Knowledge Base 구조, Reusable Knowledge 승격 정책, Dynamic Retrieval / RAG / Vector DB / Knowledge Graph, LangGraph / Multi-Agent, 자동 Evaluator Pipeline, 반복 실행·통계 평가 체계. 이들은 **P0 Batch의 Failure Evidence를 본 뒤** 결정한다. 문서에 Conceptual Hypothesis로 존재하는 것은 유지하되 확정 구현으로 승격하지 않는다.

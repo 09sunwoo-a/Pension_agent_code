@@ -8,15 +8,17 @@
 
 1. `README.md`
 2. `00_Core_Concept_Design.md`
-3. `AGENTS.md`
-4. Active Case가 존재한다면 해당 `cases/CASE_xxx/status.md`
+3. `AGENTS.md` (Golden Batch 운영은 §20)
+4. `golden/HUMAN_DECISIONS.md` → `golden/GOLDEN_SET_DRAFT.md`
+5. Active Case가 존재한다면 해당 `cases/CASE_xxx/status.md`
 
 ## Repository
 
 - `sources/`: 판단 근거 Source Corpus
 - `templates/`: Case 개발·실행·평가 표준 Template
-- `cases/`: 실제 Case가 시작될 때 생성
-- `prototype/`: 실제 Runtime 구현이 시작될 때 생성
+- `golden/`: Golden Set(Domain Map · Capability Map · Case Candidates)과 확정 Human Decision
+- `cases/`: 실제 Case (CASE_001 = Baseline / GC-00; Golden P0 Case는 `cases/GC-xx/`)
+- `prototype/`: Gemma 4 최소 Runtime
 
 ## Important Principle
 

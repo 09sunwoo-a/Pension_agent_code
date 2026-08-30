@@ -11,7 +11,7 @@
 - 없음
 
 ## Next Action
-- 없음 (Batch 종료 시 Architecture Revision Gate에서 재검토; Revision 승인 시 RUN_002/EVAL_002)
+- 없음 — Golden Portfolio의 **GC-00 Baseline** 으로 유지 (HD-4, 2026-08-30). P0 Golden Batch 대상 아님; 재작성·재실행 없음. F-001~F-005는 P0 Batch의 Cross-case Evidence 비교 기준. Batch 종료 시 Architecture Revision Gate에서 재검토.
 
 ## Human Decision Needed
 - 없음 (EVAL_001 §10 항목은 Discovery 정책상 Batch 종료 Gate로 이관)

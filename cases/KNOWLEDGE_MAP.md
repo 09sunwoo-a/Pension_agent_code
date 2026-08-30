@@ -1,6 +1,6 @@
 # Knowledge Map — IRP Knowledge Requirements (Failure Discovery Phase)
 
-Case-local Knowledge가 실제 Runtime에서 어떻게 쓰였는지 축적한다. 공통 Domain Knowledge로의 의미적 승격은 Human 승인 없이 하지 않는다.
+Case-local Knowledge가 실제 Runtime에서 어떻게 쓰였는지 축적한다. 공통 Domain Knowledge로의 의미적 승격은 Human 승인 없이 하지 않는다 (Reusable Knowledge 승격 정책은 P0 Batch Evidence 후 결정 — `AGENTS.md` §20.8).
 
 Reusable Knowledge Candidate 기준: 둘 이상의 Case에서 필요하고 의미가 안정된 것. 현재 Case가 1개이므로 모두 `candidate (pending)`.
 
@@ -17,11 +17,38 @@ Reusable Knowledge Candidate 기준: 둘 이상의 Case에서 필요하고 의�
 | CASE_001 K-008 | C1 투자성향 5단계, 동등/하위만 허용 | Human-approved (Source Gap) | 〃 | 인용 | 준수 | → Constraint Map C1 |
 | CASE_001 K-009 | 영업·마케팅 목적 Source와 관리 판단 분리 | Case-local Interpretation | 〃 | 미인용 | 위반 없음 (효과 여부 미확인) | pending |
 
-## Knowledge Gaps (Traceability)
+## Knowledge Authority Classes (HD-3 반영)
+
+Knowledge Pack의 각 K-item에는 다음 중 하나를 Authority로 기재한다.
+
+| Class | 예 | Golden에서의 취급 |
+|---|---|---|
+| Official / Internal Rule | 연금개시 요건, 한도, 인출순서, 디폴트옵션 적용 시계, 위험자산 70% | Constraint 또는 제도 Fact 근거 (As-of 명시) |
+| Product Fact | GIC/ELB 특성, TDF 빈티지·H/UH, 디폴트옵션 구성, 펀드 위험등급 | 상품 추론 근거; 월별 변경분은 "확인 필요" |
+| Training Knowledge | 자금 성격→기간→성향, 연령대별 전략 | 판단 방향성 (규칙 아님) |
+| **Operational Knowledge** (Hot Tip / Field Know-how) | 확인 순서·화면·채널·준비사항·현장 예외·실행 전 확인·화법 | 적극 활용. 단독으로 Hard Constraint·가입/실행 가능 여부 확정 불가 → `Operational Check Needed` |
+| Marketing Practice | KPI 가중치, "무조건 IRP", 실물이전 불가 상품 유도 | 판단 근거 금지; 편향 원인 컨텍스트 |
+| Public Explanation / Market·Product Data | KB Think, 웨비나, 시황·월간 포트폴리오 | 설명 수준 벤치마크 / 시점 병기 시에만 인용 |
+
+## Source Traceability Gaps (Human-approved Business Fact 인데 공식 원문이 없는 것)
+
+HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 원문 확보 시 Source-grounded로 교체한다.
 
 | Gap | 상태 | 영향 |
 |---|---|---|
-| 투자성향별 허용 위험등급의 공식 적합성 기준 Source | 미확보 (Corpus에 없음) | 판단 영향 없음; C1은 Human-approved로 적용, Traceability 기록만 |
+| 투자성향 ↔ 펀드 위험등급 Eligibility Mapping (C2) | Corpus에 매핑표 없음 (SRC-095 위험등급 라벨만) | C2는 Human-approved로 적용; Runtime Eligibility 검사는 매핑표 확보 전까지 "확인 절차 필요"로 |
+| 투자성향 ↔ 디폴트옵션 Eligibility (C3) 공식 원문 | SRC-089 정리본만 (심의필 콘텐츠 기반) | C3 적용; 원문 확보 시 교체 |
+| 투자성향 5단계 적합성 원칙 (C1) 공식 원문 | 미확보 | CASE_001 처리 유지 (소급 수정 없음) |
+
+## Knowledge Gaps (기타 Traceability)
+
+| Gap | 상태 | 영향 |
+|---|---|---|
+| 위험자산 100% 예외 상품 범위·초과 시 페널티 | SRC-077(Field) vs SRC-003/081 상이 → Source Conflict | GC-07: 공식 원문 확인 전 "확인 필요" |
+| 연금수령 방식별 ETF 매도 절차 | SRC-084(Field); 불가 원칙은 SRC-003 | GC-11: Operational Check Needed |
+| 중도인출 90%·신청 시한 1개월 원문 | SRC-003 검수필요 표시 | GC-14 |
+| 예금자보호 한도 현행(1억) | SRC-001/087/089(2026) vs SRC-002/024(5천만) | 최신·공식 우선 |
+| 연금개시 시 수수료 면제 조건 | SRC-003 ⟨판독불확실⟩ | GC-10/16 |
 
 ## Knowledge Issue Classification (EVAL_001 기준)
 
