@@ -49,7 +49,7 @@ ENDPOINT = (
     f"{MODEL_ID}:generateContent"
 )
 API_KEY_ENV = "GEMINI_API_KEY"
-HTTP_TIMEOUT_SEC = 120
+HTTP_TIMEOUT_SEC = 300  # network read timeout only (Operational; no generation setting)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
