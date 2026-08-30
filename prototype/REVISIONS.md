@@ -14,6 +14,6 @@ Execution-enabling change는 여기 기록하지 않고 Run Record·Case status�
   - Knowledge Pack 내용은 변경하지 않음(Frozen). 전달 필드만 확장.
 - **Not in scope (보류)**: F-001/F-008 전용 Brief Validation, Reusable Knowledge Base, 최종 Employee Brief UX, Retrieval/RAG/Graph, Multi-Agent, 자동 Evaluator.
 - **Before Runtime Commit**: 601aa1b (P0 Batch RUN_001)
-- **After Runtime Commit**: (REV-001 커밋 — git log 참조; RUN_002 record `git_head`에 기록)
+- **After Runtime Commit**: 8cf3787 (RUN_002 record `git_head` 참조)
 - **Affected Files**: prototype/runtime.py, prototype/run_case.py, prototype/render_run.py, prototype/README.md, sources/corpus/06_공식기준_Human확인/투자성향별_펀드위험등급_투자권유기준.md, sources/source_registry.md (SRC-096), golden/HUMAN_DECISIONS.md (HD-2.1, HD-6), cases/CONSTRAINT_MAP.md (C2), cases/FAILURE_MAP.md (F-005 재정의)
 - **Regression**: P0 8 Case RUN_002 / EVAL_002 (각 1회, GC-01→04→03→06→10→12→14→16). 결과: `golden/REVISION_001_REGRESSION.md`.
