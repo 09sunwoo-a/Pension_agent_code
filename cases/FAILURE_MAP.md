@@ -150,3 +150,20 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 | F-010 Downstream Option Narrowing | P3 | GC-03, GC-16, GC-01 (RUN_002) | 3/8 경미 | OBSERVED (후보) |
 
 Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). P0 Batch 8 Case 전부: Stop Condition 해당 없음. F-009(P1)·F-008 GC-12(P1)는 Hard Constraint 위반이 아니어서 기록 후 진행. RUN_002(REV-001): Stop Condition 없음, C1/C2/C3 전 Case PASS, Verdict PARTIAL 6 · PASS 2 (GC-04, GC-14).
+
+## P1 Batch 2 (REV-001 Runtime, RUN_001 × 9, 2026-09-01) — Pattern 관찰
+
+| Pattern | Batch 2 관찰 (9 Case) | Case |
+|---|---|---|
+| F-005 Action/Change Bias | 강함 0 / 경미 0 | — (GC-15 실행 불가·GC-11 실행 불가·GC-05 확인 우선 모두 정확) |
+| F-010 Downstream Option Narrowing | 경미 2/9 | GC-07(교체매매 경로 미제시), GC-08(유지+예약변경 경로 미명시) |
+| F-006 Knowledge Under-use | 경미 5/9 (항목 내부 세부) | GC-02 K-004 한도·화면, GC-07 예외 설명, GC-08 ELB·예약 시점, GC-09 DO 범위, GC-17 운용사별 등급 |
+| F-001 Uncertainty Loss | 경미 2/9 | GC-09·GC-17 "방치" (DO 미적용 사유 확인 대상을 확정) |
+| F-003 Provided Fact Omission | 2/9 | GC-09(11월 만기 1,500만), GC-02(고유계정대 200만) |
+| F-004 Confirmation Axis Gap | 경미 4/9 | GC-07·13·15·17 (각 1축) |
+| F-007 Employee Next Action | 0/9 (화면·채널·절차 제시 양호) | — |
+| F-008 Structured→Brief Drift | 0/9 | — |
+| F-009 Marketing Basis | 0/9 | — |
+| 형식 | LaTeX 화살표 잔재(`$\rightarrow$`) 2/9 | GC-02, GC-11 (Presentation, 판단 무관) |
+
+Verdict: PASS 5 (GC-02, 05, 11, 13, 15) · PARTIAL 4 (GC-07, 08, 09, 17). Stop Condition 없음. C1/C2/C3 위반 0 (C2 validator가 6 Case에서 실제 등급 범위 인용 유도). GC-02·GC-07은 API read timeout으로 1차 시도 무출력 → 재실행(모델 출력 기준 각 1회).

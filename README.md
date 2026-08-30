@@ -16,7 +16,7 @@
 
 - `sources/`: 판단 근거 Source Corpus
 - `templates/`: Case 개발·실행·평가 표준 Template
-- `golden/`: Golden Set(Domain Map · Capability Map · Case Candidates), 확정 Human Decision, Batch Summary (`P0_BATCH_SUMMARY.md`)
+- `golden/`: Golden Set(Domain Map · Capability Map · Case Candidates), 확정 Human Decision, Batch Summary (`P0_BATCH_SUMMARY.md`, `REVISION_001_REGRESSION.md`, `P1_BATCH2_SUMMARY.md`)
 - `cases/`: 실제 Case (CASE_001 = Baseline / GC-00; Golden P0 Case는 `cases/GC-xx/`)
 - `prototype/`: Gemma 4 최소 Runtime
 

@@ -143,6 +143,12 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-16 K-006 | C1·C3 | Human-approved | 인용(C1) | 준수 | — |
 | GC-16 K-007 | KPI·계열사·비방 분리 | Marketing | 미인용 | 위반 없음 | D10 공통 |
 
+## P1 Batch 2 관찰 (REV-001 전달 필드 기준)
+
+- 9 Case 모두 Case Relevance·Usage Boundary가 전달됐고, 모델이 Usage Boundary를 반영한 표현("가능 여부 확인 후 안내", "확정하지 않음", "공식 기준 확인")을 GC-07·11·15에서 사용. F-009(마케팅 근거) 0/9.
+- 재사용 K-item: DO 적용 시계(GC-02·05·08·09·13·17), 성향=상한(GC-05·09), C2 등급 범위(GC-02·05·07·11·13·17 인용), 실행 불가 톤(GC-11·15), 계산기(GC-08·09).
+- 잔여 Under-use는 "항목 내부 세부(운용사별 등급, ELB 조건, 예약 시점)" 수준 — Reusable 설계 시 "세부 조건"을 별도 필드로 분리할 필요(관찰).
+
 ## Reusable Knowledge Candidates (P0 Batch 종료 시점 관찰 — 승격은 Human Gate)
 
 | 후보 | 등장 Case | 안정성 |
