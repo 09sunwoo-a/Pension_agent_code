@@ -16,6 +16,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Evidence**: RUN_001 §3 Unknown #1 "발생 사유(단순 미운용 vs 교체매매 대기)" ↔ §9 "현금성자산으로 **방치되어** 수익률 저하가 우려되는 상황" (EVAL_001 §3 Must Not Assume #1 VIOLATED). Smoke_01/02: "우려" 표현은 재현, "방치"는 미재현.
 - **Candidate Layer**: Presentation (primary) · Prompt / Schema (employee_brief 지시 "왜 지금 봐야 하는지") · LLM Reasoning
 - **Reproducibility**: Formal 1/1 (방치), 3/3 (일반 가능성 → 개인 상황 "우려"); GC-01 RUN_001 경미("가능성 높음"→"전형적인"); GC-04 "강력히 선호"; GC-10 situation [추론] 표기가 Brief에서 "63세 전까지 운용 희망"으로 확정; GC-12 reason "100% 현금성 자산으로 **방치**"(입금 14일·사용 예정) — CASE_001 동일 어휘
+- **RUN_002 (Secondary)**: GC-04·GC-12 해소('강력히'·'방치' 제거), GC-01 경미 잔존('안전자산 선호 성향으로 분류'), GC-10 잔존·악화(63세 시점 확정이 situation으로 이동) → 2/8. 전용 Validator 미구현(보류)
 - **Revision Status**: OBSERVED
 
 ## F-002 Knowledge Over-application
@@ -27,6 +28,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Candidate Layer**: Knowledge — Usage Boundary (Limitation 미전달 설계) · LLM Reasoning · Prompt / Grounding
 - **Knowledge Issue Class**: Knowledge Usage Boundary (Content·Authority 문제 아님)
 - **Reproducibility**: 3/3 (연령·효율 확장), 형태는 Run마다 다름
+- **RUN_002 (Secondary, P0)**: 경미 1/8 — GC-01 K-003 분류 휴리스틱(펀드 이력 없음→안전자산 선호)의 개인 확정. 악화 없음
 - **Revision Status**: OBSERVED — Limitation 전달 여부는 Gate D 후보 (Batch 종료 시 상정)
 
 ## F-003 Provided Fact Omission
@@ -47,6 +49,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Evidence**: RUN_001 unknowns 2건(발생 사유 / 인지·사용계획)만 기재; 현재 운용 의사(암시), 디폴트옵션 미등록 인지 여부(누락), 디폴트옵션 등록/적용 조건(누락) (EVAL_001 §3 Required Confirmation).
 - **Candidate Layer**: LLM Reasoning · Prompt / Schema (unknowns_or_confirmations 단일 리스트)
 - **Reproducibility**: 3/3 (unknown 항목 수 2–3건으로 축소되는 경향); GC-01 RUN_001 재현(만기 길이 선호·채널 누락); GC-03 RUN_001 재현(직접/위임 선호·DO 인지·고민 내용 누락); GC-06 RUN_001 재현(결정 시한·익스포저 의사·내점 가능 여부); GC-10 재현(재취업·추가 납입·TDF 유지 의사)
+- **RUN_002**: `must_confirm_before_action` 필드가 생겼으나 Unknown 수는 2~3건으로 동일. 잔존 5/8(GC-01 만기 길이, GC-03 위임 선호, GC-06 결정 시한, GC-10 재취업, GC-16 핵심 사유). REV-001 대상 아님
 - **Revision Status**: OBSERVED
 
 ## F-005 Action / Change Bias (재정의 2026-09-01, HD-6)
@@ -62,7 +65,8 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-03 RUN_001: 확인 우선 구조는 정확하나 "당분간 현 상태 유지" 경로 미명시 (경미)
 - GC-06 RUN_001: 판매중단 펀드 "유지(판매재개 가능성 포함)" 선택지 부재, 후보가 매도·전환·내점으로만 구성
 - GC-16 RUN_001 변형: 이탈 Case에서 "고객의 이전 결정을 지원하는 경로"가 후보에 없고 은행 내 대안(비대면 전환·분리 운용)으로만 구성 → Pattern의 본질은 "비변경/고객결정 경로의 자리 부재"
-- **Revision Status**: **APPROVED → REV-001 (HD-6)** — RUN_002에서 검증. Trade-off 관찰 항목: Intervention Avoidance Bias (Evidence 발생 시에만 신규 Pattern으로 기록)
+- **RUN_002 (REV-001) 결과**: 8/8에서 Judgment가 Action보다 먼저 형성됨. GC-04 '현 상태 유지 가능'(kind=유지 Action), GC-16 고객 결정 경로(전출 절차 지원), GC-10 DO 수용 경로, GC-06 '유지/분할/전량' 의사 확인이 명시됨. 열등 프레이밍(GC-01)·decision 라벨 수렴·TM 근거(GC-06) 소멸. 잔여: GC-01 '지켜드림 수용'을 선택지로 명시하지 않음(경미).
+- **Revision Status**: **REVISED (REV-001) — RUN_002 강한 재현 0, 경미 1**. Trade-off: 필요 Action 약화는 관찰되지 않음(GC-01/06 Action 유지); 하류 조건부 분기·부분 대안 축소가 3 Case에서 관찰됨 → F-010
 
 ## F-006 Provided Knowledge Under-use
 
@@ -79,7 +83,8 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-14 RUN_001 — K-item은 전부 인용했으나 K-001 내부 세부(신청 시기 1개월·16.5%·90%)·K-004 환매일 탈락 (요약 경향)
 - GC-16 RUN_001 — K-001 Operational 세부(확인전화·해지 후 재신청·취소 절차)·K-004 [04-12-613] 미사용
 - **Reproducibility**: 8/8
-- **Revision Status**: **APPROVED → REV-001 (HD-6)** — Knowledge Usage Context(Case Relevance·Usage Boundary·Source) 전달; RUN_002에서 검증. F-002도 Secondary로 관찰
+- **RUN_002 (REV-001) 결과**: 8/8에서 RUN_001 미사용 핵심 K-item이 사용됨 — GC-01 K-002(3년제)·K-003(예약변경 절차), GC-04 K-005(2주 규칙), GC-03 K-004(인출 세금), GC-06 C2/K-005(보통위험 이하), GC-10 K-003(자유인출 ETF), GC-12 K-003(한도 개념), GC-14 K-001(시기·16.5%)·K-004(매도 순서), GC-16 K-004([04-12-613]). 잔여 Under-use(경미) 5/8: GC-01 K-004 한도·화면, GC-03 K-005 환급, GC-10 K-004 TDF·수령 구조, GC-12 [02-12-221], GC-16 K-001 절차 세부 — 주로 '항목 내부 세부·화면번호' 수준.
+- **Revision Status**: **REVISED (REV-001) — RUN_002 8/8 개선, 잔여 경미 5/8**
 
 ## F-007 Employee Next Action Absent
 
@@ -91,7 +96,8 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-03 RUN_001 — DO 등록 경로·[04-12-644]·환급 상태 확인 화면 없음
 - GC-06 RUN_001: **미재현** — 비교 자료 준비·내점 유도·특정상품 지양이 Brief에 제시됨
 - GC-12 RUN_001 — [02-12-221] 한도 조회·환급·세액미공제 확인·9월 말 시한 일정 없음 (HD-1 "화면 연결" 누락)
-- **Reproducibility**: 4/5
+- **RUN_002**: 개선 — GC-01 스타뱅킹 예약변경, GC-03 DO 등록 경로, GC-14 창구·매도 순서, GC-16 [04-12-613]. 잔존: GC-10/12 화면번호 없음 → 2/8
+- **Reproducibility**: 4/5 → RUN_002 2/8
 - **Revision Status**: OBSERVED
 
 ## F-008 Constraint / Condition Drift (Structured → Brief)
@@ -102,6 +108,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Evidence**: GC-03 RUN_001 §9 "위험중립형을 상한으로 하여, 그 이하의 위험수준(안정형, 안정추구형) 내에서만 Solution을 검토" vs Cand.3 "투자성향 범위 내(안정형~위험중립형)" (EVAL_001 §5). GC-12 RUN_001: Cand.1 condition "연금수령한도 내 인출 구조"가 Brief에서 탈락해 "퇴직소득세 절감(70% 적용)"만 남음(1억 전액 감면 오독 가능, P1); Cand.2의 확인 조건(기간·목표)도 Brief에서 "제시·등록하십시오" 지시로 소실.
 - **Candidate Layer**: Presentation · LLM Reasoning · Validation (Brief-Candidate 대조 검사 부재)
 - **Reproducibility**: 2/2 (Pattern 확장: Constraint 범위뿐 아니라 Candidate condition 소실 포함)
+- **RUN_002 (Secondary)**: GC-03 해소(Brief C1 재진술 정확), GC-12 경미 잔존(Brief '절세가 가능'에 한도 조건 생략; Action 1에는 한도 개념 명시) → 1/8. 전용 Validator 미구현(보류)
 - **Revision Status**: OBSERVED
 
 ## F-009 Marketing Trigger as Management Basis
@@ -112,7 +119,18 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Evidence**: GC-06 RUN_001 §6 reason "행내 TM 대상 리스트에 포함되어 있어 수익률 제고를 위한 관리가 필요한 시점" vs knowledge_pack K-006 (EVAL_001 §7 #1).
 - **Candidate Layer**: Prompt / Knowledge Usage (Marketing 태그 Knowledge의 Limitation 미전달; 입력 Fact와 Knowledge 경고가 분리 전달) · LLM Reasoning
 - **Reproducibility**: 1/4 (비결정적)
-- **Revision Status**: OBSERVED
+- **RUN_002**: GC-06 해소(TM 리스트 미사용) → 0/8. Usage Boundary 전달 효과로 추정
+- **Revision Status**: OBSERVED — RUN_002 미재현
+
+## F-010 Downstream Option Narrowing (RUN_002 관찰, 후보)
+
+- **Pattern**: Judgment를 먼저 확정한 뒤 Next Action이 그 Judgment에 맞는 항목으로만 구성되면서, RUN_001에는 있던 **하류 조건부 분기·부분 대안**이 탈락한다. 필요한 Action 자체(GC-01 만기 안내·GC-06 비교 상담 준비)는 약화되지 않았으므로 Intervention Avoidance Bias 로는 보지 않는다.
+- **Severity**: P3 (Practical — 선택지 폭)
+- **Cases Observed**: GC-03 (확인 후 성향 범위 내 운용 분기 탈락), GC-16 (분리 운용 부분 대안 탈락), GC-01 (Action 3 조건이 "수령 계획 없음"으로 과협)
+- **Evidence**: EVAL_002 §3 Trade-off 항목 (각 Case).
+- **Candidate Layer**: Prompt / Schema (Judgment-첫 구조가 "판단에 맞는 Action"을 강조하면서 조건부 후속 분기의 자리를 줄임) · LLM Reasoning
+- **Reproducibility**: 3/8 (경미)
+- **Revision Status**: OBSERVED — Revision #2 자동 대상 아님; Batch 2에서 재관찰
 
 ---
 
@@ -120,14 +138,15 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 | Pattern | Severity | Cases | Reproducibility | Status |
 |---|---|---|---|---|
-| F-001 Uncertainty Loss | P3 | CASE_001, GC-01, GC-04, GC-10, GC-12 | 5 cases | OBSERVED (**Cross-case 5**) |
+| F-001 Uncertainty Loss | P3 | CASE_001, GC-01, GC-04, GC-10, GC-12 | 5 cases → RUN_002 2/8 | OBSERVED (보류 — 전용 Validator 미구현) |
 | F-002 Knowledge Over-application | P2 | CASE_001 | 3/3 | OBSERVED |
 | F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미), GC-03(경미) | 4 cases | OBSERVED |
-| F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03, GC-06, GC-10 | 5 cases | OBSERVED (**Cross-case 5**) |
-| F-005 Action / Change Bias | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06, GC-16(변형) | 6 cases | **APPROVED → REV-001** |
-| F-006 Provided Knowledge Under-use | P2 | GC-01~16 전 Case | 8/8 | **APPROVED → REV-001** |
-| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03, GC-12 (GC-06 미재현) | 4/5 | OBSERVED (**Cross-case 4**) |
-| F-008 Constraint/Condition Drift (Structured→Brief) | P2 (GC-12 P1) | GC-03, GC-12 | 2/2 | OBSERVED |
-| F-009 Marketing Trigger as Management Basis | P1 | GC-06 | 1/4 | OBSERVED |
+| F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03, GC-06, GC-10 | 5 cases → RUN_002 5/8 | OBSERVED (REV-001 대상 아님) |
+| F-005 Action / Change Bias | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06, GC-16(변형) | 6 cases → RUN_002 0 강함 / 1 경미 | **REVISED (REV-001)** |
+| F-006 Provided Knowledge Under-use | P2 | GC-01~16 전 Case | 8/8 → RUN_002 5/8 경미 | **REVISED (REV-001)** |
+| F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03, GC-12 (GC-06 미재현) | 4/5 → RUN_002 2/8 | OBSERVED (REV-001 부수 개선) |
+| F-008 Constraint/Condition Drift (Structured→Brief) | P2 (GC-12 P1) | GC-03, GC-12 | 2/2 → RUN_002 1/8 경미 | OBSERVED (보류) |
+| F-009 Marketing Trigger as Management Basis | P1 | GC-06 | 1/4 → RUN_002 0/8 | OBSERVED (미재현) |
+| F-010 Downstream Option Narrowing | P3 | GC-03, GC-16, GC-01 (RUN_002) | 3/8 경미 | OBSERVED (후보) |
 
-Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). P0 Batch 8 Case 전부: Stop Condition 해당 없음. F-009(P1)·F-008 GC-12(P1)는 Hard Constraint 위반이 아니어서 기록 후 진행.
+Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). P0 Batch 8 Case 전부: Stop Condition 해당 없음. F-009(P1)·F-008 GC-12(P1)는 Hard Constraint 위반이 아니어서 기록 후 진행. RUN_002(REV-001): Stop Condition 없음, C1/C2/C3 전 Case PASS, Verdict PARTIAL 6 · PASS 2 (GC-04, GC-14).
