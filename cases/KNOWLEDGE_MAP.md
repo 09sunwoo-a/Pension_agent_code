@@ -119,6 +119,18 @@ HD-2에 따라 아래 Gap은 Business Fact를 약화시키지 않는다. 공식 
 | GC-12 K-007 | C1·C3 | Human-approved | 인용 | 준수 | → CONSTRAINT_MAP |
 | GC-12 K-008 | "무조건" 마케팅 분리·센터 연계 | Marketing/Internal | 인용(센터) | 제안 톤 경미 | D10 공통 |
 
+## GC-14 Knowledge Items (RUN_001 기준)
+
+| K-ID | Knowledge (요지) | Authority Class | 모델 인용 | Eval 관찰 | Reusable Candidate |
+|---|---|---|---|---|---|
+| GC-14 K-001 | 중도인출 사유·시기·90%·16.5% | Internal/Public | 인용 | 사유 정확, 시기·세율 세부 탈락 | candidate (GC-03 K-004와 통합) |
+| GC-14 K-002 | 세전 신청·실수령 역산 | Operational | 인용 | 정확 | candidate |
+| GC-14 K-003 | 비대면 불가·창구·서류 | Operational (Check) | 인용 | 정확 | candidate (Operational Check 표시 유지) |
+| GC-14 K-004 | 매도 순서·중도해지 손실·환매일 | Operational/Training | 인용 | 환매일 탈락 | candidate |
+| GC-14 K-005 | 세액공제 미신청분 등록 | Operational/Internal | 인용 | 정확 | candidate (GC-10/12 통합) |
+| GC-14 K-006 | 권유 금지·연저펀드 조합은 다음 기회 | Operational/Golden | 인용 | 권유 금지 명시 | D10 공통 |
+| GC-14 K-007 | C1·C3 | Human-approved | 미인용 (무관) | — | — |
+
 ## Knowledge Gaps (기타 Traceability)
 
 | Gap | 상태 | 영향 |

@@ -66,7 +66,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 - **Pattern**: Context에 전달된 Knowledge 중 현재 판단에 직접 필요한 항목(상품 특성·확인 화면·시점 충돌 등)을 인용·사용하지 않아, 판단이 제도 Fact 수준에서 멈추고 상품 비교 축·실행 조건이 빠진다.
 - **Severity**: P2
-- **Cases Observed**: GC-01, GC-04, GC-03, GC-06, GC-10, GC-12
+- **Cases Observed**: GC-01, GC-04, GC-03, GC-06, GC-10, GC-12, GC-14
 - **Evidence**: GC-01 RUN_001 — K-002(지켜드림 3년제), K-004(만기별 금리·월 한도·[04-12-17A]·계산기), K-006(예보 한도 충돌) 미인용; Brief에 만기 잠김·비교 축·화면 없음 (EVAL_001 §6).
 - **Candidate Layer**: Prompt / Grounding (Knowledge 9건 평면 나열, Relevance·Limitation 미전달 설계) · LLM Reasoning
 - GC-04 RUN_001 — K-005의 "최초 입금 후 2주 무지시 → 등록 DO 적용" 규칙을 300만원(입금 23일)에 미적용, "운용지시 필요"로만 서술
@@ -74,8 +74,9 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - GC-06 RUN_001 — K-002(원인 분석·처분효과)·K-005(등급 확인 절차)·K-006(KPI 분리) 미사용
 - GC-10 RUN_001 — K-003(수령방식·한도/연차·자유인출 ETF)·K-004(수령기간·TDF) 미사용, 센터 연계로 대체
 - GC-12 RUN_001 — K-003(한도 산식·[02-12-221]·연차) 미사용 → 화면 연결 누락
-- **Reproducibility**: 6/6
-- **Revision Status**: OBSERVED — **Cross-case 6** → Architecture Revision Proposal 후보
+- GC-14 RUN_001 — K-item은 전부 인용했으나 K-001 내부 세부(신청 시기 1개월·16.5%·90%)·K-004 환매일 탈락 (요약 경향)
+- **Reproducibility**: 7/7
+- **Revision Status**: OBSERVED — **Cross-case 7** → Architecture Revision Proposal 후보
 
 ## F-007 Employee Next Action Absent
 
@@ -121,9 +122,9 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 | F-003 Provided Fact Omission | P2 | CASE_001, GC-01, GC-04(경미), GC-03(경미) | 4 cases | OBSERVED |
 | F-004 Confirmation Axis Gap | P2 | CASE_001, GC-01, GC-03, GC-06, GC-10 | 5 cases | OBSERVED (**Cross-case 5**) |
 | F-005 Non-change Path Absent | P1 | CASE_001, GC-01, GC-04, GC-03(경미), GC-06 | 5 cases | OBSERVED (**Cross-case 5**) |
-| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04, GC-03, GC-06, GC-10, GC-12 | 6/6 | OBSERVED (**Cross-case 6**) |
+| F-006 Provided Knowledge Under-use | P2 | GC-01, GC-04, GC-03, GC-06, GC-10, GC-12, GC-14 | 7/7 | OBSERVED (**Cross-case 7**) |
 | F-007 Employee Next Action Absent | P2 | GC-01, GC-04(경미), GC-03, GC-12 (GC-06 미재현) | 4/5 | OBSERVED (**Cross-case 4**) |
 | F-008 Constraint/Condition Drift (Structured→Brief) | P2 (GC-12 P1) | GC-03, GC-12 | 2/2 | OBSERVED |
 | F-009 Marketing Trigger as Management Basis | P1 | GC-06 | 1/4 | OBSERVED |
 
-Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04·GC-03·GC-06·GC-10·GC-12: Stop Condition 해당 없음.
+Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution 없음, Leakage 없음). GC-01·GC-04·GC-03·GC-06·GC-10·GC-12·GC-14: Stop Condition 해당 없음.
