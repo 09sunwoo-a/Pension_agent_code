@@ -87,3 +87,10 @@ Diagnostic Pilot(DIAG-01~03) Gap Review에서 위 8축에 더해 확정된 Evalu
 - **판정 사례 (Pilot 실측)**: DIAG-03 — 추천 사유 "이탈 방지 및 고객 수익 제고 가능" = 위반. Target: "전출 사유가 정기예금 금리에 국한되어 있고, 현 보유 예금(2.6%)보다 높은 특별제공 금리(3.6%)로 동일한 니즈를 충족할 수 있기 때문".
 
 참고: G3(화면 Reference S5 단일 위치)는 해석 축이 아니라 구조 규칙 — deterministic `validate_screen_refs`와 `design/EMPLOYEE_BRIEF_SPEC.md` v2 배너에서 관리.
+
+### SG 판정 보강 — FC-1 (P2 Batch 3, 2026-08-31)
+
+P2 Batch 3에서 3/8 Case 재현된 **FC-1(S4 화법층의 확실성 인플레이션)**을 SG-1·SG-2 판정에 명시 편입한다 (신규 Gate 아님 — 기존 Gate의 판정 위치 보강):
+- SG-1 판정 시 **S4 scripts/conditional_scripts를 반드시 별도 확인**한다 — S1~S3에서 보존된 조건성·Unknown이 S4에서 소실되는 패턴이 P2의 주 위반 위치였다 (GC-20: 분기 축소 / GC-21: [상담 전 확인] 사항의 선행 설명).
+- SG-2 판정에 **Knowledge 등급 승격**을 포함한다 — T3 단독·PROVISIONAL·CONFLICT 지식이 S4에서 확정·최적 표현("가장 유리합니다")으로 승격되면 위반 (GC-25; HD-3의 화법층 적용).
+- GC-18 계열(관찰 상태 → "방치·관리 소홀·수익률 저하 우려" 자동 승격, 판단 reasoning 포함)은 축6/SG-2의 기존 범위 — FC-2(Interpretation→Judgment 승격)로 위치만 구분해 관찰한다.

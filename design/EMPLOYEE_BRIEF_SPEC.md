@@ -13,6 +13,14 @@
 > - **G3 · 화면 Reference = S5 단일 표시 위치**: S1~S4 본문에는 무엇을 확인/실행할지만 쓰고(화면명의 일반명사 수준 설명 허용), 화면번호/메뉴 경로는 S5에서만 제공. Validator: 미제공 화면번호 생성 = FAIL / 실존 화면번호의 S1~S4 노출 = REVIEW (`prototype/runtime.py` `validate_screen_refs`).
 > - **G4 · Customer-centered Recommendation (HD-7의 Output-side 적용)**: 추천사유는 Customer Need / Benefit / Customer–Product Fit만. "이탈 방지"·"AUM 유지"·"실적" 등 Bank Objective는 Management Direction·Product Candidate의 추천사유가 될 수 없다 (이전 고려 사실은 Situation Evidence로는 사용 가능). Evaluator Semantic Gate에서 supporting rationale의 정당화 구조를 확인.
 >
+> **P2 Batch 3 보강 (FC-1 대응, 2026-08-31)** — P2에서 3/8 Case 재현된 "S4 화법층의 확실성 인플레이션"(GC-20 분기 축소·GC-21 원인 자체 생성·GC-25 T3 확정 승격)에 대한 최소 원칙:
+> 1. S4는 S1~S3보다 Epistemic Certainty를 높이지 않는다.
+> 2. S2/S3의 Unknown·Required Confirmation·Knowledge Gap을 S4에서 설명으로 메우지 않는다.
+> 3. Conditional Direction은 S4에서도 조건성을 유지한다 (유지·거절 분기 포함 각 분기의 화법).
+> 4. Knowledge에 없는 원인·사실을 자연스러운 설명을 위해 생성하지 않는다.
+> 5. T3 단독 / PROVISIONAL / CONFLICT Knowledge는 확정적 최적·유리 표현("가장 유리합니다" 등)으로 승격하지 않는다.
+> 적용: `prototype/runtime.py` SYSTEM_ROLE_V3 원칙 19 + OUTPUT_INSTRUCTION_V3 s4 주석 + Evaluator SG-1/SG-2 판정(INTERPRETATION_DESIGN). Deterministic validator 추가 없음(semantic — Evaluator Gate 검출). GC-18 계열(관찰 상태 → "방치·수익률 저하 우려" 자동 승격)은 기존 F-001 원칙 보강(원칙 6)으로 대응 — 새 Failure Architecture 없음.
+>
 > 아래 v1 본문은 REV-002 종료 시점의 확정 기록으로 보존한다.
 
 ---
