@@ -1,7 +1,7 @@
 # GC-05 Status
-- Current Stage: COMPLETE (P1 Batch 2, REV-001)
-- Latest Run: RUN_001
-- Latest Evaluation: EVAL_001 — PASS
+- Current Stage: COMPLETE (REV-002 Regression)
+- Latest Run: RUN_002 (REV-002, input_v2)
+- Latest Evaluation: EVAL_002 — PASS
 ## Current Issue
 - 없음
 ## Approved Change Scope

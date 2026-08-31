@@ -167,3 +167,22 @@ Immediate Gate 해당 없음 (P0 없음, C1/C3 유효, 고객 유해 Solution �
 | 형식 | LaTeX 화살표 잔재(`$\rightarrow$`) 2/9 | GC-02, GC-11 (Presentation, 판단 무관) |
 
 Verdict: PASS 5 (GC-02, 05, 11, 13, 15) · PARTIAL 4 (GC-07, 08, 09, 17). Stop Condition 없음. C1/C2/C3 위반 0 (C2 validator가 6 Case에서 실제 등급 범위 인용 유도). GC-02·GC-07은 API read timeout으로 1차 시도 무출력 → 재실행(모델 출력 기준 각 1회).
+
+## REV-002 Regression (input_v2 Evidence Pack, RUN 8 Case, 2026-08-31) — Pattern 관찰
+
+Verdict: **PASS 4 (GC-03↑, GC-04, GC-05, GC-09↑) · PARTIAL 4 (GC-11↓, GC-14↓, GC-16, GC-17) · FAIL 0.** 개선 2 · 유지 4 · 후퇴 2. Stop Condition 없음. C1/C2/C3 위반 0/8, 금지어("방치") 0/8, LaTeX 잔재 0/8, Candidate Pool 위반 0/8.
+
+| Pattern | REV-002 관찰 (8 Case) | Case |
+|---|---|---|
+| F-001 Uncertainty Loss | **기존 "방치" 계열 소멸 0/8** (GC-09·17 직전 발생분 해소 — DO 적용 예상 기준일 R-Fact 효과). **신규 변형 3건**: CRM 진술의 Brief 사실 승격(GC-14 "무주택자로서" — structured는 보존), 세제 수치 확정화(GC-11 1,500만 "초과" 확정 — 직전엔 확인 처리), 화법 내 선제 단정(GC-05 경미 "운용될 예정") | GC-14, GC-11, GC-05(경미) |
+| F-003 Provided Fact Omission | GC-09 11월 만기 1,500만 **해소** (⑥ Upcoming Events 구조 효과). 신규 재현 없음 | — |
+| F-004 Confirmation Axis Gap | Missing 힌트 제거에도 핵심 확인 축 자가 도출 성공(GC-03 환급, GC-09 5/5, GC-17 은퇴 시기). 잔여 경미: GC-03(위임 선호·재취업), GC-05(자금 목적·기간 탈락), GC-14(내점 시기), GC-16(부분 이전 의향), GC-17(H/UH) | 5/8 경미 |
+| F-005 Action/Change Bias | 0/8 — GC-04 유지·GC-05 확인 우선 Pair 정확, 기회 중심 Brief 구조에서 재발 없음 | — |
+| F-006 Knowledge Under-use | GC-17 K-002(운용사별 등급) **사용 개선**. 잔여: GC-16 확인전화·DO 재신청 세부, GC-17 알파드림2 구성 미활용 | 2/8 경미 |
+| F-008 Structured→Brief Drift | 구조 필드 수준 0/8 (5-섹션 스키마·조건 필드 효과). 단 F-001 신규 변형(GC-14)이 같은 지점(S1 산문)에서 발생 — Drift의 의미 층위는 잔존 | GC-14 |
+| F-010 Downstream Option Narrowing | GC-03 유지 경로 **복원**. 잔여: GC-16 부분 대안(ETF만 이전 등) 2연속 부재, GC-09 직접운용(ETF) 분기 미구성(경미) | 2/8 |
+| **신규 후보 F-011: Evidence/Knowledge 슬롯 혼동** | supporting_evidence_ids에 K-ID 기재 1건 (deterministic validator 검출, E-ID 자체는 유효 — 형식) | GC-11 (1/8) |
+| **신규 후보 F-012: S5 출처의 K-ID 표기** | S5 source를 자료명/SRC-ID가 아닌 내부 K-ID로 표기 — 직원이 찾아갈 수 있는 연결 아님 | GC-03·04·11·14 (4/8) |
+| 화면 생존 | deterministic REVIEW 1건 (GC-05 [06-12-631] 미사용 — Evaluator 판단 경미) | GC-05 |
+
+N/A 처리 (Input removed by approved REV-002 schema — PASS 아님·평가 제외): GC-05 3축(마이데이터·동연령·TM), GC-04 1축(TM/F-009), GC-09 1축(DO 자동적용 이력), GC-14 2축(연도별 납입·미신청 이력 대조), GC-03 1축(과세이연 등록 상태). 상세는 각 EVAL.

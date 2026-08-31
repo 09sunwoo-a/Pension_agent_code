@@ -1,7 +1,7 @@
 # GC-17 Status
-- Current Stage: COMPLETE (P1 Batch 2, REV-001)
-- Latest Run: RUN_001
-- Latest Evaluation: EVAL_001 — PARTIAL
+- Current Stage: COMPLETE (REV-002 Regression)
+- Latest Run: RUN_002 (REV-002, input_v2)
+- Latest Evaluation: EVAL_002 — PARTIAL
 ## Current Issue
 - 없음
 ## Approved Change Scope

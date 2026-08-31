@@ -1,7 +1,7 @@
 # GC-16 Status
-- Current Stage: COMPLETE (P0 Batch RUN_002 Regression, REV-001)
-- Latest Run: RUN_002
-- Latest Evaluation: EVAL_002 — PARTIAL (RUN_001: PARTIAL)
+- Current Stage: COMPLETE (REV-002 Regression)
+- Latest Run: RUN_003 (REV-002, input_v2)
+- Latest Evaluation: EVAL_003 — PARTIAL
 ## Current Issue
 - 없음 — F-005 해소, F-006 개선; 잔여는 EVAL_002 §2
 ## Approved Change Scope
