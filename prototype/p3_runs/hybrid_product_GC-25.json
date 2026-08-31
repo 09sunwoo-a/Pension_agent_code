@@ -1,0 +1,19 @@
+{
+  "case_id": "GC-25",
+  "mode": "hybrid_product",
+  "investment_profile": "안정추구형",
+  "deterministic_pool": [],
+  "llm_prune": {
+    "ok": false,
+    "keep": null,
+    "removed": null,
+    "unmentioned_kept": null,
+    "reason": null,
+    "model_status": null,
+    "usage": null
+  },
+  "fallback": null,
+  "none_reason": "Expected Judgment = 정보 안내 중심 / 고객 결정 지원 (해지 문의) — 상품 권유가 부적절한 상담, Frozen supply도 product_candidates 없음. 빈 Pool이 정상 결과",
+  "final_pool": [],
+  "det_excluded": []
+}

@@ -1,0 +1,674 @@
+{
+  "case_id": "GC-18",
+  "runtime_revision": "PRE-P2-REFINEMENT",
+  "started_at": "2026-08-31T18:53:49+00:00",
+  "model": "gemma-4-31b-it",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemma-4-31b-it:generateContent",
+  "generation_config": null,
+  "git_head": "41d8010ed07074649e58ae4fa8a7bc945cf7f3ed",
+  "status": "VALIDATION_ERROR",
+  "error": "validation_forbidden_words: FAIL",
+  "p3_hybrid_product_selection": {
+    "frozen_pool_product_ids": [
+      "P01",
+      "P02",
+      "P03",
+      "P04"
+    ],
+    "deterministic_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P02 신한 마음편한 TDF 시리즈",
+      "P03 한화 LIFEPLUS TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P09 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…",
+      "P10 무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+      "P11 무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+      "P12 무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)"
+    ],
+    "final_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…"
+    ],
+    "fallback": null
+  },
+  "frozen_canonical": {
+    "file": "cases/GC-18/canonical.json",
+    "sha256": "4108eb05b150b8e4e07041cd839e6d9bd6de8ac32fdf6039fd8b90c014e9e4d1"
+  },
+  "frozen_knowledge_pack": {
+    "knowledge_pack": "cases/GC-18/knowledge_pack.md",
+    "knowledge_pack_sha256": "8ca70a541b88f8beb35abe6ec2dfd2bae97bb519707d7f336916be261db6d7f6"
+  },
+  "evidence_blocks": {
+    "1. Customer & Retirement Lifecycle": [
+      "E101",
+      "E102",
+      "E103",
+      "E104",
+      "E105",
+      "D004"
+    ],
+    "2. Current IRP Snapshot": [
+      "E201",
+      "E202",
+      "E203",
+      "E204"
+    ],
+    "3. Recent Changes & Money Flow": [
+      "E301",
+      "E302",
+      "D001",
+      "D002"
+    ],
+    "4. Event Timeline": [
+      "E401"
+    ],
+    "5. Investment Behavior": [
+      "E501"
+    ],
+    "6. Digital Behavior & Sequence": [],
+    "7. Wider Financial Context": [
+      "E701",
+      "E702",
+      "E703"
+    ],
+    "8. Upcoming Decision Horizon": [
+      "E801",
+      "D003"
+    ],
+    "9. Supplementary Human-authored Context": []
+  },
+  "derived_items": [
+    {
+      "id": "D001",
+      "block": 3,
+      "type": "arithmetic_derived",
+      "text": "입금 경과일: 2026-07-31 25,000,000원 (사유: 만기상환) → 기준일까지 35일 경과"
+    },
+    {
+      "id": "D002",
+      "block": 3,
+      "type": "arithmetic_derived",
+      "text": "현재 현금성자산 25,000,000원은 2026-07-31 '만기상환' 입금액과 금액이 일치한다 (산술 대조)"
+    },
+    {
+      "id": "D003",
+      "block": 8,
+      "type": "arithmetic_derived",
+      "text": "만기 시한: 타행 ISA 90,000,000원 만기 2026-10-14 → D-40"
+    },
+    {
+      "id": "D004",
+      "block": 1,
+      "type": "rule_derived",
+      "text": "연금개시요건 충족 여부: 미충족 (만 49세, 가입 6.3년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-04 | rule_id=PENSION-OPEN-01"
+    }
+  ],
+  "supply_summary": {
+    "products": [
+      "P01",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08"
+    ],
+    "tips": [
+      "T01"
+    ],
+    "screens": [
+      "S01",
+      "S02",
+      "S03",
+      "S04"
+    ],
+    "unsellable_products": []
+  },
+  "supply": {
+    "product_candidates": [
+      {
+        "name": "KB 온국민 TDF 시리즈",
+        "product_type": "TDF",
+        "risk_grade": 3,
+        "risk_level_label": "다소높은",
+        "return_recent": 0.1258,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "은퇴에 맞춘 글로벌자산배분",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P01"
+      },
+      {
+        "name": "마이다스 기본 TDF 시리즈",
+        "product_type": "TDF",
+        "risk_grade": 4,
+        "risk_level_label": "보통",
+        "return_recent": 0.185,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "마이다스에셋의 대표적인 국내외펀드를 편입하는 TDF",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P04"
+      },
+      {
+        "name": "키움 더드림 단기채",
+        "product_type": "채권형(단기채)",
+        "risk_grade": 6,
+        "risk_level_label": "매우낮은",
+        "return_recent": 0.0229,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "금리변동 위험 최소화, 매매차익 및 이자수익 추구",
+        "fee_note": "합성총보수 연0.2990% (SRC-094, 교차 원천 결합)",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P05"
+      },
+      {
+        "name": "한국투자 크레딧 포커스 ESG",
+        "product_type": "채권형",
+        "risk_grade": 5,
+        "risk_level_label": "낮은",
+        "return_recent": 0.0087,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "ESG등급이 우수한 중단기 우량채권에 투자, 지속가능한 초과수익 추구",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P06"
+      },
+      {
+        "name": "교보악사 Tomorrow 장기우량K-1호",
+        "product_type": "채권형(장기 국공채·우량채)",
+        "risk_grade": 5,
+        "risk_level_label": "낮은",
+        "return_recent": -0.0579,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "안정성이 높은 채권을 주된 투자대상자산으로 안정적인 이자수익 추구",
+        "fee_note": "총보수 연0.3300% (SRC-094, 교차 원천 결합)",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P07"
+      },
+      {
+        "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+        "product_type": "GIC(이율보증형보험)",
+        "risk_grade": null,
+        "risk_level_label": null,
+        "return_recent": 0.0441,
+        "return_period": "공시이율(연복리)",
+        "return_as_of": "2026-07",
+        "features": "보험사 발행 원리금보장상품 — 예금자보호 대상, IRP 연금지급 가능, 최소금액 제한 없음, 별도 신청 없이 거래 가능(운용지시서 상품종류 '보험'). 신용등급 AAA, 계약기간 3년, 잔여한도 699억원(금리·한도 월단위 변동). 금리는 공시이율(연복리) — 타 상품 비교 시 단리 환산 필요",
+        "maturity_note": "계약기간 3년",
+        "sellable": null,
+        "channels": [],
+        "product_id": "P08"
+      }
+    ],
+    "hot_tips": [
+      {
+        "tip_id": "T01",
+        "kind": "field_hot_tip",
+        "title": "[ ISA 만기 자금 개인형IRP 전환 마케팅 ]",
+        "body": "「만기 ISA의 연금계좌로 전환입금」이란? ISA 계좌 만기일로부터 60일 이내에 만기자금의 전부 또는 일부 금액을 연금계좌로 추가 납입 허용 및 세액공제 혜택 제공. ● 입금 가능 금액 — 연간 납입한도 1,800만원(연금저축, DC, IRP 포함) 내 개인부담금 + ISA 만기자금(만기일로부터 60일 이내) ● 입금액에 대한 세액공제 혜택 — ISA 만기자금 입금액의 최대 10%, 최대 300만원 까지 세액공제 가능(세액미공제 금액은 과세제외)",
+        "author": "박수연 (동부산종합금융센터 / L2 팀장)",
+        "written_at": "2026-01-31",
+        "likes": 33,
+        "source": "퇴직연금 Hot Tip (SRC-072, 글번호 204287)",
+        "provenance": "HT-004 — 원문 발췌(본문 L27~45 중), 재작성 없음"
+      }
+    ],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[04-12-642]",
+        "screen_name": "적립금및수익률조회",
+        "actions": "전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)",
+        "provenance": "SCR-001"
+      },
+      {
+        "screen_id": "S02",
+        "surface": "staff",
+        "screen_no": "[01-12-213]",
+        "screen_name": "입금/입금예약",
+        "actions": "입금·입금예약 — 거래구분 'ISA 만기자금 입금' 선택 시 입금가능금액 자동 조회",
+        "provenance": "SCR-014"
+      },
+      {
+        "screen_id": "S03",
+        "surface": "staff",
+        "screen_no": "[04-10-099]",
+        "screen_name": "세금우대관련조회",
+        "actions": "저축종류별 세금우대내역 조회 (저축종류 83-만기 ISA 전환으로 전환 가능액 확인), 연금납입현황 확인",
+        "provenance": "SCR-015"
+      },
+      {
+        "screen_id": "S04",
+        "surface": "starbanking",
+        "menu_path": "전체메뉴 > 상품가입 > 퇴직연금 > 운용상품 찾기",
+        "actions": "원리금보장상품/ETF/디폴트옵션/펀드/TDF 상품 조회 — 고객 본인 조회·매수",
+        "provenance": "SCR-011"
+      }
+    ]
+  },
+  "constraint_context": {
+    "constraint_id": "C1",
+    "investment_profile": "위험중립형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden_levels": [
+      "적극투자형",
+      "공격투자형"
+    ],
+    "basis": "Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2·HD-2.1; cases/GC-18/canonical.json 투자성향 Evidence). C2 매핑은 KB 투자권유 기준(SRC-096)."
+  },
+  "knowledge_ids_used": [
+    "K-001",
+    "K-002",
+    "K-003",
+    "K-004"
+  ],
+  "knowledge_fields_sent": [
+    "Knowledge",
+    "Case Relevance",
+    "Limitation",
+    "Authority / Status",
+    "Source / Location"
+  ],
+  "prompt": {
+    "system_role": "당신은 은행 직원의 개인형IRP 사후관리 판단을 지원하는 의사결정 지원 Agent다. 최종 산출물은 직원이 그대로 사용할 수 있는 Decision & Action Brief다.\n\n[Evidence 읽기]\n1. 입력은 9-Block Customer Evidence Pack이다. ①~⑧은 시스템 관찰 Evidence, ⑨는 사람이 작성한 보조 맥락(CRM 메모)이다. 고객 상태의 재구성은 ①~⑧을 기본으로 하고, ⑨는 참고로만 결합한다.\n2. 현재 상태(②)와 최근 변화(③④)를 항상 함께 읽는다 — 상태는 결과이고 변화는 형성 과정이다. 변화가 상태를 설명하면 그 연결을 명시하고, 최근 변화가 없으면 \"최근 관련 변화가 관찰되지 않음\"까지만 서술한다.\n3. 잔액-Flow의 \"금액 일치\"는 산술 사실로 사용한다. 동일 자금으로 보는 것은 추론으로 표기하고, 그 자금의 목적은 확인 대상이다. 예정 Event(⑧)가 뒷받침할 때만 사실 수준으로 다룬다.\n4. 행동 신호(⑥)는 시간순 서사(무엇을 탐색해 왔고 실행에 도달했는가)로 상황 해석과 상담 접점에 쓴다. 단 Sequence가 아무리 강해도 산출 가능한 최대 해석은 \"관심/탐색 관찰\"이며, 고객 의사로 승격하지 않는다. 관리 필요성의 근거는 행동 신호가 아니라 시한·제도·자산 상태 등 다른 Evidence에 있어야 한다.\n5. CRM(⑨)은 그 시점의 기록이다. 작성 경과일과 이후의 시스템 Event·행동 신호를 시간순으로 함께 읽고, 이후 Evidence가 기록과 다른 방향을 시사하면 어느 쪽도 채택하지 않고 재확인을 결론으로 삼는다.\n6. 모든 해석은 Fact / Signal / Inference(추론 표기 의무) / Unknown 중 하나의 상태를 가지며, 그 상태는 Brief 산문까지 보존된다. 새 Evidence 없이 상태를 올리지 않는다: 고객·CRM 진술→시스템 확인 사실, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생의 승격을 금지한다. 자금의 의미·목적·관리상태도 Evidence 없이 확정하지 않는다 — \"운용 대기 중\"·\"미운용 자금\" 류의 의미 부여 대신 \"입금 이후 추가 매매·운용지시가 확인되지 않았다\"처럼 관찰 가능한 상태로 서술한다. 현금 보유·최근 입금·운용지시 미확인 등은 관찰 가능한 상태일 뿐이다 — 별도 Evidence 없이 이를 \"방치\"·\"관리 소홀\"·\"수익률 저하 우려\" 등으로 자동 승격하지 않으며, 이런 승격을 관리 판단(Why-now·reasoning)의 근거로도 쓰지 않는다.\n\n[판단]\n7. Action보다 Management Judgment가 먼저다. 이 고객에게 지금 맞는 관리판단(개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가)을 Evidence로 먼저 확정한다. 어느 방향도 기본값이 아니며, \"관리 필요\"는 \"변경 필요\"와 같은 말이 아니다.\n8. Why-now는 반드시 실제 Event·변화·시한(③④⑧)에서 나와야 한다. 복수 이슈가 있으면 시한 임박도 → 고객 이익 영향 → 접점 자연스러움 순으로 주 포인트를 정하되, 나머지를 버리지 않고 부 포인트나 후속관리로 남긴다. 은행의 영업 목적을 관리 필요성의 근거로 만들지 않는다.\n9. 확인 사항은 Management Direction을 실제로 바꾸는 미확인 변수만 도출한다. 시스템/단말/공식자료로 닫을 수 있으면 '상담 전 확인', 고객만 답할 수 있으면 '고객과 확인'이다. 이미 Evidence에 있는 사실을 고객에게 다시 묻지 않는다.\n10. 조건 분기는 실제 판단을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 충분하면 단일 방향을 제시한다.\n11. 업무 판단은 제공된 Knowledge에 근거하고, Knowledge와 Evidence에 없는 업무 사실·제도 규칙·수치를 생성하지 않는다. 제공된 Constraint를 위반하는 방향을 만들지 않는다. 투자성향은 허용 가능한 최대 위험의 상한이다.\n\n[전달 — Brief]\n12. 관리 방향은 유지·신규자금 운용·만기 재운용·조정·운용체계 변경·세제 활용·연금수령 관리·중도인출 지원·계약이전/부분이전 지원·고객 의사결정 지원·불가 시 대안 안내를 모두 포함한다 — 상품 추천이 없는 상담도 정상적인 방향이다. 사고 순서는 관리 방향 → Solution 유형 → 실제 상품 후보다. 상품부터 고르지 않는다.\n13. 특정 상품은 제공된 Candidate Pool 안에서만 product_id로 참조한다. Pool 밖 상품명을 만들지 않는다. 판매 불가 상품·고객 성향을 초과하는 등급의 상품은 후보로 올리지 않는다. 추천 사유는 최근 수익률이 높다는 사실이 아니라 고객의 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·의사와 상품 특성의 적합성으로 작성한다. 수익률·연령 등은 이미 정해진 방향을 고객이 이해하기 쉽게 설명하는 재료로만 쓴다. 관리 방향과 추천 사유는 고객 필요·고객 이익·고객-상품 적합성으로만 정당화한다 — \"이탈 방지\"·\"자산 유지\"·\"실적\" 등 은행의 목적을 추천 사유로 쓰지 않는다. 고객이 이전을 고려한다는 사실은 상황 Evidence로 쓸 수 있으나, 고객이 떠나지 않게 한다는 것이 추천의 이유가 될 수는 없다.\n14. 상담 화법은 지침이 아니라 완성된 문장이다 — 이 고객의 실제 금액·시점·자산구성·상품명·관리 방향이 문장 안에 들어간 Customer-specific Script를 만든다. Hot Tip 화법 Knowledge가 있으면 원문을 복사하지 말고 이 고객의 실제 데이터와 합성한다. 쉬운 용어를 쓰고(\"고유계정대\" 대신 \"운용 지시가 되지 않은 현금성 자산\" 등), 단정·압박·과장하지 않는다.\n15. Tip/Guide 원문과 실행 화면은 제공된 목록에서 tip_id/screen_id로만 참조한다. 원문을 재작성하거나 없는 화면번호·경로를 만들지 않는다. 제안한 Action과 직접 연결된 것만 고른다. 화면번호·메뉴 경로의 표시 위치는 S5 하나다 — S1~S4 본문에는 \"[04-12-XXX]\" 같은 화면번호를 쓰지 않고 \"단말에서 디폴트옵션 실제 적용 여부 확인\"처럼 무엇을 확인·실행할지만 쓴다(화면명을 일반명사 수준으로 자연스럽게 설명하는 것은 허용).\n16. 내부 안전원칙(\"~로 단정할 수 없습니다\", \"Signal은 Intent가 아닙니다\" 류의 방어문구)을 Brief에 노출하지 않는다. 원칙은 판단에서 지키고, Brief에는 그 결과를 자연스러운 문장으로 쓴다. Brief는 직원용이며 고객에게 직접 주는 문서가 아니다.\n17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다.\n18. [Decision Variable / Conditionality Preservation] S2에서 '고객과 확인'으로 남긴 미확인 변수가 S3의 방향·상품 후보 또는 S4 화법을 실제로 바꾸는 경우, 확인 전에 특정 분기를 확정하지 않는다: S3는 그 변수를 조건으로 하는 조건부 추천을 유지하고, S4도 같은 조건성을 보존한다. 필요하면 화법을 \"확인 질문 → 확인 결과에 맞는 설명·추천\" 순서로 구성한다. (예: 은퇴시점이 미확인이면 \"은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?\" 이후 \"2045년 전후라면 TDF2045 계열을 후보로 살펴볼 수 있습니다\" — 확인 전 \"TDF2045를 추천드립니다\" 확정 금지.)\n19. [S4 확실성 비인플레이션] S4 화법은 S1~S3보다 확실성(Epistemic Certainty)을 높이지 않는다. 구체적으로: (a) S2·S3에서 미확인·확인 필요·Knowledge 부재로 남긴 것을 S4에서 자연스러운 설명으로 메우지 않는다 — 원인·정의·산정 기준이 Knowledge에 없으면 설명을 만들지 말고 확인으로 연결한다. (b) S3가 분기로 나눈 방향은 S4에서도 각 분기의 화법을 유지한다 — 한 분기(특히 변경·재도전 방향)만 화법으로 만들지 않으며, 고객이 유지·거절을 택한 분기도 존중하는 화법을 가진다. (c) 현장 Tip 단독 근거·잠정(PROVISIONAL)·충돌 중인 지식은 \"가장 유리합니다\"·\"가능합니다\" 같은 확정·최적 표현으로 승격하지 않는다 — \"~할 가능성이 있어, 실행 전 공식 기준·화면에서 확인이 필요합니다\" 수준을 유지한다. (d) 정보가 미확인 상태이면 그 내용을 설명문으로 만들지 말고 질문 또는 확인 연결 문장으로 변환한다 — 예: 두 수익률의 산정 기준이 Knowledge에서 확인되지 않았다면 \"매수 시점에 따라 수익률 차이가 발생합니다\"(원인 설명 생성 — 금지)가 아니라 \"두 수익률이 어떤 기준으로 산정되는지 먼저 확인해 보겠습니다\"로 쓴다. \"~에 따라 차이가 발생할 수 있는데\" 같은 가능성 화법으로 원인을 대신 채우는 것도 같은 위반이다. (e) T3 단독 시점 규칙(예: 증빙 발급 개시일)은 \"~부터 가능합니다\"·\"~이 세금을 줄이는 방법입니다\" 같은 확정 서술·방향 확정의 근거로 쓰지 않는다 — 가능성 안내 + 공식 확인 연결까지만.",
+    "customer_context": "아래는 Customer Evidence Pack(9-Block)이다. ①~⑧은 시스템 관찰 Evidence, ⑨는 사람이 작성한 보조 맥락이다.\n각 항목 앞의 [E-/D-번호]는 Evidence ID이며, 판단 근거로 사용한 항목의 ID를 출력의 supporting_evidence_ids에 기재한다.\n항목 라벨: [F]=시스템 확인 사실, [A]=산술 파생값(시스템 계산), [R]=Rule 판정값(rule_source·rule_as_of 병기), [S]=행동 신호.\n값 표기: NULL(값 없음)·0(수량 0)·해당없음(대상 아님)은 서로 다른 의미다. 여기에 없는 정보는 제공되지 않은 것이며 임의로 채우지 않는다.\n\n### 1. Customer & Retirement Lifecycle\n- [E101] [F] 고객 연령: 만 49세\n- [E102] [F] IRP 가입일: 2020-05-14 (적립용)\n- [E103] [F] 퇴직급여 포함 여부: 없음 (개인부담금만 납입)\n- [E104] [F] 투자성향: 위험중립형 (분석일 2026-06-11, 유효)\n- [E105] [F] 재직 여부: 재직 중 / 스타뱅킹 이용: 이용 중\n- [D004] [R] 연금개시요건 충족 여부: 미충족 (만 49세, 가입 6.3년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-04 | rule_id=PENSION-OPEN-01\n\n### 2. Current IRP Snapshot\n- [E201] [F] 전체 평가금액: 71,000,000원\n- [E202] [F] 자산 구성: 현금성자산 25,000,000원 (35.2%) / 시중은행 정기예금 1년 31,000,000원 (43.7%, 만기 2027-03-10, 적용금리 2.9%) / KB퇴직연금 단기채 펀드(채권형, 매우낮은위험 6등급) 15,000,000원 (21.1%)\n- [E203] [F] 디폴트옵션 등록: 미등록\n- [E204] [F] 당해년도 IRP 개인부담금 납입액(irp_personal_contribution_ytd): 0원\n\n### 3. Recent Changes & Money Flow\n- [E301] [F] 30일 전(2026-08-05) 잔액: 현금성 25,000,000원 / 전체 71,000,000원\n- [E302] [F] 2026-07-31 입금 25,000,000원 — 거래내역 입금사유 '만기상환' (타상품 만기 상환금)\n- [D001] [A] 입금 경과일: 2026-07-31 25,000,000원 (사유: 만기상환) → 기준일까지 35일 경과\n- [D002] [A] 현재 현금성자산 25,000,000원은 2026-07-31 '만기상환' 입금액과 금액이 일치한다 (산술 대조)\n\n### 4. Event Timeline\n- [E401] [F] [Event] 2026-07-31 만기상환 입금 25,000,000원\n\n### 5. Investment Behavior\n- [E501] [F] IRP 최근 1년 상품 매매횟수: 1회 (2026-07-31 만기상환 관련 외 매매 없음) / ETF·공모펀드 보유·매매 이력: 없음\n\n### 6. Digital Behavior & Sequence\n(경계) 조회·검색·메뉴 진입·클릭 등의 행동은 관심 가능성 또는 행동 Evidence일 뿐, 고객 의사 자체를 의미하지 않는다. 행동 Sequence가 강하더라도 고객 의사로 승격하지 않는다.\n- (이 블록에 제공된 항목 없음)\n\n### 7. Wider Financial Context\n- [E701] [F] 총 금융자산: 320,000,000원 / 타행 ISA: 90,000,000원 보유 (가입 2021-10-14) / 당행 외 연금저축: 보유 — 당해년도 6,000,000원 납입\n- [E702] [F] 연금계좌 연간 납입 가능 잔여한도(pension_account_contribution_limit_remaining, 관계 법령상 합산 대상 연금계좌 기준): 12,000,000원 — 단일 IRP 독립 한도가 아님\n- [E703] [F] 연금계좌 세액공제 잔여한도(pension_tax_credit_limit_remaining, 연금저축·퇴직연금 합산): 3,400,000원 — 추가 납입 가능 금액과 다른 개념\n\n### 8. Upcoming Decision Horizon\n- [E801] [F] 타행 ISA 90,000,000원 만기 2026-10-14\n- [D003] [A] 만기 시한: 타행 ISA 90,000,000원 만기 2026-10-14 → D-40\n\n### 9. Supplementary Human-authored Context\n(경계) 아래는 사람이 작성한 보조 맥락(Supplementary Human-authored Context)이다. 고객 발화 원문이라고 보장하지 않으며, 현재 고객 의사를 확정하는 근거가 아니다. 작성 경과일과 위 시스템 Evidence(①~⑧)를 함께 읽고 필요하면 현재 의사를 재확인한다.\n- (이 블록에 제공된 항목 없음)\n",
+    "constraint_context": "[C1] 투자성향 Hard Constraint\n- 고객 투자성향(확인됨): 위험중립형\n- 투자성향 5단계: 안정형 < 안정추구형 < 위험중립형 < 적극투자형 < 공격투자형\n- 허용 위험수준 (Solution 방향에 사용 가능): 안정형, 안정추구형, 위험중립형\n- 제외 위험수준 (Solution 후보로 생성 금지): 적극투자형, 공격투자형\n- 투자성향은 허용 가능한 최대 위험수준의 상한이다. 고객이 그 수준까지 위험을 부담해야 한다는 뜻이 아니며, 더 낮은 위험수준의 운용은 항상 허용된다. 투자성향과 현재 운용상태의 차이만으로 관리 필요·변경 필요를 판정하지 않는다.\n- 근거: Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2·HD-2.1; cases/GC-18/canonical.json 투자성향 Evidence). C2 매핑은 KB 투자권유 기준(SRC-096).\n\n[C2] 펀드 위험등급 Eligibility (Human-approved, KB 투자권유 기준 SRC-096)\n- 상품 위험등급: 1등급 매우높은위험 < 2등급 높은위험 < 3등급 다소높은위험 < 4등급 보통위험 < 5등급 낮은위험 < 6등급 매우낮은위험\n- 이 고객에게 권유 가능한 펀드 위험등급: 4등급 보통위험, 5등급 낮은위험, 6등급 매우낮은위험\n- 권유 불가 (Action으로 생성 금지): 1등급 매우높은위험, 2등급 높은위험, 3등급 다소높은위험\n- 이미 보유 중인 상위 등급 상품은 위반이 아니다. 신규 매수·교체 방향에만 적용한다.\n\n[C3] 디폴트옵션 포트폴리오 Eligibility (Human-approved)\n- 이 고객이 가입 가능한 디폴트옵션 포트폴리오: 지켜드림, 알파드림, 뿔려드림\n- 가입 불가 (Action으로 생성 금지): 모두드림\n- 매핑: 지켜드림(초저위험)=모든 성향 / 알파드림(저위험)=안정추구형 이상 / 뿔려드림(중위험)=위험중립형 이상 / 모두드림(고위험)=공격투자형만",
+    "knowledge_context": "각 Knowledge에는 Case Relevance(왜 지금 중요한가)와 Usage Boundary(단정하면 안 되는 것)가 있다. 세부(시한·조건·절차)를 실제로 사용하고 Boundary를 넘지 않는다.\n\n### K-001. ISA 만기자금의 연금계좌 전환입금 — 60일 시한·한도·추가 세액공제  (Basis: Source-derived)\n- Knowledge: ISA 계좌 만기일로부터 60일 이내에 만기자금의 전부 또는 일부를 연금계좌로 추가 납입할 수 있다. 이 전환금액은 연간 납입한도 1,800만원과 별도로 입금한도에 추가되며, 기존 세액공제한도(900만원)에 더해 전환금액의 10%·최대 300만원이 추가 공제된다(공제율: 총급여 5,500만원 이하 16.5% / 초과 13.2%). 전환 가능액 확인은 [04-10-099](저축종류 83-만기 ISA 전환), 입금 처리는 [01-12-213](거래구분 'ISA 만기자금 입금').\n- Case Relevance (왜 이 고객에게 지금 중요한가): 타행 ISA 9,000만원의 만기가 D-40으로 다가와 있고 IRP에는 만기상환 현금 2,500만원이 있다 — 두 사실의 연결 가능성과 전환 제도의 시한 구조가 이 고객의 Decision Horizon에 걸려 있다.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): ISA 만기자금의 사용 계획·전환 의사는 확인된 바 없다 — 제도 안내까지만 가능하며 전환을 전제로 판단하지 않는다. 60일 기산 방식(초일 산입 여부)은 원천에 없어 개별 확인 필요. 횟수 무제한·증빙 불필요 등 실무 상세는 T3 단독 근거 — 실행 전 공식 확인 필요. 고객별 추가 공제의 실효는 결정세액 등 별도 확인 필요.\n- Authority / As-of: 행내 공식 가이드(T2) + 공개 페이지.\n- Source: OK-001 (SRC-003·008·072·087).\n\n### K-002. 위험중립형 고객의 상품 선택 범위  (Basis: Human-approved)\n- Knowledge: 위험중립형은 펀드 4~6등급만 권유 가능(3등급 이상 권유 불가). 투자성향은 허용 가능한 최대 위험수준의 상한이며 그 수준까지 운용하라는 요구가 아니다 — 더 낮은 위험의 운용은 항상 허용된다.\n- Case Relevance (왜 이 고객에게 지금 중요한가): TDF 등 실적배당형 후보 선별의 Hard Constraint. Candidate Pool에 3등급 TDF가 포함되어 있다.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): 성향-운용 불일치 자체가 관리 필요의 근거가 되지 않는다.\n- Authority / As-of: Human-approved (HD-2.1).\n- Source: OK-006 (SRC-096).\n\n### K-003. 연금계좌 한도 3종의 개념 구분  (Basis: Source-derived)\n- Knowledge: 연간 납입한도(1,800만원, 연금저축·DC·IRP 개인부담금 합산)와 세액공제 한도(연 900만원, 연금저축 포함)는 서로 다른 개념이다. 세액공제 잔여한도가 있어도 실제 환급은 결정세액 등 개인 조건에 따라 달라진다.\n- Case Relevance (왜 이 고객에게 지금 중요한가): 입력의 납입 가능 잔여한도(1,200만원)와 세액공제 잔여한도(340만원)는 서로 다른 값·다른 개념 — 상호 추정하거나 혼용하지 않는다.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): 개별 고객의 실효 공제액·환급액 확정은 Agent Scope 밖(HD-1) — 확인 경로 연결까지만.\n- Authority / As-of: 행내 공식 가이드(T2).\n- Source: OK-008 (SRC-003·087), HD-8 6.\n\n### K-004. TDF의 빈티지·적격형별 위험등급 차이  (Basis: Source-derived)\n- Knowledge: TDF는 같은 브랜드 시리즈라도 빈티지·적격형 여부에 따라 위험자산 비중과 위험등급이 다르다(실례: 한화 LIFEPLUS 시리즈 대표 3등급 vs 적격TDF2040·2045는 2등급). 수익률·등급 표기는 특정 빈티지 기준일 수 있어 개별 상품 단위의 등급 확인이 선행되어야 한다.\n- Case Relevance (왜 이 고객에게 지금 중요한가): Candidate Pool의 TDF 수익률·등급은 2030 빈티지 기준 — 이 고객에게 특정 빈티지를 연결하려면 은퇴 예상 시기 확인과 해당 빈티지의 등급 확인이 먼저다.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): 빈티지 산식(출생연도+은퇴연령)만으로 특정 상품을 확정하지 않는다.\n- Authority / As-of: 행내 교육자료(T2).\n- Source: PRD-001·PRD-003 (SRC-094·095).\n\n### Candidate Pool (특정 상품 수준 연결이 허용되는 후보 — 이 밖의 상품명 생성 금지. 추천 시 product_id로만 참조하고, 추천 사유는 고객 Evidence·관리 방향과 상품 특성의 적합성으로 직접 작성한다)\n- P01: KB 온국민 TDF 시리즈 | 유형 TDF | 위험등급 3등급(다소높은) | 최근 수익률 +12.6% (1Y, 기준일 2026-07-30) | 특징: 은퇴에 맞춘 글로벌자산배분 | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n- P04: 마이다스 기본 TDF 시리즈 | 유형 TDF | 위험등급 4등급(보통) | 최근 수익률 +18.5% (1Y, 기준일 2026-07-30) | 특징: 마이다스에셋의 대표적인 국내외펀드를 편입하는 TDF | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n- P05: 키움 더드림 단기채 | 유형 채권형(단기채) | 위험등급 6등급(매우낮은) | 최근 수익률 +2.3% (1Y, 기준일 2026-07-30) | 특징: 금리변동 위험 최소화, 매매차익 및 이자수익 추구 | 합성총보수 연0.2990% (SRC-094, 교차 원천 결합) | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n- P06: 한국투자 크레딧 포커스 ESG | 유형 채권형 | 위험등급 5등급(낮은) | 최근 수익률 +0.9% (1Y, 기준일 2026-07-30) | 특징: ESG등급이 우수한 중단기 우량채권에 투자, 지속가능한 초과수익 추구 | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n- P07: 교보악사 Tomorrow 장기우량K-1호 | 유형 채권형(장기 국공채·우량채) | 위험등급 5등급(낮은) | 최근 수익률 -5.8% (1Y, 기준일 2026-07-30) | 특징: 안정성이 높은 채권을 주된 투자대상자산으로 안정적인 이자수익 추구 | 총보수 연0.3300% (SRC-094, 교차 원천 결합) | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n- P08: DB손해보험 무배당 스마트 퇴직연금 이율보증형… | 유형 GIC(이율보증형보험) | 위험등급 해당없음(원리금보장) | 최근 수익률 +4.4% (공시이율(연복리), 기준일 2026-07) | 특징: 보험사 발행 원리금보장상품 — 예금자보호 대상, IRP 연금지급 가능, 최소금액 제한 없음, 별도 신청 없이 거래 가능(운용지시서 상품종류 '보험'). 신용등급 AAA, 계약기간 3년, 잔여한도 699억원(금리·한도 월단위 변동). 금리는 공시이율(연복리) — 타 상품 비교 시 단리 환산 필요 | 계약기간 3년 | 판매 가능 여부 미확인 (상담 전 확인 필요) | 채널 미확인\n\n### Hot Tip / Guide 원문 (tip_id로만 참조 — 원문을 재작성하지 않는다. field_hot_tip은 현장 노하우이며 제도·세제·실행 가능 여부는 official_guide가 우선한다)\n- T01 [field_hot_tip] 「[ ISA 만기 자금 개인형IRP 전환 마케팅 ]」: \"「만기 ISA의 연금계좌로 전환입금」이란? ISA 계좌 만기일로부터 60일 이내에 만기자금의 전부 또는 일부 금액을 연금계좌로 추가 납입 허용 및 세액공제 혜택 제공. ● 입금 가능 금액 — 연간 납입한도 1,800만원(연금저축, DC, IRP 포함) 내 개인부담금 + ISA 만기자금(만기일로부터 60일 이내) ● 입금액에 대한 세액공제 혜택 — ISA 만기자금 입금액의 최대 10%, 최대 300만원 까지 세액공제 가능(세액미공제 금액은 과세제외)\" (작성자 박수연 (동부산종합금융센터 / L2 팀장) · 작성일 2026-01-31 · 좋아요 33 (현장 공감도 신호 — 공식성 근거 아님) · 출처 퇴직연금 Hot Tip (SRC-072, 글번호 204287))\n\n### 실행 화면 (screen_id로만 참조 — 여기 없는 화면번호·경로를 만들지 않는다)\n- S01: 직원 단말 [04-12-642] 적립금및수익률조회 — 전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)\n- S02: 직원 단말 [01-12-213] 입금/입금예약 — 입금·입금예약 — 거래구분 'ISA 만기자금 입금' 선택 시 입금가능금액 자동 조회\n- S03: 직원 단말 [04-10-099] 세금우대관련조회 — 저축종류별 세금우대내역 조회 (저축종류 83-만기 ISA 전환으로 전환 가능액 확인), 연금납입현황 확인\n- S04: 고객 StarBanking 전체메뉴 > 상품가입 > 퇴직연금 > 운용상품 찾기 — 원리금보장상품/ETF/디폴트옵션/펀드/TDF 상품 조회 — 고객 본인 조회·매수\n",
+    "output_instruction": "다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트·코드펜스를 붙이지 않는다. 모든 문자열은 한국어, 화살표는 \"→\"만 사용한다.\n\n{\n  \"current_situation\": \"Evidence로 재구성한 현재 상황 — 상태와 최근 변화를 함께, Fact/추론 구분\",\n  \"known_facts_used\": [\"판단에 사용한 확인된 사실\"],\n  \"unknowns_or_confirmations\": [\"판단에 중요하지만 확인되지 않은 사항 (스스로 도출)\"],\n  \"management_judgment\": {\n    \"judgment\": \"개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가 중 하나 이상을 '/'로 구분\",\n    \"reasoning\": \"왜 그 판단인지 — Why-now(어떤 Event·변화·시한 때문에 지금인지) 포함\",\n    \"must_confirm_before_action\": [\"Direction을 바꾸는 미확인 변수만 (없으면 빈 배열)\"],\n    \"supporting_evidence_ids\": [\"근거 Evidence ID (E/D로 시작; K- 금지)\"],\n    \"supporting_knowledge_ids\": [\"근거 Knowledge ID (K-)\"]\n  },\n  \"next_actions\": [\n    {\"action\": \"다음 행동\", \"kind\": \"변경 / 유지 / 확인 / 정보안내 / 절차 / 연계 중 하나\",\n     \"condition\": \"전제 조건 (무조건이면 빈 문자열)\",\n     \"risk_level\": \"운용 방향이면 5단계 성향 중 하나, 아니면 '해당없음'\",\n     \"supporting_evidence_ids\": [\"근거 Evidence ID\"]}\n  ],\n  \"knowledge_ids_used\": [\"사용한 Knowledge ID\"],\n  \"employee_brief\": {\n    \"s1_customer_situation\": \"S1 — 현재 상태 + 최근 중요 변화가 함께 보이는 자연어 요약. 관리 판단에 중요한 실제 숫자·시점(금액·만기일·입금액 등)은 추상화하지 않고 그대로 쓴다. 미확인 사항을 단정하지 않는다. CRM 내용을 쓰면 기록임이 드러나게 쓴다.\",\n    \"s2_management_point\": {\n      \"point\": \"S2 — 이번 접점에서 무엇을 관리하는 것이 핵심인지 한두 문장. Why-now를 문장 안에 자연스럽게 녹인다 (별도 필드·방어문구 없이)\",\n      \"check_before_consult\": [\"상담 전 확인 — 시스템/단말/공식자료로 직원이 미리 확인할 것 (필요할 때만, 없으면 빈 배열)\"],\n      \"check_with_customer\": [\"고객과 확인 — 시스템으로 알 수 없는 Decision Variable만 (이미 아는 사실 재질문 금지, 없으면 빈 배열)\"]\n    },\n    \"s3_direction\": {\n      \"directions\": [{\"condition\": \"이 방향의 전제 (Evidence만으로 결정되면 빈 문자열)\",\n                       \"direction\": \"관리 방향 (유지·재운용·수령 관리·인출 지원·이전 지원·대안 안내 등 모두 정상)\",\n                       \"solution_type\": \"Solution 유형 (상품 유형/절차/안내 등; 상품이 불필요하면 그 자체를 쓴다)\",\n                       \"risk_level\": \"운용 방향이면 5단계 중 하나, 아니면 '해당없음'\"}],\n      \"product_candidates\": [{\"product_id\": \"Candidate Pool의 id만 (임의 상품명 금지; 상품 제안이 불필요하면 빈 배열)\",\n                               \"reasons\": [\"이 고객에게 이 상품을 후보로 보는 이유 — 운용기간·자금 목적·성향·포트폴리오·경험·의사와 상품 특성의 적합성으로\"]}]\n    },\n    \"s4_consult_script\": {\n      \"scripts\": [\"직원이 고객에게 그대로 쓸 완성형 화법 1개 이상 — 이 고객의 실제 금액·시점·구성·상품이 문장 안에 들어가야 한다. 확실성은 S1~S3 수준을 넘지 않는다: 미확인 사항은 확인 질문으로, Knowledge에 없는 원인·기준은 설명하지 않고 확인 연결로\"],\n      \"conditional_scripts\": [{\"if\": \"고객 반응 (예: 원금손실 우려 시)\", \"script\": \"후속 화법 — S3의 분기가 여럿이면 각 분기(유지·거절 포함)의 화법을 만든다\"}]\n    },\n    \"s5_tips_and_screens\": {\n      \"tips\": [{\"tip_id\": \"제공된 Hot Tip/Guide의 id만\", \"why_relevant\": \"이 Case에 왜 도움이 되는지 한 줄\"}],\n      \"screens\": [{\"screen_id\": \"제공된 화면의 id만 — S3 Action과 직접 연결된 것만\", \"purpose_here\": \"이 Case에서 이 화면을 쓰는 목적\"}]\n    }\n  }\n}\n\n규칙: s5_tips_and_screens.tips의 tip_id에는 제공된 Tip 목록의 id만 쓸 수 있다 — Knowledge ID(K-/OK-/KG-)를 tip_id에 넣지 않는다. Tip이 제공되지 않았다면 tips를 빈 배열로 두고 tip_id를 생성하지 않는다. s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다. check_with_customer의 미확인 변수가 상품·방향 선택을 바꾸면, 그 변수에 걸린 추천은 directions.condition과 S4의 조건성(확인 질문 선행 또는 conditional_scripts)으로 보존한다 — 확인 전 확정 화법 금지. employee_brief의 s1~s4 문자열에는 화면번호(\"[04-12-XXX]\" 류)를 쓰지 않는다 — 화면 참조는 s5_tips_and_screens.screens의 screen_id로만."
+  },
+  "prompt_chars": 15985,
+  "model_response": {
+    "status": "SUCCESS",
+    "http_status": 200,
+    "finish_reason": "STOP",
+    "usage": {
+      "promptTokenCount": 8517,
+      "candidatesTokenCount": 2425,
+      "totalTokenCount": 12202,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 8517
+        }
+      ],
+      "thoughtsTokenCount": 1260,
+      "serviceTier": "standard"
+    },
+    "error": ""
+  },
+  "raw_model_output": "```json\n{\n  \"current_situation\": \"고객은 만 49세로 개인부담금만 납입 중인 IRP 계좌(평가금액 7,100만원)를 보유하고 있다. 2026-07-31에 타상품 만기상환금 2,500만원이 입금되었으며, 현재 이 금액이 현금성자산으로 그대로 보유되어 있어 입금 후 35일간 추가 운용지시가 없는 상태이다(Fact). 또한 타행 ISA 9,000만원이 2026-10-14에 만기 예정(D-40)으로, 세제 혜택을 위한 연금계좌 전환 가능 시점이 다가오고 있다(Fact). 현재 포트폴리오는 현금, 정기예금, 단기채 펀드로 구성되어 매우 보수적으로 운용되고 있으며, 투자성향은 위험중립형으로 확인된다(Fact).\",\n  \"known_facts_used\": [\n    \"2026-07-31 만기상환 입금액 2,500만원이 현재 현금성자산 잔액과 일치함\",\n    \"타행 ISA 9,000만원의 만기일이 2026-10-14임\",\n    \"고객 투자성향은 위험중립형(4~6등급 권유 가능)\",\n    \"디폴트옵션 미등록 상태\"\n  ],\n  \"unknowns_or_confirmations\": [\n    \"2,500만원 현금성자산의 운용 의사 및 희망 위험수준\",\n    \"타행 ISA 만기자금의 사용 계획 및 IRP 전환 의사\",\n    \"TDF 추천을 위한 예상 은퇴 시점\"\n  ],\n  \"management_judgment\": {\n    \"judgment\": \"개입 필요 / 정보 안내 중심\",\n    \"reasoning\": \"최근 입금된 2,500만원이 한 달 넘게 운용되지 않고 현금으로 방치되어 있어 적절한 상품 매칭이 필요하며(Why-now: 입금 후 35일 경과), 특히 타행 ISA 만기가 40일 앞으로 다가와 전환입금을 통한 세액공제 혜택 안내가 시급한 시점이기 때문임(Why-now: ISA 만기 D-40).\",\n    \"must_confirm_before_action\": [\n      \"ISA 만기자금의 전환 의사\",\n      \"현금성자산의 운용 방향(원리금보장 vs 실적배당)\"\n    ],\n    \"supporting_evidence_ids\": [\n      \"E202\",\n      \"E302\",\n      \"D001\",\n      \"D002\",\n      \"E801\",\n      \"D003\"\n    ],\n    \"supporting_knowledge_ids\": [\n      \"K-001\"\n    ]\n  },\n  \"next_actions\": [\n    {\n      \"action\": \"현금성자산(2,500만원) 운용 상품 제안\",\n      \"kind\": \"변경\",\n      \"risk_level\": \"위험중립형\",\n      \"supporting_evidence_ids\": [\n        \"E202\",\n        \"D002\"\n      ]\n    },\n    {\n      \"action\": \"ISA 만기자금 IRP 전환입금 제도 안내\",\n      \"kind\": \"정보안내\",\n      \"risk_level\": \"해당없음\",\n      \"supporting_evidence_ids\": [\n        \"E801\"\n      ]\n    },\n    {\n      \"action\": \"디폴트옵션 등록 안내\",\n      \"kind\": \"절차\",\n      \"risk_level\": \"해당없음\",\n      \"supporting_evidence_ids\": [\n        \"E203\"\n      ]\n    }\n  ],\n  \"knowledge_ids_used\": [\n    \"K-001\",\n    \"K-002\",\n    \"K-003\",\n    \"K-004\"\n  ],\n  \"employee_brief\": {\n    \"s1_customer_situation\": \"고객님은 현재 IRP에 총 7,100만원을 보유 중이며, 지난 7월 31일 타상품 만기상환금 2,500만원이 입금된 이후 현재까지 운용지시 없이 현금성자산으로 보유하고 계십니다. 또한, 10월 14일에 만기가 도래하는 타행 ISA 자금 9,000만원이 있어, 이를 활용한 세제 혜택 전략이 필요한 시점입니다.\",\n    \"s2_management_point\": {\n      \"point\": \"입금 후 운용되지 않고 있는 2,500만원의 효율적 운용을 지원하고, 40일 뒤 만기되는 ISA 자금의 연금 전환을 통한 추가 세액공제 혜택을 안내하는 것이 핵심입니다.\",\n      \"check_before_consult\": [\n        \"단말에서 고객의 연금계좌 납입 가능 잔여한도 및 세액공제 잔여한도 재확인\",\n        \"Candidate Pool 내 추천 상품의 현재 판매 가능 여부 확인\"\n      ],\n      \"check_with_customer\": [\n        \"2,500만원 현금 자산의 운용 희망 방향 (원금 보존 중심 vs 수익 추구)\",\n        \"타행 ISA 만기 자금의 활용 계획 및 IRP 전환 의사\",\n        \"은퇴 예상 시점 (TDF 빈티지 선정을 위함)\"\n      ]\n    },\n    \"s3_direction\": {\n      \"directions\": [\n        {\n          \"condition\": \"원리금 보장 및 매우 낮은 위험을 선호하는 경우\",\n          \"direction\": \"신규자금 운용\",\n          \"solution_type\": \"원리금보장상품 또는 초저위험 펀드\",\n          \"risk_level\": \"안정형\"\n        },\n        {\n          \"condition\": \"위험중립 성향 범위 내에서 수익률 제고를 원하는 경우\",\n          \"direction\": \"신규자금 운용\",\n          \"solution_type\": \"TDF 또는 채권형 펀드\",\n          \"risk_level\": \"위험중립형\"\n        },\n        {\n          \"condition\": \"ISA 만기 자금 활용 의사가 있는 경우\",\n          \"direction\": \"세제 활용\",\n          \"solution_type\": \"ISA 만기자금 전환입금 절차 안내\",\n          \"risk_level\": \"해당없음\"\n        }\n      ],\n      \"product_candidates\": [\n        {\n          \"product_id\": \"P08\",\n          \"reasons\": [\n            \"현재 포트폴리오가 매우 보수적이며, 원리금 보장을 통해 안정적인 이자수익을 추구하는 고객의 성향에 적합함\"\n          ]\n        },\n        {\n          \"product_id\": \"P05\",\n          \"reasons\": [\n            \"위험중립형 성향 내에서 금리변동 위험을 최소화하며 현금성 자산보다 높은 수익을 기대하는 경우 적합함\"\n          ]\n        },\n        {\n          \"product_id\": \"P04\",\n          \"reasons\": [\n            \"위험중립형 고객이 가입 가능한 4등급 상품으로, 은퇴 시점에 맞춘 자동 자산배분을 통해 중장기적 관리를 원하는 경우 적합함\"\n          ]\n        }\n      ]\n    },\n    \"s4_consult_script\": {\n      \"scripts\": [\n        \"고객님, 지난 7월 31일에 만기상환금으로 IRP 계좌에 입금된 2,500만원이 현재 운용지시 없이 현금 상태로 보유되어 있어 안내드리려고 합니다. 이 자금을 어떻게 운용하고 싶으신지 여쭤봐도 될까요?\",\n        \"마침 10월 14일에 타행 ISA 9,000만원이 만기될 예정이신데요. 이 만기자금을 60일 이내에 IRP로 전환하여 입금하시면, 기존 한도 외에 추가로 입금이 가능할 뿐만 아니라 전환 금액의 10%(최대 300만원)까지 추가 세액공제 혜택을 받으실 수 있습니다. 이 부분에 대해 자세히 안내해 드릴까요?\"\n      ],\n      \"conditional_scripts\": [\n        {\n          \"if\": \"수익률 제고를 원하지만 위험은 부담스러운 경우\",\n          \"script\": \"고객님의 투자성향인 위험중립형 범위 내에서, 안정적인 채권형 상품인 '키움 더드림 단기채(P05)'나 은퇴 시점에 맞춰 자산을 자동으로 배분해주는 '마이다스 기본 TDF 시리즈(P04)'를 검토해보실 수 있습니다. 혹시 예상하시는 은퇴 시점은 언제쯤이신가요?\"\n        },\n        {\n          \"if\": \"원금 손실이 절대 없어야 한다고 하는 경우\",\n          \"script\": \"그렇다면 원리금이 보장되면서 안정적인 수익을 제공하는 'DB손해보험 이율보증형(P08)' 상품을 통해 현금 자산을 운용하시는 방향을 추천드립니다.\"\n        }\n      ]\n    },\n    \"s5_tips_and_screens\": {\n      \"tips\": [\n        {\n          \"tip_id\": \"T01\",\n          \"why_relevant\": \"ISA 만기자금의 연금계좌 전환 시 입금 한도 확대 및 추가 세액공제 혜택의 구체적 내용을 안내하기 위함\"\n        }\n      ],\n      \"screens\": [\n        {\n          \"screen_id\": \"S03\",\n          \"purpose_here\": \"고객의 저축종류별 세금우대내역을 통해 ISA 전환 가능액을 정확히 확인\"\n        },\n        {\n          \"screen_id\": \"S02\",\n          \"purpose_here\": \"ISA 만기자금 입금 시 거래구분을 'ISA 만기자금 입금'으로 선택하여 처리\"\n        },\n        {\n          \"screen_id\": \"S04\",\n          \"purpose_here\": \"고객이 직접 TDF 및 원리금보장상품의 상세 내용을 조회하고 선택할 수 있도록 안내\"\n        }\n      ]\n    }\n  }\n}\n```",
+  "json_normalizations": [
+    "stripped_code_fence"
+  ],
+  "parsed_output": {
+    "current_situation": "고객은 만 49세로 개인부담금만 납입 중인 IRP 계좌(평가금액 7,100만원)를 보유하고 있다. 2026-07-31에 타상품 만기상환금 2,500만원이 입금되었으며, 현재 이 금액이 현금성자산으로 그대로 보유되어 있어 입금 후 35일간 추가 운용지시가 없는 상태이다(Fact). 또한 타행 ISA 9,000만원이 2026-10-14에 만기 예정(D-40)으로, 세제 혜택을 위한 연금계좌 전환 가능 시점이 다가오고 있다(Fact). 현재 포트폴리오는 현금, 정기예금, 단기채 펀드로 구성되어 매우 보수적으로 운용되고 있으며, 투자성향은 위험중립형으로 확인된다(Fact).",
+    "known_facts_used": [
+      "2026-07-31 만기상환 입금액 2,500만원이 현재 현금성자산 잔액과 일치함",
+      "타행 ISA 9,000만원의 만기일이 2026-10-14임",
+      "고객 투자성향은 위험중립형(4~6등급 권유 가능)",
+      "디폴트옵션 미등록 상태"
+    ],
+    "unknowns_or_confirmations": [
+      "2,500만원 현금성자산의 운용 의사 및 희망 위험수준",
+      "타행 ISA 만기자금의 사용 계획 및 IRP 전환 의사",
+      "TDF 추천을 위한 예상 은퇴 시점"
+    ],
+    "management_judgment": {
+      "judgment": "개입 필요 / 정보 안내 중심",
+      "reasoning": "최근 입금된 2,500만원이 한 달 넘게 운용되지 않고 현금으로 방치되어 있어 적절한 상품 매칭이 필요하며(Why-now: 입금 후 35일 경과), 특히 타행 ISA 만기가 40일 앞으로 다가와 전환입금을 통한 세액공제 혜택 안내가 시급한 시점이기 때문임(Why-now: ISA 만기 D-40).",
+      "must_confirm_before_action": [
+        "ISA 만기자금의 전환 의사",
+        "현금성자산의 운용 방향(원리금보장 vs 실적배당)"
+      ],
+      "supporting_evidence_ids": [
+        "E202",
+        "E302",
+        "D001",
+        "D002",
+        "E801",
+        "D003"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "현금성자산(2,500만원) 운용 상품 제안",
+        "kind": "변경",
+        "risk_level": "위험중립형",
+        "supporting_evidence_ids": [
+          "E202",
+          "D002"
+        ]
+      },
+      {
+        "action": "ISA 만기자금 IRP 전환입금 제도 안내",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E801"
+        ]
+      },
+      {
+        "action": "디폴트옵션 등록 안내",
+        "kind": "절차",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E203"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-002",
+      "K-003",
+      "K-004"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "고객님은 현재 IRP에 총 7,100만원을 보유 중이며, 지난 7월 31일 타상품 만기상환금 2,500만원이 입금된 이후 현재까지 운용지시 없이 현금성자산으로 보유하고 계십니다. 또한, 10월 14일에 만기가 도래하는 타행 ISA 자금 9,000만원이 있어, 이를 활용한 세제 혜택 전략이 필요한 시점입니다.",
+      "s2_management_point": {
+        "point": "입금 후 운용되지 않고 있는 2,500만원의 효율적 운용을 지원하고, 40일 뒤 만기되는 ISA 자금의 연금 전환을 통한 추가 세액공제 혜택을 안내하는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 고객의 연금계좌 납입 가능 잔여한도 및 세액공제 잔여한도 재확인",
+          "Candidate Pool 내 추천 상품의 현재 판매 가능 여부 확인"
+        ],
+        "check_with_customer": [
+          "2,500만원 현금 자산의 운용 희망 방향 (원금 보존 중심 vs 수익 추구)",
+          "타행 ISA 만기 자금의 활용 계획 및 IRP 전환 의사",
+          "은퇴 예상 시점 (TDF 빈티지 선정을 위함)"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "원리금 보장 및 매우 낮은 위험을 선호하는 경우",
+            "direction": "신규자금 운용",
+            "solution_type": "원리금보장상품 또는 초저위험 펀드",
+            "risk_level": "안정형"
+          },
+          {
+            "condition": "위험중립 성향 범위 내에서 수익률 제고를 원하는 경우",
+            "direction": "신규자금 운용",
+            "solution_type": "TDF 또는 채권형 펀드",
+            "risk_level": "위험중립형"
+          },
+          {
+            "condition": "ISA 만기 자금 활용 의사가 있는 경우",
+            "direction": "세제 활용",
+            "solution_type": "ISA 만기자금 전환입금 절차 안내",
+            "risk_level": "해당없음"
+          }
+        ],
+        "product_candidates": [
+          {
+            "product_id": "P08",
+            "reasons": [
+              "현재 포트폴리오가 매우 보수적이며, 원리금 보장을 통해 안정적인 이자수익을 추구하는 고객의 성향에 적합함"
+            ]
+          },
+          {
+            "product_id": "P05",
+            "reasons": [
+              "위험중립형 성향 내에서 금리변동 위험을 최소화하며 현금성 자산보다 높은 수익을 기대하는 경우 적합함"
+            ]
+          },
+          {
+            "product_id": "P04",
+            "reasons": [
+              "위험중립형 고객이 가입 가능한 4등급 상품으로, 은퇴 시점에 맞춘 자동 자산배분을 통해 중장기적 관리를 원하는 경우 적합함"
+            ]
+          }
+        ]
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님, 지난 7월 31일에 만기상환금으로 IRP 계좌에 입금된 2,500만원이 현재 운용지시 없이 현금 상태로 보유되어 있어 안내드리려고 합니다. 이 자금을 어떻게 운용하고 싶으신지 여쭤봐도 될까요?",
+          "마침 10월 14일에 타행 ISA 9,000만원이 만기될 예정이신데요. 이 만기자금을 60일 이내에 IRP로 전환하여 입금하시면, 기존 한도 외에 추가로 입금이 가능할 뿐만 아니라 전환 금액의 10%(최대 300만원)까지 추가 세액공제 혜택을 받으실 수 있습니다. 이 부분에 대해 자세히 안내해 드릴까요?"
+        ],
+        "conditional_scripts": [
+          {
+            "if": "수익률 제고를 원하지만 위험은 부담스러운 경우",
+            "script": "고객님의 투자성향인 위험중립형 범위 내에서, 안정적인 채권형 상품인 '키움 더드림 단기채(P05)'나 은퇴 시점에 맞춰 자산을 자동으로 배분해주는 '마이다스 기본 TDF 시리즈(P04)'를 검토해보실 수 있습니다. 혹시 예상하시는 은퇴 시점은 언제쯤이신가요?"
+          },
+          {
+            "if": "원금 손실이 절대 없어야 한다고 하는 경우",
+            "script": "그렇다면 원리금이 보장되면서 안정적인 수익을 제공하는 'DB손해보험 이율보증형(P08)' 상품을 통해 현금 자산을 운용하시는 방향을 추천드립니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [
+          {
+            "tip_id": "T01",
+            "why_relevant": "ISA 만기자금의 연금계좌 전환 시 입금 한도 확대 및 추가 세액공제 혜택의 구체적 내용을 안내하기 위함"
+          }
+        ],
+        "screens": [
+          {
+            "screen_id": "S03",
+            "purpose_here": "고객의 저축종류별 세금우대내역을 통해 ISA 전환 가능액을 정확히 확인"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "ISA 만기자금 입금 시 거래구분을 'ISA 만기자금 입금'으로 선택하여 처리"
+          },
+          {
+            "screen_id": "S04",
+            "purpose_here": "고객이 직접 TDF 및 원리금보장상품의 상세 내용을 조회하고 선택할 수 있도록 안내"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "위험중립형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden_levels": [
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "현금성자산(2,500만원) 운용 상품 제안",
+        "kind": "변경",
+        "risk_level": "위험중립형",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "ISA 만기자금 IRP 전환입금 제도 안내",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "디폴트옵션 등록 안내",
+        "kind": "절차",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "위험중립형",
+    "ineligible_portfolios": [
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "위험중립형",
+    "allowed_min_grade": 4,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [
+      {
+        "word": "방치",
+        "where": "other",
+        "verdict": "FAIL"
+      }
+    ],
+    "overall": "FAIL"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "judgment_types_detected": [
+    "개입 필요",
+    "정보 안내 중심"
+  ],
+  "employee_brief": {
+    "s1_customer_situation": "고객님은 현재 IRP에 총 7,100만원을 보유 중이며, 지난 7월 31일 타상품 만기상환금 2,500만원이 입금된 이후 현재까지 운용지시 없이 현금성자산으로 보유하고 계십니다. 또한, 10월 14일에 만기가 도래하는 타행 ISA 자금 9,000만원이 있어, 이를 활용한 세제 혜택 전략이 필요한 시점입니다.",
+    "s2_management_point": {
+      "point": "입금 후 운용되지 않고 있는 2,500만원의 효율적 운용을 지원하고, 40일 뒤 만기되는 ISA 자금의 연금 전환을 통한 추가 세액공제 혜택을 안내하는 것이 핵심입니다.",
+      "check_before_consult": [
+        "단말에서 고객의 연금계좌 납입 가능 잔여한도 및 세액공제 잔여한도 재확인",
+        "Candidate Pool 내 추천 상품의 현재 판매 가능 여부 확인"
+      ],
+      "check_with_customer": [
+        "2,500만원 현금 자산의 운용 희망 방향 (원금 보존 중심 vs 수익 추구)",
+        "타행 ISA 만기 자금의 활용 계획 및 IRP 전환 의사",
+        "은퇴 예상 시점 (TDF 빈티지 선정을 위함)"
+      ]
+    },
+    "s3_direction": {
+      "directions": [
+        {
+          "condition": "원리금 보장 및 매우 낮은 위험을 선호하는 경우",
+          "direction": "신규자금 운용",
+          "solution_type": "원리금보장상품 또는 초저위험 펀드",
+          "risk_level": "안정형"
+        },
+        {
+          "condition": "위험중립 성향 범위 내에서 수익률 제고를 원하는 경우",
+          "direction": "신규자금 운용",
+          "solution_type": "TDF 또는 채권형 펀드",
+          "risk_level": "위험중립형"
+        },
+        {
+          "condition": "ISA 만기 자금 활용 의사가 있는 경우",
+          "direction": "세제 활용",
+          "solution_type": "ISA 만기자금 전환입금 절차 안내",
+          "risk_level": "해당없음"
+        }
+      ],
+      "product_candidates": [
+        {
+          "product_id": "P08",
+          "reasons": [
+            "현재 포트폴리오가 매우 보수적이며, 원리금 보장을 통해 안정적인 이자수익을 추구하는 고객의 성향에 적합함"
+          ]
+        },
+        {
+          "product_id": "P05",
+          "reasons": [
+            "위험중립형 성향 내에서 금리변동 위험을 최소화하며 현금성 자산보다 높은 수익을 기대하는 경우 적합함"
+          ]
+        },
+        {
+          "product_id": "P04",
+          "reasons": [
+            "위험중립형 고객이 가입 가능한 4등급 상품으로, 은퇴 시점에 맞춘 자동 자산배분을 통해 중장기적 관리를 원하는 경우 적합함"
+          ]
+        }
+      ]
+    },
+    "s4_consult_script": {
+      "scripts": [
+        "고객님, 지난 7월 31일에 만기상환금으로 IRP 계좌에 입금된 2,500만원이 현재 운용지시 없이 현금 상태로 보유되어 있어 안내드리려고 합니다. 이 자금을 어떻게 운용하고 싶으신지 여쭤봐도 될까요?",
+        "마침 10월 14일에 타행 ISA 9,000만원이 만기될 예정이신데요. 이 만기자금을 60일 이내에 IRP로 전환하여 입금하시면, 기존 한도 외에 추가로 입금이 가능할 뿐만 아니라 전환 금액의 10%(최대 300만원)까지 추가 세액공제 혜택을 받으실 수 있습니다. 이 부분에 대해 자세히 안내해 드릴까요?"
+      ],
+      "conditional_scripts": [
+        {
+          "if": "수익률 제고를 원하지만 위험은 부담스러운 경우",
+          "script": "고객님의 투자성향인 위험중립형 범위 내에서, 안정적인 채권형 상품인 '키움 더드림 단기채(P05)'나 은퇴 시점에 맞춰 자산을 자동으로 배분해주는 '마이다스 기본 TDF 시리즈(P04)'를 검토해보실 수 있습니다. 혹시 예상하시는 은퇴 시점은 언제쯤이신가요?"
+        },
+        {
+          "if": "원금 손실이 절대 없어야 한다고 하는 경우",
+          "script": "그렇다면 원리금이 보장되면서 안정적인 수익을 제공하는 'DB손해보험 이율보증형(P08)' 상품을 통해 현금 자산을 운용하시는 방향을 추천드립니다."
+        }
+      ]
+    },
+    "s5_tips_and_screens": {
+      "tips": [
+        {
+          "tip_id": "T01",
+          "why_relevant": "ISA 만기자금의 연금계좌 전환 시 입금 한도 확대 및 추가 세액공제 혜택의 구체적 내용을 안내하기 위함"
+        }
+      ],
+      "screens": [
+        {
+          "screen_id": "S03",
+          "purpose_here": "고객의 저축종류별 세금우대내역을 통해 ISA 전환 가능액을 정확히 확인"
+        },
+        {
+          "screen_id": "S02",
+          "purpose_here": "ISA 만기자금 입금 시 거래구분을 'ISA 만기자금 입금'으로 선택하여 처리"
+        },
+        {
+          "screen_id": "S04",
+          "purpose_here": "고객이 직접 TDF 및 원리금보장상품의 상세 내용을 조회하고 선택할 수 있도록 안내"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "case_id": "GC-23",
+  "mode": "hybrid_knowledge",
+  "deterministic_candidates": [
+    "OK-002",
+    "OK-003",
+    "OK-009",
+    "OK-011",
+    "KG-002"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "OK-002",
+      "OK-003",
+      "OK-011",
+      "KG-002"
+    ],
+    "removed": [
+      "OK-009"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "OK-009": "중도해지 이율 구조가 아닌 과세 구조를 다루고 있어 KN-02의 요구사항과 관련 없음"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 758,
+      "candidatesTokenCount": 104,
+      "totalTokenCount": 1783,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 758
+        }
+      ],
+      "thoughtsTokenCount": 921,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "final_selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-002",
+      "need_ref": "KN-01",
+      "matched": [
+        "계약이전",
+        "전출",
+        "리스크 고지",
+        "의사확인",
+        "전출취소"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "OK",
+      "registry_ref": "OK-003",
+      "need_ref": "KN-02",
+      "matched": [
+        "부분이전",
+        "실물이전",
+        "현금이전",
+        "중도해지이율"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-011",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "중도해지이율"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "KG",
+      "registry_ref": "KG-002",
+      "need_ref": "KN-02",
+      "matched": [
+        "부분이전",
+        "실물이전"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-005",
+      "kind": "MANUAL_KEEP",
+      "registry_ref": "frozen:K-004",
+      "need_ref": null,
+      "matched": [],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "KN-02",
+      "id": "OK-009",
+      "reason": "LLM_PRUNED"
+    }
+  ]
+}

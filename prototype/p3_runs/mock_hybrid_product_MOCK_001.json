@@ -1,0 +1,82 @@
+{
+  "case_id": "MOCK_001",
+  "mode": "hybrid_product",
+  "investment_profile": "위험중립형",
+  "deterministic_pool": [
+    "P01 KB 온국민 TDF 시리즈",
+    "P02 신한 마음편한 TDF 시리즈",
+    "P03 한화 LIFEPLUS TDF 시리즈",
+    "P04 마이다스 기본 TDF 시리즈",
+    "P05 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+    "P06 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…",
+    "P07 무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+    "P08 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+    "P09 무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+    "P10 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…",
+    "P11 무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "P01",
+      "P04",
+      "P05",
+      "P08",
+      "P10"
+    ],
+    "removed": [
+      "P02",
+      "P03",
+      "P06",
+      "P07",
+      "P09",
+      "P11"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "P02": "TDF 동일 위험등급(3) 내 단순 중복",
+      "P03": "TDF 동일 위험등급(3) 내 단순 중복",
+      "P06": "GIC 동일 만기(3년) 내 단순 중복",
+      "P07": "GIC 동일 만기(3년) 내 단순 중복",
+      "P09": "GIC 동일 만기(3년) 내 단순 중복",
+      "P11": "GIC 동일 만기(3년) 내 단순 중복"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 1239,
+      "candidatesTokenCount": 220,
+      "totalTokenCount": 4200,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 1239
+        }
+      ],
+      "thoughtsTokenCount": 2741,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "none_reason": null,
+  "final_pool": [
+    "P01 KB 온국민 TDF 시리즈",
+    "P04 마이다스 기본 TDF 시리즈",
+    "P05 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+    "P08 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+    "P10 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…"
+  ],
+  "det_excluded": [
+    {
+      "need": "PN-M01",
+      "prd": "PRD-019",
+      "name": "(개별 상품 미확보 — 유형 정보만)",
+      "reason": "실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보)"
+    },
+    {
+      "need": "PN-M01",
+      "prd": "PRD-020",
+      "name": "Sh 수협은행 정기예금",
+      "reason": "수익률/기준일 미확보 — S3 카드 최소 필드 미달"
+    }
+  ]
+}

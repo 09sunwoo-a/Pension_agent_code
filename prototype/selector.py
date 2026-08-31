@@ -208,9 +208,22 @@ SYNTHETIC_GAP_TEXT = (
 )
 
 
-def select_for_case(case_id: str) -> Tuple[List["runtime.KnowledgeItem"], Dict[str, Any]]:
-    """Return (K-items in the existing 5-field structure, selection log)."""
-    needs, manual_keep = load_needs(case_id)
+def select_for_case(case_id: str, needs: Optional[List[Dict[str, Any]]] = None,
+                    manual_keep: Optional[List[str]] = None,
+                    keep_registry_ids: Optional[set] = None) -> Tuple[List["runtime.KnowledgeItem"], Dict[str, Any]]:
+    """Return (K-items in the existing 5-field structure, selection log).
+
+    needs/manual_keep default to the Human-defined file (P3-A path). Callers
+    may pass needs programmatically (Hybrid re-assembly, Mock v0) — matching,
+    gates and item assembly stay identical.
+    keep_registry_ids: optional post-retrieval filter (Hybrid LLM pruning
+    result) — only candidates whose registry id is in the set are assembled;
+    gates/flags are still applied here (LLM never decides trust level).
+    """
+    if needs is None:
+        needs, manual_keep = load_needs(case_id)
+    elif manual_keep is None:
+        manual_keep = []
     ok_items = parse_official_knowledge()
     kg_items = parse_knowledge_gaps()
 
@@ -250,6 +263,12 @@ def select_for_case(case_id: str) -> Tuple[List["runtime.KnowledgeItem"], Dict[s
     picked: List[Tuple[str, Dict[str, Any], Dict[str, Any], List[str], List[str]]] = []
     for need in needs:
         cands = [c for c in per_candidate.values() if c["need"] is need]
+        if keep_registry_ids is not None:
+            pruned = [c for c in cands if c["item"]["id"] not in keep_registry_ids]
+            for c in pruned:
+                log["excluded"].append({"need": need["need_id"], "id": c["item"]["id"],
+                                        "reason": "LLM_PRUNED"})
+            cands = [c for c in cands if c["item"]["id"] in keep_registry_ids]
         ok_matches = sorted((c for c in cands if c["kind"] == "OK"),
                             key=lambda c: (-len(c["matched"]), c["item"]["id"]))
         kg_matches = [c for c in cands if c["kind"] == "KG"]
@@ -267,7 +286,7 @@ def select_for_case(case_id: str) -> Tuple[List["runtime.KnowledgeItem"], Dict[s
             picked.append(("OK", it, need, c["matched"], flags))
         for c in kg_matches:
             picked.append(("KG", c["item"], need, c["matched"], []))
-        if not any(c["need"] is need for c in per_candidate.values()):
+        if not cands:
             # Gap is a normal outcome, not a failure — deliver it explicitly.
             picked.append(("SYNTH_GAP", {"id": f"GAP({need['need_id']})",
                                          "title": f"Knowledge 미확인 — {need['need_text'][:60]}"},

@@ -1,0 +1,84 @@
+{
+  "case_id": "GC-21",
+  "mode": "hybrid_knowledge",
+  "deterministic_candidates": [
+    "OK-007",
+    "KG-001",
+    "OK-006"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "OK-007",
+      "KG-001",
+      "OK-006"
+    ],
+    "removed": [],
+    "unmentioned_kept": [],
+    "reason": {},
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 563,
+      "candidatesTokenCount": 42,
+      "totalTokenCount": 1186,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 563
+        }
+      ],
+      "thoughtsTokenCount": 581,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "final_selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-007",
+      "need_ref": "KN-01",
+      "matched": [
+        "수익률 표시"
+      ],
+      "flags": [
+        "PROVISIONAL — 확정 Fact 아님, 확인 필요 상태로만 사용"
+      ]
+    },
+    {
+      "kid": "K-002",
+      "kind": "KG",
+      "registry_ref": "KG-001",
+      "need_ref": "KN-01",
+      "matched": [
+        "수익률 표시 기준",
+        "상품수익률",
+        "매수 시점 효과"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-006",
+      "need_ref": "KN-02",
+      "matched": [
+        "투자성향",
+        "위험등급",
+        "적합성",
+        "상한",
+        "권유 가능"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "MANUAL_KEEP",
+      "registry_ref": "frozen:K-002",
+      "need_ref": null,
+      "matched": [],
+      "flags": []
+    }
+  ],
+  "excluded": []
+}

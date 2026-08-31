@@ -132,6 +132,20 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 - **Reproducibility**: 3/8 (경미)
 - **Revision Status**: OBSERVED — Revision #2 자동 대상 아님; Batch 2에서 재관찰
 
+## F-013 S4 Epistemic / Conditionality Inflation (정식 부여 2026-08-31 — 구 FC-1)
+
+- **Pattern**: S1~S3 또는 Knowledge Pack에서 Unknown / Knowledge Gap / T3 단독 / PROVISIONAL / Conditional 상태로 유지된 내용이 **S4 상담 화법 생성 과정에서 원인 설명·사실·추천 방향으로 확정 승격**되는 Failure. Pack이 정확한 상태(Gap·Authority Boundary가 명시 공급됨)에서도 발생하므로 Selection Failure가 아니라 Decision Agent의 Consumption/Semantic Preservation Failure다.
+- **Severity**: P3 (Meaning Preservation) — 승격된 내용이 판단·방향을 실질로 바꾸면 P1 상향.
+- **Cases Observed**: GC-20·GC-21·GC-25 (P2 Batch 3 RUN_001, 3/8 — 당시 FC-1 Candidate) / **P3 실 RUN 재현**: GC-21 selector(KG-001 동봉에도 "매수 시점" 원인 화법 생성)·GC-25 manual+selector(KG-004 동봉에도 7/1 확정 서술 + "세금을 최대한 줄이는 방법") — `design/P3_RUN_COMPARISON.md` §2.
+- **정식 부여 근거**: P2 1회 + P3 실 RUN 재현으로 재현 관찰 요건 충족 (P2_BATCH3_SUMMARY §2 원칙).
+- **Candidate Layer**: LLM Reasoning (S4 화법 합성 압력) · Prompt (SYSTEM_ROLE 원칙 19).
+- **대응 (2026-08-31, 최소)**: SYSTEM_ROLE_V3 원칙 19에 (d) 미확인 정보의 질문/확인 문장 변환(가능성 화법으로 원인 대체 금지 포함)·(e) T3 단독 시점 규칙의 확정 서술·방향 확정 금지 보강. **deterministic keyword blacklist는 만들지 않음** — 문맥 의존 표현이므로 SYSTEM_ROLE/OUTPUT instruction + Evaluator semantic gate로 관리 (Human 지시).
+- **Revision Status**: REVISED 후보 — P3 Integration Target Regression(GC-21·GC-25 + Control)으로 확인.
+
+## F-011 변형 관찰 — K-ID → tip_id 슬롯 (2026-08-31)
+
+- P3 실 RUN에서 GC-23 selector·GC-25 manual·GC-25 selector가 K-ID를 S5 tip_id에 기재 (tips가 빈 supply Case 한정, baseline 포함 → Selection 귀속 아님). 기존 validate_supply_refs가 전 건 FAIL 차단. 대응(Operational): OUTPUT_INSTRUCTION_V3 s5 규칙에 "tip_id에는 제공된 Tip id만·K-/OK-/KG- 금지·미제공 시 생성 금지" 문구 추가. Validator 변경 없음.
+
 ---
 
 ## Cross-case Summary (갱신)
@@ -209,7 +223,7 @@ REV-002 Regression으로 명확해진 핵심 잔여 병목을 **`Structured Resu
 
 > 신규 F-number의 정식 부여는 보류한다(재현 관찰 후 — HD 원칙). 아래는 P2 Batch 3(GC-18~25 RUN_001/EVAL_001)에서 관찰된 Cluster 후보의 기록이다. 상세: `golden/P2_BATCH3_SUMMARY.md` §2.
 
-### FC-1. S4 화법층의 확실성 인플레이션 (Candidate — 3/8 재현)
+### FC-1. S4 화법층의 확실성 인플레이션 (Candidate — 3/8 재현) → **F-013으로 정식 부여됨 (2026-08-31, 위 F-013 항 참조)**
 - 정의: 해석층(current_situation)·판단층·S1~S3는 Unknown/조건/Knowledge Gap을 보존하는데, **S4 고객 대면 화법에서 확정으로 굳는** 패턴.
 - 재현: GC-20 EVAL_001 (S3 양분기 → S4 단일 방향 축소) / GC-21 EVAL_001 ([상담 전 확인]으로 남긴 수익률 산정 기준·원인을 S4에서 자체 생성 설명) / GC-25 EVAL_001 (T3 단독 지식을 "가장 유리합니다"로 확정 승격).
 - 성격: HD-8 기록 병목(Structured→Brief Semantic Preservation)의 v3 잔존 형태 — 위치가 S4 scripts/conditional_scripts로 특정됨.

@@ -1,0 +1,114 @@
+{
+  "case_id": "GC-24",
+  "mode": "hybrid_knowledge",
+  "deterministic_candidates": [
+    "OK-008",
+    "KG-005",
+    "OK-009",
+    "OK-015",
+    "OK-011",
+    "OK-006"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "OK-008",
+      "KG-005",
+      "OK-009",
+      "OK-015",
+      "OK-006"
+    ],
+    "removed": [
+      "OK-011"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "OK-011": "연금계좌 중도해지 시의 과세 구조가 아닌, 일반 예금 상품의 중도해지 이율 구조를 다루고 있어 Need와 관련 없음"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 921,
+      "candidatesTokenCount": 121,
+      "totalTokenCount": 1808,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 921
+        }
+      ],
+      "thoughtsTokenCount": 766,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "final_selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-008",
+      "need_ref": "KN-01",
+      "matched": [
+        "세액공제",
+        "16.5%",
+        "13.2%",
+        "결정세액",
+        "원천징수영수증",
+        "06-12-151"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "KG",
+      "registry_ref": "KG-005",
+      "need_ref": "KN-01",
+      "matched": [
+        "결정세액",
+        "세액공제 실효"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-009",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "과세제외",
+        "중도해지"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "OK",
+      "registry_ref": "OK-015",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도인출",
+        "기타소득세"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-005",
+      "kind": "OK",
+      "registry_ref": "OK-006",
+      "need_ref": "KN-03",
+      "matched": [
+        "투자성향",
+        "위험등급",
+        "권유 가능"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "KN-02",
+      "id": "OK-011",
+      "reason": "LLM_PRUNED"
+    }
+  ]
+}

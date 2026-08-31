@@ -1,0 +1,108 @@
+{
+  "case_id": "GC-25",
+  "mode": "hybrid_knowledge",
+  "deterministic_candidates": [
+    "OK-009",
+    "OK-008",
+    "OK-015",
+    "KG-004",
+    "OK-011",
+    "OK-003"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "OK-009",
+      "OK-008",
+      "KG-004",
+      "OK-011"
+    ],
+    "removed": [
+      "OK-015",
+      "OK-003"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "OK-015": "중도인출의 법정 사유 및 요건에 관한 내용으로, 요청된 중도해지 과세 구조 및 등록 절차와는 주제가 다름",
+      "OK-003": "계약이전 절차 및 실물/현금 이전 구조에 관한 내용으로, 요청된 정기예금 중도해지 이율 구조와 관련 없음"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 934,
+      "candidatesTokenCount": 166,
+      "totalTokenCount": 2422,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 934
+        }
+      ],
+      "thoughtsTokenCount": 1322,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "final_selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-009",
+      "need_ref": "KN-01",
+      "matched": [
+        "중도해지",
+        "미공제",
+        "과세제외",
+        "06-12-622",
+        "소득·세액공제확인서",
+        "연금납입확인서",
+        "7월 1일",
+        "중도해지"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "OK",
+      "registry_ref": "OK-008",
+      "need_ref": "KN-01",
+      "matched": [
+        "세액공제"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "KG",
+      "registry_ref": "KG-004",
+      "need_ref": "KN-01",
+      "matched": [
+        "발급 시점"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "OK",
+      "registry_ref": "OK-011",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "특별중도해지",
+        "중도해지이율"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "KN-01",
+      "id": "OK-015",
+      "reason": "LLM_PRUNED"
+    },
+    {
+      "need": "KN-02",
+      "id": "OK-003",
+      "reason": "LLM_PRUNED"
+    }
+  ]
+}

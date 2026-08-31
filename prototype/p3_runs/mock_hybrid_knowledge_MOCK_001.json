@@ -1,0 +1,103 @@
+{
+  "case_id": "MOCK_001",
+  "mode": "hybrid_knowledge",
+  "deterministic_candidates": [
+    "OK-002",
+    "OK-003",
+    "OK-004",
+    "OK-005",
+    "KG-002",
+    "OK-012"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "OK-003",
+      "OK-004",
+      "OK-005",
+      "KG-002",
+      "OK-012"
+    ],
+    "removed": [
+      "OK-002"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "OK-002": "KN-M01은 계약이전 입금액(전입) 및 디폴트옵션 규칙을 다루나, 해당 항목은 전출(이탈) 절차를 다루므로 주제가 다름"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 793,
+      "candidatesTokenCount": 131,
+      "totalTokenCount": 1965,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 793
+        }
+      ],
+      "thoughtsTokenCount": 1041,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "final_selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-003",
+      "need_ref": "KN-M01",
+      "matched": [
+        "계약이전"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "OK",
+      "registry_ref": "OK-004",
+      "need_ref": "KN-M01",
+      "matched": [
+        "현금성자산"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-005",
+      "need_ref": "KN-M01",
+      "matched": [
+        "디폴트옵션"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "KG",
+      "registry_ref": "KG-002",
+      "need_ref": "KN-M01",
+      "matched": [
+        "계약이전"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-005",
+      "kind": "OK",
+      "registry_ref": "OK-012",
+      "need_ref": "KN-M02",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "KN-M01",
+      "id": "OK-002",
+      "reason": "LLM_PRUNED"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "_comment": "Mock v0 Raw Customer Input — 합성 고객. 의미판단 라벨(방치/운용 필요/추천 필요 등) 없이 관찰 가능한 사실·행동만 담는다. 실제 DB 아님.",
+  "case_id": "MOCK_001",
+  "base_date": "2026-08-28",
+  "customer": {
+    "age": 47,
+    "irp_join_date": "2019-03-11",
+    "retirement_benefit_included": false,
+    "investment_profile": "위험중립형",
+    "profile_analyzed_at": "2026-05-14",
+    "employment": "재직 중",
+    "starbanking_user": true
+  },
+  "irp_account": {
+    "as_of": "2026-08-28",
+    "balance_total": 58000000,
+    "balance_cash": 30000000,
+    "holdings": [
+      {"name": "KB퇴직연금 정기예금 (2년제)", "type": "정기예금", "amount": 20000000, "maturity": "2027-04-10", "rate_note": "가입 시 약정금리 연 3.1%"},
+      {"name": "채권형 펀드 (위험등급 6등급)", "type": "채권형 펀드", "amount": 8000000}
+    ],
+    "do_registration": {"registered": false},
+    "irp_personal_contribution_ytd": 0
+  },
+  "balance_snapshot_30d": {"date": "2026-07-29", "cash": 0, "total": 28000000},
+  "transactions": [
+    {"date": "2026-08-08", "kind": "입금", "amount": 30000000, "reason": "타 금융기관 IRP 계약이전 입금"}
+  ],
+  "trades_12m": [
+    {"date": "2025-11-20", "action": "정기예금 만기 재예치 매수 1회"}
+  ],
+  "digital_behavior": [
+    {"date": "2026-08-19", "action": "스타뱅킹 IRP 수익률 화면 조회", "executed": false},
+    {"date": "2026-08-22", "action": "스타뱅킹 상품찾기에서 펀드 목록 조회", "executed": false},
+    {"date": "2026-08-25", "action": "스타뱅킹 TDF 상품 상세 화면 조회", "executed": false}
+  ],
+  "wider_context": {
+    "total_financial_assets": 210000000,
+    "other_pension_accounts": "당사 조회 범위 내 타 연금계좌 없음"
+  },
+  "crm_notes": []
+}

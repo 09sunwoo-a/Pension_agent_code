@@ -178,9 +178,16 @@ def _card_complete(card: Dict[str, Any]) -> Tuple[bool, str]:
     return True, ""
 
 
-def select_products(case_id: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """Return (candidate pool in ProductCandidate contract shape, log)."""
-    needs, none_reason = load_product_needs(case_id)
+def select_products(case_id: str, needs: Optional[List[Dict[str, Any]]] = None,
+                    none_reason: Optional[str] = None) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Return (candidate pool in ProductCandidate contract shape, log).
+
+    needs default to the Human-defined file (P3-B path); callers may pass a
+    programmatic product_need list (Hybrid/Mock) with the same shape
+    (need_id / solution_type / characteristics / maturity)."""
+    if needs is None and none_reason is None:
+        needs, none_reason = load_product_needs(case_id)
+    needs = needs or []
     registry = parse_product_registry()
     log: Dict[str, Any] = {"case_id": case_id, "needs": [], "selected": [],
                            "excluded": [], "none_reason": none_reason}

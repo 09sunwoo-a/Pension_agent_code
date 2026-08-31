@@ -296,6 +296,9 @@ def load_knowledge_items(case_id: str) -> Tuple[List[KnowledgeItem], str, str]:
     structure — everything downstream (prompt, validators, record) unchanged.
     Frozen runs are unaffected unless the flag is explicitly set.
     """
+    if os.environ.get("P3_HYBRID_KNOWLEDGE_SELECTION") == "1":
+        import hybrid_selector as _hybrid
+        return _hybrid.load_knowledge_items_hybrid(case_id)
     if os.environ.get("P3A_KNOWLEDGE_SELECTION") == "1":
         import selector as _selector
         return _selector.load_knowledge_items_selected(case_id)
@@ -1517,7 +1520,7 @@ SYSTEM_ROLE_V3 = """당신은 은행 직원의 개인형IRP 사후관리 판단�
 16. 내부 안전원칙("~로 단정할 수 없습니다", "Signal은 Intent가 아닙니다" 류의 방어문구)을 Brief에 노출하지 않는다. 원칙은 판단에서 지키고, Brief에는 그 결과를 자연스러운 문장으로 쓴다. Brief는 직원용이며 고객에게 직접 주는 문서가 아니다.
 17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다.
 18. [Decision Variable / Conditionality Preservation] S2에서 '고객과 확인'으로 남긴 미확인 변수가 S3의 방향·상품 후보 또는 S4 화법을 실제로 바꾸는 경우, 확인 전에 특정 분기를 확정하지 않는다: S3는 그 변수를 조건으로 하는 조건부 추천을 유지하고, S4도 같은 조건성을 보존한다. 필요하면 화법을 "확인 질문 → 확인 결과에 맞는 설명·추천" 순서로 구성한다. (예: 은퇴시점이 미확인이면 "은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?" 이후 "2045년 전후라면 TDF2045 계열을 후보로 살펴볼 수 있습니다" — 확인 전 "TDF2045를 추천드립니다" 확정 금지.)
-19. [S4 확실성 비인플레이션] S4 화법은 S1~S3보다 확실성(Epistemic Certainty)을 높이지 않는다. 구체적으로: (a) S2·S3에서 미확인·확인 필요·Knowledge 부재로 남긴 것을 S4에서 자연스러운 설명으로 메우지 않는다 — 원인·정의·산정 기준이 Knowledge에 없으면 설명을 만들지 말고 확인으로 연결한다. (b) S3가 분기로 나눈 방향은 S4에서도 각 분기의 화법을 유지한다 — 한 분기(특히 변경·재도전 방향)만 화법으로 만들지 않으며, 고객이 유지·거절을 택한 분기도 존중하는 화법을 가진다. (c) 현장 Tip 단독 근거·잠정(PROVISIONAL)·충돌 중인 지식은 "가장 유리합니다"·"가능합니다" 같은 확정·최적 표현으로 승격하지 않는다 — "~할 가능성이 있어, 실행 전 공식 기준·화면에서 확인이 필요합니다" 수준을 유지한다."""
+19. [S4 확실성 비인플레이션] S4 화법은 S1~S3보다 확실성(Epistemic Certainty)을 높이지 않는다. 구체적으로: (a) S2·S3에서 미확인·확인 필요·Knowledge 부재로 남긴 것을 S4에서 자연스러운 설명으로 메우지 않는다 — 원인·정의·산정 기준이 Knowledge에 없으면 설명을 만들지 말고 확인으로 연결한다. (b) S3가 분기로 나눈 방향은 S4에서도 각 분기의 화법을 유지한다 — 한 분기(특히 변경·재도전 방향)만 화법으로 만들지 않으며, 고객이 유지·거절을 택한 분기도 존중하는 화법을 가진다. (c) 현장 Tip 단독 근거·잠정(PROVISIONAL)·충돌 중인 지식은 "가장 유리합니다"·"가능합니다" 같은 확정·최적 표현으로 승격하지 않는다 — "~할 가능성이 있어, 실행 전 공식 기준·화면에서 확인이 필요합니다" 수준을 유지한다. (d) 정보가 미확인 상태이면 그 내용을 설명문으로 만들지 말고 질문 또는 확인 연결 문장으로 변환한다 — 예: 두 수익률의 산정 기준이 Knowledge에서 확인되지 않았다면 "매수 시점에 따라 수익률 차이가 발생합니다"(원인 설명 생성 — 금지)가 아니라 "두 수익률이 어떤 기준으로 산정되는지 먼저 확인해 보겠습니다"로 쓴다. "~에 따라 차이가 발생할 수 있는데" 같은 가능성 화법으로 원인을 대신 채우는 것도 같은 위반이다. (e) T3 단독 시점 규칙(예: 증빙 발급 개시일)은 "~부터 가능합니다"·"~이 세금을 줄이는 방법입니다" 같은 확정 서술·방향 확정의 근거로 쓰지 않는다 — 가능성 안내 + 공식 확인 연결까지만."""
 
 OUTPUT_INSTRUCTION_V3 = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트·코드펜스를 붙이지 않는다. 모든 문자열은 한국어, 화살표는 "→"만 사용한다.
 
@@ -1565,7 +1568,7 @@ OUTPUT_INSTRUCTION_V3 = """다음 JSON 객체 하나만 출력한다. JSON 앞�
   }
 }
 
-규칙: s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다. check_with_customer의 미확인 변수가 상품·방향 선택을 바꾸면, 그 변수에 걸린 추천은 directions.condition과 S4의 조건성(확인 질문 선행 또는 conditional_scripts)으로 보존한다 — 확인 전 확정 화법 금지. employee_brief의 s1~s4 문자열에는 화면번호("[04-12-XXX]" 류)를 쓰지 않는다 — 화면 참조는 s5_tips_and_screens.screens의 screen_id로만."""
+규칙: s5_tips_and_screens.tips의 tip_id에는 제공된 Tip 목록의 id만 쓸 수 있다 — Knowledge ID(K-/OK-/KG-)를 tip_id에 넣지 않는다. Tip이 제공되지 않았다면 tips를 빈 배열로 두고 tip_id를 생성하지 않는다. s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다. check_with_customer의 미확인 변수가 상품·방향 선택을 바꾸면, 그 변수에 걸린 추천은 directions.condition과 S4의 조건성(확인 질문 선행 또는 conditional_scripts)으로 보존한다 — 확인 전 확정 화법 금지. employee_brief의 s1~s4 문자열에는 화면번호("[04-12-XXX]" 류)를 쓰지 않는다 — 화면 참조는 s5_tips_and_screens.screens의 screen_id로만."""
 
 
 def build_prompt_v3(case, derived, knowledge: List[KnowledgeItem], constraint: ConstraintContext) -> Prompt:
@@ -1772,7 +1775,18 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
         # P3-B (opt-in): Minimal Product Selector replaces ONLY supply.product_candidates.
         # Direction/Solution Type input is Human-defined (design/P3B_PRODUCT_NEEDS.md);
         # Hard Constraint / supply validators / Fit-reason generation stay unchanged below.
-        if os.environ.get("P3B_PRODUCT_SELECTION") == "1":
+        if os.environ.get("P3_HYBRID_PRODUCT_SELECTION") == "1":
+            import hybrid_selector as _hy
+            _profile = build_constraint_context(_CanonicalTextShim(case)).investment_profile
+            _pool, _pool_log = _hy.build_pool_hybrid(case_id, investment_profile=_profile)
+            record["p3_hybrid_product_selection"] = {
+                "frozen_pool_product_ids": [p.get("product_id") for p in case.supply.get("product_candidates") or []],
+                "deterministic_pool": _pool_log["deterministic_pool"],
+                "final_pool": _pool_log["final_pool"],
+                "fallback": _pool_log["fallback"],
+            }
+            case.supply["product_candidates"] = _pool
+        elif os.environ.get("P3B_PRODUCT_SELECTION") == "1":
             import product_selector as _ps
             _pool, _pool_log = _ps.build_pool(case_id)
             record["p3b_product_selection"] = {

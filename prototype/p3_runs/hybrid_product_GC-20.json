@@ -1,0 +1,70 @@
+{
+  "case_id": "GC-20",
+  "mode": "hybrid_product",
+  "investment_profile": "적극투자형",
+  "deterministic_pool": [
+    "P01 KB 온국민 TDF 시리즈",
+    "P02 신한 마음편한 TDF 시리즈",
+    "P03 한화 LIFEPLUS TDF 시리즈",
+    "P04 마이다스 기본 TDF 시리즈",
+    "P05 키움 더드림 단기채",
+    "P06 한국투자 크레딧 포커스 ESG",
+    "P07 교보악사 Tomorrow 장기우량K-1호"
+  ],
+  "llm_prune": {
+    "ok": true,
+    "keep": [
+      "P01",
+      "P04",
+      "P05",
+      "P06",
+      "P07"
+    ],
+    "removed": [
+      "P02",
+      "P03"
+    ],
+    "unmentioned_kept": [],
+    "reason": {
+      "P02": "동일 유형(TDF) 및 동일 위험등급(3등급)으로 P01과 차별화되는 특성 없음",
+      "P03": "동일 유형(TDF) 및 동일 위험등급(3등급)으로 P01과 차별화되는 특성 없음"
+    },
+    "model_status": "SUCCESS",
+    "usage": {
+      "promptTokenCount": 723,
+      "candidatesTokenCount": 142,
+      "totalTokenCount": 3076,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 723
+        }
+      ],
+      "thoughtsTokenCount": 2211,
+      "serviceTier": "standard"
+    }
+  },
+  "fallback": null,
+  "none_reason": null,
+  "final_pool": [
+    "P01 KB 온국민 TDF 시리즈",
+    "P04 마이다스 기본 TDF 시리즈",
+    "P05 키움 더드림 단기채",
+    "P06 한국투자 크레딧 포커스 ESG",
+    "P07 교보악사 Tomorrow 장기우량K-1호"
+  ],
+  "det_excluded": [
+    {
+      "need": "PN-02",
+      "prd": "PRD-008",
+      "name": "한화 내일받는 단기국공채",
+      "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+    },
+    {
+      "need": "PN-02",
+      "prd": "PRD-009",
+      "name": "KB 스타 단기국공채",
+      "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+    }
+  ]
+}
