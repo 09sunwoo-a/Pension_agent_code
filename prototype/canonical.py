@@ -298,15 +298,25 @@ def render_supply(case: CanonicalCase) -> str:
         parts.append("### Candidate Pool (특정 상품 수준 연결이 허용되는 후보 — 이 밖의 상품명 생성 금지. "
                      "추천 시 product_id로만 참조하고, 추천 사유는 고객 Evidence·관리 방향과 상품 특성의 적합성으로 직접 작성한다)")
         for p in prods:
+            grade = (f"위험등급 {p['risk_grade']}등급({p.get('risk_level_label','')})"
+                     if p.get("risk_grade") is not None else "위험등급 해당없음(원리금보장)")
+            ret = (f"최근 수익률 {p['return_recent']:+.1%} ({p.get('return_period','')}, 기준일 {p.get('return_as_of','')})"
+                   if p.get("return_recent") is not None else "수익률 미확인")
             line = (f"- {p['product_id']}: {p['name']} | 유형 {p.get('product_type','')} | "
-                    f"위험등급 {p.get('risk_grade','')}등급({p.get('risk_level_label','')}) | "
-                    f"최근 수익률 {p.get('return_recent', 0):+.1%} ({p.get('return_period','')}, 기준일 {p.get('return_as_of','')}) | "
-                    f"특징: {p.get('features','')}")
+                    f"{grade} | {ret} | 특징: {p.get('features','')}")
             if p.get("fee_note"):
                 line += f" | {p['fee_note']}"
             if p.get("maturity_note"):
                 line += f" | {p['maturity_note']}"
-            line += (f" | 판매 {'가능' if p.get('sellable') else '불가'}"
+            # sellable: True/False = 원천 확인값, None = 미확인 — 판매 가능으로 단정하지 않고
+            # '상담 전 확인' 대상으로 전달한다 (HD-P2-GATE2: null을 사실처럼 보완 금지).
+            if p.get("sellable") is True:
+                sell = "판매 가능"
+            elif p.get("sellable") is False:
+                sell = "판매 불가"
+            else:
+                sell = "판매 가능 여부 미확인 (상담 전 확인 필요)"
+            line += (f" | {sell}"
                      f" | 채널 {'/'.join(p.get('channels') or []) or '미확인'}")
             parts.append(line)
         parts.append("")
@@ -347,5 +357,5 @@ def supply_ids(case: CanonicalCase) -> Dict[str, set]:
         "tips": {t["tip_id"] for t in s.get("hot_tips") or []},
         "screens": {sc["screen_id"] for sc in s.get("screens") or []},
         "unsellable_products": {p["product_id"] for p in s.get("product_candidates") or []
-                                if not p.get("sellable", True)},
+                                if p.get("sellable") is False},
     }

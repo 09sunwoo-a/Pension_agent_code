@@ -1,0 +1,174 @@
+{
+  "case_id": "GC-24",
+  "base_date": "2026-09-04",
+  "evidence": [
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 33세",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "age",
+        "years": 33
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 가입일: 2024-01-30 (적립용)",
+      "data": {
+        "kind": "join_date",
+        "date": "2024-01-30"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 없음 / 투자성향: 안정추구형 (분석일 2026-01-30, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "전체 평가금액: 11,000,000원",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "current_balance",
+        "cash": 0,
+        "total": 11000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "자산 구성: 시중은행 정기예금 1년 7,000,000원 (63.6%, 만기 2027-04-11) / KB퇴직연금 단기채 펀드(6등급) 4,000,000원 (36.4%) / 현금성자산 0원",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록: 「알파드림1」(저위험) / 당해년도 IRP 개인부담금 납입액(irp_personal_contribution_ytd): 2,000,000원 (월 250,000원 자동이체, 1~8월)",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 10,700,000원",
+      "as_of": "2026-08-05",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-05",
+        "cash": 0,
+        "total": 10700000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "[Event] 2026-08-14 개인부담금 정기 납입 250,000원 (매월 자동이체 — 당해 8회차)",
+      "as_of": "2026-08-14"
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "IRP 최근 1년 상품 매매횟수: 2회 (납입금 정기 매수 외 변경 없음) / ETF 보유·매매 이력: 없음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총급여(직전 연도, 고객 제공·연말정산 기준): 26,000,000원 / 총 금융자산: 38,000,000원 / 타사 연금저축: 없음 / ISA: 없음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E702",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "연금계좌 세액공제 잔여한도(pension_tax_credit_limit_remaining, 연금저축·퇴직연금 합산): 7,000,000원 / 연금계좌 연간 납입 가능 잔여한도(pension_account_contribution_limit_remaining): 15,000,000원 — 두 값은 서로 다른 개념이며 상호 추정 금지. 실제 공제 실효 금액과도 다른 개념",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E801",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해 과세연도 종료일: 2026-12-31",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 2026-09-02 작성 (창구 문의, 직원 작성 요약): '연말 전에 IRP에 더 넣으면 세금을 다 돌려받는 거죠? 얼마까지 넣으면 되는지'라는 취지의 문의 기록."
+    }
+  ],
+  "supply": {
+    "product_candidates": [
+      {
+        "product_id": "P01",
+        "name": "키움 더드림 단기채",
+        "product_type": "채권형(단기채)",
+        "risk_grade": 6,
+        "risk_level_label": "매우낮은위험",
+        "return_recent": 0.0229,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "금리변동 위험 최소화, 매매차익 및 이자수익 추구",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-005 (SRC-095·094)",
+        "fee_note": "합성총보수 연0.2990% (SRC-094, 교차 원천 결합)"
+      }
+    ],
+    "hot_tips": [],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[06-12-151]",
+        "screen_name": "개인부담금 연합회 한도 등록",
+        "actions": "DC/IRP 개인부담금 연금 납입한도 등록/변경 (당해 입금 가능 한도 확인) — 화면명 원천 내 표기 변형, 번호로 조회",
+        "provenance": "SCR-005"
+      },
+      {
+        "screen_id": "S02",
+        "surface": "staff",
+        "screen_no": "[04-10-099]",
+        "screen_name": "세금우대관련조회",
+        "actions": "저축종류별 세금우대내역 조회 (저축종류 83-만기 ISA 전환으로 전환 가능액 확인), 연금납입현황 확인",
+        "provenance": "SCR-015"
+      }
+    ]
+  },
+  "supply_note": "Supply 재료는 knowledge/ Registry 실값(각 항목 provenance 참조). sellable/channels는 PRD 원천 미확인(null) — 임의 보완 금지, '상담 전 확인' 대상 (HD-P2-GATE2 (4))."
+}

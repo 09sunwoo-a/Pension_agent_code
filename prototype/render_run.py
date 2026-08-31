@@ -199,9 +199,16 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
             a("")
             a(f"**추천 후보 — {p.get('name', pc.get('product_id'))}** ({pc.get('product_id')})")
             if p:
-                a(f"- 유형/등급: {p.get('product_type','')} · {p.get('risk_grade','')}등급({p.get('risk_level_label','')})")
-                a(f"- 최근 수익률: {p.get('return_recent', 0):+.1%} ({p.get('return_period','')}, {p.get('return_as_of','')} 기준)")
+                grade = (f"{p['risk_grade']}등급({p.get('risk_level_label','')})"
+                         if p.get("risk_grade") is not None else "해당없음(원리금보장)")
+                a(f"- 유형/등급: {p.get('product_type','')} · {grade}")
+                if p.get("return_recent") is not None:
+                    a(f"- 최근 수익률: {p['return_recent']:+.1%} ({p.get('return_period','')}, {p.get('return_as_of','')} 기준)")
+                else:
+                    a("- 최근 수익률: 미확인")
                 a(f"- 특징: {p.get('features','')}")
+                if p.get("sellable") is None:
+                    a("- 판매 가능 여부: 미확인 — 상담 전 확인 필요")
             a("- 추천 사유:")
             for r in pc.get("reasons") or []:
                 a(f"  · {r}")
