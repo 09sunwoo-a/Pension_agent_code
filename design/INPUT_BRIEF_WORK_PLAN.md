@@ -1,6 +1,7 @@
 # Input·Brief 개편 작업 계획 (Customer Evidence Pack + Employee Brief Target Concept)
 
-- Status: **PLAN — 방향 합의 완료 · 착수 대기** (2026-08-31, Human과 대화로 방향 확정)
+- Status: **PLAN CONFIRMED — 전체 계획 확정 · 착수 대기** (2026-08-31 Human 확정; 착수는 별도 지시로 시작)
+- 승계 세션용 자족 요약본: `design/HANDOFF_INPUT_BRIEF_PLAN.md` (저장소 없이 읽어도 이해되도록 쓴 인수인계 문서)
 - 착수 조건: **Human의 명시적 착수 지시가 있을 때까지 어떤 Step도 시작하지 않는다.** 이 문서 작성 자체는 Human 지시로 수행되었다.
 - 이 문서의 목적: 다른 Agent Session이 이 계획을 이어받아 수행할 수 있도록 (1) 합의된 Target Concept, (2) 이번 대화에서 이미 내려진 설계 판단, (3) 작업 순서와 Human Gate, (4) 후속 로드맵을 기록한다.
 - Target Concept 은 **Working Hypothesis** 다 — 확정 스펙이 아니며, Step 1~2 의 증거 작업과 Step 3 Human Gate 에서 다듬는다.
