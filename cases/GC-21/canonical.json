@@ -1,0 +1,33 @@
+{
+  "case_id": "GC-21",
+  "base_date": "2026-09-04",
+  "evidence": [
+    {"id": "E101", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "고객 연령: 만 45세", "as_of": "2026-09-04", "data": {"kind": "age", "years": 45}},
+    {"id": "E102", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "IRP 가입일: 2018-02-27 (적립용)", "data": {"kind": "join_date", "date": "2018-02-27"}},
+    {"id": "E103", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "퇴직급여 포함 여부: 없음 / 투자성향: 적극투자형 (분석일 2026-05-28, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중", "as_of": "2026-09-04",
+     "data": {"kind": "retirement_benefit", "included": false}},
+    {"id": "E201", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "전체 평가금액: 92,000,000원 / 계좌 전체 최근 1년 수익률: -1.0%", "as_of": "2026-09-04",
+     "data": {"kind": "current_balance", "cash": 0, "total": 92000000}},
+    {"id": "E202", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "자산 구성: KB글로벌 성장주 펀드(다소높은위험 3등급) 32,000,000원 (34.8%) — 고객보유수익률 -8.0% (매수 2025-07-08, 보유 약 14개월) / 상품 자체 최근 1년 수익률: +12.0% (2026-09-04 기준) / 시중은행 정기예금 1년 40,000,000원 (43.5%, 만기 2027-01-22) / KB퇴직연금 단기채 펀드(6등급) 20,000,000원 (21.7%, 고객보유수익률 +3.1%)", "as_of": "2026-09-04"},
+    {"id": "E203", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "디폴트옵션 등록: 「뿔려드림1」(중위험) / 현금성자산: 0원", "as_of": "2026-09-04",
+     "data": {"kind": "do_registration", "registered": true}},
+    {"id": "E301", "block": 3, "evidence_type": "fact", "source_type": "account_system",
+     "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 92,600,000원", "as_of": "2026-08-05",
+     "data": {"kind": "balance_snapshot", "date": "2026-08-05", "cash": 0, "total": 92600000}},
+    {"id": "E401", "block": 4, "evidence_type": "fact", "source_type": "transaction",
+     "text": "[Event] 2025-07-08 KB글로벌 성장주 펀드 32,000,000원 매수 (이후 해당 펀드 매매 없음)", "as_of": "2025-07-08"},
+    {"id": "E501", "block": 5, "evidence_type": "fact", "source_type": "transaction",
+     "text": "IRP 최근 1년 상품 매매횟수: 0회 (2025-07-08 펀드 매수가 최근 매매) / ETF 보유·매매 이력: 없음", "as_of": "2026-09-04"},
+    {"id": "E701", "block": 7, "evidence_type": "fact", "source_type": "external_account",
+     "text": "총 금융자산: 250,000,000원 / 타사 연금저축: 없음 / ISA: 없음", "as_of": "2026-09-04"},
+    {"id": "E901", "block": 9, "evidence_type": "fact", "source_type": "crm",
+     "text": "[CRM] 상담 이력 없음 (최근 3년 조회 기준) — 손실 관련 고객 발화·문의 기록 없음"}
+  ],
+  "supply": {}
+}
