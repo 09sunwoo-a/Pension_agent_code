@@ -1743,6 +1743,7 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
             "basis": constraint.basis,
         },
         "knowledge_ids_used": prompt.knowledge_ids,
+        "knowledge_fields_sent": list(KNOWLEDGE_FIELDS_SENT),
         "prompt": {
             "system_role": prompt.system_role,
             "customer_context": prompt.customer_context,
