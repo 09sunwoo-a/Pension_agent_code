@@ -24,6 +24,26 @@ Architecture Revision #1 (REV-001, Human-approved 2026-09-01; see prototype/REVI
   - Management Judgment is formed before any Next Action (F-005 Action/Change Bias)
   - Knowledge is rendered with Case Relevance / Usage Boundary / Source (F-006)
   - C2 fund risk-grade eligibility validator (HD-2.1 mapping) replaces DETECT_ONLY
+
+Architecture Revision #2 (REV-002, Human-approved Step 3 2026-08-31; see
+prototype/REVISIONS.md and design/TARGET_CONCEPT.md / EVIDENCE_PACK_SPEC.md /
+EMPLOYEE_BRIEF_SPEC.md):
+  - Input: 8-section Customer Evidence Pack (cases/<CASE>/input_v2.md).
+    A case runs on the REV-002 path IFF input_v2.md exists; otherwise the
+    legacy REV-001 path below is used unchanged (regression comparability).
+  - Preprocessing: Arithmetic Derived (elapsed days, D-n) and Rule-derived
+    Facts (pension-open eligibility, DO expected application base date) are
+    computed deterministically from a fenced ```json machine block; Rule-derived
+    facts carry rule_source / rule_as_of. No semantic labels ("방치" 류) are
+    ever produced by preprocessing.
+  - Output: REV-001 structured judgment + supporting_evidence_ids provenance
+    + employee_brief as a 5-section object (S1 situation / S2 management point
+    with confirm-first / S3 direction with branch preservation / S4 consult
+    points with scripts / S5 tips with sources).
+  - Validators added (deterministic only — semantic checks stay with the
+    Evaluator): forbidden judgment words, LaTeX residue, evidence-id validity,
+    screen-number survival, candidate-pool violation; C1/C2/C3 kept and the
+    C2/C3 scan extended over the serialized brief.
 """
 from __future__ import annotations
 
@@ -716,7 +736,17 @@ def prepare(case_id: str) -> Tuple[CustomerInput, ConstraintContext, List[Knowle
 
 
 def run_case(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
-    """Execute the case and return an observable run record (dict)."""
+    """Execute the case and return an observable run record (dict).
+
+    Dispatch: REV-002 path iff cases/<CASE>/input_v2.md exists, else REV-001.
+    """
+    if (REPO_ROOT / "cases" / case_id / "input_v2.md").is_file():
+        return run_case_rev002(case_id, dry_run=dry_run)
+    return run_case_rev001(case_id, dry_run=dry_run)
+
+
+def run_case_rev001(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
+    """Legacy REV-001 execution (unchanged behavior)."""
     started = _dt.datetime.now(_dt.timezone.utc).astimezone().isoformat(timespec="seconds")
     record: Dict[str, Any] = {
         "case_id": case_id,
@@ -805,5 +835,592 @@ def run_case(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
         errs.append("C3 ineligible default-option portfolio proposed")
     if record["validation_c2"]["overall"] == "FAIL":
         errs.append("C2 ineligible fund risk grade proposed")
+    record.update(status=(VALIDATION_ERROR if failed else SUCCESS), error="; ".join(errs))
+    return record
+
+
+# ===========================================================================
+# 9. REV-002 — Customer Evidence Pack (8 sections) + 5-section Employee Brief
+#    Spec: design/EVIDENCE_PACK_SPEC.md / design/EMPLOYEE_BRIEF_SPEC.md
+#    Path taken iff cases/<CASE>/input_v2.md exists (see run_case dispatch).
+# ===========================================================================
+RUNTIME_REVISION_V2 = "REV-002"
+
+EVIDENCE_SECTION_TITLES = [
+    "Customer / Pension Profile",
+    "IRP Current Snapshot",
+    "IRP Event Timeline",
+    "Whole-Asset Context",
+    "Investment Activity",
+    "Upcoming Events",
+    "Digital / Behavioral Signals",
+    "Customer Interaction / CRM Memo",
+]
+CALCULATED_SECTION_TITLE = "Calculated Facts (시스템 계산)"
+
+SIGNAL_BOUNDARY_NOTE = (
+    "(경계) 조회·검색·메뉴 진입·클릭 등의 행동은 관심 가능성 또는 행동 Evidence일 뿐, "
+    "고객 의사 자체를 의미하지 않는다. Signal을 고객 의사로 직접 승격하지 않는다."
+)
+CRM_BOUNDARY_NOTE = (
+    "(경계) 아래는 직원이 작성한 상담메모다. 고객 발화 원문(verbatim)이라고 보장하지 않으며, "
+    "현재 고객 의사를 확정하는 근거(Ground Truth)가 아니다. 작성일이 오래된 메모는 "
+    "재확인 대상이 될 수 있다. 명시 의사인지 부수 언급인지의 해석은 메모를 다른 Evidence와 "
+    "함께 읽고 판단한다."
+)
+EVIDENCE_INTRO = (
+    "아래는 Customer Evidence Pack이다. 각 항목 앞의 [E-번호]는 Evidence ID이며, "
+    "판단 근거로 사용한 항목의 ID를 출력의 supporting_evidence_ids에 기재한다.\n"
+    "항목 라벨: [F]=시스템 확인 사실, [A]=산술 파생값(시스템 계산), [R]=Rule 판정값"
+    "(rule_source·rule_as_of 병기), [S]=행동 신호, [CRM]=직원 작성 상담메모.\n"
+    "값 표기: NULL(값 없음)·0(수량 0)·해당없음(대상 아님)은 서로 다른 의미다. "
+    "여기에 없는 정보는 제공되지 않은 것이며 임의로 채우지 않는다."
+)
+
+FORBIDDEN_JUDGMENT_WORDS: List[str] = ["방치"]
+LATEX_RESIDUE_RE = re.compile(r"\\rightarrow|\$[^$\n]{1,40}\$")
+SCREEN_NO_RE = re.compile(r"\[\d{2}-[0-9A-Z]{2}-[0-9A-Z]{3}\]")
+
+
+@dataclass
+class EvidenceItem:
+    eid: str
+    section: str
+    text: str  # bullet text without the leading "- "
+
+
+@dataclass
+class EvidencePack:
+    case_id: str
+    source_file: str
+    source_sha256: str
+    machine: Dict[str, Any]
+    sections: List[Tuple[str, List[EvidenceItem]]]
+    calculated_records: List[Dict[str, Any]]
+
+    def all_items(self) -> List[EvidenceItem]:
+        return [it for _, items in self.sections for it in items]
+
+    def all_ids(self) -> List[str]:
+        return [it.eid for it in self.all_items()]
+
+    def as_text(self) -> str:
+        return "\n".join(it.text for it in self.all_items())
+
+    def context_text(self) -> str:
+        parts = [EVIDENCE_INTRO]
+        for title, items in self.sections:
+            parts.append(f"### {title}")
+            if title.startswith("Digital"):
+                parts.append(SIGNAL_BOUNDARY_NOTE)
+            if title.startswith("Customer Interaction"):
+                parts.append(CRM_BOUNDARY_NOTE)
+            if not items:
+                parts.append("- (이 섹션에 제공된 항목 없음)")
+            for it in items:
+                parts.append(f"- [{it.eid}] {it.text}")
+        return "\n".join(parts)
+
+
+_MACHINE_FENCE_RE = re.compile(r"```json[^\n]*\n(.*?)```", re.S)
+
+
+def _to_date(value: Any) -> _dt.date:
+    return _dt.date.fromisoformat(str(value))
+
+
+def build_calculated_facts(machine: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Deterministic preprocessing (EVIDENCE_PACK_SPEC §4).
+
+    Arithmetic Derived: elapsed days, D-n, passthrough deltas.
+    Rule-derived Fact: pension-open eligibility (R1), DO expected application
+    base date (R2), tax-credit remaining passthrough (R3) — each with
+    rule_source / rule_as_of. Never emits semantic labels ("방치" 류); R2
+    states the expected base date and that actual application status needs
+    separate confirmation (결정 2-4).
+    """
+    recs: List[Dict[str, Any]] = []
+    base = machine.get("base_date")
+    base_d = _to_date(base) if base else None
+
+    def add(kind: str, label: str, text: str) -> None:
+        recs.append({"kind": kind, "label": label, "text": text})
+
+    for dep in machine.get("deposits", []) or []:
+        if base_d and dep.get("date"):
+            days = (base_d - _to_date(dep["date"])).days
+            amt = f"{int(dep['amount']):,}원 " if dep.get("amount") is not None else ""
+            reason = f"(사유: {dep['reason']}) " if dep.get("reason") else ""
+            add("arithmetic", "A",
+                f"입금 경과일: {dep['date']} {amt}{reason}→ 기준일까지 {days}일 경과")
+    for mat in machine.get("maturities", []) or []:
+        if base_d and mat.get("date"):
+            dn = (_to_date(mat["date"]) - base_d).days
+            amt = f"{int(mat['amount']):,}원 " if mat.get("amount") is not None else ""
+            prod = f"{mat['product']} " if mat.get("product") else ""
+            when = f"D-{dn}" if dn >= 0 else f"만기 경과 {-dn}일"
+            add("arithmetic", "A", f"만기 시한: {prod}{amt}만기 {mat['date']} → {when}")
+    if machine.get("one_month_cash_delta") is not None:
+        add("arithmetic", "A",
+            f"최근 1개월 고유계정대 증감액: {int(machine['one_month_cash_delta']):+,}원")
+
+    if base_d and machine.get("age") is not None and machine.get("join_date"):
+        years = (base_d - _to_date(machine["join_date"])).days / 365.25
+        has_ret = bool(machine.get("retirement_benefit_included"))
+        eligible = int(machine["age"]) >= 55 and (years >= 5 or has_ret)
+        add("rule", "R",
+            "연금개시요건 충족 여부: {} (만 {}세, 가입 {:.1f}년, 퇴직급여 포함 {}) "
+            "| rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 "
+            "| rule_as_of={}".format("충족" if eligible else "미충족",
+                                     machine["age"], years, "Y" if has_ret else "N", base))
+    do_trig = machine.get("do_trigger") or {}
+    if base_d and machine.get("do_registered") and do_trig.get("date"):
+        weeks = 2 if do_trig.get("type") == "최초입금" else 6
+        expected = _to_date(do_trig["date"]) + _dt.timedelta(weeks=weeks)
+        delta = (base_d - expected).days
+        if delta > 0:
+            status = f", 기준일 대비 {delta}일 경과 — 실제 적용 여부는 별도 확인 필요(적용 여부 원천값 미보유)"
+        elif delta < 0:
+            status = f", 도래까지 {-delta}일"
+        else:
+            status = ", 기준일 당일 도래"
+        add("rule", "R",
+            f"디폴트옵션 적용 예상 기준일: {expected.isoformat()} "
+            f"({do_trig.get('type', '만기')} {do_trig['date']} + {weeks}주){status} "
+            f"| rule_source=최초입금 2주 / 만기 4+2주 — 행내 기준 | rule_as_of={base}")
+    if machine.get("tax_credit_remaining") is not None:
+        add("rule", "R",
+            f"세액공제 잔여한도: {int(machine['tax_credit_remaining']):,}원 "
+            f"| rule_source=시스템 산출값 수신(전처리 자체 계산 아님) | rule_as_of={base}")
+    return recs
+
+
+def load_evidence_pack(case_id: str) -> EvidencePack:
+    """Parse cases/<CASE>/input_v2.md into an 8-section Evidence Pack.
+
+    Format: one fenced ```json block (machine-readable raw values used only by
+    build_calculated_facts) + `## <n>. <section title>` headings whose bullet
+    lines are the evidence items. Evidence IDs (E001…) are assigned in file
+    order; calculated facts are appended as a synthetic section and share the
+    same ID space so the model can cite them.
+    """
+    path = REPO_ROOT / "cases" / case_id / "input_v2.md"
+    if not path.is_file():
+        raise FileNotFoundError(f"input_v2 not found: {path}")
+    text = path.read_text(encoding="utf-8")
+    m = _MACHINE_FENCE_RE.search(text)
+    machine: Dict[str, Any] = {}
+    if m:
+        machine = json.loads(m.group(1))
+        text = _MACHINE_FENCE_RE.sub("", text)
+
+    sections: List[Tuple[str, List[EvidenceItem]]] = []
+    counter = 0
+    for block in re.split(r"^(?=## )", text, flags=re.M):
+        head = re.match(r"^## \d+\.\s*(.+?)\s*$", block, re.M)
+        if not head:
+            continue
+        title = head.group(1)
+        items: List[EvidenceItem] = []
+        for ln in block.splitlines():
+            bm = re.match(r"^\s*- (.+)$", ln)
+            if bm:
+                counter += 1
+                items.append(EvidenceItem(f"E{counter:03d}", title, bm.group(1).strip()))
+        sections.append((title, items))
+    if counter == 0:
+        raise ValueError("input_v2.md contains no bullet evidence items")
+    known = [t for t, _ in sections]
+    missing_sections = [t for t in EVIDENCE_SECTION_TITLES if t not in known]
+    if missing_sections:
+        raise ValueError(f"input_v2.md missing sections: {missing_sections}")
+
+    calc = build_calculated_facts(machine)
+    calc_items: List[EvidenceItem] = []
+    for rec in calc:
+        counter += 1
+        rec["eid"] = f"E{counter:03d}"
+        calc_items.append(EvidenceItem(rec["eid"], CALCULATED_SECTION_TITLE,
+                                       f"[{rec['label']}] {rec['text']}"))
+    if calc_items:
+        sections.append((CALCULATED_SECTION_TITLE, calc_items))
+    return EvidencePack(case_id, str(path.relative_to(REPO_ROOT)), _sha256(path),
+                        machine, sections, calc)
+
+
+# ---------------------------------------------------------------------------
+# REV-002 prompt
+# ---------------------------------------------------------------------------
+SYSTEM_ROLE_V2 = """당신은 은행 직원의 개인형IRP 사후관리 판단을 지원하는 의사결정 지원 Agent다.
+
+역할 원칙:
+1. 확인된 사실(제공된 Evidence)과 그로부터 추론한 가능성을 분리해서 다룬다. 추론을 사실처럼 쓰지 않는다.
+2. 제공된 Evidence로 확인되지 않은 고객의 의도·사정·계획은 임의로 채우지 않고, 추가 확인이 필요한 사항으로 명시한다. 확인 사항은 Evidence와 판단 결과로부터 스스로 도출한다.
+3. 업무적 판단은 제공된 Knowledge에 근거한다. Knowledge와 Evidence에 없는 업무 사실, 제도 규칙, 수치를 생성하지 않는다.
+4. 제공된 Constraint를 위반하는 Solution 방향을 생성하지 않는다.
+5. 상품 연결은 다음 순서를 따른다: 먼저 운용 방향/상품 유형을 판단하고, 특정 상품이 필요한 경우에만 제공된 Candidate Pool 안의 상품을 후보로 제시한다. Pool에 없는 상품명을 임의로 생성·추천하지 않는다. 고객 의사·기간·자금성격 등 핵심 조건이 미확인이면 반드시 조건부로 제시하고, 최종 선택은 고객에게 있음을 전제한다.
+6. 판단의 근거로 사용한 Evidence ID와 Knowledge ID를 밝힌다.
+7. 최종 결과는 직원이 고객관리를 수행하기 위한 Recommendation Brief이며, 고객에게 직접 전달하는 문서가 아니다.
+8. Action보다 Management Judgment가 먼저다. 이 고객에게 지금 어떤 종류의 관리판단이 맞는지(개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가)를 Evidence를 근거로 먼저 확정한 뒤, 그 판단에 맞는 다음 행동과 Brief를 만든다.
+9. 어느 방향도 기본값이 아니다. 변경·유지·확인·정보안내·고객선택존중·실행불가 중 근거가 요구하는 것을 고른다. "관리 필요"는 "변경 필요"와 같은 말이 아니며, 투자성향은 허용 상한이지 그 수준까지 운용하라는 요구가 아니다.
+10. Knowledge는 Case Relevance와 Usage Boundary까지 사용한다. 시한·조건·절차·화면 같은 세부를 판단과 Brief에 실제로 반영하고, Usage Boundary가 금지한 단정은 하지 않는다.
+11. 상담메모(CRM)는 직원 작성 기록이다. 현재 고객 의사의 확정 근거로 승격하지 않으며, 작성일이 오래되었으면 재확인을 계획에 넣는다.
+12. 행동 신호(조회·클릭 등)는 관심 가능성까지만 해석한다. 신호를 고객 의사로 승격하지 않는다.
+13. 수익률 비교(고객 보유수익률 vs 상품 자체 수익률 등)는 상황 이해와 상담 설명의 근거로 쓸 수 있으나, 수익률 비교 단독으로 교체·리밸런싱·위험 확대·특정 상품 가입의 필요성을 확정하지 않는다. 보유기간·자금성격·투자성향·고객 의사와 함께 해석한다.
+14. 관리 필요성은 고객의 Evidence에서 출발해야 한다. 은행의 영업 목적을 관리 필요성의 근거로 만들지 않는다.
+15. 조건 분기는 실제 Management Decision을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 방향이 충분히 결정되면 단일 추천 방향을 제시한다. 존재하는 분기를 누락하지도, 불필요한 분기를 만들어내지도 않는다."""
+
+OUTPUT_INSTRUCTION_V2 = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트, 설명, 코드펜스를 붙이지 않는다. 모든 문자열 값은 한국어로 쓴다. 화살표가 필요하면 일반 문자 "→"만 쓴다(LaTeX 표기 금지). 키 순서대로 생각한다: 상황 → 사실/미확인 → 관리판단 → 다음 행동 → Employee Brief.
+
+{
+  "current_situation": "Evidence로부터 해석한 현재 상황 (사실과 추론을 구분해서 서술)",
+  "known_facts_used": ["판단에 사용한 확인된 사실을 Evidence 항목 그대로 나열"],
+  "unknowns_or_confirmations": ["판단에 중요하지만 확인되지 않아 추가 확인이 필요한 사항 (스스로 도출)"],
+  "management_judgment": {
+    "judgment": "다음 중 하나 이상을 '/'로 구분해 기재: 개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가",
+    "reasoning": "왜 그 판단인지 — Evidence를 근거로",
+    "must_confirm_before_action": ["Action 확정 전 먼저 확인할 것 (없으면 빈 배열)"],
+    "supporting_evidence_ids": ["이 판단의 근거 Evidence ID (예: E003)"]
+  },
+  "next_actions": [
+    {
+      "action": "판단에 맞는 다음 행동 (변경·유지·확인·정보안내·절차·연계 모두 가능)",
+      "kind": "변경 / 유지 / 확인 / 정보안내 / 절차 / 연계 중 하나",
+      "condition": "이 행동이 유효하기 위한 전제 조건 또는 확인 사항 (무조건 실행 가능하면 빈 문자열)",
+      "risk_level": "운용 방향(변경 또는 유지)이면 그 방향의 투자성향 위험수준(5단계 중 하나), 아니면 '해당없음'",
+      "supporting_evidence_ids": ["근거 Evidence ID"]
+    }
+  ],
+  "knowledge_ids_used": ["근거로 사용한 Knowledge ID (예: K-001)"],
+  "employee_brief": {
+    "s1_customer_situation": "S1 고객 상황 — 핵심만 간결히. 확인된 사실과 추론을 구분하는 절제된 서술. 미확인 사항을 단정하지 않는다.",
+    "s2_management_point": {
+      "point": "S2 핵심 관리 포인트 — 지금 이 고객에게 무엇을 관리하는 것이 중요한가에 대한 한 문장 커밋",
+      "rationale": "그 근거 한두 문장 (고객 Evidence에서 출발)",
+      "confirm_first": [{"item": "먼저 확인할 사항", "who": "고객 또는 직원"}]
+    },
+    "s3_direction": {
+      "directions": [{"condition": "이 방향의 전제 조건 (Evidence만으로 결정 가능하면 빈 문자열)", "content": "추천 운용 방향 — 유형 수준, 필요 시 Candidate Pool 내 상품", "risk_level": "5단계 중 하나 또는 '해당없음'"}],
+      "not_applicable": null
+    },
+    "s4_consult_points": {
+      "sequence": ["1) 상담 접근 순서를 번호 목록으로"],
+      "scripts": ["직원이 고객에게 그대로 쓸 수 있는 설명 문구 1개 이상 (쉬운 용어, 단정·압박 금지)"]
+    },
+    "s5_tips": [{"content": "관련 화면([번호] 화면명 용도), 업무 절차, 유의사항 등 실무 재료", "source": "출처 (Knowledge ID·자료명·화면 마스터 등; 제공된 재료에 없는 팁을 만들지 않는다)", "as_of": "시점 의존 수치인 경우 기준일, 아니면 빈 문자열"}]
+  }
+}
+
+employee_brief 규칙: s3_direction은 상품 권유가 부적절한 상담(중도인출 지원, 실행 불가 안내, 이탈 대응 등)이면 directions를 빈 배열로 두고 not_applicable에 {"type": "...", "reason": "..."}를 기재한다. 그 외에는 not_applicable을 null로 둔다. s5_tips에 쓸 재료가 제공되지 않았으면 [{"content": "관련 행내 자료 없음 — 공식 화면/담당 부서 확인 필요", "source": "", "as_of": ""}]로 쓴다."""
+
+
+def build_prompt_v2(pack: EvidencePack, constraint: ConstraintContext,
+                    knowledge: List[KnowledgeItem]) -> Prompt:
+    knowledge_text = (
+        "각 Knowledge에는 근거 유형(Basis)이 표시되어 있다. Case Relevance는 이 Knowledge가 이 고객에게 왜 지금 "
+        "중요한지, Usage Boundary는 이 Knowledge만으로 단정하면 안 되는 것이다. 관련도가 높은 Knowledge의 "
+        "시한·조건·절차·화면 세부를 실제로 사용하고, Usage Boundary를 넘는 결론을 만들지 않는다.\n\n"
+        + "\n\n".join(k.as_text() for k in knowledge)
+    )
+    pool = (pack.machine.get("candidate_pool") or [])
+    if pool:
+        knowledge_text += (
+            "\n\n### Candidate Pool (이 Case에서 특정 상품 수준 연결이 허용되는 후보 — 이 밖의 상품명 생성 금지)\n"
+            + "\n".join(f"- {p}" for p in pool)
+        )
+    return Prompt(
+        system_role=SYSTEM_ROLE_V2,
+        customer_context=pack.context_text(),
+        constraint_context=constraint.as_text(),
+        knowledge_context=knowledge_text,
+        output_instruction=OUTPUT_INSTRUCTION_V2,
+        knowledge_ids=[k.kid for k in knowledge],
+    )
+
+
+# ---------------------------------------------------------------------------
+# REV-002 schema check + deterministic validators (semantic checks stay with
+# the Evaluator — EMPLOYEE_BRIEF_SPEC §3)
+# ---------------------------------------------------------------------------
+def check_schema_v2(obj: Dict[str, Any]) -> List[str]:
+    errs: List[str] = []
+    for k in REQUIRED_TOP:
+        if k not in obj:
+            errs.append(f"missing key: {k}")
+    mj = obj.get("management_judgment")
+    if isinstance(mj, dict):
+        for k in ("judgment", "reasoning"):
+            if not str(mj.get(k, "")).strip():
+                errs.append(f"management_judgment.{k} is empty")
+        if isinstance(mj.get("judgment"), str) and not detect_judgment_types(obj):
+            errs.append("management_judgment.judgment names none of the judgment types")
+        if not isinstance(mj.get("supporting_evidence_ids", []), list):
+            errs.append("management_judgment.supporting_evidence_ids must be a list")
+    elif mj is not None:
+        errs.append("management_judgment must be an object")
+    na = obj.get("next_actions")
+    if isinstance(na, list):
+        for i, c in enumerate(na):
+            if not isinstance(c, dict):
+                errs.append(f"next_actions[{i}] must be an object")
+                continue
+            for k in ("action", "kind", "risk_level"):
+                if not str(c.get(k, "")).strip():
+                    errs.append(f"next_actions[{i}].{k} is empty")
+    elif na is not None:
+        errs.append("next_actions must be a list")
+
+    eb = obj.get("employee_brief")
+    if not isinstance(eb, dict):
+        if eb is not None:
+            errs.append("employee_brief must be an object (5-section)")
+        return errs
+    if not str(eb.get("s1_customer_situation", "")).strip():
+        errs.append("employee_brief.s1_customer_situation is empty")
+    s2 = eb.get("s2_management_point")
+    if not isinstance(s2, dict) or not str(s2.get("point", "")).strip():
+        errs.append("employee_brief.s2_management_point.point is empty")
+    elif not isinstance(s2.get("confirm_first", []), list):
+        errs.append("employee_brief.s2_management_point.confirm_first must be a list")
+    s3 = eb.get("s3_direction")
+    if not isinstance(s3, dict):
+        errs.append("employee_brief.s3_direction must be an object")
+    else:
+        dirs = s3.get("directions")
+        n_a = s3.get("not_applicable")
+        if not isinstance(dirs, list):
+            errs.append("employee_brief.s3_direction.directions must be a list")
+        elif not dirs and not isinstance(n_a, dict):
+            errs.append("employee_brief.s3_direction: directions empty and not_applicable missing")
+        else:
+            for i, d in enumerate(dirs):
+                if not isinstance(d, dict) or not str(d.get("content", "")).strip():
+                    errs.append(f"employee_brief.s3_direction.directions[{i}].content is empty")
+                elif "condition" not in d:
+                    errs.append(f"employee_brief.s3_direction.directions[{i}].condition field missing")
+    s4 = eb.get("s4_consult_points")
+    if not isinstance(s4, dict) or not isinstance(s4.get("sequence"), list) or not s4.get("sequence"):
+        errs.append("employee_brief.s4_consult_points.sequence must be a non-empty list")
+    elif not isinstance(s4.get("scripts"), list) or not any(str(s).strip() for s in s4.get("scripts", [])):
+        errs.append("employee_brief.s4_consult_points.scripts must contain at least one script")
+    s5 = eb.get("s5_tips")
+    if not isinstance(s5, list) or not s5:
+        errs.append("employee_brief.s5_tips must be a non-empty list")
+    else:
+        for i, t in enumerate(s5):
+            if not isinstance(t, dict) or not str(t.get("content", "")).strip():
+                errs.append(f"employee_brief.s5_tips[{i}].content is empty")
+    return errs
+
+
+def _output_text(obj: Dict[str, Any]) -> str:
+    return json.dumps(obj, ensure_ascii=False)
+
+
+def _brief_text(obj: Dict[str, Any]) -> str:
+    return json.dumps(obj.get("employee_brief", {}), ensure_ascii=False)
+
+
+def validate_forbidden_words(obj: Dict[str, Any]) -> Dict[str, Any]:
+    """FAIL if a forbidden judgment word appears anywhere in the output.
+
+    Word list per EMPLOYEE_BRIEF_SPEC §3.1 (실제 발생 사례가 있는 것만).
+    Semantic variants ("Unknown의 사실 승격" 일반)은 Evaluator 몫.
+    """
+    findings = []
+    text = _output_text(obj)
+    for w in FORBIDDEN_JUDGMENT_WORDS:
+        if w in text:
+            for loc in ("current_situation", "employee_brief"):
+                loc_text = str(obj.get(loc, "")) if loc != "employee_brief" else _brief_text(obj)
+                if w in loc_text:
+                    findings.append({"word": w, "where": loc, "verdict": "FAIL"})
+            if not any(f["word"] == w for f in findings):
+                findings.append({"word": w, "where": "other", "verdict": "FAIL"})
+    return {"check": "forbidden_words", "findings": findings,
+            "overall": "FAIL" if findings else "PASS"}
+
+
+def validate_latex_residue(obj: Dict[str, Any]) -> Dict[str, Any]:
+    hits = LATEX_RESIDUE_RE.findall(_output_text(obj))
+    return {"check": "latex_residue", "findings": hits[:10],
+            "overall": "REVIEW" if hits else "PASS"}
+
+
+def validate_evidence_ids(obj: Dict[str, Any], valid_ids: List[str]) -> Dict[str, Any]:
+    """Deterministic provenance check (결정 3-4·3-5).
+
+    FAIL   : a cited evidence id does not exist in the Evidence Pack.
+    REVIEW : management_judgment cites no evidence ids at all (근거 없는 관리
+             포인트 후보 — 논리 정합은 Evaluator가 본다).
+    """
+    valid = set(valid_ids)
+    findings = []
+    overall = "PASS"
+    mj = obj.get("management_judgment") or {}
+    mj_ids = mj.get("supporting_evidence_ids") if isinstance(mj, dict) else None
+    cited: List[Tuple[str, List[str]]] = [("management_judgment", mj_ids or [])]
+    for i, c in enumerate(obj.get("next_actions") or []):
+        if isinstance(c, dict):
+            cited.append((f"next_actions[{i}]", c.get("supporting_evidence_ids") or []))
+    if not mj_ids:
+        findings.append({"where": "management_judgment", "issue": "no supporting_evidence_ids",
+                         "verdict": "REVIEW"})
+        overall = "REVIEW"
+    for where, ids in cited:
+        for eid in ids:
+            if eid not in valid:
+                findings.append({"where": where, "issue": f"unknown evidence id {eid}",
+                                 "verdict": "FAIL"})
+                overall = "FAIL"
+    return {"check": "evidence_ids", "findings": findings, "overall": overall}
+
+
+def validate_screen_survival(input_text: str, knowledge_text: str,
+                             obj: Dict[str, Any]) -> Dict[str, Any]:
+    """REVIEW if a screen number present in input/knowledge appears nowhere in
+    the output (GC-08·GC-16 탈락 사례 대책; GC-11이 유지 준거)."""
+    provided = set(SCREEN_NO_RE.findall(input_text)) | set(SCREEN_NO_RE.findall(knowledge_text))
+    out = set(SCREEN_NO_RE.findall(_output_text(obj)))
+    missing = sorted(provided - out)
+    return {"check": "screen_survival", "provided": sorted(provided),
+            "missing_from_output": missing,
+            "overall": "REVIEW" if missing else "PASS"}
+
+
+def validate_candidate_pool(machine: Dict[str, Any], obj: Dict[str, Any]) -> Dict[str, Any]:
+    """FAIL if a product known NOT to be in the approved pool appears in S3.
+
+    Only names listed in machine["known_products_not_in_pool"] are checked —
+    a deterministic subset. "임의 상품명 생성" 일반 검출은 Evaluator 몫.
+    """
+    excluded = machine.get("known_products_not_in_pool") or []
+    pool = machine.get("candidate_pool") or []
+    eb = obj.get("employee_brief") or {}
+    s3_text = json.dumps(eb.get("s3_direction", {}) if isinstance(eb, dict) else {},
+                         ensure_ascii=False)
+    findings = [{"product": name, "where": "s3_direction", "verdict": "FAIL"}
+                for name in excluded if name in s3_text]
+    used_pool = [name for name in pool if name in s3_text]
+    return {"check": "candidate_pool", "pool": pool, "pool_used_in_s3": used_pool,
+            "findings": findings, "overall": "FAIL" if findings else "PASS"}
+
+
+# ---------------------------------------------------------------------------
+# REV-002 orchestration
+# ---------------------------------------------------------------------------
+def prepare_v2(case_id: str):
+    pack = load_evidence_pack(case_id)
+    constraint = build_constraint_context(pack)  # reads 투자성향 from evidence text
+    knowledge, kp_path, kp_sha = load_knowledge_items(case_id)
+    prompt = build_prompt_v2(pack, constraint, knowledge)
+    meta = {"knowledge_pack": kp_path, "knowledge_pack_sha256": kp_sha}
+    return pack, constraint, knowledge, prompt, meta
+
+
+def run_case_rev002(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
+    started = _dt.datetime.now(_dt.timezone.utc).astimezone().isoformat(timespec="seconds")
+    record: Dict[str, Any] = {
+        "case_id": case_id,
+        "runtime_revision": RUNTIME_REVISION_V2,
+        "started_at": started,
+        "model": MODEL_ID,
+        "endpoint": ENDPOINT,
+        "generation_config": None,
+        "git_head": _git_head(),
+        "status": None,
+        "error": "",
+    }
+    try:
+        pack, constraint, knowledge, prompt, meta = prepare_v2(case_id)
+    except Exception as e:
+        record.update(status=CONFIG_ERROR, error=f"{type(e).__name__}: {e}")
+        return record
+
+    record.update(
+        {
+            "frozen_input_v2": {"file": pack.source_file, "sha256": pack.source_sha256},
+            "frozen_knowledge_pack": meta,
+            "evidence_sections": {t: [it.eid for it in items] for t, items in pack.sections},
+            "machine_block": pack.machine,
+            "calculated_facts": pack.calculated_records,
+            "constraint_context": {
+                "constraint_id": constraint.constraint_id,
+                "investment_profile": constraint.investment_profile,
+                "allowed_levels": constraint.allowed_levels,
+                "forbidden_levels": constraint.forbidden_levels,
+                "basis": constraint.basis,
+            },
+            "knowledge_ids_used": prompt.knowledge_ids,
+            "prompt": {
+                "system_role": prompt.system_role,
+                "customer_context": prompt.customer_context,
+                "constraint_context": prompt.constraint_context,
+                "knowledge_context": prompt.knowledge_context,
+                "output_instruction": prompt.output_instruction,
+            },
+            "prompt_chars": len(prompt.as_text()),
+        }
+    )
+    if dry_run:
+        record.update(status="DRY_RUN")
+        return record
+
+    resp = call_gemma(prompt.as_text())
+    record["model_response"] = {
+        "status": resp.status,
+        "http_status": resp.http_status,
+        "finish_reason": resp.finish_reason,
+        "usage": resp.usage,
+        "error": resp.error,
+    }
+    record["raw_model_output"] = resp.text
+    if resp.status != SUCCESS:
+        record.update(status=resp.status, error=resp.error)
+        return record
+
+    obj, norms, perr = parse_model_json(resp.text)
+    record["json_normalizations"] = norms
+    if obj is None:
+        record.update(status=JSON_PARSE_ERROR, error=perr)
+        return record
+    record["parsed_output"] = obj
+
+    schema_errs = check_schema_v2(obj)
+    record["schema_errors"] = schema_errs
+    if schema_errs:
+        record.update(status=SCHEMA_ERROR, error="; ".join(schema_errs))
+        record["validation"] = validate_c1(obj, constraint)
+        return record
+
+    record["validation"] = validate_c1(obj, constraint)
+    record["validation_c3"] = validate_c3_default_option(obj, constraint)
+    record["validation_c2"] = validate_c2_fund_grade(obj, constraint)
+    record["validation_forbidden_words"] = validate_forbidden_words(obj)
+    record["validation_latex"] = validate_latex_residue(obj)
+    record["validation_evidence_ids"] = validate_evidence_ids(obj, pack.all_ids())
+    record["validation_screen_survival"] = validate_screen_survival(
+        prompt.customer_context, prompt.knowledge_context, obj)
+    record["validation_candidate_pool"] = validate_candidate_pool(pack.machine, obj)
+    record["judgment_types_detected"] = detect_judgment_types(obj)
+    record["employee_brief"] = obj.get("employee_brief", {})
+
+    hard_fail_keys = ("validation", "validation_c3", "validation_c2",
+                      "validation_forbidden_words", "validation_evidence_ids",
+                      "validation_candidate_pool")
+    errs = []
+    if record["validation"]["overall"] == "FAIL":
+        errs.append("C1 violated by a next action")
+    if record["validation_c3"]["overall"] == "FAIL":
+        errs.append("C3 ineligible default-option portfolio proposed")
+    if record["validation_c2"]["overall"] == "FAIL":
+        errs.append("C2 ineligible fund risk grade proposed")
+    if record["validation_forbidden_words"]["overall"] == "FAIL":
+        errs.append("forbidden judgment word in output")
+    if record["validation_evidence_ids"]["overall"] == "FAIL":
+        errs.append("unknown evidence id cited")
+    if record["validation_candidate_pool"]["overall"] == "FAIL":
+        errs.append("product outside candidate pool proposed in S3")
+    failed = any(record[k]["overall"] == "FAIL" for k in hard_fail_keys)
     record.update(status=(VALIDATION_ERROR if failed else SUCCESS), error="; ".join(errs))
     return record
