@@ -1,6 +1,9 @@
 # Input·Brief 개편 작업 계획 (Customer Evidence Pack + Employee Brief Target Concept)
 
-- Status: **PLAN CONFIRMED — 전체 계획 확정 · 착수 대기** (2026-08-31 Human 확정; 착수는 별도 지시로 시작)
+- Status: **IN PROGRESS — Step 1·2 완료, Step 3 Human Gate 대기** (2026-08-31 Human 확정·착수 지시, 같은 날 Step 1~2 수행)
+  - Step 1 산출물: `design/evidence/` 5건 (P0 회수본 · P1 역추적 · Excel 필드 · Brief 감사 · 화면/Hot Tip 인벤토리)
+  - Step 2 산출물: `design/TARGET_CONCEPT.md` · `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md` (전부 Draft)
+  - 다음: Step 3 — Human이 Availability `?` 확정, 컨셉·필드 승인, HD-6 갱신·HD-7 신설, SYSTEM_ROLE 원칙 5 변경, Regression 범위 승인 (결정 목록: `TARGET_CONCEPT.md` §6)
 - 승계 세션용 자족 요약본: `design/HANDOFF_INPUT_BRIEF_PLAN.md` (저장소 없이 읽어도 이해되도록 쓴 인수인계 문서)
 - 착수 조건: **Human의 명시적 착수 지시가 있을 때까지 어떤 Step도 시작하지 않는다.** 이 문서 작성 자체는 Human 지시로 수행되었다.
 - 이 문서의 목적: 다른 Agent Session이 이 계획을 이어받아 수행할 수 있도록 (1) 합의된 Target Concept, (2) 이번 대화에서 이미 내려진 설계 판단, (3) 작업 순서와 Human Gate, (4) 후속 로드맵을 기록한다.
