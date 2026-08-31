@@ -14,6 +14,7 @@
 | HD-6.1 | 2026-08-31* | Employee Brief를 직원용 Target Output으로 승격 (Diagnostic → Recommendation Brief; REV-002 Step 3) | 확정 |
 | HD-7 | 2026-08-31* | Business 원칙 — 관리 필요성은 Customer Evidence에서만 출발 (REV-002 Step 3) | 확정 |
 | HD-8 | 2026-08-31* | REV-002 Step 6 — Regression 해석·Operational 보강 3건·REV-003 보류·P2 설계 착수·Answer Quality 축·한도 3필드 분리·REV-002 종료 조건 | 확정 |
+| HD-PRE-P2-INPUT | 2026-08-31* | Pre-P2 Input Architecture — 9-Block 승인(수정 2건)·Window 변화 구조·Sequence 방향·3-Layer(Stable ID·JSON·type 2축 분리)·Brief는 별도 Gate·GC-18~25 재분류 원칙 승인·Av `?` 5건 유지 | 확정 |
 
 ---
 
@@ -123,3 +124,17 @@ HD-6에서 "Decision Meaning Preservation 확인용 Diagnostic Output"으로 규
 **R4 위험자산 한도**: Rule-derived 후보 유지하되 공식 rule_source 확보 전 deterministic Rule 비활성화. Hot Tip·설명자료만으로 확정 금지(HD-3). Source Traceability Gap 유지, 공식 근거 확보 시 별도 Human Decision 후 활성화.
 
 **REV-002 종료 조건**: ① Operational 3건 적용 ② GC-05/11/14 선택 Regression ③ 불확실성 보존 확인 ④ F-011 해소 확인 ⑤ F-012 해소 확인 ⑥ Availability Spec 갱신 ⑦ 결과·FAILURE_MAP 최종 기록 — 완료 시 종료. 선택 Regression에서 신규 Semantic Failure 미발견 시 종료 처리하며, 문구·형식 오류로 새 Revision 번호를 만들지 않는다.
+
+## HD-PRE-P2-INPUT. Pre-P2 Input Refinement 결정 (2026-08-31)
+
+범위: **Input Architecture와 P2 진행 조건만.** Employee Brief Refinement는 제외 — 별도 Human Design Prompt로 재설계 후 별도 승인 예정. 상세·반영 위치: `design/PRE_P2_REFINEMENT_PROPOSAL.md` §6·§7.
+
+1. **9-Block Target Input Architecture 승인** (Lifecycle / Snapshot / Recent Changes & Money Flow / Event Timeline / Investment Behavior / Digital Behavior & Sequence / Wider Financial Context / Upcoming Decision Horizon / Supplementary Human-authored Context). 승인 방향: Recent Changes 분리, Sequence 확장, CRM 재위치(삭제 아님)·System-observable ①~⑧ 선직렬화, 합산 한도의 ⑦ 배치, DO Rule Clock의 ⑧ 배치. 수정 반영: **1-1** 잔액-Flow 연결은 산술 reconciliation(금액 일치)까지 — "미운용/대기성/남아 있는 자금" 류 의미 부여 금지(What happened/changed까지, What it means는 Agent); **1-2** ⑧에서 "만기→재예치/변경 결정 필요" 류 사전 의미부여 제거 — 객관적 시점 정보(상품명·만기일·D-n·Rule Clock·예정 Event)까지만.
+2. **Recent Changes는 Window 기반 구조** — 30d 우선, 90d 확보 시 추가, 특정 기간 강결합 금지. 90d Snapshot Av `?` 유지.
+3. **Digital Behavior Sequence 방향 승인** — Sequence도 Signal이지 Intent 아님, "이탈 준비 중/투자 의사 있음" 류 사전 Label 금지. Av `?` 유지, P2는 Sequence Case 사용 가능하되 횟수/행동 Event 형태로 degraded 가능해야 함.
+4. **3-Layer 승인** (Raw → Canonical Evidence Object → Deterministic Derived Context → 9-Block Rendering → Agent). 4-1 P2 신규 Case부터 적용, 기존 Frozen input_v2·RUN·EVAL 절대 불변. 4-2 **Evidence ID = Canonical Stable ID** (렌더 순서 무관 Provenance 보존). 4-3 Canonical 형식 **JSON 우선안**. 4-4 **evidence_type(fact/arithmetic_derived/rule_derived/signal)과 source_type(account_system/transaction/digital_behavior/crm/external_account/rule_engine/…) 2축 분리** — 혼합 금지가 핵심. 현 단계 구현 금지.
+5. **Brief Refinement 5건 미승인** — Reject 아님, 별도 Brief Design Gate로 이동. Target Brief 확정 금지, Brief Schema/Prompt/Validator 변경 금지. Proposal §4는 `Pending separate Human Brief Design` 표시.
+6. **GC-18~25 재분류 원칙 승인** (유지: GC-20·21·23·25 / Input 수정: GC-18·22·24 / Scenario 수정: GC-19 / 보류 없음). GC-18: ISA-IRP 목적 연결 사전 해석 금지(Fact만, 관계는 Agent 구성). GC-19: Sequence 우선 Target + degraded 버전 설계 가능. **Case 작성·Expected Output·Evaluation 설계는 새 Brief 구조 확정 이후에만.**
+7. **Availability `?` 5건 유지** (퇴직일 상세 / 90d Snapshot·변화 / 거래횟수 기간 세분화 / Sequence·실행 여부 / CRM 작성 주체) — 임의 O/X 확정 금지, 실제 Source·DB·원천 확인으로만 갱신.
+
+Gate 상태: REV-002 CLOSED 유지 / Pre-P2 Input = Direction Approved / **Brief = Separate Gate Pending** / GC-18~25 = HOLD / Runtime·Schema·Parser 구현 금지 / P2 RUN·EVAL 시작 금지.

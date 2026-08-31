@@ -1,6 +1,6 @@
 # Input·Brief 개편 작업 계획 (Customer Evidence Pack + Employee Brief Target Concept)
 
-- Status: **COMPLETE — Step 1~6 전부 완료, REV-002 종료 (2026-08-31, HD-8)**. Regression PASS 4·PARTIAL 4·FAIL 0 + Operational 보강 3건 + 선택 Regression 검증 통과. 잔여: F-012 형식(validator 상시 검출, P2 관찰)·Av `?` 개설 채널 1건·R4 Gap. 다음 단계: **Pre-P2 Input/Brief Refinement Design Gate** — `design/PRE_P2_REFINEMENT_PROPOSAL.md` Human 검토 대기 (P2 후보 GC-18~25는 HOLD, 재분류는 Proposal §5). REV-003는 Candidate 보류(HD-8 (b)).
+- Status: **COMPLETE — Step 1~6 전부 완료, REV-002 종료 (2026-08-31, HD-8)**. Regression PASS 4·PARTIAL 4·FAIL 0 + Operational 보강 3건 + 선택 Regression 검증 통과. 잔여: F-012 형식(validator 상시 검출, P2 관찰)·Av `?` 개설 채널 1건·R4 Gap. 현재 Gate 상태(HD-PRE-P2-INPUT 이후): Pre-P2 Input Architecture = **Direction Approved**(9-Block·3-Layer, `PRE_P2_REFINEMENT_PROPOSAL.md`) / Employee Brief = **별도 Human Design Gate PENDING**(다음 Human Prompt 대기) / GC-18~25 = HOLD(재분류 방향만 승인) / Runtime·Schema·Parser 구현 금지 / P2 RUN·EVAL 시작 금지 / REV-003 Candidate 보류(HD-8 (b)).
   - Step 1 산출물: `design/evidence/` 5건 (P0 회수본 · P1 역추적 · Excel 필드 · Brief 감사 · 화면/Hot Tip 인벤토리)
   - Step 2 산출물: `design/TARGET_CONCEPT.md` · `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md` (전부 Draft)
   - **Step 3 결정 완료 (2026-08-31)**: Evidence Pack 8-섹션 확정(Bank Signals 삭제), Availability 확정, Candidate Pool 원칙, 화면값 3계층, Missing→Evidence Missing/Decision Variable 분리, Calculated Fact 2분류, HD-6.1·HD-7 기록, Regression 8 Case(GC-17 추가). 결정 기록: `TARGET_CONCEPT.md` §6, `golden/HUMAN_DECISIONS.md` HD-6.1·HD-7

@@ -1,6 +1,6 @@
 # P2 Batch 3 — Case 후보 설계안 (Human 승인 대기)
 
-- Status: **HOLD — Pre-P2 Input/Brief Refinement Design Gate 선행 (2026-08-31 Human 지시).** 방향성은 적절 판정이나 Case 작성·Freeze·RUN 미승인. 새 Input 방향 대입 재분류는 `design/PRE_P2_REFINEMENT_PROPOSAL.md` §5 — 유지 4(GC-20·21·23·25) / Input 구조 수정 3(GC-18·22·24) / Scenario 수정 1(GC-19).
+- Status: **HOLD 유지 (HD-PRE-P2-INPUT, 2026-08-31).** 재분류 **방향만 승인** — 유지 4(GC-20·21·23·25) / Input 구조 수정 3(GC-18·22·24) / Scenario 수정 1(GC-19), 상세는 `design/PRE_P2_REFINEMENT_PROPOSAL.md` §5. **Case 작성·Expected Output·Evaluation 설계·Freeze·RUN/EVAL 금지** — Employee Brief가 별도 Human Design Gate에서 변경될 예정이므로 새 Brief 구조 확정 이후에만 착수.
 - 작성: 2026-08-31. 근거: HD-8 4-1 우선 검증 영역 6개 + `golden/GOLDEN_SET_DRAFT.md` §7 Coverage Gap + `golden/REV002_REGRESSION.md` 잔여 관찰.
 - 공통 사항: 전 Case는 처음부터 REV-002 Evidence Pack(input_v2 형식·8-섹션·machine 블록)으로 작성한다. 전 Case에 **Answer Quality Secondary Observation Axis**(HD-8 5: Completeness / Prioritization / Solution Breadth / Explanation Quality / Actionability / Conversation Quality / Practical Utility / Conciseness)를 EVAL 관찰 항목으로 부착한다 — Gate 아님, Observation 전용.
 - 후보는 **1차 8개**(GC-18~25) + 2차 후보 4개(§3). 8개는 HD-8 우선 영역 6개 전부와 Coverage Gap 2개를 커버한다.

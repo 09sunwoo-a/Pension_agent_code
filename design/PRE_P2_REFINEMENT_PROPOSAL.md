@@ -1,6 +1,6 @@
 # Pre-P2 Input / Brief Refinement — Design Proposal
 
-- Status: **PROPOSAL — Human Design Gate 검토 대기 (2026-08-31).** 승인 전 P2 Case 작성·Freeze·RUN/EVAL·Runtime 변경 금지. 이 문서는 설계 제안이며 어떤 구현도 포함하지 않는다.
+- Status: **INPUT ARCHITECTURE — HUMAN DIRECTION APPROVED (HD-PRE-P2-INPUT, 2026-08-31).** 9-Block 구조·3-Layer 방향 승인 + 수정사항 반영 완료(§7 결정 기록). **Employee Brief(§4)는 이번 결정 범위에서 제외 — `Pending separate Human Brief Design Gate`.** Runtime/Parser/Canonical Schema 구현·P2 Case 작성·Freeze·RUN/EVAL은 여전히 금지(Brief Gate 확정 이후).
 - 목적: REV-002의 검증된 Core Reasoning Architecture(판단층/전달층 분리·Judgment-first·Candidate Pool·Evidence Provenance)는 변경하지 않는다. **Customer Context를 더 풍부하고 안정적으로 재구성할 수 있도록 Input의 내용·표현 구조를 개선**하고, 그 변화가 Employee Brief에 어떻게 전달되어야 하는지 재설계한다.
 - 불변 조건: 기존 Frozen Case·RUN/EVAL·REV-002 종료 기록 수정 없음.
 
@@ -56,10 +56,10 @@
 |---|---|
 | 목적 | **What changed** — 왜 지금 이 상태가 됐는지를 Agent가 재구성할 원재료. Why-now의 시스템 관찰 근거 |
 | 유지 (이동 IN) | 최근 1개월 고유계정대 증감(현행 ⑤에서 이동) |
-| 추가 후보 | **1M/3M 평가금액 변화**(전체·자산유형별 금액/비중, A) / **현금성자산 증감(1M/3M)** / **최근 자금 발생 원천 요약**(최근 N건 입금·만기상환·매도대금의 사유별 합계 — ④ Event의 집계 뷰) / **잔액-Flow의 객관 연결**(가능한 경우: "현재 현금성 X원 중 Y원은 mm-dd '만기상환' 입금분과 금액 일치" 수준의 **산술 대조**만 — 기계적 등식, 원인 단정 아님) |
+| 추가 후보 | **Window 기반 변화 구조**(Decision 2 반영 — 특정 기간에 Schema를 강결합하지 않음): 기본 `30d` 우선 활용, `90d`는 확보 가능 시 추가, 향후 다른 window 확장 가능. 대상: 평가금액 변화(전체·자산유형별 금액/비중, A)·현금성자산 증감 / **최근 자금 발생 원천 요약**(입금·만기상환·매도대금의 사유별 합계 — ④ Event의 집계 뷰) / **잔액-Flow의 산술적 reconciliation**(Decision 1-1 — 포함 확정): 허용 예 "현재 현금성 3,000만 / 8-10 만기상환 3,000만 / **금액 일치**"까지. 금지 예: "만기 후 **미운용된** 자금", "**대기성** 자금", "운용되지 않고 **남아 있는** 자금" |
 | 삭제·통합 | — (신설) |
 | Type | A (전부 산술 파생 — Canonical의 과거 스냅샷·Event에서 계산) |
-| Av | 1M 변화 O 추정([9C] 실존) / **3M 변화·과거 시점 잔액 스냅샷 ?** / 잔액-Flow 연결은 파생이므로 — |
+| Av | 30d 변화 O 추정([9C] 실존) / **90d 변화·과거 시점 잔액 스냅샷 `?` 유지**(Decision 7 — 임의 확정 금지) / 잔액-Flow reconciliation은 파생이므로 — |
 | 판단 도움 | GC-07("매수 후 평가 상승으로 초과" 추론)·GC-11(사유 분해)이 보여준 "변화를 알면 원인 추론이 정확해짐"의 일반화. Excel [9C]의 ±1.7억 급증 필드가 원형 |
 | 사전해석 금지 | **"방치·미운용·대기자금" 등 의미 판단 전처리 금지** (명시 지시). 잔액-Flow 연결은 금액 일치라는 산술 사실까지만 — "이 현금은 지급 대기금이다" 단정 금지 |
 | 확보 난이도 | **중** — 과거 시점 잔액 스냅샷(1M/3M 전) 보존 여부가 관건. 미확정 시 증감액 필드만으로 축소 운영 가능 |
@@ -107,7 +107,7 @@
 | Av | 횟수형 O(HD-8) / **Sequence·실행 여부 ?** — 로그 타임스탬프·행동 구분 체계 필요 |
 | 판단 도움 | 단발 횟수보다 Sequence가 훨씬 강한 재구성 재료 — "조회만 8회"와 "조회→비교→이전 메뉴→미실행"은 다른 상황. 단 해석은 Agent 몫 |
 | 사전해석 금지 | **Digital Behavior는 Intent가 아니라 Signal** — Sequence가 강해도 승격 금지(Critical Boundary 유지). "이탈 준비 중" 류 전처리 라벨 금지 |
-| 확보 난이도 | **중~높음** — 확보 불가 시 횟수형으로 축소 운영(P2 Case는 두 수준 모두 설계 가능하게) |
+| 확보 난이도 | **중~높음, Av `?` 유지**(Decision 3·7) — P2 설계는 Sequence 제공 Case를 사용할 수 있게 하되, 실데이터에서 Sequence 확보 불가 시 **횟수/행동 Event 형태로 degraded 가능해야 함**(양 버전 설계 원칙 승인) |
 
 ### ⑦ Wider Financial Context (현행 ④ 확장)
 
@@ -131,7 +131,7 @@
 | 목적 | 앞으로 결정이 필요해지는 시점들 — 시한 좌표 (F-003 대책 계승) |
 | 유지 | 상품 만기 목록(부차 포함 전부·D-n)·ISA 만기(+60일 시한)·연금 지급 예정·자동이체 예정 |
 | 이동 (IN) | **DO 적용 예상 기준일(Rule Clock, R)** ← 현행 ② — "예정된 제도 시계"는 Horizon이 제자리 |
-| 추가 후보 | **기타 실제 예정 Event**(성향분석 유효기간 만료 예정, 세액공제 연말 시한 등 — 원천 실존·규칙 파생 가능한 것만), 시한별 **결정 성격 한 줄**(예: "만기 → 재예치/변경 결정 필요") — 단 이것이 사전해석이 되지 않도록 "결정이 필요한 시점"이라는 사실 서술까지만 |
+| 추가 후보 | **기타 실제 예정 Event**(성향분석 유효기간 만료 예정, 세액공제 연말 시한 등 — 원천 실존·규칙 파생 가능한 것만). ~~시한별 "결정 성격 한 줄"~~ — **Decision 1-2로 제거**: Input에는 상품명·만기일·D-n·Rule Clock·실제 예정 Event 등 객관적 시점 정보까지만 제공하며, 해당 Event가 어떤 관리 Decision을 요구하는지는 Agent가 판단한다 |
 | 삭제·통합 | 없음 |
 | Type | F + A(D-n) + R(Rule Clock) |
 | Av | O (기타 예정 Event 일부 ?) |
@@ -174,27 +174,39 @@
 
 **AS-IS 문제**: `input_v2.md` = Markdown bullet(사람 작성) + machine JSON(파생 계산용 원천값 **중복 기입**). 같은 사실이 두 곳에 적혀 불일치 위험이 있고, Case 작성 비용이 이중이며, 렌더링 정책(순서·주석)이 Case 파일에 박제된다.
 
-**TO-BE 3-Layer**:
+**TO-BE — 승인된 Target Architecture (Decision 4)**:
 
 ```
+Raw / Source Data
+  ↓ (향후 실데이터: Input Adapter만 교체)
 Layer 1  Canonical Evidence Object  (Case당 단일 구조화 파일 — 유일한 사실 원천)
-         item = { id, block(①~⑨), type(F/A/R/S/CRM), field, value, as_of, unit?, source? }
+         item = { id(Stable), block(①~⑨), evidence_type, source_type,
+                  field, value, as_of, unit? }
          사람(Case 작성자/향후 시스템)은 이것만 작성한다. 서술문 없음.
   ↓ deterministic
-Layer 2  Derived Context Engine  (전처리 — Canonical만 입력으로 A/R Fact 생성)
-         비중·D-n·경과일·1M/3M 변화·Rule Clock·잔액-Flow 산술 대조
+Layer 2  Deterministic Derived Context  (전처리 — Canonical만 입력)
+         비중·D-n·경과일·window 변화(30d/90d/…)·Rule Clock·잔액-Flow reconciliation
          전부 rule_source/rule_as_of/적용 Rule ID 추적. 의미 판단 금지.
   ↓ deterministic
-Layer 3  LLM-friendly Rendering  (렌더러 — Canonical+Derived → 9-Block 한국어 Markdown)
-         E-ID 부여·블록 순서·경계 주석(⑥⑨)·NULL/0/해당없음 표기·CRM 관련 Evidence 병렬 표기
-         렌더링 정책 변경이 Case 파일과 완전히 분리됨
+Layer 3  LLM-friendly 9-Block Rendering
+         Stable E-ID 표기·블록 순서·경계 주석(⑥⑨)·NULL/0/해당없음·CRM 관련 Evidence 병렬 표기
+  ↓
+Agent Reasoning
 ```
 
-- 효과: 단일 원천(불일치 제거) / Case 작성은 Canonical만(작성 비용 절반) / 실데이터 연동 시 Layer 1만 시스템 인터페이스로 교체하면 됨(Availability 확정 필드 = Canonical 필드 정의와 일치) / 렌더링·주석 개선이 re-Freeze 없이 가능.
-- 마이그레이션: P2 신규 Case부터 Canonical 작성 + 렌더러로 Markdown 생성. **기존 input_v2 8건은 불변**(재변환하지 않음). Parser/Schema/runtime 수정은 이 Proposal 승인 후 별도 구현 단계에서.
-- 미결(승인 시 결정): Canonical 파일 형식(JSON vs YAML — 가독·주석 필요성으로 YAML 우세하나 stdlib 제약상 JSON 우세), E-ID를 Canonical id로 고정할지(렌더 순서 무관 안정 ID — **권장**) vs 렌더 시 부여(현행).
+**확정 사항 (Decision 4-1 ~ 4-4)**:
+- **적용 시점**: P2 신규 Case부터. **기존 Frozen input_v2·RUN·EVAL은 절대 변환·수정하지 않는다.**
+- **Evidence ID = Canonical Stable ID** — 렌더 시점 임시 부여가 아니라 Canonical Object의 고정 ID. 렌더링 순서가 바뀌어도 Evidence Provenance가 깨지지 않는다.
+- **Canonical 파일 형식 = JSON 우선안** (Runtime 연동·Schema Validation·stdlib 구현·향후 Source Adapter 연결 용이). 현 단계 구현 금지.
+- **Evidence Type과 Source Type 분리** — epistemic 성격과 출처 성격을 하나의 type에 혼합하지 않는다:
+  - `evidence_type`: `fact` / `arithmetic_derived` / `rule_derived` / `signal`
+  - `source_type`: `account_system` / `transaction` / `digital_behavior` / `crm` / `external_account` / `rule_engine` / …
+  - 이에 따라 §2의 표기 중 "CRM"은 evidence_type이 아니라 **source_type=crm**이다. ⑨의 메모 항목은 evidence_type=`fact`(작성됐다는 사실·작성일) + source_type=`crm`으로 표현되며, 내용의 의미 해석은 Agent 몫. 목적: 향후 human-authored source가 늘어도(직원 메모 외) 축이 오염되지 않음.
+- 효과: 단일 원천(이중 기입 제거) / deterministic 계산과 semantic reasoning 분리 / 실데이터 연동 시 Input Adapter만 교체.
 
-## 4. Employee Brief Refinement 후보 (구현 보류)
+## 4. Employee Brief Refinement 후보 — **PENDING SEPARATE HUMAN BRIEF DESIGN GATE (Decision 5)**
+
+> **이 절의 5개 후보는 승인되지 않았다 (Reject 아님 — 별도 Brief Design Gate로 이동).** Human이 S1~S5 역할에 대한 추가 변경사항을 별도 Prompt로 전달할 예정이며, 아래 후보(S1 2단 구조·S2 why_now·S3 alternatives_not_taken·S4 질문형+설명형·S5 실행 단위)를 **Target Brief로 확정하지 않는다**. Brief Schema/Prompt/Validator는 변경하지 않는다. 아래 내용은 Brief Gate 논의의 참고 초안으로만 보존한다.
 
 | 섹션 | 후보 | 근거 |
 |---|---|---|
@@ -206,7 +218,9 @@ Layer 3  LLM-friendly Rendering  (렌더러 — Canonical+Derived → 9-Block �
 
 공통: 전부 **표현·구조 후보**이며 판단 의미(Judgment 6유형·Constraint·분기 규칙)는 불변. 구현 시 스키마 변경이므로 승인 후 진행.
 
-## 5. 기존 P2 후보 GC-18~25 재분류 (새 Input 방향 대입)
+## 5. 기존 P2 후보 GC-18~25 재분류 — **방향 승인 (Decision 6)**
+
+> 재분류 방향은 원칙 승인됨. 단 **P2 Case의 실제 작성·Expected Output·Evaluation 설계는 시작하지 않는다** — Employee Brief Target이 별도 Gate에서 변경될 예정이므로, 새 Brief 구조 확정 이후에 Case를 작성한다. GC-18은 ISA-IRP 목적 연결의 사전 해석 금지(Fact만 제공, 관계 구성은 Agent), GC-19는 Sequence 우선 + degraded 버전 설계 가능 원칙이 함께 승인됨.
 
 | 후보 | 분류 | 사유 |
 |---|---|---|
@@ -221,12 +235,25 @@ Layer 3  LLM-friendly Rendering  (렌더러 — Canonical+Derived → 9-Block �
 
 보류 필요: 없음 (8개 전부 새 방향과 양립 — 4개는 수정 후).
 
-## 6. Human 결정 필요 항목 (이 Proposal의 승인 범위)
+## 6. ~~Human 결정 필요 항목~~ → 결정 완료 (HD-PRE-P2-INPUT, 2026-08-31)
 
-1. 9-Block 구조·이동안(§2) 승인 여부 — 특히 한도 2종의 ⑦ 이동, DO Clock의 ⑧ 이동, CRM의 ⑨ 재위치.
-2. ③ Recent Changes의 범위 — 1M만 vs 1M/3M, 잔액-Flow 산술 대조 포함 여부.
-3. ⑥ Sequence·실행 여부 필드 — Availability 미확정 상태에서 P2 Case 설계에 포함할지(두 버전 설계 권장).
-4. Canonical Evidence Object 3-Layer(§3) — 설계 방향 승인 여부와 적용 시점(P2 신규 Case부터 vs 보류).
-5. Brief Refinement 5건(§4) — 각각 채택/보류 (특히 S2 why_now·S3 alternatives_not_taken은 스키마 변경).
-6. GC-18~25 재분류(§5) 승인 — 수정 4건의 재설계 방향 포함.
-7. 신규 Availability `?` 5건: 퇴직일 상세 / 3M 변화·과거 스냅샷 / 거래횟수 기간 세분화 / ⑥ Sequence·실행 여부 / ⑨ 작성 주체.
+| 항목 | 결정 |
+|---|---|
+| 1. 9-Block 구조·이동안 | **승인** — Recent Changes 분리·Sequence 확장·CRM ⑨ 재위치·①~⑧ 선직렬화·한도 ⑦·DO Clock ⑧ 전부 승인. 수정 2건 반영: 잔액-Flow는 산술 reconciliation까지(1-1), ⑧ "결정 성격 한 줄" 제거(1-2) |
+| 2. ③ Recent Changes 범위 | **Window 기반 구조** — 30d 우선, 90d는 확보 시, 특정 기간 강결합 금지. 90d Snapshot Av `?` 유지. 잔액-Flow reconciliation 포함(1-1 Boundary 적용) |
+| 3. ⑥ Sequence | **방향 승인** — Sequence도 Signal(Intent 아님·Label 금지). Av `?` 유지, P2는 Sequence Case 사용 가능하되 횟수/Event 형태로 degraded 가능해야 함 |
+| 4. 3-Layer 표현 구조 | **방향 승인** — P2 신규 Case부터, 기존 Frozen 불변. Stable E-ID·JSON 우선안·evidence_type/source_type 분리 확정. 구현은 금지 상태 유지 |
+| 5. Brief Refinement 5건 | **미승인 — 별도 Human Brief Design Gate로 이동** (Reject 아님). Target Brief 확정 금지, Schema/Prompt/Validator 변경 금지 |
+| 6. GC-18~25 재분류 | **원칙 승인** (유지 4 / Input 수정 3 / Scenario 수정 1 / 보류 0). 단 Case 작성·Expected Output·Evaluation 설계는 Brief 구조 확정 이후 |
+| 7. Availability `?` 5건 | **전부 `?` 유지** (퇴직일 상세·90d Snapshot·거래횟수 세분화·Sequence/실행 여부·CRM 작성 주체) — 임의 O/X 확정 금지, 실제 Source 확인으로만 갱신 |
+
+## 7. 현재 Gate 상태 (HD-PRE-P2-INPUT 이후)
+
+```
+REV-002                     → CLOSED 유지
+Pre-P2 Input Architecture   → Human Direction Approved (수정사항 반영 완료)
+Employee Brief Architecture → Separate Human Design Gate PENDING (다음 Human Prompt 대기)
+GC-18~25                    → Candidate / HOLD 유지 (재분류 방향만 승인, 작성·Freeze 금지)
+Runtime / Schema / Parser   → 구현 금지
+P2 RUN / EVAL               → 시작 금지
+```
