@@ -1484,7 +1484,7 @@ SYSTEM_ROLE_V3 = """당신은 은행 직원의 개인형IRP 사후관리 판단�
 3. 잔액-Flow의 "금액 일치"는 산술 사실로 사용한다. 동일 자금으로 보는 것은 추론으로 표기하고, 그 자금의 목적은 확인 대상이다. 예정 Event(⑧)가 뒷받침할 때만 사실 수준으로 다룬다.
 4. 행동 신호(⑥)는 시간순 서사(무엇을 탐색해 왔고 실행에 도달했는가)로 상황 해석과 상담 접점에 쓴다. 단 Sequence가 아무리 강해도 산출 가능한 최대 해석은 "관심/탐색 관찰"이며, 고객 의사로 승격하지 않는다. 관리 필요성의 근거는 행동 신호가 아니라 시한·제도·자산 상태 등 다른 Evidence에 있어야 한다.
 5. CRM(⑨)은 그 시점의 기록이다. 작성 경과일과 이후의 시스템 Event·행동 신호를 시간순으로 함께 읽고, 이후 Evidence가 기록과 다른 방향을 시사하면 어느 쪽도 채택하지 않고 재확인을 결론으로 삼는다.
-6. 모든 해석은 Fact / Signal / Inference(추론 표기 의무) / Unknown 중 하나의 상태를 가지며, 그 상태는 Brief 산문까지 보존된다. 새 Evidence 없이 상태를 올리지 않는다: 고객·CRM 진술→시스템 확인 사실, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생의 승격을 금지한다.
+6. 모든 해석은 Fact / Signal / Inference(추론 표기 의무) / Unknown 중 하나의 상태를 가지며, 그 상태는 Brief 산문까지 보존된다. 새 Evidence 없이 상태를 올리지 않는다: 고객·CRM 진술→시스템 확인 사실, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생의 승격을 금지한다. 자금의 의미·목적·관리상태도 Evidence 없이 확정하지 않는다 — "운용 대기 중"·"미운용 자금" 류의 의미 부여 대신 "입금 이후 추가 매매·운용지시가 확인되지 않았다"처럼 관찰 가능한 상태로 서술한다.
 
 [판단]
 7. Action보다 Management Judgment가 먼저다. 이 고객에게 지금 맞는 관리판단(개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가)을 Evidence로 먼저 확정한다. 어느 방향도 기본값이 아니며, "관리 필요"는 "변경 필요"와 같은 말이 아니다.
@@ -1495,11 +1495,12 @@ SYSTEM_ROLE_V3 = """당신은 은행 직원의 개인형IRP 사후관리 판단�
 
 [전달 — Brief]
 12. 관리 방향은 유지·신규자금 운용·만기 재운용·조정·운용체계 변경·세제 활용·연금수령 관리·중도인출 지원·계약이전/부분이전 지원·고객 의사결정 지원·불가 시 대안 안내를 모두 포함한다 — 상품 추천이 없는 상담도 정상적인 방향이다. 사고 순서는 관리 방향 → Solution 유형 → 실제 상품 후보다. 상품부터 고르지 않는다.
-13. 특정 상품은 제공된 Candidate Pool 안에서만 product_id로 참조한다. Pool 밖 상품명을 만들지 않는다. 판매 불가 상품·고객 성향을 초과하는 등급의 상품은 후보로 올리지 않는다. 추천 사유는 최근 수익률이 높다는 사실이 아니라 고객의 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·의사와 상품 특성의 적합성으로 작성한다. 수익률·연령 등은 이미 정해진 방향을 고객이 이해하기 쉽게 설명하는 재료로만 쓴다.
+13. 특정 상품은 제공된 Candidate Pool 안에서만 product_id로 참조한다. Pool 밖 상품명을 만들지 않는다. 판매 불가 상품·고객 성향을 초과하는 등급의 상품은 후보로 올리지 않는다. 추천 사유는 최근 수익률이 높다는 사실이 아니라 고객의 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·의사와 상품 특성의 적합성으로 작성한다. 수익률·연령 등은 이미 정해진 방향을 고객이 이해하기 쉽게 설명하는 재료로만 쓴다. 관리 방향과 추천 사유는 고객 필요·고객 이익·고객-상품 적합성으로만 정당화한다 — "이탈 방지"·"자산 유지"·"실적" 등 은행의 목적을 추천 사유로 쓰지 않는다. 고객이 이전을 고려한다는 사실은 상황 Evidence로 쓸 수 있으나, 고객이 떠나지 않게 한다는 것이 추천의 이유가 될 수는 없다.
 14. 상담 화법은 지침이 아니라 완성된 문장이다 — 이 고객의 실제 금액·시점·자산구성·상품명·관리 방향이 문장 안에 들어간 Customer-specific Script를 만든다. Hot Tip 화법 Knowledge가 있으면 원문을 복사하지 말고 이 고객의 실제 데이터와 합성한다. 쉬운 용어를 쓰고("고유계정대" 대신 "운용 지시가 되지 않은 현금성 자산" 등), 단정·압박·과장하지 않는다.
-15. Tip/Guide 원문과 실행 화면은 제공된 목록에서 tip_id/screen_id로만 참조한다. 원문을 재작성하거나 없는 화면번호·경로를 만들지 않는다. 제안한 Action과 직접 연결된 것만 고른다.
+15. Tip/Guide 원문과 실행 화면은 제공된 목록에서 tip_id/screen_id로만 참조한다. 원문을 재작성하거나 없는 화면번호·경로를 만들지 않는다. 제안한 Action과 직접 연결된 것만 고른다. 화면번호·메뉴 경로의 표시 위치는 S5 하나다 — S1~S4 본문에는 "[04-12-XXX]" 같은 화면번호를 쓰지 않고 "단말에서 디폴트옵션 실제 적용 여부 확인"처럼 무엇을 확인·실행할지만 쓴다(화면명을 일반명사 수준으로 자연스럽게 설명하는 것은 허용).
 16. 내부 안전원칙("~로 단정할 수 없습니다", "Signal은 Intent가 아닙니다" 류의 방어문구)을 Brief에 노출하지 않는다. 원칙은 판단에서 지키고, Brief에는 그 결과를 자연스러운 문장으로 쓴다. Brief는 직원용이며 고객에게 직접 주는 문서가 아니다.
-17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다."""
+17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다.
+18. [Decision Variable / Conditionality Preservation] S2에서 '고객과 확인'으로 남긴 미확인 변수가 S3의 방향·상품 후보 또는 S4 화법을 실제로 바꾸는 경우, 확인 전에 특정 분기를 확정하지 않는다: S3는 그 변수를 조건으로 하는 조건부 추천을 유지하고, S4도 같은 조건성을 보존한다. 필요하면 화법을 "확인 질문 → 확인 결과에 맞는 설명·추천" 순서로 구성한다. (예: 은퇴시점이 미확인이면 "은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?" 이후 "2045년 전후라면 TDF2045 계열을 후보로 살펴볼 수 있습니다" — 확인 전 "TDF2045를 추천드립니다" 확정 금지.)"""
 
 OUTPUT_INSTRUCTION_V3 = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트·코드펜스를 붙이지 않는다. 모든 문자열은 한국어, 화살표는 "→"만 사용한다.
 
@@ -1547,7 +1548,7 @@ OUTPUT_INSTRUCTION_V3 = """다음 JSON 객체 하나만 출력한다. JSON 앞�
   }
 }
 
-규칙: s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다."""
+규칙: s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다. check_with_customer의 미확인 변수가 상품·방향 선택을 바꾸면, 그 변수에 걸린 추천은 directions.condition과 S4의 조건성(확인 질문 선행 또는 conditional_scripts)으로 보존한다 — 확인 전 확정 화법 금지. employee_brief의 s1~s4 문자열에는 화면번호("[04-12-XXX]" 류)를 쓰지 않는다 — 화면 참조는 s5_tips_and_screens.screens의 screen_id로만."""
 
 
 def build_prompt_v3(case, derived, knowledge: List[KnowledgeItem], constraint: ConstraintContext) -> Prompt:
@@ -1685,6 +1686,46 @@ def validate_supply_refs(case, obj: Dict[str, Any], constraint: ConstraintContex
     return {"check": "supply_refs", "findings": findings, "overall": overall}
 
 
+# Screen numbers as they appear in text, e.g. [04-12-642], [06-AD-080], [04-12-17A].
+_SCREEN_NO_RE = re.compile(r"\[[0-9]{2}-[0-9A-Z]{2,3}-[0-9A-Z]{2,4}\]")
+
+
+def validate_screen_refs(case, obj: Dict[str, Any]) -> Dict[str, Any]:
+    """G3 (Gate ① 2026-08-31): S5 is the single display position for screen references.
+
+    Deterministic string/structure check only:
+    - screen number in model output that is not among supplied screens -> FAIL
+    - supplied screen number written directly into Brief S1~S4 prose -> REVIEW
+      (screen references belong in s5 as screen_id; internal structured fields
+       such as must_confirm_before_action are not the Brief and are not flagged)
+    """
+    known = {s.get("screen_no") for s in (case.supply.get("screens") or []) if s.get("screen_no")}
+
+    def walk(node, path):
+        if isinstance(node, str):
+            for m in _SCREEN_NO_RE.findall(node):
+                yield path, m
+        elif isinstance(node, dict):
+            for k, v in node.items():
+                yield from walk(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                yield from walk(v, f"{path}[{i}]")
+
+    findings, overall = [], "PASS"
+    for path, num in walk(obj, "$"):
+        if num not in known:
+            findings.append({"where": path, "screen_no": num, "verdict": "FAIL",
+                             "issue": "screen number not provided in supply (fabrication)"})
+            overall = "FAIL"
+        elif ".employee_brief." in path and ".s5_tips_and_screens" not in path:
+            findings.append({"where": path, "screen_no": num, "verdict": "REVIEW",
+                             "issue": "screen number exposed outside S5 (S5 is the single reference position)"})
+            if overall != "FAIL":
+                overall = "REVIEW"
+    return {"check": "screen_refs", "findings": findings, "overall": overall}
+
+
 class _CanonicalTextShim:
     """Adapter so build_constraint_context can read 투자성향 from canonical evidence."""
 
@@ -1787,11 +1828,12 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
     record["validation_latex"] = validate_latex_residue(obj)
     record["validation_evidence_ids"] = validate_evidence_ids(obj, valid_eids)
     record["validation_supply_refs"] = validate_supply_refs(case, obj, constraint)
+    record["validation_screen_refs"] = validate_screen_refs(case, obj)
     record["judgment_types_detected"] = detect_judgment_types(obj)
     record["employee_brief"] = obj.get("employee_brief", {})
 
     hard = ("validation", "validation_c3", "validation_c2", "validation_forbidden_words",
-            "validation_evidence_ids", "validation_supply_refs")
+            "validation_evidence_ids", "validation_supply_refs", "validation_screen_refs")
     errs = [f"{k}: FAIL" for k in hard if record[k]["overall"] == "FAIL"]
     record.update(status=(VALIDATION_ERROR if errs else SUCCESS), error="; ".join(errs))
     return record

@@ -65,3 +65,25 @@
 ```
 
 Evaluator 사용법: 각 축은 EVAL의 해석 품질 판정 기준으로도 쓰인다(예: 축5 위반 = CRM 과신, 축4 위반 = Signal 승격). Answer Quality 8축과는 별개 — 이쪽은 정합성, 그쪽은 품질.
+
+---
+
+## Gate ① 보강 — Semantic Gate 3건 (HD-PRE-P2-GATE1, 2026-08-31)
+
+Diagnostic Pilot(DIAG-01~03) Gap Review에서 위 8축에 더해 확정된 Evaluator Semantic Gate 기준. 축의 재정의가 아니라 **축6(상태 유지)·축8(Decision Variable)의 Output-side 확장**이다.
+
+### SG-1. Decision Variable / Conditionality Preservation (G1 — Core Semantic Principle)
+- **기준**: 축8에서 도출된 미확인 Decision Variable이 Direction/Product/화법을 실질적으로 바꾸는 경우, 그 변수가 확인되기 전에 특정 Branch가 확정되면 위반. S3의 조건부 구조와 S4 화법의 조건성이 함께 보존되어야 하며, 필요 시 화법은 "확인 질문 → 확인 결과에 맞는 설명·추천" 순.
+- **판정 사례 (Pilot 실측)**: DIAG-01 — S2에서 "은퇴시점 고객과 확인"을 도출하고도 S4 첫 화법이 "TDF2045를 추천드립니다"로 확정 = 위반. Target: "은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?" → "2045년 전후라면 TDF2045 계열을 후보로".
+- **성격**: Branch Preservation·Epistemic Preservation의 Section 간 확장. Answer Quality Observation이 아니라 Semantic Correctness Gate.
+
+### SG-2. Unsupported Semantic Labeling (G2 — 의미 승격 통제)
+- **기준**: Evidence가 뒷받침하지 않는데 자금의 의미·목적·관리상태를 확정하는 표현("운용 대기 중"·"미운용 자금"·"대기성 자금"·"방치된 자금")이 있으면 Semantic Review. Evidence 기반의 관찰 상태 서술("입금 이후 추가 매매·운용지시가 확인되지 않았습니다")은 정상.
+- **경계**: 금지어 Dictionary 확장이 아니다 — "남아 있다"도 문맥상 객관적 사실일 수 있다. 판단 기준은 단어가 아니라 **의미 승격 여부**. deterministic 층은 "방치" 등 고위험 표현만 유지(runtime `validate_forbidden_words`), 나머지는 Evaluator 판단.
+
+### SG-3. Bank-Objective Rationale (G4 — HD-7 Output-side)
+- **기준**: Management Direction 또는 Product Candidate의 supporting rationale이 Customer Need/Benefit/Fit이 아니라 Bank Objective("이탈 방지"·"AUM 유지"·"실적"·"판매 확대")로 정당화되면 위반.
+- **구분**: 고객이 이전을 고려한다는 사실 = Situation Evidence로 사용 가능 / "떠나지 않게 해야 한다" = Recommendation Reason 불가.
+- **판정 사례 (Pilot 실측)**: DIAG-03 — 추천 사유 "이탈 방지 및 고객 수익 제고 가능" = 위반. Target: "전출 사유가 정기예금 금리에 국한되어 있고, 현 보유 예금(2.6%)보다 높은 특별제공 금리(3.6%)로 동일한 니즈를 충족할 수 있기 때문".
+
+참고: G3(화면 Reference S5 단일 위치)는 해석 축이 아니라 구조 규칙 — deterministic `validate_screen_refs`와 `design/EMPLOYEE_BRIEF_SPEC.md` v2 배너에서 관리.

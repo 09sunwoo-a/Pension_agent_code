@@ -7,6 +7,12 @@
 > - v1의 섹션별 실사례 기반 금지 요소(단정 어휘·강화 수식어·Constraint 변형 재진술 등)와 검증 경계(§3 deterministic/Evaluator 분리)는 **v2에서 그대로 유효**하다. 단 v1 §1-S3의 "비해당 유형 표기 규칙"과 "모든 방향 조건절 강제"는 폐기됨(Branch Preservation로 대체).
 > - 적용 범위: **v3 경로(canonical.json Case)부터.** 기존 Frozen RUN/EVAL의 v1 기준 기록은 불변.
 >
+> **Gate ① 보강 (HD-PRE-P2-GATE1, 2026-08-31)** — Diagnostic Pilot(DIAG-01~03) Gap Review로 확정된 4개 규범이 v2에 추가된다:
+> - **G1 · Decision Variable / Conditionality Preservation (Core Semantic Principle)**: S2의 미확인 Decision Variable이 S3의 Direction/Product 또는 S4 화법을 실질적으로 바꾸면 — 확인 전 특정 Branch 확정 금지, S3는 조건부 Recommendation 유지, S4도 동일 조건성 보존, 필요 시 화법은 "확인 질문 → 확인 결과에 맞는 설명·추천" 순. Branch/Epistemic Preservation의 Section 간 확장이며 **Evaluator Semantic Gate에서 검증**한다 (Answer Quality Observation 아님).
+> - **G2 · 의미 승격 통제 (단어 통제 아님)**: 엔진 금지어를 모델 Output에 기계적으로 확장하지 않는다. Evidence가 뒷받침하는 관찰 상태 서술("입금 이후 추가 매매·운용지시가 확인되지 않음")은 허용; Evidence 없이 "운용 대기 중 / 미운용 / 대기성" 등으로 자금의 의미·목적·관리상태를 확정하는 것은 Evaluator Semantic Review 대상. "방치" 등 고위험 표현의 deterministic 검사는 유지.
+> - **G3 · 화면 Reference = S5 단일 표시 위치**: S1~S4 본문에는 무엇을 확인/실행할지만 쓰고(화면명의 일반명사 수준 설명 허용), 화면번호/메뉴 경로는 S5에서만 제공. Validator: 미제공 화면번호 생성 = FAIL / 실존 화면번호의 S1~S4 노출 = REVIEW (`prototype/runtime.py` `validate_screen_refs`).
+> - **G4 · Customer-centered Recommendation (HD-7의 Output-side 적용)**: 추천사유는 Customer Need / Benefit / Customer–Product Fit만. "이탈 방지"·"AUM 유지"·"실적" 등 Bank Objective는 Management Direction·Product Candidate의 추천사유가 될 수 없다 (이전 고려 사실은 Situation Evidence로는 사용 가능). Evaluator Semantic Gate에서 supporting rationale의 정당화 구조를 확인.
+>
 > 아래 v1 본문은 REV-002 종료 시점의 확정 기록으로 보존한다.
 
 ---

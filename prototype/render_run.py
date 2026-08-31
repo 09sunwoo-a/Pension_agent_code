@@ -151,7 +151,9 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
                        ("validation_evidence_ids", "Evidence ID Provenance (deterministic)"),
                        ("validation_screen_survival", "화면번호 생존 (deterministic)"),
                        ("validation_s5_sources", "S5 출처 K-ID 금지 (deterministic)"),
-                       ("validation_candidate_pool", "Candidate Pool (deterministic)")):
+                       ("validation_candidate_pool", "Candidate Pool (deterministic)"),
+                       ("validation_supply_refs", "Supply 참조 — Pool 밖/판매불가/등급초과 (deterministic)"),
+                       ("validation_screen_refs", "화면번호 참조 — 미제공 FAIL·S1~S4 노출 REVIEW (deterministic)")):
         v = rec.get(key)
         if v:
             detail = v.get("findings", v.get("missing_from_output", []))

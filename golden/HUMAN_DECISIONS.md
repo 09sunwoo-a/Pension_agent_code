@@ -16,6 +16,7 @@
 | HD-8 | 2026-08-31* | REV-002 Step 6 — Regression 해석·Operational 보강 3건·REV-003 보류·P2 설계 착수·Answer Quality 축·한도 3필드 분리·REV-002 종료 조건 | 확정 |
 | HD-PRE-P2-INPUT | 2026-08-31* | Pre-P2 Input Architecture — 9-Block 승인(수정 2건)·Window 변화 구조·Sequence 방향·3-Layer(Stable ID·JSON·type 2축 분리)·Brief는 별도 Gate·GC-18~25 재분류 원칙 승인·Av `?` 5건 유지 | 확정 |
 | HD-PRE-P2-BRIEF | 2026-08-31* | Employee Brief Target Design — Decision & Action Brief 재정의: S3 제안 방향+실제 추천 후보(비해당 폐기), S4 완성형 맞춤 화법, S5 Hot Tip 원문+실행 화면 2역할; 내부 안전원칙 비노출; 구현·Schema·P2는 별도 게이트 | 확정 |
+| HD-PRE-P2-GATE1 | 2026-08-31* | Gate ① Diagnostic Gap Review — 조건부 승인: G1 Decision Variable/Conditionality Preservation을 Core Semantic Principle로 승격, G2 금지어 확장 대신 의미 승격 통제, G3 화면 Reference는 S5 단일 위치(+deterministic 구조검사), G4 추천사유 = Customer-centered만(Bank Objective 금지); Phase G 상세 설계 진행 허용·Freeze/RUN 금지 유지 | 확정 |
 
 ---
 
@@ -151,3 +152,32 @@ REV-002의 5-Section 구조는 유지하되 각 Section의 역할·최종 Output
 - **S5**: 두 역할 — (1) Hot Tip/Guide **원문 발췌+Metadata**(작성자·작성일·좋아요 등; 좋아요=공감 Signal이지 공식성 아님, 제도·세제·실행 가능 여부는 공식 Guide 우선) (2) **다음 Action 실행 화면**(직원 단말+고객 StarBanking, S3 관련 화면만). 관계: S3=무엇을 / S4=어떻게 말할까 / S5=어디서 실행.
 - **유지**: Judgment-first·HD-7·Hard Constraint·Epistemic Preservation·Evidence Provenance·Candidate Pool·Branch Preservation·Performance 단독 Trigger 금지·Signal≠Intent·CRM≠ground truth — 단 이 내부 원칙을 Final Brief에 자기검열 문구로 노출하지 않는다.
 - **미변경**: Brief Schema·Prompt·Validator·Runtime·Candidate Pool 구현·Knowledge Retrieval·P2 Case·Freeze·RUN/EVAL — 전부 별도 구현 게이트. 구현 전 확인 4건은 Proposal §4.6.
+
+## HD-PRE-P2-GATE1. Gate ① Human Decision — Diagnostic Gap Review (2026-08-31)
+
+Diagnostic Pilot(DIAG-01~03, 비Golden) 결과 보고에 대한 결정. **Gate ①은 아래 Gap Decision 반영을 조건으로 승인**되었으며, 반영 후 Phase G의 GC-18~25 상세 Case Design까지 진행 가능. 단 **Case 작성/Freeze/RUN·EVAL은 별도 Human Gate 전 금지, 기존 Frozen Artifact 수정 금지** 유지.
+
+**G1. S2↔S3/S4 Decision Variable 순서 정합 — Core Semantic Principle로 승격** (Answer Quality Observation 아님)
+> **Decision Variable / Conditionality Preservation**: S2의 미확인 Decision Variable이 S3의 Direction/Product 또는 S4 화법을 실질적으로 바꾸는 경우 — 확인 전 특정 Branch를 확정하지 않는다 / S3는 조건부 Recommendation을 유지한다 / S4도 동일한 조건성을 보존한다 / 필요한 경우 실제 상담 흐름은 "확인 질문 → 확인 결과에 맞는 설명·추천" 순으로 구성한다.
+
+- Bad: "은퇴시점 확인 필요" → "고객님께는 TDF 2045를 추천드립니다." / Target: "은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?" → "2045년 전후를 생각하고 계시다면 TDF 2045 계열을 후보로 살펴볼 수 있습니다."
+- 성격: Branch Preservation / Epistemic Preservation을 **Section 간까지 확장한 Semantic Correctness 규칙**. Evaluator의 Semantic Gate에서 검증.
+
+**G2. "남아 있음 / 운용 대기" 등 모델 어휘 — 금지어 확장 X, 의미 승격 통제 O**
+- 엔진 금지어 목록을 모델 Output 전체에 기계적으로 확장하지 않는다 — "남아 있다"는 문맥에 따라 객관적 사실일 수 있어 단순 금지어 방식은 과도.
+- 허용: Evidence가 실제로 뒷받침하면 "1,000만원 입금 이후 추가 매매 또는 운용지시가 확인되지 않았습니다" 같은 관찰 가능한 상태 표현.
+- 지양/Semantic Review: Evidence 없이 "운용 대기 중 / 미운용 자금 / 대기성 자금 / 방치된 자금" 등으로 자금의 의미·목적·관리상태를 확정하는 것. 특히 "운용 대기 중"은 고객이 실제로 운용을 기다린다는 의미까지 포함할 수 있으므로 Fact처럼 사용 금지.
+- 결론: Derived Engine의 사전 의미 Label 생성 금지 유지 / 모델 금지어 Dictionary 광범위 확장 안 함 / Unsupported semantic labeling은 Evaluator 판단 / "방치" 등 명확한 고위험 표현의 deterministic 검사는 유지. **단어 통제가 아니라 의미 승격 통제가 원칙.**
+
+**G3. S2~S4의 화면번호 직접 노출 — S5를 화면 Reference의 단일 표시 위치로 확정**
+- S2~S4에서는 "디폴트옵션 실제 적용 여부를 확인"처럼 무엇을 확인/실행할지만 표현하고, "[04-12-640]" 등 화면번호/메뉴 Reference는 S5에서 제공한다. (역할 분리·중복 방지·화면번호 오기/Hallucination 위험 축소·화면 Master 변경 시 관리 지점 단일화)
+- Validator: 미제공 화면번호/화면 생성 → **FAIL** / 실존 화면번호라도 S1~S4 직접 노출 → 구조·표현 **REVIEW** / S5의 Screen Contract 일치 → 정상. 화면명을 일반명사 수준으로 자연스럽게 설명하는 것은 허용.
+
+**G4. "이탈 방지 및 고객 수익 제고" 류 직원용 추천사유 — Semantic Gate로 관리** (단순 Observation 아님)
+- Employee Brief가 직원용이라도 추천사유는 **Customer Need / Customer Benefit / Customer–Product Fit**을 설명해야 한다. "이탈 방지"·"AUM 유지"·"실적"·"판매 확대" 등 Bank Objective가 Management Direction 또는 Product Candidate의 추천사유가 되어서는 안 된다.
+- 중요한 구분: 고객이 실제 이전을 고려하고 있다는 사실 → Situation Evidence로 사용 가능 / 고객이 은행을 떠나지 않도록 해야 한다 → Recommendation Reason으로 사용 불가.
+- 성격: HD-7("Business Objective가 Customer Management Need를 생성하지 않는다")의 **Output-side 적용**. 특정 단어 전역 금지보다, supporting rationale이 Bank Objective로 정당화되는지를 Evaluator Semantic Gate에서 확인.
+
+**Phase G 지침**: G1/G4가 P2에서 재검증될 수 있도록 적절한 Case Boundary 또는 Evaluation Point에 포함하되, 검증을 위해 Case를 인위적으로 왜곡하지 않는다.
+
+**반영 위치**: `prototype/runtime.py` SYSTEM_ROLE_V3 원칙 6(G2)·13(G4)·15(G3)·18(G1 신설) + OUTPUT_INSTRUCTION_V3 규칙 + `validate_screen_refs`(G3 deterministic) / `design/EMPLOYEE_BRIEF_SPEC.md` v2 배너 / `design/INTERPRETATION_DESIGN.md` Gate ① 보강 절.
