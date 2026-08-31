@@ -202,3 +202,21 @@ REV-002 Regression으로 명확해진 핵심 잔여 병목을 **`Structured Resu
 | ③ F-012 S5 출처 형식 | **부분 해소 (1/3)** — GC-11 해소(SRC-003 등), GC-05 혼재("K-005 / SRC-089" — SRC 병기됨), GC-14 잔존("K-003"·"K-005"). 신설 `validate_s5_sources`가 상시 REVIEW 검출 — **P2 Batch에서 관찰 지속** |
 
 신규 Semantic Failure 없음 (판단 방향·Constraint·금지어 전부 정상; GC-11 judgment는 "실행 불가" 핵심 유지). **HD-8 종료 조건 충족 → REV-002 종료 처리.** F-012 잔존은 형식 문제로 기록하며 새 Revision 번호를 만들지 않는다(HD-8 §8).
+
+---
+
+## Candidate Cluster (P2 Batch 3, 2026-08-31 — 정식 F-번호 미부여)
+
+> 신규 F-number의 정식 부여는 보류한다(재현 관찰 후 — HD 원칙). 아래는 P2 Batch 3(GC-18~25 RUN_001/EVAL_001)에서 관찰된 Cluster 후보의 기록이다. 상세: `golden/P2_BATCH3_SUMMARY.md` §2.
+
+### FC-1. S4 화법층의 확실성 인플레이션 (Candidate — 3/8 재현)
+- 정의: 해석층(current_situation)·판단층·S1~S3는 Unknown/조건/Knowledge Gap을 보존하는데, **S4 고객 대면 화법에서 확정으로 굳는** 패턴.
+- 재현: GC-20 EVAL_001 (S3 양분기 → S4 단일 방향 축소) / GC-21 EVAL_001 ([상담 전 확인]으로 남긴 수익률 산정 기준·원인을 S4에서 자체 생성 설명) / GC-25 EVAL_001 (T3 단독 지식을 "가장 유리합니다"로 확정 승격).
+- 성격: HD-8 기록 병목(Structured→Brief Semantic Preservation)의 v3 잔존 형태 — 위치가 S4 scripts/conditional_scripts로 특정됨.
+- 대응(2026-08-31, 최소): SYSTEM_ROLE_V3 원칙 19 + OUTPUT_INSTRUCTION_V3 s4 주석 + SG-1/SG-2 판정 보강. Deterministic validator 추가 없음. 선택 Regression(GC-18·20·21·25 + Control GC-22·23)으로 해소 확인.
+
+### FC-2. Interpretation → Judgment 의미 승격 (Candidate — 1/8 재현)
+- 정의: 해석층은 관찰 서술을 유지했으나 **management_judgment.reasoning에서 승격**되는 패턴 — F-001의 판단층 변형.
+- 재현: GC-18 EVAL_001 ("운용 지시가 확인되지 않아 남아 있는"(해석층) → "방치되어 있어 수익률 저하가 우려되며"(reasoning·Why-now 근거화) → S2 전파).
+- 대비 데이터: GC-22는 동일 구조(거액 현금 대기)에서 관찰 서술 유지.
+- 대응(2026-08-31, 최소): 기존 F-001 원칙 보강 — SYSTEM_ROLE_V3 원칙 6에 "관찰 상태의 자동 승격 금지 + 판단 근거(Why-now·reasoning) 사용 금지" 명시. 새 Failure Architecture 없음.

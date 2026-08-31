@@ -60,3 +60,26 @@ current_situation은 관찰 서술("운용 지시가 확인되지 않아 남아 
 - (b) GC-18 재RUN 여부: FAIL Case의 교정 Revision 없이 재RUN은 무의미 — (a)와 묶어 판단.
 - (c) FAILURE_MAP 갱신: FC-1·FC-2를 후보로 기재(정식 F-번호 명명은 재현 후 — §2 원칙 유지).
 - (d) B-3 확장 구축 재개 및 P3(Knowledge Selection) 상정: 본 Batch로 "Knowledge Gap 명시의 효과"가 확인되어 Registry 확장의 우선순위 근거 확보.
+
+---
+
+## 6. 선택 Regression (RUN_002 — Human 지시, 2026-08-31)
+
+- 대상: Target GC-18·20·21·25 + Control GC-22·23. Input Baseline 전 건 불변. 적용 변경: SYSTEM_ROLE_V3 원칙 6 보강(FC-2)·원칙 19 신설(FC-1)·OUTPUT_INSTRUCTION s4 주석·SG-1/SG-2 판정 보강 (commit d6edbe4). Deterministic validator 추가 없음.
+
+| Case | 확인 목표 | RUN_002 | 판정 (EVAL_002, 목적 한정) |
+|---|---|---|---|
+| GC-18 | 의미 승격 제거 | SUCCESS | **해소** — "방치·수익률 저하 우려" 소멸, reasoning 관찰 서술로 교체. 잔존: "미운용 현금" 라벨 (SG-2 REVIEW, 승격 아님) |
+| GC-20 | S4 조건성 보존 | SUCCESS | **해소** — 유지 분기 화법 생성·열린 질문으로 교체 |
+| GC-21 | Knowledge Gap 비보충 | SUCCESS | **해소** — 원인 설명 소멸, 열린 질문 + 유지 분기 생성 |
+| GC-25 | T3 비승격 | SUCCESS | **해소** — "가장 유리합니다" → "더 유리할 수 있습니다"·"가능성", 즉시 해지 존중 유지 |
+| GC-22 (Control) | 후퇴 없음 | VALIDATION_ERROR | **어휘 수준 후퇴 1건** — "자금이 방치되지 않도록 돕는 법적 의무"(DO 제도 목적의 부정형 일반론, 의미 승격 아님·Critical Semantic 아님). 의미 축(확인 선행·시한 보존·조건부)은 전부 유지 |
+| GC-23 (Control) | 후퇴 없음 | SUCCESS | **후퇴 없음** — 부분이전 Epistemic·SG-3 유지 |
+
+## 7. P2 Batch 3 종료 판정 (2026-08-31)
+
+**종료 조건 충족 — P2 Batch 3 종료 처리.**
+- ① 핵심 Failure 4건 전부 해소 확인 (§6) ② 신규 Critical Semantic Failure 없음 — GC-22 Control의 금지어 재발은 비승격적(제도 일반론) 어휘 사용으로 Critical Semantic이 아니며, 의미 축 후퇴도 없음.
+- **Human 인지 필요 예외 1건**: GC-22 RUN_002 금지어 FAIL — F-001 대체 어휘 규범이 "제도 목적 설명" 문맥을 커버하지 못하는 관찰. 지시(Failure Evidence 기반 최소 수정·deterministic 과추가 금지)에 따라 추가 교정하지 않고 기록만 남김. 필요 시 후속 판단 대상.
+- FC-1·FC-2는 Candidate Cluster로 `cases/FAILURE_MAP.md`에 기록 (정식 F-번호 미부여 — 이후 재현 시 부여 검토).
+- 추가 Case 설계·새 P2 Batch·대규모 Architecture 개선 없이 종료. 다음 단계 인수인계: `design/HANDOFF_P3_INTEGRATION.md`.
