@@ -296,6 +296,11 @@ def load_knowledge_items(case_id: str) -> Tuple[List[KnowledgeItem], str, str]:
     structure — everything downstream (prompt, validators, record) unchanged.
     Frozen runs are unaffected unless the flag is explicitly set.
     """
+    if os.environ.get("P3A_LLM_SELECTION") == "1":
+        # P3-C experiment: LLM relevance selection over the same Human-defined
+        # needs + registry index; deterministic gates/loader stay in code.
+        import llm_selector as _llm
+        return _llm.load_knowledge_items_llm(case_id)
     if os.environ.get("P3A_KNOWLEDGE_SELECTION") == "1":
         import selector as _selector
         return _selector.load_knowledge_items_selected(case_id)
@@ -1772,7 +1777,19 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
         # P3-B (opt-in): Minimal Product Selector replaces ONLY supply.product_candidates.
         # Direction/Solution Type input is Human-defined (design/P3B_PRODUCT_NEEDS.md);
         # Hard Constraint / supply validators / Fit-reason generation stay unchanged below.
-        if os.environ.get("P3B_PRODUCT_SELECTION") == "1":
+        if os.environ.get("P3B_LLM_SELECTION") == "1":
+            # P3-C experiment: LLM candidate-material selection (same needs,
+            # same pool boundary); Hard Constraint / validators unchanged below.
+            import llm_selector as _llm
+            _pool, _pool_log = _llm.build_pool_llm(case_id)
+            record["p3c_product_selection"] = {
+                "needs_file": "design/P3B_PRODUCT_NEEDS.md",
+                "frozen_pool_product_ids": [p.get("product_id") for p in case.supply.get("product_candidates") or []],
+                "selector_pool": _pool_log["selected"],
+                "none_reason": _pool_log["none_reason"],
+            }
+            case.supply["product_candidates"] = _pool
+        elif os.environ.get("P3B_PRODUCT_SELECTION") == "1":
             import product_selector as _ps
             _pool, _pool_log = _ps.build_pool(case_id)
             record["p3b_product_selection"] = {
