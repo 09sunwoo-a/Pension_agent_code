@@ -1,0 +1,309 @@
+{
+  "case_id": "GC-22",
+  "needs": [
+    {
+      "need_id": "PN-01",
+      "solution_type": "D-10 정기예금 만기 재운용 후보 — 원리금보장",
+      "characteristics": [
+        "정기예금",
+        "GIC"
+      ],
+      "hits": [
+        {
+          "prd": "PRD-018",
+          "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+          "gate": "SELECTED",
+          "product_id": "P01",
+          "matched": [
+            "GIC"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-018",
+          "name": "KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…)",
+          "gate": "SELECTED",
+          "product_id": "P02",
+          "matched": [
+            "GIC"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-018",
+          "name": "무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+          "gate": "SELECTED",
+          "product_id": "P03",
+          "matched": [
+            "GIC"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-018",
+          "name": "무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+          "gate": "EXCLUDED (maturity 3년 불일치)"
+        },
+        {
+          "prd": "PRD-018",
+          "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+          "gate": "EXCLUDED (maturity 3년 불일치)"
+        },
+        {
+          "prd": "PRD-018",
+          "name": "무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+          "gate": "SELECTED",
+          "product_id": "P04",
+          "matched": [
+            "GIC"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-018",
+          "name": "KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…)",
+          "gate": "EXCLUDED (maturity 3년 불일치)"
+        },
+        {
+          "prd": "PRD-018",
+          "name": "무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)",
+          "gate": "SELECTED",
+          "product_id": "P05",
+          "matched": [
+            "GIC"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-019",
+          "name": "(개별 상품 미확보 — 유형 정보만)",
+          "gate": "EXCLUDED (실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보))"
+        },
+        {
+          "prd": "PRD-020",
+          "name": "Sh 수협은행 정기예금",
+          "gate": "EXCLUDED (수익률/기준일 미확보 — S3 카드 최소 필드 미달)"
+        }
+      ]
+    },
+    {
+      "need_id": "PN-02",
+      "solution_type": "퇴직급여 운용 — 사용계획 확인 후 조건부 장기 분산",
+      "characteristics": [
+        "TDF"
+      ],
+      "hits": [
+        {
+          "prd": "PRD-001",
+          "name": "KB 온국민 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P06",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-002",
+          "name": "신한 마음편한 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P07",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-003",
+          "name": "한화 LIFEPLUS TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P08",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-004",
+          "name": "마이다스 기본 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P09",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        }
+      ]
+    },
+    {
+      "need_id": "PN-03",
+      "solution_type": "퇴직급여 대기자금의 단기 안정 운용",
+      "characteristics": [
+        "채권형(단기채)"
+      ],
+      "hits": [
+        {
+          "prd": "PRD-005",
+          "name": "키움 더드림 단기채",
+          "gate": "SELECTED",
+          "product_id": "P10",
+          "matched": [
+            "채권형(단기채)"
+          ],
+          "flags": []
+        }
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "product_id": "P01",
+      "prd": "PRD-018",
+      "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "product_type": "GIC(이율보증형보험)",
+      "risk_grade": null,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "GIC"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P02",
+      "prd": "PRD-018",
+      "name": "KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…)",
+      "product_type": "GIC(이율보증형보험)",
+      "risk_grade": null,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "GIC"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P03",
+      "prd": "PRD-018",
+      "name": "무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+      "product_type": "GIC(이율보증형보험)",
+      "risk_grade": null,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "GIC"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P04",
+      "prd": "PRD-018",
+      "name": "무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+      "product_type": "GIC(이율보증형보험)",
+      "risk_grade": null,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "GIC"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P05",
+      "prd": "PRD-018",
+      "name": "무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)",
+      "product_type": "GIC(이율보증형보험)",
+      "risk_grade": null,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "GIC"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P06",
+      "prd": "PRD-001",
+      "name": "KB 온국민 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P07",
+      "prd": "PRD-002",
+      "name": "신한 마음편한 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P08",
+      "prd": "PRD-003",
+      "name": "한화 LIFEPLUS TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P09",
+      "prd": "PRD-004",
+      "name": "마이다스 기본 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 4,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P10",
+      "prd": "PRD-005",
+      "name": "키움 더드림 단기채",
+      "product_type": "채권형(단기채)",
+      "risk_grade": 6,
+      "sellable": null,
+      "need_ref": "PN-03",
+      "matched": [
+        "채권형(단기채)"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "PN-01",
+      "prd": "PRD-019",
+      "name": "(개별 상품 미확보 — 유형 정보만)",
+      "reason": "실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보)"
+    },
+    {
+      "need": "PN-01",
+      "prd": "PRD-020",
+      "name": "Sh 수협은행 정기예금",
+      "reason": "수익률/기준일 미확보 — S3 카드 최소 필드 미달"
+    }
+  ],
+  "none_reason": null,
+  "registry_sha256": {
+    "PRODUCT_REGISTRY.md": "66195971d492a184122a436c50c58ab33ec0daca2a878df1de50465328d22849",
+    "P3B_PRODUCT_NEEDS.md": "015cd539fd539d620315714fc45bef26d84d529fd8de579aec12fb54680dd749"
+  }
+}

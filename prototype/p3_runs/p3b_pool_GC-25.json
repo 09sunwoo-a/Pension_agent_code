@@ -1,0 +1,11 @@
+{
+  "case_id": "GC-25",
+  "needs": [],
+  "selected": [],
+  "excluded": [],
+  "none_reason": "Expected Judgment = 정보 안내 중심 / 고객 결정 지원 (해지 문의) — 상품 권유가 부적절한 상담, Frozen supply도 product_candidates 없음. 빈 Pool이 정상 결과",
+  "registry_sha256": {
+    "PRODUCT_REGISTRY.md": "66195971d492a184122a436c50c58ab33ec0daca2a878df1de50465328d22849",
+    "P3B_PRODUCT_NEEDS.md": "015cd539fd539d620315714fc45bef26d84d529fd8de579aec12fb54680dd749"
+  }
+}

@@ -1,0 +1,434 @@
+{
+  "case_id": "GC-25",
+  "runtime_revision": "PRE-P2-REFINEMENT",
+  "started_at": "2026-08-31T18:06:55+00:00",
+  "model": "gemma-4-31b-it",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemma-4-31b-it:generateContent",
+  "generation_config": null,
+  "git_head": "f69bc8615f4492b2696e78e0e2783566e33c7c9d",
+  "status": "VALIDATION_ERROR",
+  "error": "validation_supply_refs: FAIL",
+  "frozen_canonical": {
+    "file": "cases/GC-25/canonical.json",
+    "sha256": "d6619c4ca13d7aa269fc4869afffc7711e7007bcaccbf9572e20c2746d353d6d"
+  },
+  "frozen_knowledge_pack": {
+    "knowledge_pack": "cases/GC-25/knowledge_pack.md",
+    "knowledge_pack_sha256": "8555c6aa9ef259f50819b3f3a462d6bf75bce0fb8f8ed5a001f516f27ffb4326"
+  },
+  "evidence_blocks": {
+    "1. Customer & Retirement Lifecycle": [
+      "E101",
+      "E102",
+      "E103",
+      "D001"
+    ],
+    "2. Current IRP Snapshot": [
+      "E201",
+      "E202",
+      "E203",
+      "E204"
+    ],
+    "3. Recent Changes & Money Flow": [
+      "E301"
+    ],
+    "4. Event Timeline": [],
+    "5. Investment Behavior": [
+      "E501"
+    ],
+    "6. Digital Behavior & Sequence": [
+      "E601"
+    ],
+    "7. Wider Financial Context": [
+      "E701"
+    ],
+    "8. Upcoming Decision Horizon": [
+      "E801"
+    ],
+    "9. Supplementary Human-authored Context": [
+      "E901"
+    ]
+  },
+  "derived_items": [
+    {
+      "id": "D001",
+      "block": 1,
+      "type": "rule_derived",
+      "text": "연금개시요건 충족 여부: 미충족 (만 37세, 가입 5.3년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-06-16 | rule_id=PENSION-OPEN-01"
+    }
+  ],
+  "supply_summary": {
+    "products": [],
+    "tips": [],
+    "screens": [
+      "S01",
+      "S02"
+    ],
+    "unsellable_products": []
+  },
+  "supply": {
+    "product_candidates": [],
+    "hot_tips": [],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[06-12-622]",
+        "screen_name": "세액공제 미신청금액 등록/전환 신청",
+        "actions": "소득·세액공제 취소 등록, 초과납입금 전환 신청 — 해지·연금개시 전 미신청금액 납입연도별 등록",
+        "provenance": "SCR-006"
+      },
+      {
+        "screen_id": "S02",
+        "surface": "staff",
+        "screen_no": "[04-12-642]",
+        "screen_name": "적립금및수익률조회",
+        "actions": "전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)",
+        "provenance": "SCR-001"
+      }
+    ]
+  },
+  "constraint_context": {
+    "constraint_id": "C1",
+    "investment_profile": "안정추구형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형"
+    ],
+    "forbidden_levels": [
+      "위험중립형",
+      "적극투자형",
+      "공격투자형"
+    ],
+    "basis": "Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2·HD-2.1; cases/GC-25/canonical.json 투자성향 Evidence). C2 매핑은 KB 투자권유 기준(SRC-096)."
+  },
+  "knowledge_ids_used": [
+    "K-001",
+    "K-002"
+  ],
+  "knowledge_fields_sent": [
+    "Knowledge",
+    "Case Relevance",
+    "Limitation",
+    "Authority / Status",
+    "Source / Location"
+  ],
+  "prompt": {
+    "system_role": "당신은 은행 직원의 개인형IRP 사후관리 판단을 지원하는 의사결정 지원 Agent다. 최종 산출물은 직원이 그대로 사용할 수 있는 Decision & Action Brief다.\n\n[Evidence 읽기]\n1. 입력은 9-Block Customer Evidence Pack이다. ①~⑧은 시스템 관찰 Evidence, ⑨는 사람이 작성한 보조 맥락(CRM 메모)이다. 고객 상태의 재구성은 ①~⑧을 기본으로 하고, ⑨는 참고로만 결합한다.\n2. 현재 상태(②)와 최근 변화(③④)를 항상 함께 읽는다 — 상태는 결과이고 변화는 형성 과정이다. 변화가 상태를 설명하면 그 연결을 명시하고, 최근 변화가 없으면 \"최근 관련 변화가 관찰되지 않음\"까지만 서술한다.\n3. 잔액-Flow의 \"금액 일치\"는 산술 사실로 사용한다. 동일 자금으로 보는 것은 추론으로 표기하고, 그 자금의 목적은 확인 대상이다. 예정 Event(⑧)가 뒷받침할 때만 사실 수준으로 다룬다.\n4. 행동 신호(⑥)는 시간순 서사(무엇을 탐색해 왔고 실행에 도달했는가)로 상황 해석과 상담 접점에 쓴다. 단 Sequence가 아무리 강해도 산출 가능한 최대 해석은 \"관심/탐색 관찰\"이며, 고객 의사로 승격하지 않는다. 관리 필요성의 근거는 행동 신호가 아니라 시한·제도·자산 상태 등 다른 Evidence에 있어야 한다.\n5. CRM(⑨)은 그 시점의 기록이다. 작성 경과일과 이후의 시스템 Event·행동 신호를 시간순으로 함께 읽고, 이후 Evidence가 기록과 다른 방향을 시사하면 어느 쪽도 채택하지 않고 재확인을 결론으로 삼는다.\n6. 모든 해석은 Fact / Signal / Inference(추론 표기 의무) / Unknown 중 하나의 상태를 가지며, 그 상태는 Brief 산문까지 보존된다. 새 Evidence 없이 상태를 올리지 않는다: 고객·CRM 진술→시스템 확인 사실, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생의 승격을 금지한다. 자금의 의미·목적·관리상태도 Evidence 없이 확정하지 않는다 — \"운용 대기 중\"·\"미운용 자금\" 류의 의미 부여 대신 \"입금 이후 추가 매매·운용지시가 확인되지 않았다\"처럼 관찰 가능한 상태로 서술한다. 현금 보유·최근 입금·운용지시 미확인 등은 관찰 가능한 상태일 뿐이다 — 별도 Evidence 없이 이를 \"방치\"·\"관리 소홀\"·\"수익률 저하 우려\" 등으로 자동 승격하지 않으며, 이런 승격을 관리 판단(Why-now·reasoning)의 근거로도 쓰지 않는다.\n\n[판단]\n7. Action보다 Management Judgment가 먼저다. 이 고객에게 지금 맞는 관리판단(개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가)을 Evidence로 먼저 확정한다. 어느 방향도 기본값이 아니며, \"관리 필요\"는 \"변경 필요\"와 같은 말이 아니다.\n8. Why-now는 반드시 실제 Event·변화·시한(③④⑧)에서 나와야 한다. 복수 이슈가 있으면 시한 임박도 → 고객 이익 영향 → 접점 자연스러움 순으로 주 포인트를 정하되, 나머지를 버리지 않고 부 포인트나 후속관리로 남긴다. 은행의 영업 목적을 관리 필요성의 근거로 만들지 않는다.\n9. 확인 사항은 Management Direction을 실제로 바꾸는 미확인 변수만 도출한다. 시스템/단말/공식자료로 닫을 수 있으면 '상담 전 확인', 고객만 답할 수 있으면 '고객과 확인'이다. 이미 Evidence에 있는 사실을 고객에게 다시 묻지 않는다.\n10. 조건 분기는 실제 판단을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 충분하면 단일 방향을 제시한다.\n11. 업무 판단은 제공된 Knowledge에 근거하고, Knowledge와 Evidence에 없는 업무 사실·제도 규칙·수치를 생성하지 않는다. 제공된 Constraint를 위반하는 방향을 만들지 않는다. 투자성향은 허용 가능한 최대 위험의 상한이다.\n\n[전달 — Brief]\n12. 관리 방향은 유지·신규자금 운용·만기 재운용·조정·운용체계 변경·세제 활용·연금수령 관리·중도인출 지원·계약이전/부분이전 지원·고객 의사결정 지원·불가 시 대안 안내를 모두 포함한다 — 상품 추천이 없는 상담도 정상적인 방향이다. 사고 순서는 관리 방향 → Solution 유형 → 실제 상품 후보다. 상품부터 고르지 않는다.\n13. 특정 상품은 제공된 Candidate Pool 안에서만 product_id로 참조한다. Pool 밖 상품명을 만들지 않는다. 판매 불가 상품·고객 성향을 초과하는 등급의 상품은 후보로 올리지 않는다. 추천 사유는 최근 수익률이 높다는 사실이 아니라 고객의 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·의사와 상품 특성의 적합성으로 작성한다. 수익률·연령 등은 이미 정해진 방향을 고객이 이해하기 쉽게 설명하는 재료로만 쓴다. 관리 방향과 추천 사유는 고객 필요·고객 이익·고객-상품 적합성으로만 정당화한다 — \"이탈 방지\"·\"자산 유지\"·\"실적\" 등 은행의 목적을 추천 사유로 쓰지 않는다. 고객이 이전을 고려한다는 사실은 상황 Evidence로 쓸 수 있으나, 고객이 떠나지 않게 한다는 것이 추천의 이유가 될 수는 없다.\n14. 상담 화법은 지침이 아니라 완성된 문장이다 — 이 고객의 실제 금액·시점·자산구성·상품명·관리 방향이 문장 안에 들어간 Customer-specific Script를 만든다. Hot Tip 화법 Knowledge가 있으면 원문을 복사하지 말고 이 고객의 실제 데이터와 합성한다. 쉬운 용어를 쓰고(\"고유계정대\" 대신 \"운용 지시가 되지 않은 현금성 자산\" 등), 단정·압박·과장하지 않는다.\n15. Tip/Guide 원문과 실행 화면은 제공된 목록에서 tip_id/screen_id로만 참조한다. 원문을 재작성하거나 없는 화면번호·경로를 만들지 않는다. 제안한 Action과 직접 연결된 것만 고른다. 화면번호·메뉴 경로의 표시 위치는 S5 하나다 — S1~S4 본문에는 \"[04-12-XXX]\" 같은 화면번호를 쓰지 않고 \"단말에서 디폴트옵션 실제 적용 여부 확인\"처럼 무엇을 확인·실행할지만 쓴다(화면명을 일반명사 수준으로 자연스럽게 설명하는 것은 허용).\n16. 내부 안전원칙(\"~로 단정할 수 없습니다\", \"Signal은 Intent가 아닙니다\" 류의 방어문구)을 Brief에 노출하지 않는다. 원칙은 판단에서 지키고, Brief에는 그 결과를 자연스러운 문장으로 쓴다. Brief는 직원용이며 고객에게 직접 주는 문서가 아니다.\n17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다.\n18. [Decision Variable / Conditionality Preservation] S2에서 '고객과 확인'으로 남긴 미확인 변수가 S3의 방향·상품 후보 또는 S4 화법을 실제로 바꾸는 경우, 확인 전에 특정 분기를 확정하지 않는다: S3는 그 변수를 조건으로 하는 조건부 추천을 유지하고, S4도 같은 조건성을 보존한다. 필요하면 화법을 \"확인 질문 → 확인 결과에 맞는 설명·추천\" 순서로 구성한다. (예: 은퇴시점이 미확인이면 \"은퇴를 어느 시점 정도로 예상하고 계신지 먼저 여쭤봐도 될까요?\" 이후 \"2045년 전후라면 TDF2045 계열을 후보로 살펴볼 수 있습니다\" — 확인 전 \"TDF2045를 추천드립니다\" 확정 금지.)\n19. [S4 확실성 비인플레이션] S4 화법은 S1~S3보다 확실성(Epistemic Certainty)을 높이지 않는다. 구체적으로: (a) S2·S3에서 미확인·확인 필요·Knowledge 부재로 남긴 것을 S4에서 자연스러운 설명으로 메우지 않는다 — 원인·정의·산정 기준이 Knowledge에 없으면 설명을 만들지 말고 확인으로 연결한다. (b) S3가 분기로 나눈 방향은 S4에서도 각 분기의 화법을 유지한다 — 한 분기(특히 변경·재도전 방향)만 화법으로 만들지 않으며, 고객이 유지·거절을 택한 분기도 존중하는 화법을 가진다. (c) 현장 Tip 단독 근거·잠정(PROVISIONAL)·충돌 중인 지식은 \"가장 유리합니다\"·\"가능합니다\" 같은 확정·최적 표현으로 승격하지 않는다 — \"~할 가능성이 있어, 실행 전 공식 기준·화면에서 확인이 필요합니다\" 수준을 유지한다.",
+    "customer_context": "아래는 Customer Evidence Pack(9-Block)이다. ①~⑧은 시스템 관찰 Evidence, ⑨는 사람이 작성한 보조 맥락이다.\n각 항목 앞의 [E-/D-번호]는 Evidence ID이며, 판단 근거로 사용한 항목의 ID를 출력의 supporting_evidence_ids에 기재한다.\n항목 라벨: [F]=시스템 확인 사실, [A]=산술 파생값(시스템 계산), [R]=Rule 판정값(rule_source·rule_as_of 병기), [S]=행동 신호.\n값 표기: NULL(값 없음)·0(수량 0)·해당없음(대상 아님)은 서로 다른 의미다. 여기에 없는 정보는 제공되지 않은 것이며 임의로 채우지 않는다.\n\n### 1. Customer & Retirement Lifecycle\n- [E101] [F] 고객 연령: 만 37세\n- [E102] [F] IRP 가입일: 2021-03-15 (적립용)\n- [E103] [F] 퇴직급여 포함 여부: 없음 (개인부담금만 납입) / 투자성향: 안정추구형 (분석일 2026-03-02, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중\n- [D001] [R] 연금개시요건 충족 여부: 미충족 (만 37세, 가입 5.3년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-06-16 | rule_id=PENSION-OPEN-01\n\n### 2. Current IRP Snapshot\n- [E201] [F] 전체 평가금액: 12,000,000원\n- [E202] [F] 자산 구성: 시중은행 정기예금 1년 9,000,000원 (75.0%, 만기 2026-11-19) / KB퇴직연금 단기채 펀드(6등급) 3,000,000원 (25.0%) / 현금성자산 0원\n- [E203] [F] 세액공제 확인 상태: 직전 연도(2025년) 납입분 중 세액공제 미신청분 존재 — 시스템 표시 (금액은 화면 확인 필요) / 세액공제 받은 개인부담금: 있음 (2021~2024년분)\n- [E204] [F] 디폴트옵션 등록: 「지켜드림」(초저위험)\n\n### 3. Recent Changes & Money Flow\n- [E301] [F] 30일 전(2026-05-17) 잔액: 현금성 0원 / 전체 12,000,000원 — 최근 30일 입출금·매매 없음\n\n### 4. Event Timeline\n- (이 블록에 제공된 항목 없음)\n\n### 5. Investment Behavior\n- [E501] [F] IRP 최근 1년 상품 매매횟수: 1회 (정기예금 재예치) / 당해년도 개인부담금 납입: 없음\n\n### 6. Digital Behavior & Sequence\n(경계) 조회·검색·메뉴 진입·클릭 등의 행동은 관심 가능성 또는 행동 Evidence일 뿐, 고객 의사 자체를 의미하지 않는다. 행동 Sequence가 강하더라도 고객 의사로 승격하지 않는다.\n- [E601] [S] 최근 30일 앱 행동: 2026-06-10 IRP 해지(중도해지) 안내 화면 조회 1회 — 신청 실행 이력 없음\n\n### 7. Wider Financial Context\n- [E701] [F] 총 금융자산: 52,000,000원 / 타사 연금저축: 없음 / ISA: 없음\n\n### 8. Upcoming Decision Horizon\n- [E801] [F] 직전 연도(2025년) 납입분 연금납입확인서(세액공제 증빙) 발급 개시 예정일: 2026-07-01\n\n### 9. Supplementary Human-authored Context\n(경계) 아래는 사람이 작성한 보조 맥락(Supplementary Human-authored Context)이다. 고객 발화 원문이라고 보장하지 않으며, 현재 고객 의사를 확정하는 근거가 아니다. 작성 경과일과 위 시스템 Evidence(①~⑧)를 함께 읽고 필요하면 현재 의사를 재확인한다.\n- [E901] [F] [CRM] 2026-06-14 작성 (전화 문의, 직원 작성 요약): 'IRP를 그냥 해지하려고 한다'는 취지의 문의 기록 — 해지 사유에 대한 언급 없음.\n",
+    "constraint_context": "[C1] 투자성향 Hard Constraint\n- 고객 투자성향(확인됨): 안정추구형\n- 투자성향 5단계: 안정형 < 안정추구형 < 위험중립형 < 적극투자형 < 공격투자형\n- 허용 위험수준 (Solution 방향에 사용 가능): 안정형, 안정추구형\n- 제외 위험수준 (Solution 후보로 생성 금지): 위험중립형, 적극투자형, 공격투자형\n- 투자성향은 허용 가능한 최대 위험수준의 상한이다. 고객이 그 수준까지 위험을 부담해야 한다는 뜻이 아니며, 더 낮은 위험수준의 운용은 항상 허용된다. 투자성향과 현재 운용상태의 차이만으로 관리 필요·변경 필요를 판정하지 않는다.\n- 근거: Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2·HD-2.1; cases/GC-25/canonical.json 투자성향 Evidence). C2 매핑은 KB 투자권유 기준(SRC-096).\n\n[C2] 펀드 위험등급 Eligibility (Human-approved, KB 투자권유 기준 SRC-096)\n- 상품 위험등급: 1등급 매우높은위험 < 2등급 높은위험 < 3등급 다소높은위험 < 4등급 보통위험 < 5등급 낮은위험 < 6등급 매우낮은위험\n- 이 고객에게 권유 가능한 펀드 위험등급: 5등급 낮은위험, 6등급 매우낮은위험\n- 권유 불가 (Action으로 생성 금지): 1등급 매우높은위험, 2등급 높은위험, 3등급 다소높은위험, 4등급 보통위험\n- 이미 보유 중인 상위 등급 상품은 위반이 아니다. 신규 매수·교체 방향에만 적용한다.\n\n[C3] 디폴트옵션 포트폴리오 Eligibility (Human-approved)\n- 이 고객이 가입 가능한 디폴트옵션 포트폴리오: 지켜드림, 알파드림\n- 가입 불가 (Action으로 생성 금지): 뿔려드림, 모두드림\n- 매핑: 지켜드림(초저위험)=모든 성향 / 알파드림(저위험)=안정추구형 이상 / 뿔려드림(중위험)=위험중립형 이상 / 모두드림(고위험)=공격투자형만",
+    "knowledge_context": "각 Knowledge에는 Case Relevance(왜 지금 중요한가)와 Usage Boundary(단정하면 안 되는 것)가 있다. 세부(시한·조건·절차)를 실제로 사용하고 Boundary를 넘지 않는다.\n\n### K-001. IRP 중도해지 과세 구조 — 원천별 과세·미공제분 과세 제외·미신청분 등록  (Basis: Source-derived)\n- Knowledge: 중도해지(일시금 수령) 시 원천별 과세 — ① 세액공제를 받지 않은 가입자 부담금 = **과세제외** ② 세액공제를 받은 부담금·운용수익 = 기타소득세 16.5%(지방소득세 포함). 세액공제 미신청 금액은 해지·연금개시 전에 '연금보험료 등 소득·세액공제 확인서'로 확인하여 **[06-12-622]에 납입연도별 등록**해야 과세제외가 반영된다. 직전 연도 납입분 증빙의 발급 개시 시점과 그 전 해지 시의 처리 방식은 현장 게시글(T3) 서술만 존재한다.\n- Case Relevance (왜 이 고객에게 지금 중요한가): 시스템에 직전 연도(2025년) 미신청분 존재가 표시된 고객의 해지 문의 — 등록 여부·처리 시점에 따라 **세금·증빙 결과가 달라질 가능성**이 있는 구조다. ⑧의 증빙 발급 개시 예정일(7/1)은 이 가능성의 시나리오 재료다.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): **7/1 발급 개시·그 전 해지 시 추징 후 해지된다는 서술은 Hot Tip 1건(T3) 단독 근거 — 확정적 제도 사실로 판단하지 않는다** (HD-P2-GATE2 (3)). 가능성 안내 + 구체 적용은 공식 기준·실행 화면([06-12-622] 등)에서 확인으로 연결한다(Operational Check). 미신청분 금액은 미제공 — 화면 확인 대상. 최종 세액·추징액 계산은 Agent Scope 밖(HD-1).\n- Authority / As-of: 과세 구조·등록 절차 = 행내 공식 가이드(T2) / 발급 시점·추징 처리 = 영업점 Hot Tip(T3) 단독.\n- Source: OK-009 (SRC-003·050·054·049·043·027).\n\n### K-002. 계좌 해지 시 보유 정기예금의 중도해지 이율 구조  (Basis: Source-derived)\n- Knowledge: 일반중도해지(개인 사정 임의해지)는 약정이율의 50~90% 수준 패널티 이율이 적용된다. 개별 상품의 중도해지 예상액은 [04-12-642] 연계 '정기예금 중도해지 예상조회'로 확인한다.\n- Case Relevance (왜 이 고객에게 지금 중요한가): 해지 시 보유 정기예금 900만원이 만기(2026-11-19) 전 중도해지된다 — 세금과 별개의 손익 변수.\n- Usage Boundary (이 Knowledge만으로 단정하면 안 되는 것): IRP 계좌 해지에 따른 예금 해지가 특별중도해지 사유에 해당하는지는 원천에 없음 — 단정 금지. 확정 계산은 시스템 조회로.\n- Authority / As-of: 행내 연수 교재(T2).\n- Source: OK-011 (SRC-097), OK-003 (중도해지 예상조회 경로).\n\n### 실행 화면 (screen_id로만 참조 — 여기 없는 화면번호·경로를 만들지 않는다)\n- S01: 직원 단말 [06-12-622] 세액공제 미신청금액 등록/전환 신청 — 소득·세액공제 취소 등록, 초과납입금 전환 신청 — 해지·연금개시 전 미신청금액 납입연도별 등록\n- S02: 직원 단말 [04-12-642] 적립금및수익률조회 — 전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)\n",
+    "output_instruction": "다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트·코드펜스를 붙이지 않는다. 모든 문자열은 한국어, 화살표는 \"→\"만 사용한다.\n\n{\n  \"current_situation\": \"Evidence로 재구성한 현재 상황 — 상태와 최근 변화를 함께, Fact/추론 구분\",\n  \"known_facts_used\": [\"판단에 사용한 확인된 사실\"],\n  \"unknowns_or_confirmations\": [\"판단에 중요하지만 확인되지 않은 사항 (스스로 도출)\"],\n  \"management_judgment\": {\n    \"judgment\": \"개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가 중 하나 이상을 '/'로 구분\",\n    \"reasoning\": \"왜 그 판단인지 — Why-now(어떤 Event·변화·시한 때문에 지금인지) 포함\",\n    \"must_confirm_before_action\": [\"Direction을 바꾸는 미확인 변수만 (없으면 빈 배열)\"],\n    \"supporting_evidence_ids\": [\"근거 Evidence ID (E/D로 시작; K- 금지)\"],\n    \"supporting_knowledge_ids\": [\"근거 Knowledge ID (K-)\"]\n  },\n  \"next_actions\": [\n    {\"action\": \"다음 행동\", \"kind\": \"변경 / 유지 / 확인 / 정보안내 / 절차 / 연계 중 하나\",\n     \"condition\": \"전제 조건 (무조건이면 빈 문자열)\",\n     \"risk_level\": \"운용 방향이면 5단계 성향 중 하나, 아니면 '해당없음'\",\n     \"supporting_evidence_ids\": [\"근거 Evidence ID\"]}\n  ],\n  \"knowledge_ids_used\": [\"사용한 Knowledge ID\"],\n  \"employee_brief\": {\n    \"s1_customer_situation\": \"S1 — 현재 상태 + 최근 중요 변화가 함께 보이는 자연어 요약. 관리 판단에 중요한 실제 숫자·시점(금액·만기일·입금액 등)은 추상화하지 않고 그대로 쓴다. 미확인 사항을 단정하지 않는다. CRM 내용을 쓰면 기록임이 드러나게 쓴다.\",\n    \"s2_management_point\": {\n      \"point\": \"S2 — 이번 접점에서 무엇을 관리하는 것이 핵심인지 한두 문장. Why-now를 문장 안에 자연스럽게 녹인다 (별도 필드·방어문구 없이)\",\n      \"check_before_consult\": [\"상담 전 확인 — 시스템/단말/공식자료로 직원이 미리 확인할 것 (필요할 때만, 없으면 빈 배열)\"],\n      \"check_with_customer\": [\"고객과 확인 — 시스템으로 알 수 없는 Decision Variable만 (이미 아는 사실 재질문 금지, 없으면 빈 배열)\"]\n    },\n    \"s3_direction\": {\n      \"directions\": [{\"condition\": \"이 방향의 전제 (Evidence만으로 결정되면 빈 문자열)\",\n                       \"direction\": \"관리 방향 (유지·재운용·수령 관리·인출 지원·이전 지원·대안 안내 등 모두 정상)\",\n                       \"solution_type\": \"Solution 유형 (상품 유형/절차/안내 등; 상품이 불필요하면 그 자체를 쓴다)\",\n                       \"risk_level\": \"운용 방향이면 5단계 중 하나, 아니면 '해당없음'\"}],\n      \"product_candidates\": [{\"product_id\": \"Candidate Pool의 id만 (임의 상품명 금지; 상품 제안이 불필요하면 빈 배열)\",\n                               \"reasons\": [\"이 고객에게 이 상품을 후보로 보는 이유 — 운용기간·자금 목적·성향·포트폴리오·경험·의사와 상품 특성의 적합성으로\"]}]\n    },\n    \"s4_consult_script\": {\n      \"scripts\": [\"직원이 고객에게 그대로 쓸 완성형 화법 1개 이상 — 이 고객의 실제 금액·시점·구성·상품이 문장 안에 들어가야 한다. 확실성은 S1~S3 수준을 넘지 않는다: 미확인 사항은 확인 질문으로, Knowledge에 없는 원인·기준은 설명하지 않고 확인 연결로\"],\n      \"conditional_scripts\": [{\"if\": \"고객 반응 (예: 원금손실 우려 시)\", \"script\": \"후속 화법 — S3의 분기가 여럿이면 각 분기(유지·거절 포함)의 화법을 만든다\"}]\n    },\n    \"s5_tips_and_screens\": {\n      \"tips\": [{\"tip_id\": \"제공된 Hot Tip/Guide의 id만\", \"why_relevant\": \"이 Case에 왜 도움이 되는지 한 줄\"}],\n      \"screens\": [{\"screen_id\": \"제공된 화면의 id만 — S3 Action과 직접 연결된 것만\", \"purpose_here\": \"이 Case에서 이 화면을 쓰는 목적\"}]\n    }\n  }\n}\n\n규칙: s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다. check_with_customer의 미확인 변수가 상품·방향 선택을 바꾸면, 그 변수에 걸린 추천은 directions.condition과 S4의 조건성(확인 질문 선행 또는 conditional_scripts)으로 보존한다 — 확인 전 확정 화법 금지. employee_brief의 s1~s4 문자열에는 화면번호(\"[04-12-XXX]\" 류)를 쓰지 않는다 — 화면 참조는 s5_tips_and_screens.screens의 screen_id로만."
+  },
+  "prompt_chars": 12085,
+  "model_response": {
+    "status": "SUCCESS",
+    "http_status": 200,
+    "finish_reason": "STOP",
+    "usage": {
+      "promptTokenCount": 6232,
+      "candidatesTokenCount": 1971,
+      "totalTokenCount": 9463,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 6232
+        }
+      ],
+      "thoughtsTokenCount": 1260,
+      "serviceTier": "standard"
+    },
+    "error": ""
+  },
+  "raw_model_output": "```json\n{\n  \"current_situation\": \"만 37세 고객으로 IRP 잔액 1,200만원(정기예금 900만원, 단기채 펀드 300만원)을 보유 중임. 최근 30일 내 앱에서 중도해지 안내 화면을 조회(6/10)하고 CRM을 통해 해지 의사를 문의(6/14)한 기록이 있어 해지를 고려 중인 것으로 추론됨. 현재 2025년 납입분 중 세액공제 미신청분이 존재하며, 관련 증빙 발급이 7월 1일부터 예정되어 있음. 보유 중인 정기예금 900만원의 만기는 2026-11-19로 현재 중도해지 시 이율 패널티가 예상되는 상태임.\",\n  \"known_facts_used\": [\n    \"IRP 잔액 1,200만원 (정기예금 900만원, 단기채 펀드 300만원)\",\n    \"정기예금 만기일 2026-11-19\",\n    \"2025년 납입분 세액공제 미신청분 존재\",\n    \"세액공제 증빙 발급 개시 예정일 2026-07-01\",\n    \"6/10 중도해지 화면 조회 및 6/14 해지 문의 CRM 기록\"\n  ],\n  \"unknowns_or_confirmations\": [\n    \"고객의 구체적인 해지 사유 및 자금 필요 시점\",\n    \"세액공제 미신청 금액의 정확한 액수 (단말 확인 필요)\",\n    \"7/1 증빙 발급 후 등록 절차를 거쳐 해지할 의사가 있는지 여부\"\n  ],\n  \"management_judgment\": {\n    \"judgment\": \"고객 결정 지원 / 정보 안내 중심\",\n    \"reasoning\": \"고객이 해지 의사를 보인 상황(CRM, 앱 행동)에서, 단순히 해지를 실행하기보다 세액공제 미신청분 등록을 통한 과세 제외 혜택(7/1 증빙 발급 예정)과 정기예금 중도해지 패널티라는 두 가지 비용 변수를 안내하여 고객의 실질적 이익을 보호하는 결정 지원이 필요함.\",\n    \"must_confirm_before_action\": [\n      \"해지 희망 시점 (즉시 해지 vs 증빙 등록 후 해지)\"\n    ],\n    \"supporting_evidence_ids\": [\n      \"E202\",\n      \"E203\",\n      \"E601\",\n      \"E801\",\n      \"E901\"\n    ],\n    \"supporting_knowledge_ids\": [\n      \"K-001\",\n      \"K-002\"\n    ]\n  },\n  \"next_actions\": [\n    {\n      \"action\": \"세액공제 미신청 금액 확인 및 안내\",\n      \"kind\": \"확인\",\n      \"condition\": \"\",\n      \"risk_level\": \"해당없음\",\n      \"supporting_evidence_ids\": [\n        \"E203\"\n      ]\n    },\n    {\n      \"action\": \"정기예금 중도해지 예상액 조회 및 안내\",\n      \"kind\": \"정보안내\",\n      \"condition\": \"\",\n      \"risk_level\": \"해당없음\",\n      \"supporting_evidence_ids\": [\n        \"E202\"\n      ]\n    },\n    {\n      \"action\": \"증빙 등록 후 해지 절차 안내\",\n      \"kind\": \"절차\",\n      \"condition\": \"고객이 세금 절감 및 이율 손실을 인지한 경우\",\n      \"risk_level\": \"해당없음\",\n      \"supporting_evidence_ids\": [\n        \"E801\"\n      ]\n    }\n  ],\n  \"knowledge_ids_used\": [\n    \"K-001\",\n    \"K-002\"\n  ],\n  \"employee_brief\": {\n    \"s1_customer_situation\": \"만 37세 고객님으로 현재 IRP에 총 1,200만원(정기예금 900만원, 단기채 펀드 300만원)을 운용 중이십니다. 최근 앱에서 해지 안내를 조회하시고 6월 14일에는 해지 관련 문의를 남기신 기록이 확인됩니다. 특히 2025년 납입분 중 세액공제를 신청하지 않은 금액이 있어, 해지 시점에 따라 세금 부담이 달라질 수 있으며, 11월 19일 만기인 정기예금의 중도해지 이율 적용 여부도 확인이 필요한 상황입니다.\",\n    \"s2_management_point\": {\n      \"point\": \"고객이 해지를 결정하시기 전, 세액공제 미신청분 등록을 통해 세금을 줄일 수 있는 방법과 정기예금 중도해지로 인한 이자 손실 가능성을 안내하여 최선의 선택을 돕는 것이 핵심입니다.\",\n      \"check_before_consult\": [\n        \"단말에서 2025년 세액공제 미신청 금액 정확히 확인\",\n        \"정기예금 중도해지 예상액 조회\"\n      ],\n      \"check_with_customer\": [\n        \"현재 해지를 고려하시는 사유와 자금이 필요하신 시점\"\n      ]\n    },\n    \"s3_direction\": {\n      \"directions\": [\n        {\n          \"condition\": \"\",\n          \"direction\": \"고객 의사결정 지원 및 해지 절차 안내\",\n          \"solution_type\": \"세제 혜택 안내 및 중도해지 비용 확인\",\n          \"risk_level\": \"해당없음\"\n        }\n      ],\n      \"product_candidates\": []\n    },\n    \"s4_consult_script\": {\n      \"scripts\": [\n        \"고객님, 최근 IRP 해지를 고민 중이신 것으로 확인되어, 해지 전 꼭 챙기셔야 할 혜택과 주의사항을 안내해 드리려 합니다.\",\n        \"먼저, 2025년에 납입하신 금액 중 아직 세액공제를 신청하지 않은 부분이 확인됩니다. 이 금액을 그대로 두신 채 해지하시면 기타소득세가 발생할 수 있지만, 증빙 서류를 등록하시면 과세 대상에서 제외되어 세금을 줄이실 수 있습니다. 관련 서류 발급이 7월 1일부터 가능하니, 이때 등록하신 후 해지하시는 방향을 추천드립니다.\",\n        \"더불어, 현재 보유하신 정기예금 900만원은 11월 19일이 만기입니다. 지금 해지하시게 되면 약정 이율보다 낮은 중도해지 이율이 적용되어 이자 손실이 발생할 수 있는데, 이 부분도 함께 고려해 보시는 것이 좋겠습니다.\"\n      ],\n      \"conditional_scripts\": [\n        {\n          \"if\": \"급하게 자금이 필요하여 즉시 해지를 원하는 경우\",\n          \"script\": \"당장 자금이 필요하신 상황이라면 즉시 해지가 가능합니다. 다만, 앞서 말씀드린 세액공제 미신청분에 대한 과세 부분과 예금 중도해지 이율 적용으로 인해 실제 수령액이 예상보다 적어질 수 있다는 점을 다시 한번 안내해 드립니다.\"\n        }\n      ]\n    },\n    \"s5_tips_and_screens\": {\n      \"tips\": [\n        {\n          \"tip_id\": \"K-001\",\n          \"why_relevant\": \"세액공제 미신청분 등록을 통해 해지 시 과세 제외 혜택을 받을 수 있는 절차 안내를 위함\"\n        },\n        {\n          \"tip_id\": \"K-002\",\n          \"why_relevant\": \"정기예금 중도해지 시 발생하는 이율 패널티를 고객에게 정확히 안내하기 위함\"\n        }\n      ],\n      \"screens\": [\n        {\n          \"screen_id\": \"S01\",\n          \"purpose_here\": \"7월 1일 이후 연금납입확인서를 통해 세액공제 미신청금액을 등록하여 과세제외 처리\"\n        },\n        {\n          \"screen_id\": \"S02\",\n          \"purpose_here\": \"보유 정기예금의 중도해지 예상액을 조회하여 고객에게 손실 금액 안내\"\n        }\n      ]\n    }\n  }\n}\n```",
+  "json_normalizations": [
+    "stripped_code_fence"
+  ],
+  "parsed_output": {
+    "current_situation": "만 37세 고객으로 IRP 잔액 1,200만원(정기예금 900만원, 단기채 펀드 300만원)을 보유 중임. 최근 30일 내 앱에서 중도해지 안내 화면을 조회(6/10)하고 CRM을 통해 해지 의사를 문의(6/14)한 기록이 있어 해지를 고려 중인 것으로 추론됨. 현재 2025년 납입분 중 세액공제 미신청분이 존재하며, 관련 증빙 발급이 7월 1일부터 예정되어 있음. 보유 중인 정기예금 900만원의 만기는 2026-11-19로 현재 중도해지 시 이율 패널티가 예상되는 상태임.",
+    "known_facts_used": [
+      "IRP 잔액 1,200만원 (정기예금 900만원, 단기채 펀드 300만원)",
+      "정기예금 만기일 2026-11-19",
+      "2025년 납입분 세액공제 미신청분 존재",
+      "세액공제 증빙 발급 개시 예정일 2026-07-01",
+      "6/10 중도해지 화면 조회 및 6/14 해지 문의 CRM 기록"
+    ],
+    "unknowns_or_confirmations": [
+      "고객의 구체적인 해지 사유 및 자금 필요 시점",
+      "세액공제 미신청 금액의 정확한 액수 (단말 확인 필요)",
+      "7/1 증빙 발급 후 등록 절차를 거쳐 해지할 의사가 있는지 여부"
+    ],
+    "management_judgment": {
+      "judgment": "고객 결정 지원 / 정보 안내 중심",
+      "reasoning": "고객이 해지 의사를 보인 상황(CRM, 앱 행동)에서, 단순히 해지를 실행하기보다 세액공제 미신청분 등록을 통한 과세 제외 혜택(7/1 증빙 발급 예정)과 정기예금 중도해지 패널티라는 두 가지 비용 변수를 안내하여 고객의 실질적 이익을 보호하는 결정 지원이 필요함.",
+      "must_confirm_before_action": [
+        "해지 희망 시점 (즉시 해지 vs 증빙 등록 후 해지)"
+      ],
+      "supporting_evidence_ids": [
+        "E202",
+        "E203",
+        "E601",
+        "E801",
+        "E901"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001",
+        "K-002"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "세액공제 미신청 금액 확인 및 안내",
+        "kind": "확인",
+        "condition": "",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E203"
+        ]
+      },
+      {
+        "action": "정기예금 중도해지 예상액 조회 및 안내",
+        "kind": "정보안내",
+        "condition": "",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E202"
+        ]
+      },
+      {
+        "action": "증빙 등록 후 해지 절차 안내",
+        "kind": "절차",
+        "condition": "고객이 세금 절감 및 이율 손실을 인지한 경우",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E801"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-002"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "만 37세 고객님으로 현재 IRP에 총 1,200만원(정기예금 900만원, 단기채 펀드 300만원)을 운용 중이십니다. 최근 앱에서 해지 안내를 조회하시고 6월 14일에는 해지 관련 문의를 남기신 기록이 확인됩니다. 특히 2025년 납입분 중 세액공제를 신청하지 않은 금액이 있어, 해지 시점에 따라 세금 부담이 달라질 수 있으며, 11월 19일 만기인 정기예금의 중도해지 이율 적용 여부도 확인이 필요한 상황입니다.",
+      "s2_management_point": {
+        "point": "고객이 해지를 결정하시기 전, 세액공제 미신청분 등록을 통해 세금을 줄일 수 있는 방법과 정기예금 중도해지로 인한 이자 손실 가능성을 안내하여 최선의 선택을 돕는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 2025년 세액공제 미신청 금액 정확히 확인",
+          "정기예금 중도해지 예상액 조회"
+        ],
+        "check_with_customer": [
+          "현재 해지를 고려하시는 사유와 자금이 필요하신 시점"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "",
+            "direction": "고객 의사결정 지원 및 해지 절차 안내",
+            "solution_type": "세제 혜택 안내 및 중도해지 비용 확인",
+            "risk_level": "해당없음"
+          }
+        ],
+        "product_candidates": []
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님, 최근 IRP 해지를 고민 중이신 것으로 확인되어, 해지 전 꼭 챙기셔야 할 혜택과 주의사항을 안내해 드리려 합니다.",
+          "먼저, 2025년에 납입하신 금액 중 아직 세액공제를 신청하지 않은 부분이 확인됩니다. 이 금액을 그대로 두신 채 해지하시면 기타소득세가 발생할 수 있지만, 증빙 서류를 등록하시면 과세 대상에서 제외되어 세금을 줄이실 수 있습니다. 관련 서류 발급이 7월 1일부터 가능하니, 이때 등록하신 후 해지하시는 방향을 추천드립니다.",
+          "더불어, 현재 보유하신 정기예금 900만원은 11월 19일이 만기입니다. 지금 해지하시게 되면 약정 이율보다 낮은 중도해지 이율이 적용되어 이자 손실이 발생할 수 있는데, 이 부분도 함께 고려해 보시는 것이 좋겠습니다."
+        ],
+        "conditional_scripts": [
+          {
+            "if": "급하게 자금이 필요하여 즉시 해지를 원하는 경우",
+            "script": "당장 자금이 필요하신 상황이라면 즉시 해지가 가능합니다. 다만, 앞서 말씀드린 세액공제 미신청분에 대한 과세 부분과 예금 중도해지 이율 적용으로 인해 실제 수령액이 예상보다 적어질 수 있다는 점을 다시 한번 안내해 드립니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [
+          {
+            "tip_id": "K-001",
+            "why_relevant": "세액공제 미신청분 등록을 통해 해지 시 과세 제외 혜택을 받을 수 있는 절차 안내를 위함"
+          },
+          {
+            "tip_id": "K-002",
+            "why_relevant": "정기예금 중도해지 시 발생하는 이율 패널티를 고객에게 정확히 안내하기 위함"
+          }
+        ],
+        "screens": [
+          {
+            "screen_id": "S01",
+            "purpose_here": "7월 1일 이후 연금납입확인서를 통해 세액공제 미신청금액을 등록하여 과세제외 처리"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "보유 정기예금의 중도해지 예상액을 조회하여 고객에게 손실 금액 안내"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "안정추구형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형"
+    ],
+    "forbidden_levels": [
+      "위험중립형",
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "세액공제 미신청 금액 확인 및 안내",
+        "kind": "확인",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "정기예금 중도해지 예상액 조회 및 안내",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "증빙 등록 후 해지 절차 안내",
+        "kind": "절차",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "안정추구형",
+    "ineligible_portfolios": [
+      "뿔려드림",
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "안정추구형",
+    "allowed_min_grade": 5,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험",
+      "보통위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [
+      {
+        "where": "tips",
+        "id": "K-001",
+        "issue": "tip not in supply",
+        "verdict": "FAIL"
+      },
+      {
+        "where": "tips",
+        "id": "K-002",
+        "issue": "tip not in supply",
+        "verdict": "FAIL"
+      }
+    ],
+    "overall": "FAIL"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "judgment_types_detected": [
+    "정보 안내 중심",
+    "고객 결정 지원"
+  ],
+  "employee_brief": {
+    "s1_customer_situation": "만 37세 고객님으로 현재 IRP에 총 1,200만원(정기예금 900만원, 단기채 펀드 300만원)을 운용 중이십니다. 최근 앱에서 해지 안내를 조회하시고 6월 14일에는 해지 관련 문의를 남기신 기록이 확인됩니다. 특히 2025년 납입분 중 세액공제를 신청하지 않은 금액이 있어, 해지 시점에 따라 세금 부담이 달라질 수 있으며, 11월 19일 만기인 정기예금의 중도해지 이율 적용 여부도 확인이 필요한 상황입니다.",
+    "s2_management_point": {
+      "point": "고객이 해지를 결정하시기 전, 세액공제 미신청분 등록을 통해 세금을 줄일 수 있는 방법과 정기예금 중도해지로 인한 이자 손실 가능성을 안내하여 최선의 선택을 돕는 것이 핵심입니다.",
+      "check_before_consult": [
+        "단말에서 2025년 세액공제 미신청 금액 정확히 확인",
+        "정기예금 중도해지 예상액 조회"
+      ],
+      "check_with_customer": [
+        "현재 해지를 고려하시는 사유와 자금이 필요하신 시점"
+      ]
+    },
+    "s3_direction": {
+      "directions": [
+        {
+          "condition": "",
+          "direction": "고객 의사결정 지원 및 해지 절차 안내",
+          "solution_type": "세제 혜택 안내 및 중도해지 비용 확인",
+          "risk_level": "해당없음"
+        }
+      ],
+      "product_candidates": []
+    },
+    "s4_consult_script": {
+      "scripts": [
+        "고객님, 최근 IRP 해지를 고민 중이신 것으로 확인되어, 해지 전 꼭 챙기셔야 할 혜택과 주의사항을 안내해 드리려 합니다.",
+        "먼저, 2025년에 납입하신 금액 중 아직 세액공제를 신청하지 않은 부분이 확인됩니다. 이 금액을 그대로 두신 채 해지하시면 기타소득세가 발생할 수 있지만, 증빙 서류를 등록하시면 과세 대상에서 제외되어 세금을 줄이실 수 있습니다. 관련 서류 발급이 7월 1일부터 가능하니, 이때 등록하신 후 해지하시는 방향을 추천드립니다.",
+        "더불어, 현재 보유하신 정기예금 900만원은 11월 19일이 만기입니다. 지금 해지하시게 되면 약정 이율보다 낮은 중도해지 이율이 적용되어 이자 손실이 발생할 수 있는데, 이 부분도 함께 고려해 보시는 것이 좋겠습니다."
+      ],
+      "conditional_scripts": [
+        {
+          "if": "급하게 자금이 필요하여 즉시 해지를 원하는 경우",
+          "script": "당장 자금이 필요하신 상황이라면 즉시 해지가 가능합니다. 다만, 앞서 말씀드린 세액공제 미신청분에 대한 과세 부분과 예금 중도해지 이율 적용으로 인해 실제 수령액이 예상보다 적어질 수 있다는 점을 다시 한번 안내해 드립니다."
+        }
+      ]
+    },
+    "s5_tips_and_screens": {
+      "tips": [
+        {
+          "tip_id": "K-001",
+          "why_relevant": "세액공제 미신청분 등록을 통해 해지 시 과세 제외 혜택을 받을 수 있는 절차 안내를 위함"
+        },
+        {
+          "tip_id": "K-002",
+          "why_relevant": "정기예금 중도해지 시 발생하는 이율 패널티를 고객에게 정확히 안내하기 위함"
+        }
+      ],
+      "screens": [
+        {
+          "screen_id": "S01",
+          "purpose_here": "7월 1일 이후 연금납입확인서를 통해 세액공제 미신청금액을 등록하여 과세제외 처리"
+        },
+        {
+          "screen_id": "S02",
+          "purpose_here": "보유 정기예금의 중도해지 예상액을 조회하여 고객에게 손실 금액 안내"
+        }
+      ]
+    }
+  }
+}

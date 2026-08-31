@@ -1,0 +1,157 @@
+{
+  "case_id": "GC-23",
+  "needs": [
+    {
+      "need_id": "KN-01",
+      "origin": "Frozen GC-23 knowledge_pack K-001 (Human 구성; 원 납품 REQ-003 → OK-002)",
+      "purpose": "procedure (제도·절차 — 판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-002",
+          "matched": [
+            "계약이전",
+            "전출",
+            "리스크 고지",
+            "의사확인",
+            "전출취소"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-003",
+          "matched": [
+            "계약이전"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "KG-002",
+          "matched": [
+            "계약이전"
+          ],
+          "gate": "SELECTED (Knowledge Gap)"
+        }
+      ]
+    },
+    {
+      "need_id": "KN-02",
+      "origin": "REQ-011 (Human 정의 — F-010 재검증의 핵심 동봉물)",
+      "purpose": "execution_feasibility (실행가능성 — 판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-003",
+          "matched": [
+            "부분이전",
+            "실물이전",
+            "현금이전",
+            "중도해지이율"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-009",
+          "matched": [
+            "중도해지",
+            "중도해지"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-011",
+          "matched": [
+            "중도해지",
+            "중도해지이율"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "KG-002",
+          "matched": [
+            "부분이전",
+            "실물이전"
+          ],
+          "gate": "SELECTED (Knowledge Gap)"
+        }
+      ]
+    }
+  ],
+  "manual_keep": [
+    "K-004"
+  ],
+  "selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-002",
+      "need_ref": "KN-01",
+      "matched": [
+        "계약이전",
+        "전출",
+        "리스크 고지",
+        "의사확인",
+        "전출취소"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "OK",
+      "registry_ref": "OK-003",
+      "need_ref": "KN-02",
+      "matched": [
+        "부분이전",
+        "실물이전",
+        "현금이전",
+        "중도해지이율"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-009",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "중도해지"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "OK",
+      "registry_ref": "OK-011",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "중도해지이율"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-005",
+      "kind": "KG",
+      "registry_ref": "KG-002",
+      "need_ref": "KN-02",
+      "matched": [
+        "부분이전",
+        "실물이전"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-006",
+      "kind": "MANUAL_KEEP",
+      "registry_ref": "frozen:K-004",
+      "need_ref": null,
+      "matched": [],
+      "flags": []
+    }
+  ],
+  "excluded": [],
+  "registry_sha256": {
+    "OFFICIAL_KNOWLEDGE.md": "e7350ef562adc6bf8b7bd4a8be4d8cfd7842964cde8a65b252b74dcabaff10bf",
+    "KNOWLEDGE_GAPS.md": "a8da92fd1df4424981b95493c7b4395c970757059084e3bb53ce200dd655f5c9",
+    "P3A_KNOWLEDGE_NEEDS.md": "5dd6e4808e4758e64eeac0a206d999bbf481440161ee6fb71da52146fe3376f7"
+  }
+}

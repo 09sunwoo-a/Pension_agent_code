@@ -1,0 +1,103 @@
+{
+  "case_id": "GC-21",
+  "needs": [
+    {
+      "need_id": "KN-01",
+      "origin": "REQ-007 (Human 정의; NOT_FOUND — Human-accepted Knowledge Gap, DB-003 §1)",
+      "purpose": "definition (제도·정의 — 판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-007",
+          "matched": [
+            "수익률 표시"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "KG-001",
+          "matched": [
+            "수익률 표시 기준",
+            "상품수익률",
+            "매수 시점 효과"
+          ],
+          "gate": "SELECTED (Knowledge Gap)"
+        }
+      ]
+    },
+    {
+      "need_id": "KN-02",
+      "origin": "Frozen GC-21 knowledge_pack K-003 (Human 구성; COMMON — HD-2.1 Eligibility)",
+      "purpose": "eligibility (판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-006",
+          "matched": [
+            "투자성향",
+            "위험등급",
+            "적합성",
+            "상한",
+            "권유 가능"
+          ],
+          "gate": "SELECTED"
+        }
+      ]
+    }
+  ],
+  "manual_keep": [
+    "K-002"
+  ],
+  "selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-007",
+      "need_ref": "KN-01",
+      "matched": [
+        "수익률 표시"
+      ],
+      "flags": [
+        "PROVISIONAL — 확정 Fact 아님, 확인 필요 상태로만 사용"
+      ]
+    },
+    {
+      "kid": "K-002",
+      "kind": "KG",
+      "registry_ref": "KG-001",
+      "need_ref": "KN-01",
+      "matched": [
+        "수익률 표시 기준",
+        "상품수익률",
+        "매수 시점 효과"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-006",
+      "need_ref": "KN-02",
+      "matched": [
+        "투자성향",
+        "위험등급",
+        "적합성",
+        "상한",
+        "권유 가능"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "MANUAL_KEEP",
+      "registry_ref": "frozen:K-002",
+      "need_ref": null,
+      "matched": [],
+      "flags": []
+    }
+  ],
+  "excluded": [],
+  "registry_sha256": {
+    "OFFICIAL_KNOWLEDGE.md": "e7350ef562adc6bf8b7bd4a8be4d8cfd7842964cde8a65b252b74dcabaff10bf",
+    "KNOWLEDGE_GAPS.md": "a8da92fd1df4424981b95493c7b4395c970757059084e3bb53ce200dd655f5c9",
+    "P3A_KNOWLEDGE_NEEDS.md": "5dd6e4808e4758e64eeac0a206d999bbf481440161ee6fb71da52146fe3376f7"
+  }
+}

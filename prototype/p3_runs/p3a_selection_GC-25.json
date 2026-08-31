@@ -1,0 +1,163 @@
+{
+  "case_id": "GC-25",
+  "needs": [
+    {
+      "need_id": "KN-01",
+      "origin": "REQ-013 (Human 정의)",
+      "purpose": "tax_rule (세제 — 판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-008",
+          "matched": [
+            "세액공제"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-009",
+          "matched": [
+            "중도해지",
+            "미공제",
+            "과세제외",
+            "06-12-622",
+            "소득·세액공제확인서",
+            "연금납입확인서",
+            "7월 1일",
+            "중도해지"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-011",
+          "matched": [
+            "중도해지"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-015",
+          "matched": [
+            "기타소득세"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "KG-004",
+          "matched": [
+            "발급 시점"
+          ],
+          "gate": "SELECTED (Knowledge Gap)"
+        }
+      ]
+    },
+    {
+      "need_id": "KN-02",
+      "origin": "Frozen GC-25 knowledge_pack K-002 (Human 구성; 원 납품 OK-011·OK-003)",
+      "purpose": "institutional (제도 — 판단 근거 Authority T1/T2 요구)",
+      "candidates": [
+        {
+          "id": "OK-003",
+          "matched": [
+            "중도해지이율"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-009",
+          "matched": [
+            "중도해지",
+            "중도해지"
+          ],
+          "gate": "SELECTED"
+        },
+        {
+          "id": "OK-011",
+          "matched": [
+            "중도해지",
+            "특별중도해지",
+            "중도해지이율"
+          ],
+          "gate": "SELECTED"
+        }
+      ]
+    }
+  ],
+  "manual_keep": [],
+  "selected": [
+    {
+      "kid": "K-001",
+      "kind": "OK",
+      "registry_ref": "OK-009",
+      "need_ref": "KN-01",
+      "matched": [
+        "중도해지",
+        "미공제",
+        "과세제외",
+        "06-12-622",
+        "소득·세액공제확인서",
+        "연금납입확인서",
+        "7월 1일",
+        "중도해지"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-002",
+      "kind": "OK",
+      "registry_ref": "OK-008",
+      "need_ref": "KN-01",
+      "matched": [
+        "세액공제"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-003",
+      "kind": "OK",
+      "registry_ref": "OK-015",
+      "need_ref": "KN-01",
+      "matched": [
+        "기타소득세"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-004",
+      "kind": "KG",
+      "registry_ref": "KG-004",
+      "need_ref": "KN-01",
+      "matched": [
+        "발급 시점"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-005",
+      "kind": "OK",
+      "registry_ref": "OK-011",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지",
+        "특별중도해지",
+        "중도해지이율"
+      ],
+      "flags": []
+    },
+    {
+      "kid": "K-006",
+      "kind": "OK",
+      "registry_ref": "OK-003",
+      "need_ref": "KN-02",
+      "matched": [
+        "중도해지이율"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [],
+  "registry_sha256": {
+    "OFFICIAL_KNOWLEDGE.md": "e7350ef562adc6bf8b7bd4a8be4d8cfd7842964cde8a65b252b74dcabaff10bf",
+    "KNOWLEDGE_GAPS.md": "a8da92fd1df4424981b95493c7b4395c970757059084e3bb53ce200dd655f5c9",
+    "P3A_KNOWLEDGE_NEEDS.md": "5dd6e4808e4758e64eeac0a206d999bbf481440161ee6fb71da52146fe3376f7"
+  }
+}

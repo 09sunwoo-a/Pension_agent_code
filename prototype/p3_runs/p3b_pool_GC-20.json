@@ -1,0 +1,215 @@
+{
+  "case_id": "GC-20",
+  "needs": [
+    {
+      "need_id": "PN-01",
+      "solution_type": "의향 재확인 후 조건부 신규 운용 후보 — 장기 목표시점 분산",
+      "characteristics": [
+        "TDF"
+      ],
+      "hits": [
+        {
+          "prd": "PRD-001",
+          "name": "KB 온국민 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P01",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-002",
+          "name": "신한 마음편한 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P02",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-003",
+          "name": "한화 LIFEPLUS TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P03",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-004",
+          "name": "마이다스 기본 TDF 시리즈",
+          "gate": "SELECTED",
+          "product_id": "P04",
+          "matched": [
+            "TDF"
+          ],
+          "flags": []
+        }
+      ]
+    },
+    {
+      "need_id": "PN-02",
+      "solution_type": "의향 재확인 후 조건부 신규 운용 후보 — 낮은 위험 채권형",
+      "characteristics": [
+        "채권형"
+      ],
+      "hits": [
+        {
+          "prd": "PRD-005",
+          "name": "키움 더드림 단기채",
+          "gate": "SELECTED",
+          "product_id": "P05",
+          "matched": [
+            "채권형"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-006",
+          "name": "한국투자 크레딧 포커스 ESG",
+          "gate": "SELECTED",
+          "product_id": "P06",
+          "matched": [
+            "채권형"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-007",
+          "name": "교보악사 Tomorrow 장기우량K-1호",
+          "gate": "SELECTED",
+          "product_id": "P07",
+          "matched": [
+            "채권형"
+          ],
+          "flags": []
+        },
+        {
+          "prd": "PRD-008",
+          "name": "한화 내일받는 단기국공채",
+          "gate": "EXCLUDED (risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드)"
+        },
+        {
+          "prd": "PRD-009",
+          "name": "KB 스타 단기국공채",
+          "gate": "EXCLUDED (risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드)"
+        }
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "product_id": "P01",
+      "prd": "PRD-001",
+      "name": "KB 온국민 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P02",
+      "prd": "PRD-002",
+      "name": "신한 마음편한 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P03",
+      "prd": "PRD-003",
+      "name": "한화 LIFEPLUS TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 3,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P04",
+      "prd": "PRD-004",
+      "name": "마이다스 기본 TDF 시리즈",
+      "product_type": "TDF",
+      "risk_grade": 4,
+      "sellable": null,
+      "need_ref": "PN-01",
+      "matched": [
+        "TDF"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P05",
+      "prd": "PRD-005",
+      "name": "키움 더드림 단기채",
+      "product_type": "채권형(단기채)",
+      "risk_grade": 6,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "채권형"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P06",
+      "prd": "PRD-006",
+      "name": "한국투자 크레딧 포커스 ESG",
+      "product_type": "채권형",
+      "risk_grade": 5,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "채권형"
+      ],
+      "flags": []
+    },
+    {
+      "product_id": "P07",
+      "prd": "PRD-007",
+      "name": "교보악사 Tomorrow 장기우량K-1호",
+      "product_type": "채권형(장기 국공채·우량채)",
+      "risk_grade": 5,
+      "sellable": null,
+      "need_ref": "PN-02",
+      "matched": [
+        "채권형"
+      ],
+      "flags": []
+    }
+  ],
+  "excluded": [
+    {
+      "need": "PN-02",
+      "prd": "PRD-008",
+      "name": "한화 내일받는 단기국공채",
+      "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+    },
+    {
+      "need": "PN-02",
+      "prd": "PRD-009",
+      "name": "KB 스타 단기국공채",
+      "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+    }
+  ],
+  "none_reason": null,
+  "registry_sha256": {
+    "PRODUCT_REGISTRY.md": "66195971d492a184122a436c50c58ab33ec0daca2a878df1de50465328d22849",
+    "P3B_PRODUCT_NEEDS.md": "015cd539fd539d620315714fc45bef26d84d529fd8de579aec12fb54680dd749"
+  }
+}
