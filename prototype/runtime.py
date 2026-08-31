@@ -1713,6 +1713,11 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
         case = _cx.load_canonical(case_id, root=REPO_ROOT)
         derived = _cx.derive(case)
         constraint = build_constraint_context(_CanonicalTextShim(case))
+        # v3 cases carry the profile in canonical.json, not case.md — cite the real source.
+        constraint.basis = (
+            "Human-approved Constraint (golden/HUMAN_DECISIONS.md HD-2·HD-2.1; "
+            f"cases/{case_id}/canonical.json 투자성향 Evidence). C2 매핑은 KB 투자권유 기준(SRC-096)."
+        )
         knowledge, kp_path, kp_sha = load_knowledge_items(case_id)
         prompt = build_prompt_v3(case, derived, knowledge, constraint)
     except Exception as e:

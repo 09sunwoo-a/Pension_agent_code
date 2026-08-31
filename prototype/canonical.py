@@ -182,12 +182,14 @@ def derive(case: CanonicalCase) -> List[CanonicalItem]:
         days = (base - _to_date(s["date"])).days
         if s.get("cash") is not None and cur.data.get("cash") is not None:
             delta = int(cur.data["cash"]) - int(s["cash"])
-            add(3, "arithmetic_derived",
-                f"최근 {days}일 현금성자산 증감: {delta:+,}원 ({int(s['cash']):,}원 → {int(cur.data['cash']):,}원)")
+            if delta != 0:  # 변화 없음은 스냅샷 자체가 이미 보여준다 — 0원 증감 항목은 만들지 않는다
+                add(3, "arithmetic_derived",
+                    f"최근 {days}일 현금성자산 증감: {delta:+,}원 ({int(s['cash']):,}원 → {int(cur.data['cash']):,}원)")
         if s.get("total") is not None and cur.data.get("total") is not None:
             delta_t = int(cur.data["total"]) - int(s["total"])
-            add(3, "arithmetic_derived",
-                f"최근 {days}일 전체 평가금액 증감: {delta_t:+,}원 ({int(s['total']):,}원 → {int(cur.data['total']):,}원)")
+            if delta_t != 0:
+                add(3, "arithmetic_derived",
+                    f"최근 {days}일 전체 평가금액 증감: {delta_t:+,}원 ({int(s['total']):,}원 → {int(cur.data['total']):,}원)")
 
     # 3) balance-vs-flow arithmetic reconciliation (A → block 3): exact match only
     if cur and cur.data.get("cash") is not None:
