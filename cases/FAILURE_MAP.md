@@ -186,3 +186,19 @@ Verdict: **PASS 4 (GC-03↑, GC-04, GC-05, GC-09↑) · PARTIAL 4 (GC-11↓, GC-
 | 화면 생존 | deterministic REVIEW 1건 (GC-05 [06-12-631] 미사용 — Evaluator 판단 경미) | GC-05 |
 
 N/A 처리 (Input removed by approved REV-002 schema — PASS 아님·평가 제외): GC-05 3축(마이데이터·동연령·TM), GC-04 1축(TM/F-009), GC-09 1축(DO 자동적용 이력), GC-14 2축(연도별 납입·미신청 이력 대조), GC-03 1축(과세이연 등록 상태). 상세는 각 EVAL.
+
+## Brief Semantic Preservation — 통합 관점 (HD-8, 2026-08-31)
+
+REV-002 Regression으로 명확해진 핵심 잔여 병목을 **`Structured Result → Employee Brief Semantic Preservation`** 문제로 기록한다 (F-001 신규 변형 + F-008의 의미 층위 통합 관점). 구조화 판단에서는 불확실성·조건·출처가 유지되나, Brief 산문 변환에서 일부 정보가 확정 Fact로 승격된다. 단순 금지어 문제가 아니며, 금지 승격 유형은 HD-8 (a)-1 (고객·CRM 진술→시스템 Fact, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생). 전 Evidence(CRM·Signal·Performance·Whole-Asset)에 적용.
+
+### HD-8 Operational 보강 후 선택 Regression (GC-05 RUN_003 · GC-11 RUN_003 · GC-14 RUN_004, 2026-08-31)
+
+검증 목적 3축 한정 (신규 성능평가 아님):
+
+| 축 | 결과 |
+|---|---|
+| ① Structured→Brief 불확실성 보존 | **3/3 해소** — GC-05 화법 선제 단정("운용될 예정") 소멸, GC-11 "1,500만 **초과 시** … 확인" 조건부 유지(직전 "초과" 확정 해소), GC-14 "CRM상 무주택자라고 **진술**" 유지 + 증빙을 confirm_first로 배치 |
+| ② F-011 Evidence/Knowledge 슬롯 | **3/3 해소** — supporting_evidence_ids 전부 E-ID, K-ID는 신설 supporting_knowledge_ids로 분리. deterministic validator 3/3 PASS |
+| ③ F-012 S5 출처 형식 | **부분 해소 (1/3)** — GC-11 해소(SRC-003 등), GC-05 혼재("K-005 / SRC-089" — SRC 병기됨), GC-14 잔존("K-003"·"K-005"). 신설 `validate_s5_sources`가 상시 REVIEW 검출 — **P2 Batch에서 관찰 지속** |
+
+신규 Semantic Failure 없음 (판단 방향·Constraint·금지어 전부 정상; GC-11 judgment는 "실행 불가" 핵심 유지). **HD-8 종료 조건 충족 → REV-002 종료 처리.** F-012 잔존은 형식 문제로 기록하며 새 Revision 번호를 만들지 않는다(HD-8 §8).

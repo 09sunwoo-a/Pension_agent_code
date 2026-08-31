@@ -43,3 +43,9 @@ GC-11·GC-14 모두 **핵심 판단은 유지, S1/수치 서술의 확정화**�
 ## 5. 다음 단계 (Step 6 — Human 결정)
 
 (a) 후퇴 2건·Revision 후보에 대한 처리 방향(Operational 보강 즉시 적용 vs 관찰 유지), (b) REV-003(Knowledge Key Conditions) 여부 — F-006이 2/8 경미로 감소(전처리·Usage 개선 효과)하여 우선순위 재평가 필요, (c) P2 Batch 3 설계 착수(신규 섹션 Wider Context·Digital Signals 본검증 + Coverage Gap), (d) 잔여 Availability `?` 2건·R4 rule_source 확정.
+
+## HD-8 Operational 보강 및 선택 Regression — REV-002 종료 (2026-08-31)
+
+- 적용(커밋 196fd96): ① Epistemic State 보존 일반 원칙(SYSTEM_ROLE 원칙 16 + Brief 규칙 — 금지어 방식 아님) ② F-011 Output Contract(supporting_evidence_ids=E-ID 전용, supporting_knowledge_ids 신설) ③ F-012 S5 출처 우선순위(자료명>SRC-ID>화면번호+화면명>부서; K-ID 금지) + `validate_s5_sources`(REVIEW). Availability 최종 갱신(한도 3필드 분리, 잔여 `?` = 개설 채널 1건).
+- 선택 Regression: GC-05 RUN_003 · GC-11 RUN_003 · GC-14 RUN_004 (검증 3축 한정). 결과: 불확실성 보존 3/3 · F-011 3/3 해소 · F-012 1/3 해소(잔여는 validator 상시 검출, P2 관찰 지속). 신규 Semantic Failure 없음. 상세: `cases/FAILURE_MAP.md` 말미.
+- **REV-002 종료 조건(HD-8 §8) 7항 전부 충족 → REV-002 종료.** REV-003는 Candidate 보류(HD-8 (b) 재상정 조건). 다음: P2 Batch 3 — 후보 설계안 `design/P2_BATCH3_CANDIDATES.md` Human 승인 대기.

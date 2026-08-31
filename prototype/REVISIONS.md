@@ -32,3 +32,7 @@ Execution-enabling change는 여기 기록하지 않고 Run Record·Case status�
 - **검증**: 스모크 테스트(8-섹션 파싱, A/R Fact 산출 — 개시요건 미충족/DO 도래 전·경과 두 변형, 스키마 정상/이상 케이스, validator PASS/FAIL 양방향, 렌더러) 통과. 레거시 경로 GC-04·GC-11 dry-run으로 REV-001 무변경 확인.
 - **Before Runtime Commit**: a84c8e9 (Step 3 Spec 확정) / **After**: 본 항목이 포함된 커밋 (RUN record `git_head` 참조)
 - **Regression**: 8 Case (GC-03·04·05·09·11·14·16·17) `input_v2` RUN/EVAL — 변환 규칙·N/A 표기는 `design/EMPLOYEE_BRIEF_SPEC.md` §5.
+
+### REV-002 종료 (2026-08-31, HD-8)
+
+Regression PASS 4·PARTIAL 4·FAIL 0 + HD-8 Operational 보강 3건(Epistemic 보존·F-011 슬롯·F-012 S5 출처 — Semantic Revision 아님, Output Contract 보강) + 선택 Regression(GC-05·11·14) 검증 후 **종료**. 핵심 잔여 병목은 `Structured → Brief Semantic Preservation`으로 FAILURE_MAP에 기록, F-012 잔여는 validator 상시 검출로 P2 관찰. REV-003(Knowledge Key Conditions)는 Candidate 보류 — 재상정 조건은 HD-8 (b).
