@@ -50,13 +50,14 @@
   - C1/C2/C3 + 판매가능/채널 Constraint 통과 필수. LLM의 임의 상품 생성 금지.
   - 고객 의사/실행조건 미확인 시 조건부 제시, 고객의 최종 선택 전제.
 - **기타 필수**: Constraint 범위의 정확 재진술(GC-03 RUN_001 축소 재발 방지) / Action condition·한도 개념의 변환 보존(F-008 — GC-12 잔존) / 수치의 as_of 동반 / 최종 계산값은 HD-1대로 화면·계산기 연결 / Recommended Direction에도 `supporting_evidence_ids` 부여(결정 3-4).
+- **Performance Comparison 활용**(추가 결정 3-4): 객관적 수익률 비교(고객 보유수익률 vs 상품 자체 수익률, 손익 발생 맥락)를 **고객의 선택을 돕는 설명 근거로 활용 가능**. 단 수익률 비교 **단독으로** 교체·리밸런싱·위험 확대·특정 상품 가입 방향을 정당화하지 않는다 — 보유기간·자금성격·성향·의사와 함께. Peer 비교는 입력에 없다(제외).
 - **비해당 유형 표기 규칙**: 상품 권유 금지 사례(GC-14) → "이 상담에서 상품 권유는 하지 않습니다(사유)" 명시 / 실행 불가(GC-15) → "대안 경로 확인"으로 대체 / 이탈 대응(GC-16) → "대안 제시 + 고객 결정권 명시"로 대체.
 
 ### S4. 상담 Point
 
 - **정의**: 직원의 접근 논리·순서 + 실제 고객 설명 문구.
 - **원재료**: 순서·논리는 재배치(GC-02·GC-05·GC-16 준거). **화법 문장은 완전 신규(0/18)** — 스키마 필드·프롬프트 지시 신설.
-- **필수**: 접근 순서 번호 목록(화살표는 플레인 "→" — LaTeX 잔재 방지) / **실제 화법 최소 1개** — 공급원: 용어 치환 사전·설명 순서 패턴·정직성 장치·이탈 골격(SCREENS_HOTTIPS_INVENTORY §3) / 단정·압박 회피 톤.
+- **필수**: 접근 순서 번호 목록(화살표는 플레인 "→" — LaTeX 잔재 방지) / **실제 화법 최소 1개** — 공급원: 용어 치환 사전·설명 순서 패턴·정직성 장치·이탈 골격(SCREENS_HOTTIPS_INVENTORY §3) / 단정·압박 회피 톤 / 객관적 수익률 비교는 상담 설명 근거로 활용 가능(고객 간 비교·압박 금지 — §1-S3 Boundary와 동일).
 - **금지**: 근거 없는 비교·과장 / 용어 미치환("고유계정대" 그대로) / 압박성 설득(수익률 하위 등 비교·분류를 설득 근거로 — GC-05가 스스로 지킨 것의 승격. ※Bank Signal은 입력에서 제거되어 구조적으로도 차단됨).
 
 ### S5. 관련 TIP & GUIDE
@@ -90,9 +91,12 @@
 
 - Unknown이 사실로 승격되었는가 (F-001의 의미 층위).
 - 표현이 과도하게 단정적인가 / 강화 수식어.
-- Management Point가 Evidence와 논리적으로 정합한가 (Trace ID 존재는 deterministic, 논리 정합은 Evaluator).
+- Management Point가 Evidence에 의해 실제로 정당화되는가 (Trace ID 존재는 deterministic, 논리 정합은 Evaluator).
+- **수익률 비교를 과도한 Action Trigger로 사용했는가** (단독 근거로 교체·리밸런싱 확정 — 추가 결정 9).
+- **CRM 메모를 현재 Intent로 과신했는가** (Ground Truth 승격 — 추가 결정 4).
+- **Digital Signal을 Intent로 승격했는가** (Critical Boundary — 추가 결정 5, P2 검증 대상).
 - 분기 규칙 준수: 만들어야 할 분기의 누락(F-010) / 불필요한 분기 생성.
-- 상담 화법이 압박적으로 들리는가 / 용어 치환 적절성.
+- 상담 화법이 압박/과장에 해당하는가 / 용어 치환 적절성.
 - S5 재료의 실존·적합성 (생성 여부는 Knowledge Pack 대조로 부분 deterministic).
 
 ## 4. 섹션별 평가 축 (Regression 관찰)
@@ -116,4 +120,12 @@
 | GC-16 | 이탈 대응 유형 + S4 반론·S5 탈락 개선 |
 | **GC-17** | **추가(결정 5)** — DO 적용 예상시점/미적용 해석과 F-001 재발을 GC-09와 함께 검증 |
 
-변환 규칙: 기존 Frozen case.md 불변. `input_v2`는 **기존 정보량 유지·조직 구조만 변환·새 사실 추가 금지** (Arithmetic/Rule-derived Fact는 기존 값의 파생이므로 허용). 새 스키마에서 제외된 필드(예: GC-05 마이데이터·TM, GC-09 DO 자동적용 이력)의 처리는 Step 3 보고 §6 확인 항목.
+### 변환 규칙 (추가 결정 2 — Human 확정)
+
+**"승인된 새 Input Schema의 일관 적용"이 "정보량 동일"에 우선한다.**
+
+1. 새 스키마에서 제외된 필드(GC-05 마이데이터 Cross-account·TM 분류·Peer 통계, GC-09 DO 자동적용 이력 등)는 `input_v2`에 **재반입하지 않는다**. 새 사실 추가도 금지(Arithmetic/Rule-derived 파생은 기존 값의 계산이므로 허용).
+2. 삭제된 Input에 직접 의존하는 기존 Golden Boundary/평가 축은 신규 EVAL에서 **`N/A — Input removed by approved REV-002 schema`** 로 명시한다. **PASS로 간주하지 않는다** — 평가 대상 자체에서 제외된 것으로 기록.
+3. 기존 Frozen Case / RUN / EVAL은 수정하지 않는다. 이 변경은 `input_v2`와 신규 EVAL에서만 명시한다.
+4. GC-04 ↔ GC-05 Counterfactual Pair의 핵심 판단 차이(명시 의사 존중 vs 의사 부재→확인 우선)는 반드시 보존한다 — CRM 메모·Digital Signals(스타뱅킹 조회 로그 유지)로 성립.
+5. Input 삭제로 Case의 **핵심 Semantic Boundary 자체가 성립하지 않게 되면** 그 Case를 억지로 Regression에 사용하지 말고 Human에게 보고한다.

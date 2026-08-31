@@ -60,7 +60,17 @@ Customer Evidence Pack (8-섹션 입력)
 - 횡단 규칙: `value + as_of` / F·C·S 라벨 / NULL·0·해당없음 3분 / 판단 완료형 라벨 금지 / **Evidence Missing만 스키마 NULL로 명시**(Decision Variable은 입력이 아님 — 결정 2-11).
 - **Calculated Fact 2분류**(결정 2-12): Arithmetic Derived(비중·D-n·경과일·증감)와 Rule-derived Fact(개시요건·DO 적용 예상 기준일·세액공제 한도·위험자산 한도 판정 — `rule_source`·`rule_as_of` 필수).
 
-### 3.1 데이터 확보 시점 3계층 (결정 1-4)
+### 3.1 Performance Comparison Boundary (추가 결정 3)
+
+| 구분 | 취급 |
+|---|---|
+| **Customer Performance Context** — 계좌 수익률, 상품별 고객 보유수익률(Customer holding return), 상품 자체 수익률(Product 1Y return 등), 각각의 as_of/측정기간 | **Evidence Pack 유지** (Snapshot). 고객 보유수익률과 상품 자체 수익률은 의미가 다르므로 구분 보존 |
+| **외부 Comparison** — 동일 상품유형 비교수익률, Benchmark, 대안 상품 Performance | Customer Evidence 아님 — **Reference Data / Knowledge 영역**. REV-002에서 실제 필요성이 없는 데이터를 새로 만들지 않는다 |
+| **Peer Comparison** — 동연령대 평균·상위 고객·상위 1%·유사 고객군 Ranking | **REV-002 제외 유지.** 고객 간 비교를 관리 필요성·상담 압박의 근거로 사용하지 않는다 |
+
+사용 원칙: `Performance Comparison = 상황 이해·손익 맥락 설명·선택지 비교·상담 설명 Evidence O` / `단독 Action·Change Trigger X` — 상품 교체·리밸런싱·위험 확대·특정 상품 가입의 Management Need를 수익률 비교 단독으로 확정하지 않으며, 반드시 보유기간·가입시점·자금성격·투자성향·자산구성·고객 의사/CRM Context와 함께 해석한다. Brief S3/S4에서는 객관적 수익률 비교를 고객의 선택을 돕는 설명 근거로 활용할 수 있다.
+
+### 3.2 데이터 확보 시점 3계층 (결정 1-4)
 
 화면에 존재한다는 이유만으로 입력으로 간주하지 않는다:
 
@@ -111,6 +121,9 @@ S1 고객 상황 / S2 핵심 관리 포인트+먼저 확인하세요 / S3 추천
 | Missing 슬롯 | Evidence Missing / Required Confirmation 분리 — 14개 목록은 입력에서 제거, 평가 기준으로 이동 검토 (2-11) |
 | S5 공급 방식 | Knowledge Pack 수동 동봉 — Retrieval·색인 보류 (3-7) |
 | Regression | **8 Case**: GC-03·04·05·09·11·14·16·**17** (Pair 필수 유지; GC-17은 DO 적용 예상시점 해석·F-001 재발을 GC-09와 함께 검증) (5) |
+| input_v2 정보량 충돌 | **"승인된 새 Input Schema의 일관 적용"이 "정보량 동일"에 우선** — 삭제 필드는 input_v2에 재반입하지 않음. 삭제 필드 의존 Boundary는 `N/A — Input removed by approved REV-002 schema` 표기(PASS 아님·평가 제외), 기존 Frozen Artifact 불변, Pair 핵심 판단 차이는 보존, 핵심 Boundary 자체가 무너지는 Case는 억지 사용 금지·Human 보고 (추가 결정 2) |
+| Performance Comparison Boundary | §3.1 — Customer Performance는 Evidence 유지, 외부 비교는 Reference Data, Peer는 제외, 단독 Action Trigger 금지 (추가 결정 3) |
+| Availability `?` 잔여 2건 | 개설 채널 / 당해 IRP 납입액·연 납입한도 잔여 — `?`로 명시 유지. 이 미확정 때문에 다른 구현을 임의 변경하지 않으며, 구현에서 반드시 요구되는 상황이면 Human Decision 필요사항으로 재보고 (추가 결정 10) |
 
 ## 7. REV-002 구현 범위 (Step 4)
 
@@ -120,5 +133,5 @@ S1 고객 상황 / S2 핵심 관리 포인트+먼저 확인하세요 / S3 추천
   3. 출력 스키마: 5-섹션 Brief 분해 + `supporting_evidence_ids`/`supporting_knowledge_ids` (구조화 판단부는 REV-001 유지)
   4. deterministic validator 갱신: 기존 C1/C2/C3 유지 + 금지어·형식·구조 필드·Evidence ID 존재 검사 (의미 판정은 Evaluator — EMPLOYEE_BRIEF_SPEC §3)
   5. SYSTEM_ROLE 개정: 원칙 5 → Candidate Pool 원칙(§4.1), Brief 산출 지시(5-섹션)
-- Regression: 8 Case `input_v2` (기존 정보량 유지·조직 구조만 변환·새 사실 추가 금지 — 새 스키마에서 제외된 필드의 처리는 보고 §6 항목 참조)
+- Regression: 8 Case `input_v2` — **승인된 새 Input Schema를 일관 적용**(삭제 필드 재반입 금지·새 사실 추가 금지·Arithmetic/Rule-derived 파생은 허용). 삭제 필드 의존 평가 축은 신규 EVAL에서 `N/A — Input removed by approved REV-002 schema`로 기록(PASS 아님). 기존 Frozen Case/RUN/EVAL 불변. 핵심 Semantic Boundary가 성립 불가해지는 Case는 사용하지 않고 Human 보고.
 - 보류(§20.8 준수): Retrieval/색인 자동화, Reusable KB, Multi-Agent, 자동 Evaluator.
