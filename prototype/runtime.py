@@ -287,6 +287,22 @@ _BULLET_RE = re.compile(r"^- \*\*(?P<label>[^*]+)\*\*:\s*(?P<body>.*)$")
 
 
 def load_knowledge_items(case_id: str) -> Tuple[List[KnowledgeItem], str, str]:
+    """Knowledge Context entry point (interface unchanged since REV-001).
+
+    Default: parse the Frozen per-case knowledge_pack.md (manual pack).
+    P3-A: when the environment variable P3A_KNOWLEDGE_SELECTION=1 is set, the
+    Minimal Selection Layer (prototype/selector.py) supplies the Official
+    Knowledge / Knowledge Gap portion instead, returning the same K-item
+    structure — everything downstream (prompt, validators, record) unchanged.
+    Frozen runs are unaffected unless the flag is explicitly set.
+    """
+    if os.environ.get("P3A_KNOWLEDGE_SELECTION") == "1":
+        import selector as _selector
+        return _selector.load_knowledge_items_selected(case_id)
+    return _load_knowledge_items_manual(case_id)
+
+
+def _load_knowledge_items_manual(case_id: str) -> Tuple[List[KnowledgeItem], str, str]:
     """Parse `### K-xxx.` sections of the Frozen knowledge pack.
 
     Returns (items, relative path, sha256). Bullets are captured by their bold
