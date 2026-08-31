@@ -1,6 +1,6 @@
 # Pre-P2 Input / Brief Refinement — Design Proposal
 
-- Status: **INPUT ARCHITECTURE — HUMAN DIRECTION APPROVED (HD-PRE-P2-INPUT, 2026-08-31).** 9-Block 구조·3-Layer 방향 승인 + 수정사항 반영 완료(§7 결정 기록). **Employee Brief(§4)는 이번 결정 범위에서 제외 — `Pending separate Human Brief Design Gate`.** Runtime/Parser/Canonical Schema 구현·P2 Case 작성·Freeze·RUN/EVAL은 여전히 금지(Brief Gate 확정 이후).
+- Status: **INPUT ARCHITECTURE — HUMAN DIRECTION APPROVED (HD-PRE-P2-INPUT, 2026-08-31).** 9-Block 구조·3-Layer 방향 승인 + 수정사항 반영 완료(§7 결정 기록). **Employee Brief(§4) = Human Brief Design Direction 반영 완료(2026-08-31) — Target Design 확정, 구현은 별도 게이트.** Runtime/Parser/Canonical Schema 구현·P2 Case 작성·Freeze·RUN/EVAL은 여전히 금지(Brief Gate 확정 이후).
 - 목적: REV-002의 검증된 Core Reasoning Architecture(판단층/전달층 분리·Judgment-first·Candidate Pool·Evidence Provenance)는 변경하지 않는다. **Customer Context를 더 풍부하고 안정적으로 재구성할 수 있도록 Input의 내용·표현 구조를 개선**하고, 그 변화가 Employee Brief에 어떻게 전달되어야 하는지 재설계한다.
 - 불변 조건: 기존 Frozen Case·RUN/EVAL·REV-002 종료 기록 수정 없음.
 
@@ -204,19 +204,136 @@ Agent Reasoning
   - 이에 따라 §2의 표기 중 "CRM"은 evidence_type이 아니라 **source_type=crm**이다. ⑨의 메모 항목은 evidence_type=`fact`(작성됐다는 사실·작성일) + source_type=`crm`으로 표현되며, 내용의 의미 해석은 Agent 몫. 목적: 향후 human-authored source가 늘어도(직원 메모 외) 축이 오염되지 않음.
 - 효과: 단일 원천(이중 기입 제거) / deterministic 계산과 semantic reasoning 분리 / 실데이터 연동 시 Input Adapter만 교체.
 
-## 4. Employee Brief Refinement 후보 — **PENDING SEPARATE HUMAN BRIEF DESIGN GATE (Decision 5)**
+## 4. Employee Brief Target Design — Human Design Direction 반영 (2026-08-31)
 
-> **이 절의 5개 후보는 승인되지 않았다 (Reject 아님 — 별도 Brief Design Gate로 이동).** Human이 S1~S5 역할에 대한 추가 변경사항을 별도 Prompt로 전달할 예정이며, 아래 후보(S1 2단 구조·S2 why_now·S3 alternatives_not_taken·S4 질문형+설명형·S5 실행 단위)를 **Target Brief로 확정하지 않는다**. Brief Schema/Prompt/Validator는 변경하지 않는다. 아래 내용은 Brief Gate 논의의 참고 초안으로만 보존한다.
+> **지위**: 이 절은 Human이 별도 Brief Design Prompt로 전달한 Direction을 정리한 **Target Brief Design**이다. 구 §4의 5개 후보 초안(S1 2단 구조·S2 why_now 노출·S3 alternatives_not_taken 중심·S4 질문형+설명형·S5 실행 단위)은 이 Direction으로 **대체**된다. REV-002의 5-Section 구조 자체는 유지하되 각 Section의 역할과 최종 Output 수준을 재정의한다. **Brief Schema/Prompt/Validator/Runtime/P2 Case는 아직 변경하지 않는다** — 구현은 별도 게이트. 구현 승인 시 `EMPLOYEE_BRIEF_SPEC.md`를 이 Target으로 개정한다.
 
-| 섹션 | 후보 | 근거 |
-|---|---|---|
-| **S1** | **Current State + Recent Change 2단 구조**: 상태 한 문장 + "최근 변화" 한 문장(③에서 — "3주 전 퇴직급여 1.8억 유입 후 매매 없음"). 변화 서술에는 근거 E-ID 연결 | What changed가 S1에 명시돼야 S2 Why-now가 서술이 아닌 사실에 얹힘 |
-| **S2** | **`why_now` 필드 분리**: {point, why_now(어떤 Event/변화/시한 때문에 지금인가 — ③④⑧의 E-ID 필수 연결), rationale, confirm_first}. Why-now 없는 관리 포인트는 검증 대상(HD-7 연장) | 현행은 point/rationale에 Why-now가 섞여 선명도 낮음. Evidence Trace의 자연 확장 |
-| **S3** | **`alternatives_not_taken` 선택 필드**: 채택 방향 외에 "검토했으나 이번에 제시하지 않은 대안 + 한 줄 사유"(유지/부분대안/시점조정 포함) — F-010의 정보 손실을 구조로 보존. 분기 규칙(Branch Preservation)은 불변 | GC-16 부분대안 2연속 부재 — 대안이 '없던 것'인지 '기각된 것'인지 구분 불가했음 |
-| **S4** | **Decision Variable 전용 규칙**: 확인 질문은 Evidence Pack에 **없는** Decision Variable만. 시스템 기지 사실의 재질문 금지(deterministic 후보: 질문 항목이 Evidence 필드명과 충돌하면 REVIEW). scripts는 [확인 질문형 1 + 설명형 1] 권장 구조 | 결정 2-11의 출력측 완성 — 아는 것을 물으면 직원 신뢰 하락 |
-| **S5** | **실행 단위 구조화**: {할 일(동사형), 화면/채널([번호] 화면명), 출처, as_of?, 후속관리 시점?} — "지식 나열"이 아니라 "직원의 다음 동작" 중심. 빈약 영역의 "자료 없음—확인처" 규칙 유지 | Answer Quality의 Actionability·Practical Utility 축과 정합 |
+### 4.0 Brief 전체 목적
 
-공통: 전부 **표현·구조 후보**이며 판단 의미(Judgment 6유형·Constraint·분기 규칙)는 불변. 구현 시 스키마 변경이므로 승인 후 진행.
+Employee Brief는 모델의 판단·근거를 옮겨놓은 분석 리포트가 아니라, 직원이 **다시 조립할 필요 없이** 쓸 수 있는 **직원용 Decision & Action Brief**다. 직원이 Brief만 보고 — 무엇을 관리할지 / 어떤 방향을 제안할지 / 실제 어떤 상품을 보여줄지 / 고객에게 어떻게 말할지 / 이후 어디에서 실행할지 — 를 별도로 재구성하지 않아야 한다.
+
+```
+S1 고객 상황            → 지금 이 고객에게 어떤 상황과 변화가 있는가
+S2 핵심 관리 포인트      → 이번 접점에서 무엇을 관리하고 무엇을 먼저 확인할 것인가
+S3 제안 방향 및 추천 후보 → 어떤 관리 방향을 제안하고, 필요한 경우 실제 어떤 상품을 보여줄 것인가
+S4 상담 Point           → 위 판단을 바탕으로 이 고객에게 실제로 어떻게 접근하고 말할 것인가
+S5 관련 TIP & GUIDE     → 어떤 현장 노하우/공식 자료를 참고하고, 어디에서 실제 Action을 수행할 것인가
+```
+
+Section 간 역할 중복을 최소화한다.
+
+### 4.1 S1 — 고객 상황
+
+- **Target 역할**: 관찰 가능한 Fact를 직원이 빠르게 이해할 수 있는 고객 상황으로 압축. Management Judgment를 선행하지 않는다(판단은 S2).
+- **AS-IS 대비 변화**: ① 구 후보의 "Current State / Recent Change 2단 Block 강제"는 **채택하지 않음** — 자연어 한 문단 요약 구조 유지. 대신 새 Input의 Recent Changes / Money Flow / Timeline / Upcoming Event를 활용해 **현재 상태 + 최근 중요 변화가 함께 보이는 요약**으로 개선. ② **실제 숫자·시점 보존 규칙 신설**: 이번 관리 판단에 중요한 정보(IRP 금액/자산구성·신규 입금액·만기금액과 시점·최근 구성 변화·퇴직급여 유입 등 Money Flow·성향 변화·가까운 중요 Event·필요한 미확인 상태)는 추상화하지 않는다.
+  - Bad: "신규 입금분과 곧 만기되는 자금이 있습니다"
+  - Target: "최근 개인부담금 1,000만원이 입금되었고, 11월에는 정기예금 1,500만원이 만기될 예정입니다"
+- **절제된 해석 허용/금지 경계**: 허용 — "최근 3개월 IRP 수익률 조회 6회" → "최근 IRP 수익률에 대한 관심이 높아진 모습입니다". 금지(의미 승격) — 수익률 조회 증가→변경 의사 확정 / 현금 보유→방치·미운용 확정 / 이전 메뉴 진입→이탈 의사 확정 / CRM 진술→현재 의사·System Fact 확정.
+- **Boundary**: 상황 압축까지가 S1. 관리 포인트·제안·화법은 각각 S2/S3/S4. CRM 사용 시 필요하면 Human-authored Context임이 드러나게 표현.
+- **필요 Input**: 9-Block ①②③④⑧ (+⑨는 표기 규칙과 함께).
+
+### 4.2 S2 — 핵심 관리 포인트
+
+- **Target 역할**: 이번 상담에서 무엇을 관리할 것인가를 명확히 확정 + 업무 Flow 기준의 "먼저 확인" 배치.
+- **AS-IS 대비 변화**: ① 구 후보의 `why_now`·`rationale` **필드 노출은 채택하지 않음** — Why-now는 내부적으로 반드시 판단하되 Final Brief에서는 관리포인트 문장 안에 자연스럽게 녹인다. ② **모델 방어문구 비노출**: "변경 의사로 단정할 수 없습니다" / "Digital Signal은 Intent가 아닙니다" / "CRM만으로 판단할 수 없습니다" 류는 내부 Reasoning/Evaluation에서 지키고 Brief에는 결과만 자연스럽게.
+  - Bad: "수익률 조회가 변경 의사를 의미한다고 단정할 수 없으므로…"
+  - Target: "최근 신규 입금된 1,000만원과 11월 만기 예정인 1,500만원의 향후 운용방향을 고객의 현재 운용 의사에 맞춰 점검하는 것이 이번 관리의 핵심입니다."
+- **먼저 확인하세요 — 재설계**: 구 `[직원]/[고객]` Label 폐기. 업무 Flow 기준 두 영역을 **필요할 때만** 사용:
+  - **상담 전 확인** (Operational Check — 시스템/단말/공식자료로 상담 전 확인 가능): 신규 입금분 DO 실제 적용 여부, 중도해지 예상 손실, 실물이전 가능 여부, 실제 수수료, 현재 연금 지급방식 등
+  - **고객과 확인** (Decision Variable — System Evidence로 알 수 없는 것): 현재 운용 만족도, 운용 변경 의사, 자금 사용계획, 예상 은퇴시점, 직접/위임 선호, 이전 핵심 사유, 부분이전 의향 등
+- **Boundary·규칙**: 빈 Section 강제 생성 금지. **이미 시스템이 아는 사실을 고객에게 재질문 금지**(구 후보 S4 규칙이 S2로 이동한 셈).
+- **필요 Input**: 내부 Judgment 결과 + Evidence Trace(내부) + ③⑧(Why-now 재료).
+
+### 4.3 S3 — 제안 방향 및 추천 후보 (핵심 변경 1)
+
+- **Target 역할**: **Management Direction을 결정하고, 상품이 필요한 경우 실제 Product Candidate까지 연결하는 영역.** 구 "추천 운용 방향"의 리밸런싱 중심 프레임을 확장한다.
+- **AS-IS 대비 변화**: ① **'비해당(not_applicable)' 구조 폐기** — 중도인출·연금수령·계약이전 Case가 비해당으로 처리되는 구조는 Target이 아니다. 다음 전부가 정상적인 S3 Output: 현재 운용 유지/모니터링 · 신규 입금자금 운용 · 만기자금 재운용 · 포트폴리오 조정/리밸런싱 · 직접↔위임 운용체계 변경 · 추가납입/세제 활용 · 연금개시/수령방식 관리 · **중도인출 지원** · **계약이전/부분이전 지원** · 고객 의사결정 지원 · 실행 불가 시 대안경로 안내. ② **실제 상품 후보까지 내려간다** — "위험중립형 범위 내 펀드 또는 디폴트옵션" 수준의 추상 표현으로 끝내지 않는다.
+- **사고 순서** (상품부터 고르고 이유를 붙이는 구조 금지):
+  ```
+  Management Direction → Solution Type → Actual Product Candidate
+  ```
+- **추천 후보 Target Output** (승인된 Candidate Pool이 주어진 경우):
+  ```
+  추천 후보
+
+  ① KB ○○ TDF 2045
+  - 위험등급: 4등급
+  - 최근 1년 수익률: +7.2% (2026.08.28 기준)
+  - 특징: 목표 은퇴시점에 따라 위험자산 비중을 점진적으로 조정
+  - 추천 사유:
+    · 연금 수령까지 장기간이 남아 있음
+    · 고객 투자성향 범위 내
+    · 현재 IRP가 예금 중심으로 구성
+    · 장기 운용자금으로 확인될 경우 활용 가능
+  ```
+  포함 수준: 상품명·상품유형·위험등급/위험수준·최근 수익률+측정기간+기준일·주요 운용특징·필요 시 보수/만기/자산구성 등 핵심 Metadata·**이 고객에게 이 상품을 후보로 보는 이유**.
+- **추천사유의 기준**: "최근 수익률이 높다"는 그 자체로 추천 논리가 아니다 — 수익률은 Metadata·비교/설명 재료. 추천 논리는 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·직접/위임 선호·고객 의사와 상품 특성의 **Customer–Product Fit**으로 만든다.
+- **유지 원칙**: 특정 상품은 반드시 승인 Candidate Pool 내부에서만(LLM 임의 생성 금지). **Branch Preservation, not Branch Creation** — 미확인 Decision Variable이 실제 Direction을 바꾸는 경우에만 조건별 방향, Evidence로 충분하면 단일 방향. `alternatives_not_taken`은 내부 검증/설명용 보조 구조로 검토 가능하나 이번 개편의 핵심 아님.
+- **필요 Input/Knowledge**: **Metadata가 붙은 Candidate Pool**(현행 이름 목록 → 등급·수익률+기준일·특징·보수 등으로 확장 필요 — §4.6), 성향 Eligibility(C1/C2/C3), 고객 Evidence.
+
+### 4.4 S4 — 상담 Point (핵심 변경 2)
+
+- **Target 역할**: 가이드("이렇게 접근하세요")가 아니라 — **S1 상황 + S2 관리 포인트/확인사항 + S3 제안 방향/실제 추천상품 + Hot Tip·상담 화법 Knowledge를 결합해, 이 고객에게 실제로 사용할 수 있는 고객 맞춤 상담 화법을 생성하는 영역.** 직원이 읽고 나서 다시 고객에게 할 말을 생각해야 한다면 Target 미달.
+- **AS-IS 대비 변화**: 구 "접근 순서 + 실제 화법 최소 1개"에서 → **실제 데이터가 들어간 완성형 화법**으로 수준 상향. 고객의 금액·시점·자산구성·운용기간·상품명·수익률·관리 방향이 화법 안에 반영되어야 한다.
+  - Bad: "현재 자산구성과 수익률을 설명한 후 만기자금의 일부 변경을 제안하세요."
+  - Target: "고객님, 현재 IRP 8,000만원 중 약 80%가 정기예금으로 운용되고 있고, 11월에는 1,500만원 정도가 만기될 예정인데요. 기존 상품을 모두 바꾸기보다는 이번에 만기되는 자금 일부부터 다른 방식으로 운용해보시는 방법도 있습니다."
+- **설득 재료의 경계**: Peer/Performance/연령 등은 — 향후 Benchmark가 Input으로 제공되더라도 — "유사 고객 대비 낮으니 변경하세요" 같은 **Action Trigger로 사용 금지.** S2/S3에서 적절한 Direction이 이미 도출된 이후, S4에서 **고객이 이해하기 쉬운 설명 재료**로만 활용한다. 연령도 "20대이므로 공격 운용" 금지 — "연금수령까지 장기간이 남아 있고, 성향·자금 목적이 허용하는 경우 장기 분산운용을 설명"의 형태.
+- **Hot Tip·화법 Knowledge 합성**:
+  ```
+  S1~S3 판단 + 관련 Hot Tip/상담 화법 Knowledge + 고객의 실제 데이터
+      ↓
+  Customer-specific Script
+  ```
+  예: Hot Tip "예금 위주 고객에게는 기존 상품 전체 변경보다 만기 도래자금부터 접근" + 이 고객의 실제 "11월 만기 1,500만원" → 맞춤 화법 생성. **Hot Tip은 무엇을 권유할지 정하는 Business Rule이 아니라, 이미 도출된 판단을 현장에서 어떻게 전달할지 돕는 Knowledge다.**
+- **조건부 후속 화법**: 필요한 Case에서 고객 반응별(현재 유지 희망 시 / 일부 변경 관심 시 / 원금손실 우려 시) 후속화법을 조건적으로 제시 가능. 모든 Case에 Branch Script 강제 금지.
+- **성공 기준**: S4만 읽어도 직원이 "그래서 고객에게 뭐라고 말하지?"를 다시 고민하지 않는다.
+- **Boundary**: S4는 전달(어떻게 말할까) — 판단(S2)·후보 선정(S3)을 재수행하지 않음. 원문 인용은 S5의 몫.
+- **필요 Input/Knowledge**: S1~S3 산출 + **상담 화법/반론 Knowledge**(용어 치환·설명 순서·이탈 골격 — `SCREENS_HOTTIPS_INVENTORY §3` 재료의 Case별 동봉).
+
+### 4.5 S5 — 관련 TIP & GUIDE (핵심 변경 3: 두 역할)
+
+**6-1. 실제 Hot Tip / Guide 원문 제공** — "가이드 참고" 식 지시로 끝내지 않고, 이번 Case에 실제 도움이 되는 행내 Hot Tip/Guide의 **관련 원문을 발췌 + Metadata와 함께** 보여준다:
+
+```
+💡 현장 Hot Tip
+
+"기존 상품을 모두 변경하기 부담스러워하시는 고객에게는
+만기 도래자금부터 일부 운용 변경을 제안하면
+상담을 자연스럽게 이어갈 수 있습니다."
+
+👍 좋아요 128 · 작성자: ○○지점 김○○ 대리 · 작성일: 2026.05.12 · 출처: 퇴직연금 Hot Tip
+```
+
+- Metadata 후보: Tip 제목·작성자·소속/지점·직급·작성일·좋아요 수·출처. **좋아요 수 = 현장 공감도/활용도 Signal이지 공식성·제도 정확성의 근거 아님.**
+- **권위 구분 유지**: 공식 Guide vs Field Hot Tip. 제도/세제/실행 가능 여부는 **공식 Guide 우선**(HD-3).
+- **S4와의 차이**: S4 = Hot Tip/화법을 고객 상황에 **적용한 실제 맞춤 상담멘트** / S5 = 그 Hot Tip/Guide의 **실제 원문과 출처**.
+
+**6-2. 다음 Action의 실제 실행 화면** — S3에서 제안한 Action을 실제 업무로 잇는 연결:
+
+```
+🖥 직원 업무화면
+[123456] IRP 운용상품 변경 — 보유상품 확인 및 운용지시 등록
+[234567] 디폴트옵션 운용현황 — 신규 입금분의 실제 적용 여부 확인
+
+📱 고객 StarBanking
+퇴직연금 > 개인형IRP > 운용상품 변경 — 고객이 직접 운용상품 변경
+퇴직연금 > 상품찾기 > TDF — 상담 중 제안한 상품 상세정보 확인
+```
+
+- 확보 가능한 경우 화면번호·정확한 화면명·메뉴 경로·이 Case에서의 사용 목적까지. **S3 Action과 관련 없는 화면의 일반 나열 금지.** Deep Link는 향후 확장 가능(이번 단계 미구현).
+- **관계식**: `S3 = 무엇을 할 것인가 / S4 = 고객에게 어떻게 말할 것인가 / S5 = 어디에서 확인하고 실행할 것인가`
+- **필요 Input/Knowledge**: Hot Tip **원문+Metadata**가 동봉된 Knowledge Pack(현행 발췌본에는 작성자·좋아요 등 Metadata 없음 — §4.6), 화면 마스터(SRC-027) + **StarBanking 메뉴 경로**(Availability 미확정).
+
+### 4.6 유지되는 REV-002 Core 원칙 + 구현 전 확인 필요 사항
+
+**유지** (이번 Refinement는 Core Reasoning Architecture 변경이 아님): Judgment-first / Business Objective의 관리 필요성 생성 금지(HD-7) / Hard Constraint(C1/C2/C3) / Execution Validation / 투자성향=허용 최대 위험경계 / Epistemic Preservation / Evidence Provenance / Candidate Pool / Branch Preservation / Performance Comparison 단독 Trigger 금지 / Digital Signal ≠ Intent / CRM ≠ authoritative current ground truth. — 단 **이 내부 안전원칙들을 Final Brief에 자기검열 문구로 노출하지 않는다.** Brief는 안전한 Reasoning의 결과를 실용적으로 전달한다.
+
+**구현 게이트 전 확인 필요** (Human 확인/데이터 준비 대상):
+1. **Candidate Pool 데이터 구조 확장** — 현행 이름 목록 → S3 상품 카드에 필요한 Metadata(유형·등급·최근 수익률+측정기간+기준일·특징·보수/만기 등) 포함 구조. Synthetic Case에서의 작성 책임과 형식.
+2. **Hot Tip 원문·Metadata 동봉 방식** — Knowledge Pack에 발췌 원문+작성자/작성일/좋아요/출처를 어떻게 싣는가. Synthetic Metadata(작성자·좋아요 수) 생성 허용 여부(실자료가 아니므로 Human 확인 필요).
+3. **StarBanking 메뉴 경로 Availability** — 화면번호 마스터(SRC-027)에는 직원 단말 중심; 고객 앱 메뉴 경로의 Source 확인 필요 (`?`).
+4. **EMPLOYEE_BRIEF_SPEC.md 개정 범위** — 구현 승인 시 not_applicable 규칙 폐기·S3/S4/S5 Target 반영·구 §1 필수/금지 목록과의 정합 정리.
+5. 유사 고객군/Benchmark Input(§4.4 언급)은 현재 Scope 밖(Peer 제외 유지) — 향후 제공 시의 사용 경계만 이 문서에 선기록됨.
 
 ## 5. 기존 P2 후보 GC-18~25 재분류 — **방향 승인 (Decision 6)**
 
@@ -252,7 +369,7 @@ Agent Reasoning
 ```
 REV-002                     → CLOSED 유지
 Pre-P2 Input Architecture   → Human Direction Approved (수정사항 반영 완료)
-Employee Brief Architecture → Separate Human Design Gate PENDING (다음 Human Prompt 대기)
+Employee Brief Architecture → Target Design 확정 (Human Direction 반영, §4) — Schema/Prompt/Validator/Runtime 구현 게이트 PENDING
 GC-18~25                    → Candidate / HOLD 유지 (재분류 방향만 승인, 작성·Freeze 금지)
 Runtime / Schema / Parser   → 구현 금지
 P2 RUN / EVAL               → 시작 금지

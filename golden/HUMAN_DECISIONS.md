@@ -15,6 +15,7 @@
 | HD-7 | 2026-08-31* | Business 원칙 — 관리 필요성은 Customer Evidence에서만 출발 (REV-002 Step 3) | 확정 |
 | HD-8 | 2026-08-31* | REV-002 Step 6 — Regression 해석·Operational 보강 3건·REV-003 보류·P2 설계 착수·Answer Quality 축·한도 3필드 분리·REV-002 종료 조건 | 확정 |
 | HD-PRE-P2-INPUT | 2026-08-31* | Pre-P2 Input Architecture — 9-Block 승인(수정 2건)·Window 변화 구조·Sequence 방향·3-Layer(Stable ID·JSON·type 2축 분리)·Brief는 별도 Gate·GC-18~25 재분류 원칙 승인·Av `?` 5건 유지 | 확정 |
+| HD-PRE-P2-BRIEF | 2026-08-31* | Employee Brief Target Design — Decision & Action Brief 재정의: S3 제안 방향+실제 추천 후보(비해당 폐기), S4 완성형 맞춤 화법, S5 Hot Tip 원문+실행 화면 2역할; 내부 안전원칙 비노출; 구현·Schema·P2는 별도 게이트 | 확정 |
 
 ---
 
@@ -138,3 +139,15 @@ HD-6에서 "Decision Meaning Preservation 확인용 Diagnostic Output"으로 규
 7. **Availability `?` 5건 유지** (퇴직일 상세 / 90d Snapshot·변화 / 거래횟수 기간 세분화 / Sequence·실행 여부 / CRM 작성 주체) — 임의 O/X 확정 금지, 실제 Source·DB·원천 확인으로만 갱신.
 
 Gate 상태: REV-002 CLOSED 유지 / Pre-P2 Input = Direction Approved / **Brief = Separate Gate Pending** / GC-18~25 = HOLD / Runtime·Schema·Parser 구현 금지 / P2 RUN·EVAL 시작 금지.
+
+## HD-PRE-P2-BRIEF. Employee Brief Target Design (2026-08-31)
+
+REV-002의 5-Section 구조는 유지하되 각 Section의 역할·최종 Output 수준을 **직원용 Decision & Action Brief**로 재정의한다 (직원이 관리 대상·제안 방향·보여줄 상품·할 말·실행 위치를 다시 조립하지 않아도 되는 수준). 전문·Target Output 예시·Section Boundary·필요 Input/Knowledge·구현 전 확인 사항은 **`design/PRE_P2_REFINEMENT_PROPOSAL.md` §4 (재작성본)**.
+
+- **S1**: 자연어 한 문단 유지(2단 Block 강제 안 함) + 실제 숫자·시점 보존 + 절제 해석 허용/의미 승격 금지 경계.
+- **S2**: why_now·rationale 필드 비노출(내부 판단, 문장에 녹임) · 방어문구 비노출 · "먼저 확인"을 [상담 전 확인]/[고객과 확인] 2영역으로(구 [직원]/[고객] Label 폐기) · 빈 Section 강제 금지 · 기지 사실 재질문 금지.
+- **S3**: "추천 운용 방향" → **"제안 방향 및 추천 후보"** — Management Direction 전 범위(유지·신규운용·재운용·조정·체계 변경·세제·수령 관리·중도인출·이전·의사결정 지원·대안경로)를 정상 Output으로, **비해당 구조 폐기**. Direction→Solution Type→Product Candidate 순서. 상품 필요 시 Candidate Pool 내 실제 상품 카드(상품명·유형·등급·수익률+측정기간+기준일·특징·Metadata·**Customer–Product Fit 추천 사유**)까지. 수익률 단독 추천 논리 금지.
+- **S4**: 가이드가 아니라 **S1~S3+Hot Tip 화법 Knowledge+실제 고객 데이터를 합성한 완성형 맞춤 상담 화법**. Peer/Performance/연령은 방향 도출 이후의 설명 재료로만(단독 Trigger 금지). 조건부 후속 화법 허용(강제 아님). 성공 기준: S4만 읽어도 "뭐라고 말하지" 고민 없음.
+- **S5**: 두 역할 — (1) Hot Tip/Guide **원문 발췌+Metadata**(작성자·작성일·좋아요 등; 좋아요=공감 Signal이지 공식성 아님, 제도·세제·실행 가능 여부는 공식 Guide 우선) (2) **다음 Action 실행 화면**(직원 단말+고객 StarBanking, S3 관련 화면만). 관계: S3=무엇을 / S4=어떻게 말할까 / S5=어디서 실행.
+- **유지**: Judgment-first·HD-7·Hard Constraint·Epistemic Preservation·Evidence Provenance·Candidate Pool·Branch Preservation·Performance 단독 Trigger 금지·Signal≠Intent·CRM≠ground truth — 단 이 내부 원칙을 Final Brief에 자기검열 문구로 노출하지 않는다.
+- **미변경**: Brief Schema·Prompt·Validator·Runtime·Candidate Pool 구현·Knowledge Retrieval·P2 Case·Freeze·RUN/EVAL — 전부 별도 구현 게이트. 구현 전 확인 4건은 Proposal §4.6.
