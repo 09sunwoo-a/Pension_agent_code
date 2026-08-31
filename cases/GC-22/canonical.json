@@ -2,46 +2,291 @@
   "case_id": "GC-22",
   "base_date": "2026-09-04",
   "evidence": [
-    {"id": "E101", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "고객 연령: 만 54세", "as_of": "2026-09-04", "data": {"kind": "age", "years": 54}},
-    {"id": "E102", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "IRP 가입일: 2026-08-28 (퇴직급여 수령을 위해 개설, 적립겸용)", "data": {"kind": "join_date", "date": "2026-08-28"}},
-    {"id": "E103", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "퇴직급여 포함 여부: 있음 (2026-08-30 입금)", "data": {"kind": "retirement_benefit", "included": true}},
-    {"id": "E104", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "투자성향: 위험중립형 (분석일 2026-08-28, 유효) / 스타뱅킹 이용: 이용 중", "as_of": "2026-08-28"},
-    {"id": "E201", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "전체 평가금액: 165,000,000원", "as_of": "2026-09-04",
-     "data": {"kind": "current_balance", "cash": 120000000, "total": 165000000}},
-    {"id": "E202", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "자산 구성: 현금성자산 120,000,000원 (72.7%) / 시중은행 정기예금 1년 20,000,000원 (12.1%, 만기 2026-09-14, 적용금리 2.9%) / KB퇴직연금 단기채 펀드(6등급) 25,000,000원 (15.2%)", "as_of": "2026-09-04"},
-    {"id": "E203", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "디폴트옵션 등록: 미등록 / 입금예정상품 등록: 미등록", "as_of": "2026-09-04",
-     "data": {"kind": "do_registration", "registered": false}},
-    {"id": "E204", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "당해년도 IRP 개인부담금 납입액(irp_personal_contribution_ytd): 3,000,000원 — 퇴직급여 이전금과 합산하지 않은 값", "as_of": "2026-09-04"},
-    {"id": "E301", "block": 3, "evidence_type": "fact", "source_type": "account_system",
-     "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 45,000,000원", "as_of": "2026-08-05",
-     "data": {"kind": "balance_snapshot", "date": "2026-08-05", "cash": 0, "total": 45000000}},
-    {"id": "E302", "block": 3, "evidence_type": "fact", "source_type": "transaction",
-     "text": "2026-08-30 입금 120,000,000원 — 거래내역 입금사유 '퇴직급여' (퇴직소득 과세이연 이전)", "as_of": "2026-08-30",
-     "data": {"kind": "deposit", "date": "2026-08-30", "amount": 120000000, "reason": "퇴직급여"}},
-    {"id": "E401", "block": 4, "evidence_type": "fact", "source_type": "transaction",
-     "text": "[Event] 2026-08-30 퇴직급여 120,000,000원 입금 / 2026-08-28 계좌 개설·투자성향 분석", "as_of": "2026-08-30"},
-    {"id": "E501", "block": 5, "evidence_type": "fact", "source_type": "transaction",
-     "text": "IRP 상품 매매: 개설 이후 없음 / 과거 당행 퇴직연금(DC) 운용: 원리금보장형 중심 (참고 조회)", "as_of": "2026-09-04"},
-    {"id": "E701", "block": 7, "evidence_type": "fact", "source_type": "external_account",
-     "text": "총 금융자산: 380,000,000원 / 타행 ISA: 30,000,000원 보유 / 타사 연금저축: 없음", "as_of": "2026-09-04"},
-    {"id": "E702", "block": 7, "evidence_type": "fact", "source_type": "account_system",
-     "text": "연금계좌 연간 납입 가능 잔여한도(pension_account_contribution_limit_remaining): 15,000,000원 / 연금계좌 세액공제 잔여한도(pension_tax_credit_limit_remaining, 연금저축·퇴직연금 합산): 3,000,000원 — 두 값은 서로 다른 개념이며 상호 추정 금지", "as_of": "2026-09-04"},
-    {"id": "E801", "block": 8, "evidence_type": "fact", "source_type": "account_system",
-     "text": "시중은행 정기예금 20,000,000원 만기 2026-09-14", "as_of": "2026-09-04",
-     "data": {"kind": "maturity", "date": "2026-09-14", "amount": 20000000, "product": "시중은행 정기예금 1년"}},
-    {"id": "E802", "block": 8, "evidence_type": "fact", "source_type": "external_account",
-     "text": "타행 ISA 30,000,000원 만기 2026-10-19", "as_of": "2026-09-04",
-     "data": {"kind": "maturity", "date": "2026-10-19", "amount": 30000000, "product": "타행 ISA"}},
-    {"id": "E901", "block": 9, "evidence_type": "fact", "source_type": "crm",
-     "text": "[CRM] 2026-08-28 작성 (계좌 개설 창구, 직원 작성 요약): 퇴직급여 수령 계좌 개설 목적 내점. 자금 운용 계획에 대한 언급 없음."}
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 54세",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "age",
+        "years": 54
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 가입일: 2026-08-28 (퇴직급여 수령을 위해 개설, 적립겸용)",
+      "data": {
+        "kind": "join_date",
+        "date": "2026-08-28"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 있음 (2026-08-30 입금)",
+      "data": {
+        "kind": "retirement_benefit",
+        "included": true
+      }
+    },
+    {
+      "id": "E104",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "투자성향: 위험중립형 (분석일 2026-08-28, 유효) / 스타뱅킹 이용: 이용 중",
+      "as_of": "2026-08-28"
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "전체 평가금액: 165,000,000원",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "current_balance",
+        "cash": 120000000,
+        "total": 165000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "자산 구성: 현금성자산 120,000,000원 (72.7%) / 시중은행 정기예금 1년 20,000,000원 (12.1%, 만기 2026-09-14, 적용금리 2.9%) / KB퇴직연금 단기채 펀드(6등급) 25,000,000원 (15.2%)",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록: 미등록 / 입금예정상품 등록: 미등록",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "do_registration",
+        "registered": false
+      }
+    },
+    {
+      "id": "E204",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해년도 IRP 개인부담금 납입액(irp_personal_contribution_ytd): 3,000,000원 — 퇴직급여 이전금과 합산하지 않은 값",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 45,000,000원",
+      "as_of": "2026-08-05",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-05",
+        "cash": 0,
+        "total": 45000000
+      }
+    },
+    {
+      "id": "E302",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "2026-08-30 입금 120,000,000원 — 거래내역 입금사유 '퇴직급여' (퇴직소득 과세이연 이전)",
+      "as_of": "2026-08-30",
+      "data": {
+        "kind": "deposit",
+        "date": "2026-08-30",
+        "amount": 120000000,
+        "reason": "퇴직급여"
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "[Event] 2026-08-30 퇴직급여 120,000,000원 입금 / 2026-08-28 계좌 개설·투자성향 분석",
+      "as_of": "2026-08-30"
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "IRP 상품 매매: 개설 이후 없음 / 과거 당행 퇴직연금(DC) 운용: 원리금보장형 중심 (참고 조회)",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 380,000,000원 / 타행 ISA: 30,000,000원 보유 / 타사 연금저축: 없음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E702",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "연금계좌 연간 납입 가능 잔여한도(pension_account_contribution_limit_remaining): 15,000,000원 / 연금계좌 세액공제 잔여한도(pension_tax_credit_limit_remaining, 연금저축·퇴직연금 합산): 3,000,000원 — 두 값은 서로 다른 개념이며 상호 추정 금지",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E801",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "시중은행 정기예금 20,000,000원 만기 2026-09-14",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "maturity",
+        "date": "2026-09-14",
+        "amount": 20000000,
+        "product": "시중은행 정기예금 1년"
+      }
+    },
+    {
+      "id": "E802",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "타행 ISA 30,000,000원 만기 2026-10-19",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "maturity",
+        "date": "2026-10-19",
+        "amount": 30000000,
+        "product": "타행 ISA"
+      }
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 2026-08-28 작성 (계좌 개설 창구, 직원 작성 요약): 퇴직급여 수령 계좌 개설 목적 내점. 자금 운용 계획에 대한 언급 없음."
+    }
   ],
-  "supply": {}
+  "supply": {
+    "product_candidates": [
+      {
+        "product_id": "P01",
+        "name": "마이다스 기본 TDF 시리즈",
+        "product_type": "TDF",
+        "risk_grade": 4,
+        "risk_level_label": "보통위험",
+        "return_recent": 0.185,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "마이다스에셋의 대표적인 국내외펀드를 편입하는 TDF",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-004 (SRC-095·094)"
+      },
+      {
+        "product_id": "P02",
+        "name": "키움 더드림 단기채",
+        "product_type": "채권형(단기채)",
+        "risk_grade": 6,
+        "risk_level_label": "매우낮은위험",
+        "return_recent": 0.0229,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "금리변동 위험 최소화, 매매차익 및 이자수익 추구",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-005 (SRC-095·094)",
+        "fee_note": "합성총보수 연0.2990% (SRC-094, 교차 원천 결합)"
+      },
+      {
+        "product_id": "P03",
+        "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형 (3년)",
+        "product_type": "GIC(이율보증형보험)",
+        "risk_grade": null,
+        "risk_level_label": null,
+        "return_recent": 0.0441,
+        "return_period": "공시이율(연복리)",
+        "return_as_of": "2026-07",
+        "features": "보험사 발행 이율보증형, 신용등급 AAA, 3년 확정 이율. 금리 표시는 연복리 — 타 상품 비교 시 단리 환산 필요. 예금자보호 대상",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-018 (SRC-097 — 원문 상품명 말줄임, 전체 정식명칭 미확보)"
+      },
+      {
+        "product_id": "P04",
+        "name": "KB 온국민 TDF 시리즈",
+        "product_type": "TDF",
+        "risk_grade": 3,
+        "risk_level_label": "다소높은위험",
+        "return_recent": 0.1258,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "은퇴에 맞춘 글로벌자산배분 (수익률·등급은 2030 빈티지 기준 — 빈티지·적격형별 등급 상이)",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-001 (SRC-095·094)"
+      }
+    ],
+    "hot_tips": [
+      {
+        "tip_id": "T01",
+        "kind": "field_hot_tip",
+        "title": "꼼꼼한 고객관리로 거액의 개인형IRP 유치하기!! !",
+        "body": "저는 이부분에서 고객의 자산현황과 과거 상담내역으로 퇴직금이라는 [고객니즈3] 을 제일 중요하게 보았습니다. [고객니즈 3]을 안내 하기 위해 저는 다른 요구사항들을 먼저 정리하기 시작하였습니다. (중략) 고객님의 니즈를 정확하게 파악하고 꼼꼼한 제안서를 보냈던게 가장 KICK 이었다고 생각합니다.",
+        "author": "양혜련 (브랜드홍보부 / L3 팀원)",
+        "written_at": "2025-04-23",
+        "likes": 26,
+        "source": "퇴직연금 Hot Tip (SRC-053, 글번호 200352)",
+        "provenance": "HT-001 — 원문 발췌(본문 L60~64·L79 중), 재작성 없음. bank_objective_포함 태그(유치 실적 서술) — 추천사유 사용 불가(HD-7/G4)"
+      }
+    ],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[04-12-642]",
+        "screen_name": "적립금및수익률조회",
+        "actions": "전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)",
+        "provenance": "SCR-001"
+      },
+      {
+        "screen_id": "S02",
+        "surface": "staff",
+        "screen_no": "[04-12-640]",
+        "screen_name": "상품운용내역조회",
+        "actions": "운용지시·보유상품변경·디폴트옵션 실행 조회 (거래구분 '사전지정운용제도 상세조회'로 DO 실행예정내역 확인)",
+        "provenance": "SCR-002"
+      },
+      {
+        "screen_id": "S03",
+        "surface": "staff",
+        "screen_no": "[06-12-611]",
+        "screen_name": "보유상품변경",
+        "actions": "보유상품 즉시/예약/만기예약 변경",
+        "provenance": "SCR-017"
+      },
+      {
+        "screen_id": "S04",
+        "surface": "starbanking",
+        "menu_path": "전체메뉴 > 가입상품관리 > 퇴직연금 > 변경관리 > 퇴직연금 상품변경관리 > 만기상품 예약변경",
+        "actions": "만기예정 상품의 사전 예약변경 — 만기 1개월 전부터 가능",
+        "provenance": "SCR-009"
+      }
+    ]
+  },
+  "supply_note": "Supply 재료는 knowledge/ Registry 실값(각 항목 provenance 참조). sellable/channels는 PRD 원천 미확인(null) — 임의 보완 금지, '상담 전 확인' 대상 (HD-P2-GATE2 (4))."
 }

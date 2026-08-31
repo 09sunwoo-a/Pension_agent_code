@@ -2,37 +2,214 @@
   "case_id": "GC-23",
   "base_date": "2026-09-04",
   "evidence": [
-    {"id": "E101", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "고객 연령: 만 48세", "as_of": "2026-09-04", "data": {"kind": "age", "years": 48}},
-    {"id": "E102", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "IRP 가입일: 2019-06-20 (적립용)", "data": {"kind": "join_date", "date": "2019-06-20"}},
-    {"id": "E103", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "퇴직급여 포함 여부: 없음 / 투자성향: 적극투자형 (분석일 2026-04-17, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중", "as_of": "2026-09-04",
-     "data": {"kind": "retirement_benefit", "included": false}},
-    {"id": "E201", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "전체 평가금액: 95,000,000원", "as_of": "2026-09-04",
-     "data": {"kind": "current_balance", "cash": 0, "total": 95000000}},
-    {"id": "E202", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "자산 구성: RISE 미국S&P500 ETF 55,000,000원 (57.9%, 고객보유수익률 +14.0%) / 당행 취급 정기예금 1년 40,000,000원 (42.1%, 만기 2026-12-03, 적용금리 2.7%) / 현금성자산 0원", "as_of": "2026-09-04"},
-    {"id": "E203", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "디폴트옵션 등록: 「뿔려드림1」(중위험)", "as_of": "2026-09-04",
-     "data": {"kind": "do_registration", "registered": true}},
-    {"id": "E301", "block": 3, "evidence_type": "fact", "source_type": "account_system",
-     "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 94,000,000원", "as_of": "2026-08-05",
-     "data": {"kind": "balance_snapshot", "date": "2026-08-05", "cash": 0, "total": 94000000}},
-    {"id": "E401", "block": 4, "evidence_type": "fact", "source_type": "transaction",
-     "text": "[Event] 2026-09-01 계약이전(전출) 접수 알림 — 유형: 현금이전, 상대기관: ●●은행", "as_of": "2026-09-01"},
-    {"id": "E501", "block": 5, "evidence_type": "fact", "source_type": "transaction",
-     "text": "IRP 최근 1년 매매횟수: 11회 (ETF 매수·교체 중심, 최근 매매 2026-08-25) / ETF 현재 보유·활발한 매매 이력 있음", "as_of": "2026-09-04"},
-    {"id": "E601", "block": 6, "evidence_type": "signal", "source_type": "digital_behavior",
-     "text": "최근 30일 앱 행동 순서: 2026-08-18 타행 예금 금리 비교 화면 조회 → 2026-08-28 이전(전출) 메뉴 진입 → 2026-09-01 전출 신청 실행", "as_of": "2026-09-04"},
-    {"id": "E701", "block": 7, "evidence_type": "fact", "source_type": "external_account",
-     "text": "총 금융자산: 300,000,000원 / 타사 연금저축: 없음 / ISA: 당행 보유 (만기 2027-11)", "as_of": "2026-09-04"},
-    {"id": "E801", "block": 8, "evidence_type": "fact", "source_type": "account_system",
-     "text": "당행 취급 정기예금 40,000,000원 만기 2026-12-03", "as_of": "2026-09-04",
-     "data": {"kind": "maturity", "date": "2026-12-03", "amount": 40000000, "product": "당행 취급 정기예금 1년"}},
-    {"id": "E901", "block": 9, "evidence_type": "fact", "source_type": "crm",
-     "text": "[CRM] 2026-09-02 작성 (전출 접수 확인 전화, 직원 작성 요약): '●●은행 정기예금 금리가 더 높아서 옮기려고 한다. ETF는 지금처럼 계속 굴리고 싶다'는 취지 기록."}
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 48세",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "age",
+        "years": 48
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 가입일: 2019-06-20 (적립용)",
+      "data": {
+        "kind": "join_date",
+        "date": "2019-06-20"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 없음 / 투자성향: 적극투자형 (분석일 2026-04-17, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "전체 평가금액: 95,000,000원",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "current_balance",
+        "cash": 0,
+        "total": 95000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "자산 구성: RISE 미국S&P500 ETF 55,000,000원 (57.9%, 고객보유수익률 +14.0%) / 당행 취급 정기예금 1년 40,000,000원 (42.1%, 만기 2026-12-03, 적용금리 2.7%) / 현금성자산 0원",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록: 「뿔려드림1」(중위험)",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 94,000,000원",
+      "as_of": "2026-08-05",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-05",
+        "cash": 0,
+        "total": 94000000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "[Event] 2026-09-01 계약이전(전출) 접수 알림 — 유형: 현금이전, 상대기관: ●●은행",
+      "as_of": "2026-09-01"
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "IRP 최근 1년 매매횟수: 11회 (ETF 매수·교체 중심, 최근 매매 2026-08-25) / ETF 현재 보유·활발한 매매 이력 있음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E601",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "최근 30일 앱 행동 순서: 2026-08-18 타행 예금 금리 비교 화면 조회 → 2026-08-28 이전(전출) 메뉴 진입 → 2026-09-01 전출 신청 실행",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 300,000,000원 / 타사 연금저축: 없음 / ISA: 당행 보유 (만기 2027-11)",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E801",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당행 취급 정기예금 40,000,000원 만기 2026-12-03",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "maturity",
+        "date": "2026-12-03",
+        "amount": 40000000,
+        "product": "당행 취급 정기예금 1년"
+      }
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 2026-09-02 작성 (전출 접수 확인 전화, 직원 작성 요약): '●●은행 정기예금 금리가 더 높아서 옮기려고 한다. ETF는 지금처럼 계속 굴리고 싶다'는 취지 기록."
+    }
   ],
-  "supply": {}
+  "supply": {
+    "product_candidates": [
+      {
+        "product_id": "P01",
+        "name": "DB손해보험 무배당 스마트 퇴직연금 이율보증형 (3년)",
+        "product_type": "GIC(이율보증형보험)",
+        "risk_grade": null,
+        "risk_level_label": null,
+        "return_recent": 0.0441,
+        "return_period": "공시이율(연복리)",
+        "return_as_of": "2026-07",
+        "features": "보험사 발행 이율보증형, 신용등급 AAA, 3년 확정 이율. 금리 표시는 연복리 — 타 상품 비교 시 단리 환산 필요. 예금자보호 대상",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-018 (SRC-097 — 원문 상품명 말줄임, 전체 정식명칭 미확보)"
+      },
+      {
+        "product_id": "P02",
+        "name": "KB손해보험 퇴직연금 이율보증형보험 (DC/IRP, 3년)",
+        "product_type": "GIC(이율보증형보험)",
+        "risk_grade": null,
+        "risk_level_label": null,
+        "return_recent": 0.0438,
+        "return_period": "공시이율(연복리)",
+        "return_as_of": "2026-07",
+        "features": "보험사 발행 이율보증형, 신용등급 AA+, 3년 확정 이율. 금리 표시는 연복리 — 타 상품 비교 시 단리 환산 필요. 예금자보호 대상",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-018 (SRC-097 — 원문 상품명 말줄임, 전체 정식명칭 미확보)"
+      },
+      {
+        "product_id": "P03",
+        "name": "피델리티 글로벌 테크놀로지",
+        "product_type": "주식형(해외, 재간접)",
+        "risk_grade": 2,
+        "risk_level_label": "높은위험",
+        "return_recent": 0.1724,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "전세계 테크기업의 주식형증권 투자",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-016 (SRC-095)"
+      }
+    ],
+    "hot_tips": [],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[06-AD-080]",
+        "screen_name": "개인형IRP 계좌이체 전입/전출",
+        "actions": "계좌이체·계약이전 전입/전출, 전출조회·전출취소(해제), 이전 진행과정 조회",
+        "provenance": "SCR-003"
+      },
+      {
+        "screen_id": "S02",
+        "surface": "staff",
+        "screen_no": "[04-12-642]",
+        "screen_name": "적립금및수익률조회",
+        "actions": "전일자 보유상품·평가금액 조회 + 연계메뉴 '정기예금 중도해지 예상조회'(만기전이율·중도해지이율·만기가치 vs 중도해지평가액 비교)",
+        "provenance": "SCR-001"
+      },
+      {
+        "screen_id": "S03",
+        "surface": "staff",
+        "screen_no": "[04-12-17A]",
+        "screen_name": "NEW 퇴직연금상품조회",
+        "actions": "원리금보장상품/펀드·ETF/디폴트옵션 탭 조회 — 위험등급·투자가능한도·금리 확인 (가입 가능 상품만 표시)",
+        "provenance": "SCR-004"
+      }
+    ]
+  },
+  "supply_note": "Supply 재료는 knowledge/ Registry 실값(각 항목 provenance 참조). sellable/channels는 PRD 원천 미확인(null) — 임의 보완 금지, '상담 전 확인' 대상 (HD-P2-GATE2 (4))."
 }

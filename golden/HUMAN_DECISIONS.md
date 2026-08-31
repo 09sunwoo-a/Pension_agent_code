@@ -17,6 +17,7 @@
 | HD-PRE-P2-INPUT | 2026-08-31* | Pre-P2 Input Architecture — 9-Block 승인(수정 2건)·Window 변화 구조·Sequence 방향·3-Layer(Stable ID·JSON·type 2축 분리)·Brief는 별도 Gate·GC-18~25 재분류 원칙 승인·Av `?` 5건 유지 | 확정 |
 | HD-PRE-P2-BRIEF | 2026-08-31* | Employee Brief Target Design — Decision & Action Brief 재정의: S3 제안 방향+실제 추천 후보(비해당 폐기), S4 완성형 맞춤 화법, S5 Hot Tip 원문+실행 화면 2역할; 내부 안전원칙 비노출; 구현·Schema·P2는 별도 게이트 | 확정 |
 | HD-PRE-P2-GATE1 | 2026-08-31* | Gate ① Diagnostic Gap Review — 조건부 승인: G1 Decision Variable/Conditionality Preservation을 Core Semantic Principle로 승격, G2 금지어 확장 대신 의미 승격 통제, G3 화면 Reference는 S5 단일 위치(+deterministic 구조검사), G4 추천사유 = Customer-centered만(Bank Objective 금지); Phase G 상세 설계 진행 허용·Freeze/RUN 금지 유지 | 확정 |
+| HD-P2-GATE2 | 2026-08-31* | Gate ② 승인(§4 상세 설계 → Case 작성) + 후속 Gap 결정 5건: GC-23 재설계(부분이전 Epistemic 유지·F-010 일반화)·GC-21 개념 Fact 보류(Knowledge Gap 검증 Case화)·GC-25 T3 단독 지식 비승격·sellable/channels null 유지(임의 보완 금지)·SC-001 OPEN 유지 | 확정 |
 
 ---
 
@@ -181,3 +182,17 @@ Diagnostic Pilot(DIAG-01~03, 비Golden) 결과 보고에 대한 결정. **Gate �
 **Phase G 지침**: G1/G4가 P2에서 재검증될 수 있도록 적절한 Case Boundary 또는 Evaluation Point에 포함하되, 검증을 위해 Case를 인위적으로 왜곡하지 않는다.
 
 **반영 위치**: `prototype/runtime.py` SYSTEM_ROLE_V3 원칙 6(G2)·13(G4)·15(G3)·18(G1 신설) + OUTPUT_INSTRUCTION_V3 규칙 + `validate_screen_refs`(G3 deterministic) / `design/EMPLOYEE_BRIEF_SPEC.md` v2 배너 / `design/INTERPRETATION_DESIGN.md` Gate ① 보강 절.
+
+## HD-P2-GATE2. Gate ② 승인 + Knowledge Provenance 정합 결정 (2026-08-31)
+
+**(0) Gate ② 승인**: `design/P2_BATCH3_CANDIDATES.md` §4 상세 Case Design 승인("승인") → GC-18~25 Case 작성 개시. 이후 B 납품(K-REQ DELIVERED 14 / NOT_FOUND 2) 검수에서 발견된 Gap에 대한 후속 Gate 결정("Gate 결정입니다") — **8건 전체를 한 번에 supply/knowledge_pack 확정 → dry-run → Freeze → RUN_001 → EVAL → Failure Cluster + Answer Quality Batch Summary까지 진행 후 Human Gate 정지**. 5건/3건 분리 없음. 변경 범위는 Case Boundary/Knowledge provenance 정합화로 한정 (추가 선행 설계·B-3 전수 구축 금지).
+
+**(1) GC-23 재설계 승인 — 부분이전 Epistemic State 유지**: 부분이전 절차의 corpus 부재(OK-003 부정 확인) 반영. 단 "부분이전 가능" 가정 금지 / "부분이전 불가능" 확정도 금지 / **현재 확보된 Knowledge에서는 해당 실행경로를 확인할 수 없다는 Epistemic State 유지**. F-010 재검증 목적 일반화: **"선호하거나 고려한 실행경로가 실행 불가 또는 확인되지 않은 경우, Agent가 Knowledge에 실존하는 실행 가능한 대안 또는 Required Confirmation을 Solution까지 연결하는가."** GC-23의 구체 대안은 Case Evidence와 실제 Knowledge가 뒷받침하는 범위에서만 구성 — 특정 재예치/상품 경로를 검증 목적으로 임의 삽입 금지. **DIAG-03의 부분이전 재료는 비Golden Diagnostic 오류로 기록만 남김** (Frozen Regression 대상 아님).
+
+**(2) GC-21 — Human-approved 개념 Fact 등록 보류**: "보유수익률=고객 매수시점 기준 / 상품수익률=최근 기간 기준" 문장을 Knowledge Fact로 승인하지 않음 — corpus에 두 지표의 실제 정의·산식 근거가 없으므로 시스템 정의처럼 확정 금지. Boundary 조정: **"서로 다른 수익률 지표의 산정 기준이 확인되지 않은 상태에서 단순 비교하여 상품교체 근거로 사용하지 않는다. 필요한 경우 산정 기준을 먼저 확인한다."** GC-21은 **Knowledge Gap 상황에서 Agent가 임의의 원인 설명을 생성하지 않는지 검증하는 Case**로 유지. 실제 화면/시스템 정의 자료 확보 시 별도 Knowledge 등록 가능.
+
+**(3) GC-25 — Expected Boundary 조정 승인**: 7/1은 ⑧ Upcoming Decision Horizon에 제공된 Scenario/System Evidence로만 사용. Hot Tip 단독 근거(SRC-043) 제도 설명을 Hard Fact로 승격 금지. Expected = 세금/증빙 차이 발생 **가능성** 안내 / 구체 적용은 공식 기준·실행 화면 확인 연결 / T3 단독 Knowledge로 확정적 제도 판단 금지.
+
+**(4) sellable/channels**: PRD Registry의 null 값을 Source-backed Fact처럼 true/채널값으로 임의 보완 금지. 목업 Case에서 실행가능성 세팅이 필수인 경우에만 Product Fact와 분리된 명시적 scenario/mock assumption + provenance. 그 외에는 **null 유지 + '상담 전 확인' 또는 Execution Validation 대상 처리**. (구현: `prototype/canonical.py` — null은 unsellable 판정 제외, 렌더 시 "판매 가능 여부 미확인 (상담 전 확인 필요)")
+
+**(5) SC-001 예금자보호 한도**: 1억원으로 Human 확정하지 않음(공식 시행시점 Source 부재) — OPEN 유지. P2 Brief/Product 특징에서 핵심이 아니면 해당 숫자 비노출. 실제 필요 시 공식 근거 확보 후 판단.

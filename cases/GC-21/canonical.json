@@ -2,32 +2,178 @@
   "case_id": "GC-21",
   "base_date": "2026-09-04",
   "evidence": [
-    {"id": "E101", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "고객 연령: 만 45세", "as_of": "2026-09-04", "data": {"kind": "age", "years": 45}},
-    {"id": "E102", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "IRP 가입일: 2018-02-27 (적립용)", "data": {"kind": "join_date", "date": "2018-02-27"}},
-    {"id": "E103", "block": 1, "evidence_type": "fact", "source_type": "account_system",
-     "text": "퇴직급여 포함 여부: 없음 / 투자성향: 적극투자형 (분석일 2026-05-28, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중", "as_of": "2026-09-04",
-     "data": {"kind": "retirement_benefit", "included": false}},
-    {"id": "E201", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "전체 평가금액: 92,000,000원 / 계좌 전체 최근 1년 수익률: -1.0%", "as_of": "2026-09-04",
-     "data": {"kind": "current_balance", "cash": 0, "total": 92000000}},
-    {"id": "E202", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "자산 구성: KB글로벌 성장주 펀드(다소높은위험 3등급) 32,000,000원 (34.8%) — 고객보유수익률 -8.0% (매수 2025-07-08, 보유 약 14개월) / 상품 자체 최근 1년 수익률: +12.0% (2026-09-04 기준) / 시중은행 정기예금 1년 40,000,000원 (43.5%, 만기 2027-01-22) / KB퇴직연금 단기채 펀드(6등급) 20,000,000원 (21.7%, 고객보유수익률 +3.1%)", "as_of": "2026-09-04"},
-    {"id": "E203", "block": 2, "evidence_type": "fact", "source_type": "account_system",
-     "text": "디폴트옵션 등록: 「뿔려드림1」(중위험) / 현금성자산: 0원", "as_of": "2026-09-04",
-     "data": {"kind": "do_registration", "registered": true}},
-    {"id": "E301", "block": 3, "evidence_type": "fact", "source_type": "account_system",
-     "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 92,600,000원", "as_of": "2026-08-05",
-     "data": {"kind": "balance_snapshot", "date": "2026-08-05", "cash": 0, "total": 92600000}},
-    {"id": "E401", "block": 4, "evidence_type": "fact", "source_type": "transaction",
-     "text": "[Event] 2025-07-08 KB글로벌 성장주 펀드 32,000,000원 매수 (이후 해당 펀드 매매 없음)", "as_of": "2025-07-08"},
-    {"id": "E501", "block": 5, "evidence_type": "fact", "source_type": "transaction",
-     "text": "IRP 최근 1년 상품 매매횟수: 0회 (2025-07-08 펀드 매수가 최근 매매) / ETF 보유·매매 이력: 없음", "as_of": "2026-09-04"},
-    {"id": "E701", "block": 7, "evidence_type": "fact", "source_type": "external_account",
-     "text": "총 금융자산: 250,000,000원 / 타사 연금저축: 없음 / ISA: 없음", "as_of": "2026-09-04"},
-    {"id": "E901", "block": 9, "evidence_type": "fact", "source_type": "crm",
-     "text": "[CRM] 상담 이력 없음 (최근 3년 조회 기준) — 손실 관련 고객 발화·문의 기록 없음"}
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 45세",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "age",
+        "years": 45
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 가입일: 2018-02-27 (적립용)",
+      "data": {
+        "kind": "join_date",
+        "date": "2018-02-27"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 없음 / 투자성향: 적극투자형 (분석일 2026-05-28, 유효) / 재직 중 / 스타뱅킹 이용: 이용 중",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "전체 평가금액: 92,000,000원 / 계좌 전체 최근 1년 수익률: -1.0%",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "current_balance",
+        "cash": 0,
+        "total": 92000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "자산 구성: KB글로벌 성장주 펀드(다소높은위험 3등급) 32,000,000원 (34.8%) — 고객보유수익률 -8.0% (매수 2025-07-08, 보유 약 14개월) / 상품 자체 최근 1년 수익률: +12.0% (2026-09-04 기준) / 시중은행 정기예금 1년 40,000,000원 (43.5%, 만기 2027-01-22) / KB퇴직연금 단기채 펀드(6등급) 20,000,000원 (21.7%, 고객보유수익률 +3.1%)",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록: 「뿔려드림1」(중위험) / 현금성자산: 0원",
+      "as_of": "2026-09-04",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "30일 전(2026-08-05) 잔액: 현금성 0원 / 전체 92,600,000원",
+      "as_of": "2026-08-05",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-05",
+        "cash": 0,
+        "total": 92600000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "[Event] 2025-07-08 KB글로벌 성장주 펀드 32,000,000원 매수 (이후 해당 펀드 매매 없음)",
+      "as_of": "2025-07-08"
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "IRP 최근 1년 상품 매매횟수: 0회 (2025-07-08 펀드 매수가 최근 매매) / ETF 보유·매매 이력: 없음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 250,000,000원 / 타사 연금저축: 없음 / ISA: 없음",
+      "as_of": "2026-09-04"
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 상담 이력 없음 (최근 3년 조회 기준) — 손실 관련 고객 발화·문의 기록 없음"
+    }
   ],
-  "supply": {}
+  "supply": {
+    "product_candidates": [
+      {
+        "product_id": "P01",
+        "name": "교보악사 Tomorrow 장기우량K-1호",
+        "product_type": "채권형(장기 국공채·우량채)",
+        "risk_grade": 5,
+        "risk_level_label": "낮은위험",
+        "return_recent": -0.0579,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "안정성이 높은 채권을 주된 투자대상자산으로 안정적인 이자수익 추구",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-007 (SRC-095·094)",
+        "fee_note": "총보수 연0.3300% (SRC-094, 교차 원천 결합)"
+      },
+      {
+        "product_id": "P02",
+        "name": "삼성 EMP 리얼리턴 (UH)",
+        "product_type": "혼합형(EMP, 주식혼합-재간접)",
+        "risk_grade": 4,
+        "risk_level_label": "보통위험",
+        "return_recent": 0.1858,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "국내외주식, 채권, 대체자산 등 다양한 자산관련 ETF에 투자",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-010 (SRC-095·094)",
+        "fee_note": "합성총보수 연1.1215% (SRC-094, 교차 원천 결합)"
+      },
+      {
+        "product_id": "P03",
+        "name": "마이다스 아시아 리더스 성장주 (H)",
+        "product_type": "주식형(해외)",
+        "risk_grade": 2,
+        "risk_level_label": "높은위험",
+        "return_recent": 0.4719,
+        "return_period": "1Y",
+        "return_as_of": "2026-07-30",
+        "features": "성장잠재력 높은 아시아지역(일본, 중국, 인도, 대만 등) 주식에 투자 (최근 1M -22.82%)",
+        "sellable": null,
+        "channels": [],
+        "provenance": "PRD-015 (SRC-095)"
+      }
+    ],
+    "hot_tips": [],
+    "screens": [
+      {
+        "screen_id": "S01",
+        "surface": "staff",
+        "screen_no": "[04-12-642]",
+        "screen_name": "적립금및수익률조회",
+        "actions": "전일자 보유상품 및 평가금액/수익률 조회 (연계메뉴: 정기예금 중도해지 예상조회)",
+        "provenance": "SCR-001"
+      }
+    ]
+  },
+  "supply_note": "Supply 재료는 knowledge/ Registry 실값(각 항목 provenance 참조). sellable/channels는 PRD 원천 미확인(null) — 임의 보완 금지, '상담 전 확인' 대상 (HD-P2-GATE2 (4))."
 }

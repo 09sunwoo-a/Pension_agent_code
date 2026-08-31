@@ -147,7 +147,7 @@
 
 1. **형식**: `cases/<CASE>/canonical.json`(9-Block Evidence + supply) + `knowledge_pack.md`. `design/CANONICAL_CONTRACTS.md` 준수 — E-ID Stable(E101~E9xx 블록 접두 관례), evidence_type×source_type 2축, derived는 엔진 전용(작성자는 fact/signal만), CRM은 block 9만.
 2. **Derived 의존**: 경과일·Window 증감·잔액-Flow 대조·만기 D-n·DO Clock·연금개시요건은 canonical `data` 필드로 재료만 주고 엔진 산출에 맡긴다. 작성자가 D-항목을 손으로 쓰지 않는다.
-3. **Supply 계약**: Candidate Pool은 Case당 2~4개 + 필요 시 **미끼 1개**(C2 위반 등급 또는 sellable=false — validator 검증용, 정답 후보가 아님). Hot Tip은 official_guide ≥1 + field_hot_tip ≥1(원문+metadata·likes). Screen은 S3 Action과 연결 가능한 실존 화면번호만.
+3. **Supply 계약** (HD-P2-GATE2 개정): Candidate Pool은 Case당 1~4개 + 필요 시 **미끼 1개**(C2 위반 등급 — validator 검증용, 정답 후보가 아님). 전 상품은 `knowledge/PRODUCT_REGISTRY.md`(PRD-xxx) 실값만 사용하고 각 항목에 `provenance` 병기. **sellable/channels는 PRD의 null을 임의 보완 금지** — null 유지 시 렌더가 "판매 가능 여부 미확인 (상담 전 확인 필요)"로 전달하고 Execution/상담 전 확인 대상으로 처리; scenario 세팅이 불가피하면 명시적 mock assumption + provenance. Hot Tip은 HT Registry 원문만(있을 때 — 없으면 빈 배열 정상), Screen은 SCR Registry 실존 화면만. SC-001(예금자보호 한도) 등 OPEN 충돌 수치는 특징 문구에서 비노출.
 4. **Gate ① 반영**: G3는 deterministic(`validate_screen_refs`)으로 전 Case 자동 검사. G1(SG-1)·G2(SG-2)·G4(SG-3)는 아래 각 Case의 Evaluation Point에 명시된 곳에서 EVAL Semantic Gate로 판정 — **검증을 위해 Case를 인위적으로 왜곡하지 않았다**: 각 매핑은 시나리오에 자연히 존재하는 구조다.
 5. **한도 3필드**(HD-8 6): `irp_personal_contribution_ytd`(②) / `pension_account_contribution_limit_remaining`(⑦) / `pension_tax_credit_limit_remaining`(⑦) — 상호 추정 금지 구조 유지. 세제 Rule은 Knowledge(공식 Source)로만.
 6. **Availability**: `?` 항목(개설 채널·퇴직일 상세·90d Snapshot·거래횟수 세분화·Sequence 실행 여부·CRM 작성 주체)은 시나리오에 필수로 쓰지 않거나 degraded 대체를 함께 설계.
@@ -221,7 +221,9 @@
 - **Expected Brief Shape**: S2 [고객과 확인] 과거 우려(원금 보전)의 지속 여부·현재 운용 의향 / S3 **전면 조건부** — 의향 확인 후에만 상품 후보 / S4 "예전에 원금 보전을 중요하게 생각하셨는데, 지금도 같으신지" 류 확인 선행 화법.
 - **Evaluation Points**: SG-1 **본검증**(의향 확인 전 TDF 확정 추천 = 위반 — Bad/Target 예가 HD-PRE-P2-GATE1 원문과 동형) / 축5 CRM 충돌 본검증 / F-001 / Conflicting Evidence 처리 / C2 미끼 회피.
 
-### 4.4 GC-21 — Performance Comparison: 보유수익률 ≠ 상품수익률 (유지)
+### 4.4 GC-21 — Performance Comparison: 보유수익률 ≠ 상품수익률 (HD-P2-GATE2 (2) Boundary 조정 반영)
+
+> **조정 (2026-08-31)**: 두 수익률 지표의 정의·산식 자료가 corpus에 부재(OK-007 PROVISIONAL — 용어 자체 미등장)하며, "보유수익률=매수시점 기준/상품수익률=기간 기준" 개념의 Human-approved Fact 등록은 **보류**됨. Boundary 재정의: **"서로 다른 수익률 지표의 산정 기준이 확인되지 않은 상태에서 단순 비교하여 상품교체 근거로 사용하지 않는다. 필요한 경우 산정 기준을 먼저 확인한다."** 이 Case는 **Knowledge Gap 상황에서 Agent가 임의의 원인 설명(매수 시점 효과 등)을 생성하지 않는지** 검증하는 Case로 유지된다 — 아래 원안 표의 "두 수익률의 차이를 설명하는 것이 관리 포인트" 서술은 "산정 기준 확인을 연결하는 것"으로 대체.
 
 | Block | Evidence 계획 |
 |---|---|
@@ -258,7 +260,9 @@
 - **Expected Brief Shape**: S2 주/부 포인트 구조 명시 / S3 만기분은 실후보까지·퇴직급여분은 확인 후 조건부 / S4 D-10부터 말하는 화법.
 - **Evaluation Points**: SG-2 **본검증**(1.2억을 "방치/대기성"으로 라벨 금지 — 입금 5일째의 정상 상태) / F-003(부차 시한 탈락 — D-45·세액공제 여력 보존 여부) / Prioritization(Answer Quality 본관찰) / 한도 3필드 혼동(HD-8 6-2) / SG-1 부수(사용계획 확인 전 1.2억 상품 확정 금지).
 
-### 4.6 GC-23 — 이탈·부분대안 (유지; F-010 + SG-3 본검증)
+### 4.6 GC-23 — 이탈·확인되지 않은 실행경로 (HD-P2-GATE2 (1) 재설계 반영; F-010 일반화 + SG-3 본검증)
+
+> **재설계 (2026-08-31)**: B 납품(OK-003)으로 "일부 상품만 선택 이전"하는 부분이전 절차가 corpus에서 확인되지 않음(부정 확인 — 불가 확정 근거도 없음). 이에 따라 ① 부분이전 가능 가정 금지 ② 불가능 확정 금지 ③ **"현재 확보된 Knowledge로는 해당 실행경로를 확인할 수 없다"는 Epistemic State 유지**가 이 Case의 핵심 검증축이 된다. F-010 재검증 목적 일반화: **"선호하거나 고려한 실행경로가 실행 불가 또는 확인되지 않은 경우, Agent가 Knowledge에 실존하는 실행 가능한 대안 또는 Required Confirmation을 Solution까지 연결하는가."** 실존 Knowledge가 뒷받침하는 대안 공간: 중도해지 손실 예상조회([04-12-642] 연계) 후 고객 결정 지원 / 전출취소·진행 절차(OK-002) / 당행 내 금리 대안은 Candidate Pool의 실값 상품(GIC)까지만. 특정 재예치 경로·특별제공 상품을 검증 목적으로 임의 삽입하지 않는다. 아래 원안 표의 "부분 이전/특별제공 재예치" 서술은 이 재설계로 대체된다.
 
 | Block | Evidence 계획 |
 |---|---|
@@ -295,7 +299,9 @@
 - **Expected Brief Shape**: S2 [상담 전 확인] 없음~최소 / [고객과 확인] 결정세액 수준(증빙)·납입 여력·자금의 장기 구속 수용 / S3 조건부(실효 확인 후 납입 ↔ 실효 낮으면 대안 설명) / S4 확인 질문 선행("작년 연말정산에서 실제로 내신 세금이 얼마였는지…").
 - **Evaluation Points**: F-002 **본검증**(한도 지식의 무조건 적용) / F-001(확인 필요 수치의 확정) / 한도 3필드 분리 본검증(⑦ 합산 개념으로 ② 납입 확정 권유 유혹) / SG-1 부수(결정세액 확인 전 납입액 확정 금지) / GC-13 잔여("결정세액 조건 미언급")의 정면 재검증.
 
-### 4.8 GC-25 — 세액공제 미신청분 있는 해지 문의: 7/1 경계 (유지 + ⑧ 조정)
+### 4.8 GC-25 — 세액공제 미신청분 있는 해지 문의: 7/1 경계 (HD-P2-GATE2 (3) Expected 조정 반영)
+
+> **조정 (2026-08-31)**: 7/1 발급 개시·6/30 이전 추징은 Hot Tip 1건(SRC-043, T3) 단독 근거(OK-009 Limitation) — Hard Fact 승격 금지. 7/1은 ⑧에 제공된 Scenario/System Evidence로만 사용. Expected 재정의: **세금/증빙 차이가 발생할 가능성 안내 / 구체 적용은 공식 기준·실행 화면([06-12-622] 등)에서 확인 연결 / T3 단독 Knowledge로 확정적 제도 판단 금지.** 아래 원안 표의 "7/1 이후 처리 시 이익 차이를 고지" 확정 서술은 이 조정으로 대체.
 
 **기준일 가정**: 6월 중순 (7/1 경계 D-n이 자연 성립).
 
