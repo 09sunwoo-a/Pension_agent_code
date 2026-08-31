@@ -322,18 +322,18 @@ Section 간 역할 중복을 최소화한다.
 
 - 확보 가능한 경우 화면번호·정확한 화면명·메뉴 경로·이 Case에서의 사용 목적까지. **S3 Action과 관련 없는 화면의 일반 나열 금지.** Deep Link는 향후 확장 가능(이번 단계 미구현).
 - **관계식**: `S3 = 무엇을 할 것인가 / S4 = 고객에게 어떻게 말할 것인가 / S5 = 어디에서 확인하고 실행할 것인가`
-- **필요 Input/Knowledge**: Hot Tip **원문+Metadata**가 동봉된 Knowledge Pack(현행 발췌본에는 작성자·좋아요 등 Metadata 없음 — §4.6), 화면 마스터(SRC-027) + **StarBanking 메뉴 경로**(Availability 미확정).
+- **필요 Input/Knowledge**: Hot Tip **원문+Metadata**가 동봉된 Knowledge Pack(원천에 Metadata 실존 — Human 확인, §4.6), 화면 마스터(SRC-027) + **StarBanking 메뉴 경로**(SRC-027 부록 비대면 채널 경로 — Av O, §4.6).
 
 ### 4.6 유지되는 REV-002 Core 원칙 + 구현 전 확인 필요 사항
 
 **유지** (이번 Refinement는 Core Reasoning Architecture 변경이 아님): Judgment-first / Business Objective의 관리 필요성 생성 금지(HD-7) / Hard Constraint(C1/C2/C3) / Execution Validation / 투자성향=허용 최대 위험경계 / Epistemic Preservation / Evidence Provenance / Candidate Pool / Branch Preservation / Performance Comparison 단독 Trigger 금지 / Digital Signal ≠ Intent / CRM ≠ authoritative current ground truth. — 단 **이 내부 안전원칙들을 Final Brief에 자기검열 문구로 노출하지 않는다.** Brief는 안전한 Reasoning의 결과를 실용적으로 전달한다.
 
-**구현 게이트 전 확인 필요** (Human 확인/데이터 준비 대상):
-1. **Candidate Pool 데이터 구조 확장** — 현행 이름 목록 → S3 상품 카드에 필요한 Metadata(유형·등급·최근 수익률+측정기간+기준일·특징·보수/만기 등) 포함 구조. Synthetic Case에서의 작성 책임과 형식.
-2. **Hot Tip 원문·Metadata 동봉 방식** — Knowledge Pack에 발췌 원문+작성자/작성일/좋아요/출처를 어떻게 싣는가. Synthetic Metadata(작성자·좋아요 수) 생성 허용 여부(실자료가 아니므로 Human 확인 필요).
-3. **StarBanking 메뉴 경로 Availability** — 화면번호 마스터(SRC-027)에는 직원 단말 중심; 고객 앱 메뉴 경로의 Source 확인 필요 (`?`).
-4. **EMPLOYEE_BRIEF_SPEC.md 개정 범위** — 구현 승인 시 not_applicable 규칙 폐기·S3/S4/S5 Target 반영·구 §1 필수/금지 목록과의 정합 정리.
-5. 유사 고객군/Benchmark Input(§4.4 언급)은 현재 Scope 밖(Peer 제외 유지) — 향후 제공 시의 사용 경계만 이 문서에 선기록됨.
+**구현 게이트 전 확인 필요 → Human 답변 반영 (2026-08-31, 전부 해소)**:
+1. **Candidate Pool 데이터 구조 확장** — **승인.** 구현 시 이름 목록 → 상품 카드 Metadata(유형·등급·최근 수익률+측정기간+기준일·특징·보수/만기 등) 포함 구조로 확장.
+2. **Hot Tip 원문·Metadata** — **원천에 이미 존재** (Human 확인: 작성자·작성일·좋아요 등 Metadata가 실자료에 있음). Synthetic 생성 문제 아님 — 구현 시 Knowledge Pack 동봉 형식만 설계. Av **O**.
+3. **StarBanking 메뉴 경로** — **Source 존재** (Human 확인). SRC-027 부록의 비대면 채널별 거래 가능 목록·경로(KB스타뱅킹 포함)가 출발점 — 구현 시 Case 관련 경로를 재료로 동봉. Av **O**.
+4. **EMPLOYEE_BRIEF_SPEC.md 개정** — **방향 승인, 구현과 함께 반영** (not_applicable 폐기·S3/S4/S5 Target 반영·구 §1 필수/금지 정합 정리).
+5. 유사 고객군/Benchmark Input(§4.4 언급)은 현재 Scope 밖(Peer 제외 유지) — 향후 제공 시의 사용 경계만 선기록.
 
 ## 5. 기존 P2 후보 GC-18~25 재분류 — **방향 승인 (Decision 6)**
 
