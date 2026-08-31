@@ -1769,6 +1769,19 @@ def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
     }
     try:
         case = _cx.load_canonical(case_id, root=REPO_ROOT)
+        # P3-B (opt-in): Minimal Product Selector replaces ONLY supply.product_candidates.
+        # Direction/Solution Type input is Human-defined (design/P3B_PRODUCT_NEEDS.md);
+        # Hard Constraint / supply validators / Fit-reason generation stay unchanged below.
+        if os.environ.get("P3B_PRODUCT_SELECTION") == "1":
+            import product_selector as _ps
+            _pool, _pool_log = _ps.build_pool(case_id)
+            record["p3b_product_selection"] = {
+                "needs_file": "design/P3B_PRODUCT_NEEDS.md",
+                "frozen_pool_product_ids": [p.get("product_id") for p in case.supply.get("product_candidates") or []],
+                "selector_pool": _pool_log["selected"],
+                "none_reason": _pool_log["none_reason"],
+            }
+            case.supply["product_candidates"] = _pool
         derived = _cx.derive(case)
         constraint = build_constraint_context(_CanonicalTextShim(case))
         # v3 cases carry the profile in canonical.json, not case.md — cite the real source.
