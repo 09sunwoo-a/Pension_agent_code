@@ -1,4 +1,17 @@
-# Employee Brief Spec — 5-섹션 Output 명세 (확정본)
+# Employee Brief Spec — v2 (Decision & Action Brief, Pre-P2 Architecture Refinement)
+
+> **v2 규범 (2026-08-31, Phase A)** — HD-PRE-P2-BRIEF 승인 Target Design. 규범 원문:
+> - **S1~S5 Target 역할·AS-IS 변화·Boundary·Target Output 예시·유지 원칙**: `design/PRE_P2_REFINEMENT_PROPOSAL.md` §4 (재작성본)
+> - **모델 출력의 supply 참조 계약(product_id/tip_id/screen_id — 카드·원문·경로는 렌더 시 복원)**: `design/CANONICAL_CONTRACTS.md` §3
+> - v1 대비 확정 변경: S3 = 제안 방향+실제 추천 후보(**not_applicable 폐기** — Direction 11유형 전부 정상 Output, 추천사유는 Agent 생성), S2 = [상담 전 확인]/[고객과 확인] 2영역(구 [직원]/[고객] Label 폐기)·why_now 비노출·방어문구 비노출, S4 = 실데이터 포함 완성형 Customer-specific Script(수치 유무의 문자열 검사는 Gate 아님 — Evaluator 몫), S5 = Tip 원문+Metadata 인용 + S3 연결 실행 화면(직원 단말+StarBanking).
+> - v1의 섹션별 실사례 기반 금지 요소(단정 어휘·강화 수식어·Constraint 변형 재진술 등)와 검증 경계(§3 deterministic/Evaluator 분리)는 **v2에서 그대로 유효**하다. 단 v1 §1-S3의 "비해당 유형 표기 규칙"과 "모든 방향 조건절 강제"는 폐기됨(Branch Preservation로 대체).
+> - 적용 범위: **v3 경로(canonical.json Case)부터.** 기존 Frozen RUN/EVAL의 v1 기준 기록은 불변.
+>
+> 아래 v1 본문은 REV-002 종료 시점의 확정 기록으로 보존한다.
+
+---
+
+# [v1 보존] Employee Brief Spec — 5-섹션 Output 명세 (확정본)
 
 - Status: **HUMAN CONFIRMED — Step 3 결정 반영 (2026-08-31)**. 5-섹션 구조 승인(결정 3-1), S3 분기 규칙 수정(3-2), Candidate Pool(3-3), Evidence Trace(3-4), Validator 수정(3-5·3-6), S5 수동 동봉(3-7), Regression 8 Case(5).
 - 근거: `design/evidence/BRIEF_SECTION_AUDIT.md`(18 Case 전수 감사) · `SCREENS_HOTTIPS_INVENTORY.md` · `P1_CASE_EVIDENCE.md`. 필수/금지 요소는 실제 발생 사례가 있는 것만.

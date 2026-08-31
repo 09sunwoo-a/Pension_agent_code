@@ -1,4 +1,17 @@
-# Customer Evidence Pack Spec — Input 명세 (8-섹션 확정본)
+# Customer Evidence Pack Spec — v2 (9-Block, Pre-P2 Architecture Refinement)
+
+> **v2 규범 (2026-08-31, Phase A)** — HD-PRE-P2-INPUT 승인 구조. 규범 원문:
+> - **9-Block 구조·블록별 필드/이동/Boundary/Av**: `design/PRE_P2_REFINEMENT_PROPOSAL.md` §2 (승인·수정 반영본)
+> - **Canonical Evidence Object·data.kind·Derived 규칙·Supply Contract**: `design/CANONICAL_CONTRACTS.md`
+> - 핵심 변경: 8-섹션 → 9-Block (③ Recent Changes & Money Flow 신설·⑥ Sequence·⑨ CRM 재위치), evidence_type/source_type 2축, Window 기반 변화(30d 우선·90d 확보 시), 잔액-Flow는 산술 reconciliation까지, ⑧은 객관적 시점 정보만, 한도 2종 ⑦ 이동, DO Rule Clock ⑧ 이동.
+> - 횡단 규칙(v1 §1: as_of·NULL/0/해당없음·판단 라벨 금지·Missing=Evidence Missing만·3계층·Performance Boundary)은 **v2에서 그대로 유효**하다.
+> - 적용 범위: **P2 신규 Case·Diagnostic fixture(canonical.json)부터.** 기존 Frozen input_v2 8건은 v1 그대로 불변.
+>
+> 아래 v1 본문은 REV-002 종료 시점의 확정 기록으로 보존한다 (역사 기록 — 신규 Case 작성에는 사용하지 않는다).
+
+---
+
+# [v1 보존] Customer Evidence Pack Spec — Input 명세 (8-섹션 확정본)
 
 - Status: **HUMAN CONFIRMED — Step 3 결정 반영 (2026-08-31)**. Availability는 Human이 결정 2-1~2-8로 확정했다. 초안 대비 삭제·수정 내역은 문서 말미 §7 변경 기록.
 - 근거: `design/evidence/` (P0/P1 역추적 · Excel 필드). 모든 필드는 실제 Case에서 판단에 쓰였거나 결핍이 오판을 유발했거나 Excel에 실존하는 것만 수록.
