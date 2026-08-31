@@ -14,6 +14,7 @@
 | `TALK_REGISTRY.md` | `TALK-xxx` | 상담화법 원문 발췌 + 상황 태그 |
 | `SCREEN_REGISTRY.md` | `SCR-xxx` | 화면번호·화면명·surface·기능·메뉴 경로 (G3 원천 Master) |
 | `SOURCE_CONFLICTS.md` | `SC-xxx` | Source 충돌 기록 (임의 통합 금지 — HD-3) |
+| `KNOWLEDGE_GAPS.md` | `KG-xxx` | **Knowledge Coverage State / Negative Evidence** (DB-004) — 일반 Knowledge가 아니라 "무엇이 확인되지 않았고 무엇을 단정하면 안 되는가"의 기록. Agent 전달용 consume_text 포함 |
 | `DECISIONS_B.md` | `DB-xxx` | B가 받은 Human 결정 기록 (golden/ 통합은 Human 지시 시) |
 
 ## 2. ID 체계
@@ -70,6 +71,15 @@ Authority 순서: `공식 법·제도·내규·시스템 기준 > 행내 공식 
 6. **판단 영향 발견**(예: R4 위험자산 한도의 공식 근거, Judgment/Boundary에 영향 주는 사실): **Registry에 넣지 않고 Human에 먼저 보고**한다(B-4). 보고 후 Human 결정은 `DECISIONS_B.md`에 기록.
 7. K-REQ 납품 시 `design/KNOWLEDGE_REQUESTS.md`에서 **상태·납품 ID·메모 열만** 갱신한다. A가 쓴 행의 다른 내용은 수정하지 않는다.
 8. `cases/`·`prototype/`·`golden/`·Frozen Artifact는 읽기 전용.
+
+## 6.1 Tag Dictionary — Core + Registry Extension (DB-004 §5)
+
+- **Core Tags** (전 Registry 공통 최소 사전 — append-only, 실제 Selection Failure 발생 시에만 추가. 선제 확장 금지):
+  `세액공제` `과세이연` `연금수령` `중도해지` `중도인출` `퇴직금` `계약이전` `실물이전` `만기` `디폴트옵션` `투자성향` `수수료` `원리금보장` `수익률` `bank_objective_포함`
+- Registry별 고유 태그는 각 Registry의 extension으로 유지한다(TALK §상황 태그 어휘 = TALK/HT extension). 단일 사전으로의 전면 승격은 하지 않는다.
+- **OK의 `applicability_tags`** (DB-004 §3): 해당 Official Knowledge가 적용될 수 있는 **제도적 Context**(만기도래·연금개시 전·전출 접수 등)를 표현한다. 고객 상황→정답 Rule을 만드는 용도가 아니다.
+- **PRD에는 Customer Situation 기반 태그 금지** (DB-004 §4): 고객 상황→상품 연결을 암시하는 Metadata는 숨은 Recommendation Rule이 되므로 사용하지 않는다. 상품 자체의 Source-backed intrinsic characteristic(topics·product_type·asset_class·만기/유동성·분배 특성 등)만 사용. 적합성 연결은 Agent의 Product Fit reasoning 몫.
+- `purpose`는 Registry 필드로 두지 않는다(DB-004 §6) — 향후 Knowledge Selection의 `Knowledge Need` 속성으로 설계.
 
 ## 7. A의 인용 방식 (참고 — PARALLEL_WORKPLAN §3.3)
 

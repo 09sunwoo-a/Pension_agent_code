@@ -1,6 +1,6 @@
 # Knowledge Gap 명시 구조 · Selection Metadata 검토 — 설계 제안 (구현 전)
 
-- Status: **PROPOSAL (2026-08-31) — Human 승인 전 미구현.** Session B 작성.
+- Status: **DECIDED (2026-08-31, DB-004)** — 본 문서는 제안 기록으로 보존. 결정 요지: §1 KG Registry **승인·구현됨**(`knowledge/KNOWLEDGE_GAPS.md`, KG = Knowledge Coverage State/Negative Evidence로 정의, consume_text는 4요소 구조적 문면으로 제한) / §2.2-1 OK 태그 **승인하되 명칭 `applicability_tags`**(제도적 Context 표현) / §2.2-2 PRD situation_tags **불채택**(intrinsic characteristic만 허용) / §2.2-3 태그 사전 **Core+Extension 방식**(단일 사전 전면 승격 불채택, README §6.1) / §2.2-4 purpose 필드 불추가 **승인**(향후 Knowledge Need 속성으로) / §2.2-5 포맷 전면 통일 **보류**(향후 Registry→parser→Selection Index 구조 검토 시). Session B 작성.
 - 배경 근거: `golden/P2_BATCH3_SUMMARY.md` §4-3 — "Knowledge Gap을 명시적으로 알려주면 지키고(GC-23), 알려주지 않은 Gap은 메운다(GC-21)". Gap의 명시가 Gap 메움(임의 생성) 방지의 유효 수단으로 확인됨.
 
 ---

@@ -56,6 +56,7 @@
 - **return_recent**: 원문 %값을 소수로 변환(12.58% → 0.1258). 음수 가능. SRC-095 수익률의 return_as_of = 2026-07-30, TDF 시리즈는 2030 빈티지 수익률 기준.
 - **sellable·channels**: 전 항목 원천 미확인(null·[]) — SRC-095는 '추천펀드' 자료로 판매중 상품으로 추정 가능하나 판매상태 필드가 원천에 없어 기재하지 않음. A/Human이 확인 후 supply에 채울 것.
 - **Product Fit ≠ Execution Eligibility (DB-003 §5, Human Decision)**: sellable/channels가 null인 상품은 **판매·채널 실행가능성을 확정하지 않는다.** 이 Registry의 상품 정보는 Customer–Product Fit 판단 재료까지만이며, 실제 가입·매수 실행 가능 여부(판매중·채널·한도소진 등)는 별도 확인 사항이다 — 실행 가능을 전제로 한 서술·추천 금지.
+- **Metadata는 Source-backed intrinsic characteristic만 (DB-004 §4, Human Decision)**: PRD에는 Customer Situation 기반 태그(예: "손실구간 대안"·"만기고객 추천"·"연금수령 고객용")를 **추가하지 않는다** — 고객 상황→상품 연결을 암시하는 Metadata는 숨은 Recommendation Rule이 된다. 허용되는 것은 상품 자체의 사실·특성(topics, product_type, asset_class, 위험등급, 만기/유동성 특성, 분배(income/distribution) 특성 등 원천이 뒷받침하는 값)뿐이다. Customer Evidence와 상품의 적합성 연결은 Agent의 Management Direction / Product Fit reasoning에서 수행한다.
 - fee_note(합성총보수/총보수)는 SRC-094(2026-08 포트폴리오 자료)에서 상품명 일치 시 결합 — 교차 원천 결합임을 각 항목에 명기.
 
 ## 항목
