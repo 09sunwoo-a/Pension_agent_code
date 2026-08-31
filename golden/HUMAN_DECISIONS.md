@@ -11,6 +11,8 @@
 | HD-5 | 2026-08-30 | Human Approval 단위 = 업무 Semantic Boundary 와 변경 범위 (Step 별 승인 폐지) | 확정 |
 | HD-2.1 | 2026-09-01 | 투자성향 ↔ 펀드 위험등급 Eligibility Mapping 공식 확인 (C2 deterministic validator) | 확정 |
 | HD-6 | 2026-09-01 | Architecture Revision #1 승인 — F-005 Action/Change Bias 재정의·교정, F-006 Knowledge Usage Context 전달, C2 validator; P0 RUN_002 Regression | 확정 |
+| HD-6.1 | 2026-08-31* | Employee Brief를 직원용 Target Output으로 승격 (Diagnostic → Recommendation Brief; REV-002 Step 3) | 확정 |
+| HD-7 | 2026-08-31* | Business 원칙 — 관리 필요성은 Customer Evidence에서만 출발 (REV-002 Step 3) | 확정 |
 
 ---
 
@@ -82,3 +84,19 @@ P0 Batch Cross-case Evidence(F-005 6 Case, F-006 8/8)에 근거한 Semantic Revi
 - **Employee Brief**: 현재는 Decision Meaning Preservation 확인용 Diagnostic Output. 최종 UX 설계 아님. 평가 대상: Unknown→Fact, 조건부→무조건, Hard Constraint 소실, Judgment 왜곡, 고객 의사 왜곡.
 - **보류**: F-001/F-008 전용 Validator, Reusable KB, Retrieval/Graph, Multi-Agent, 자동 Evaluator, 통계 반복 평가.
 - **Regression**: P0 8 Case RUN_002/EVAL_002 (Builder Gemma 4, Evaluator Claude). Trade-off 확인 필수(GC-01/06 Action 약화 여부, GC-04/10 유지 반영, GC-03 확인 우선, GC-12/14/16 구체성).
+
+## HD-6.1 Employee Brief 승격 (2026-08-31, HD-6 하위 갱신 — REV-002 Step 3)
+
+HD-6에서 "Decision Meaning Preservation 확인용 Diagnostic Output"으로 규정했던 Employee Brief를 **직원용 실제 Target Output(Recommendation Brief)** 으로 승격한다. 구조는 5-섹션(고객 상황 / 핵심 관리 포인트+먼저 확인 / 추천 운용 방향 / 상담 Point / 관련 TIP & GUIDE) — 상세는 `design/EMPLOYEE_BRIEF_SPEC.md`.
+
+단, 이 승격은 **운영 검증 완료를 의미하지 않는다.** REV-002/P2 Regression과 향후 직원 검증의 대상이다.
+
+*날짜 표기: HD-6(2026-09-01)은 P1 Batch 문서 기준 일자와 정합하도록 기록된 값이며, 본 결정의 확정일은 2026-08-31이다.
+
+## HD-7. Business 원칙 — 관리 필요성의 출발점 (2026-08-31, REV-002 Step 3)
+
+> **고객의 관리 필요성은 Customer Evidence에서 출발해야 한다. 은행의 Business Objective가 관리 필요성을 만들어내서는 안 된다. 독립적으로 유효한 고객 관리기회가 존재하는 경우에만, 허용된 범위 안에서 은행의 관리행동(운용 활성화·장기 운용 연결·만기 재운용·추가납입·리밸런싱·이탈방어·연금관계 지속·후속관리)으로 적극 연결할 수 있다.**
+
+- 기존 D10(고객이익-영업압력 분리)·F-009(Marketing Trigger as Management Basis)와 정합 — 폐기가 아니라 명문화·정밀화다.
+- REV-002부터 TM Target·Campaign·Badge·LMS/SMS 등 Bank Signal은 Customer Reasoning Input에서 제거된다(Evidence Pack 8-섹션 — `design/EVIDENCE_PACK_SPEC.md`). 검증 축은 Evidence Provenance로 이동: Management Point는 실제 Customer Evidence(`supporting_evidence_ids`)로 추적 가능해야 하며, 근거 없는 관리 포인트는 REVIEW/FAIL.
+- 함께 확정된 Step 3 결정(Evidence Pack 8-섹션·Availability·Candidate Pool 원칙·화면값 3계층·Regression 8 Case)의 전체 기록은 `design/TARGET_CONCEPT.md` §6.

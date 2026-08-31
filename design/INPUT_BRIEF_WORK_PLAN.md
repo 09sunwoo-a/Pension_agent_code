@@ -3,7 +3,8 @@
 - Status: **IN PROGRESS — Step 1·2 완료, Step 3 Human Gate 대기** (2026-08-31 Human 확정·착수 지시, 같은 날 Step 1~2 수행)
   - Step 1 산출물: `design/evidence/` 5건 (P0 회수본 · P1 역추적 · Excel 필드 · Brief 감사 · 화면/Hot Tip 인벤토리)
   - Step 2 산출물: `design/TARGET_CONCEPT.md` · `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md` (전부 Draft)
-  - 다음: Step 3 — Human이 Availability `?` 확정, 컨셉·필드 승인, HD-6 갱신·HD-7 신설, SYSTEM_ROLE 원칙 5 변경, Regression 범위 승인 (결정 목록: `TARGET_CONCEPT.md` §6)
+  - **Step 3 결정 완료 (2026-08-31)**: Evidence Pack 8-섹션 확정(Bank Signals 삭제), Availability 확정, Candidate Pool 원칙, 화면값 3계층, Missing→Evidence Missing/Decision Variable 분리, Calculated Fact 2분류, HD-6.1·HD-7 기록, Regression 8 Case(GC-17 추가). 결정 기록: `TARGET_CONCEPT.md` §6, `golden/HUMAN_DECISIONS.md` HD-6.1·HD-7
+  - 다음: Step 3 잔여 확인 항목(Spec `EVIDENCE_PACK_SPEC.md` §6 + 보고 §6) 처리 후 Step 4 (REV-002 runtime 구현)
 - 승계 세션용 자족 요약본: `design/HANDOFF_INPUT_BRIEF_PLAN.md` (저장소 없이 읽어도 이해되도록 쓴 인수인계 문서)
 - 착수 조건: **Human의 명시적 착수 지시가 있을 때까지 어떤 Step도 시작하지 않는다.** 이 문서 작성 자체는 Human 지시로 수행되었다.
 - 이 문서의 목적: 다른 Agent Session이 이 계획을 이어받아 수행할 수 있도록 (1) 합의된 Target Concept, (2) 이번 대화에서 이미 내려진 설계 판단, (3) 작업 순서와 Human Gate, (4) 후속 로드맵을 기록한다.
