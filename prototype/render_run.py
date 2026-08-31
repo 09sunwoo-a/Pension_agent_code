@@ -35,7 +35,10 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a(f"- Target Model: {rec['model']}")
     a(f"- Endpoint: {rec['endpoint']}")
     a(f"- Runtime Commit: {rec.get('git_head','')} (prototype/runtime.py at execution; revision {rec.get('runtime_revision','pre-REV-001')})")
-    if rec.get("frozen_input_v2"):
+    if rec.get("frozen_canonical"):
+        iv = rec["frozen_canonical"]
+        a(f"- Input Baseline: {iv.get('file','')} sha256 {iv.get('sha256','')} (Canonical Evidence Object, 9-Block)")
+    elif rec.get("frozen_input_v2"):
         iv = rec["frozen_input_v2"]
         a(f"- Input Baseline: {iv.get('file','')} sha256 {iv.get('sha256','')} (REV-002 Evidence Pack)")
     else:
@@ -51,7 +54,12 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a(f"- Raw Runtime Record: {raw_rel} (local, git-ignored)\n")
     a("---\n")
     a("## 2. Customer Input\n")
-    if rec.get("frozen_input_v2"):
+    if rec.get("frozen_canonical"):
+        a("Runtime이 실제로 사용한 입력 (Canonical → Derived → 9-Block 렌더링 원문 — Stable E/D-ID 포함).\n")
+        a("```text")
+        a(rec.get("prompt", {}).get("customer_context", ""))
+        a("```\n")
+    elif rec.get("frozen_input_v2"):
         a("Runtime이 실제로 사용한 입력 (input_v2.md Evidence Pack 직렬화 원문 — Evidence ID·Calculated Facts 포함).\n")
         a("```text")
         a(rec.get("prompt", {}).get("customer_context", ""))
@@ -155,7 +163,72 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
     a("---\n")
     a("## 9. Final Output\n")
     eb = po.get("employee_brief", "")
-    if isinstance(eb, dict):
+    if isinstance(eb, dict) and "s3_direction" in eb and isinstance(eb.get("s3_direction"), dict) \
+            and "product_candidates" in (eb.get("s3_direction") or {}):
+        # v3 Decision & Action Brief — supply 참조를 record의 supply에서 복원해 렌더
+        sup = rec.get("supply") or {}
+        prods = {p.get("product_id"): p for p in sup.get("product_candidates") or []}
+        tips = {t.get("tip_id"): t for t in sup.get("hot_tips") or []}
+        scrs = {s.get("screen_id"): s for s in sup.get("screens") or []}
+        a("Employee Brief (Decision & Action Brief, v3 — 카드·원문·경로는 supply에서 복원):\n")
+        a("### S1 고객 상황\n")
+        a(str(eb.get("s1_customer_situation", "")) + "\n")
+        s2 = eb.get("s2_management_point") or {}
+        a("### S2 핵심 관리 포인트\n")
+        a(s2.get("point", "") + "\n")
+        if s2.get("check_before_consult"):
+            a("**상담 전 확인**")
+            for x in s2["check_before_consult"]:
+                a(f"- {x}")
+            a("")
+        if s2.get("check_with_customer"):
+            a("**고객과 확인**")
+            for x in s2["check_with_customer"]:
+                a(f"- {x}")
+            a("")
+        s3 = eb.get("s3_direction") or {}
+        a("### S3 제안 방향 및 추천 후보\n")
+        for d in s3.get("directions") or []:
+            cond = d.get("condition", "")
+            prefix = f"[{cond}] → " if cond else ""
+            a(f"- {prefix}{d.get('direction','')} · Solution: {d.get('solution_type','')} (Risk: {d.get('risk_level','')})")
+        for pc in s3.get("product_candidates") or []:
+            p = prods.get(pc.get("product_id"), {})
+            a("")
+            a(f"**추천 후보 — {p.get('name', pc.get('product_id'))}** ({pc.get('product_id')})")
+            if p:
+                a(f"- 유형/등급: {p.get('product_type','')} · {p.get('risk_grade','')}등급({p.get('risk_level_label','')})")
+                a(f"- 최근 수익률: {p.get('return_recent', 0):+.1%} ({p.get('return_period','')}, {p.get('return_as_of','')} 기준)")
+                a(f"- 특징: {p.get('features','')}")
+            a("- 추천 사유:")
+            for r in pc.get("reasons") or []:
+                a(f"  · {r}")
+        a("")
+        s4 = eb.get("s4_consult_script") or {}
+        a("### S4 상담 화법\n")
+        for x in s4.get("scripts") or []:
+            a(f"> {x}\n")
+        for csx in s4.get("conditional_scripts") or []:
+            a(f"- ({csx.get('if','')}) → \"{csx.get('script','')}\"")
+        a("")
+        s5 = eb.get("s5_tips_and_screens") or {}
+        a("### S5 TIP & GUIDE / 실행 화면\n")
+        for tref in s5.get("tips") or []:
+            t = tips.get(tref.get("tip_id"), {})
+            a(f"💡 [{t.get('kind','')}] 「{t.get('title','')}」 — \"{t.get('body','')}\"")
+            meta = " · ".join(x for x in [t.get("author"), t.get("written_at"),
+                                          (f"👍 {t['likes']}" if t.get("likes") is not None else None),
+                                          t.get("source")] if x)
+            if meta:
+                a(f"  ({meta})")
+            a(f"  ↳ 활용: {tref.get('why_relevant','')}\n")
+        for sref in s5.get("screens") or []:
+            s = scrs.get(sref.get("screen_id"), {})
+            loc = (f"🖥 {s.get('screen_no','')} {s.get('screen_name','')}" if s.get("surface") == "staff"
+                   else f"📱 {s.get('menu_path','')}")
+            a(f"{loc} — {sref.get('purpose_here','')}")
+        a("")
+    elif isinstance(eb, dict):
         a("Employee Brief (5-섹션, 모델 원문 그대로):\n")
         a("### S1 고객 상황\n")
         a(str(eb.get("s1_customer_situation", "")) + "\n")

@@ -738,8 +738,11 @@ def prepare(case_id: str) -> Tuple[CustomerInput, ConstraintContext, List[Knowle
 def run_case(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
     """Execute the case and return an observable run record (dict).
 
-    Dispatch: REV-002 path iff cases/<CASE>/input_v2.md exists, else REV-001.
+    Dispatch (frozen artifacts stay on their original path):
+      canonical.json → v3 (PRE-P2-REFINEMENT) / input_v2.md → REV-002 / else REV-001.
     """
+    if (REPO_ROOT / "cases" / case_id / "canonical.json").is_file():
+        return run_case_v3(case_id, dry_run=dry_run)
     if (REPO_ROOT / "cases" / case_id / "input_v2.md").is_file():
         return run_case_rev002(case_id, dry_run=dry_run)
     return run_case_rev001(case_id, dry_run=dry_run)
@@ -1460,4 +1463,329 @@ def run_case_rev002(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
         errs.append("product outside candidate pool proposed in S3")
     failed = any(record[k]["overall"] == "FAIL" for k in hard_fail_keys)
     record.update(status=(VALIDATION_ERROR if failed else SUCCESS), error="; ".join(errs))
+    return record
+
+
+# ===========================================================================
+# 10. v3 — Pre-P2 Architecture Refinement (Canonical 9-Block + Decision &
+#     Action Brief). Specs: design/CANONICAL_CONTRACTS.md,
+#     design/INTERPRETATION_DESIGN.md, design/EMPLOYEE_BRIEF_SPEC.md v2.
+#     Path taken iff cases/<CASE>/canonical.json exists (dispatch below).
+# ===========================================================================
+import canonical as _cx
+
+RUNTIME_REVISION_V3 = "PRE-P2-REFINEMENT"
+
+SYSTEM_ROLE_V3 = """당신은 은행 직원의 개인형IRP 사후관리 판단을 지원하는 의사결정 지원 Agent다. 최종 산출물은 직원이 그대로 사용할 수 있는 Decision & Action Brief다.
+
+[Evidence 읽기]
+1. 입력은 9-Block Customer Evidence Pack이다. ①~⑧은 시스템 관찰 Evidence, ⑨는 사람이 작성한 보조 맥락(CRM 메모)이다. 고객 상태의 재구성은 ①~⑧을 기본으로 하고, ⑨는 참고로만 결합한다.
+2. 현재 상태(②)와 최근 변화(③④)를 항상 함께 읽는다 — 상태는 결과이고 변화는 형성 과정이다. 변화가 상태를 설명하면 그 연결을 명시하고, 최근 변화가 없으면 "최근 관련 변화가 관찰되지 않음"까지만 서술한다.
+3. 잔액-Flow의 "금액 일치"는 산술 사실로 사용한다. 동일 자금으로 보는 것은 추론으로 표기하고, 그 자금의 목적은 확인 대상이다. 예정 Event(⑧)가 뒷받침할 때만 사실 수준으로 다룬다.
+4. 행동 신호(⑥)는 시간순 서사(무엇을 탐색해 왔고 실행에 도달했는가)로 상황 해석과 상담 접점에 쓴다. 단 Sequence가 아무리 강해도 산출 가능한 최대 해석은 "관심/탐색 관찰"이며, 고객 의사로 승격하지 않는다. 관리 필요성의 근거는 행동 신호가 아니라 시한·제도·자산 상태 등 다른 Evidence에 있어야 한다.
+5. CRM(⑨)은 그 시점의 기록이다. 작성 경과일과 이후의 시스템 Event·행동 신호를 시간순으로 함께 읽고, 이후 Evidence가 기록과 다른 방향을 시사하면 어느 쪽도 채택하지 않고 재확인을 결론으로 삼는다.
+6. 모든 해석은 Fact / Signal / Inference(추론 표기 의무) / Unknown 중 하나의 상태를 가지며, 그 상태는 Brief 산문까지 보존된다. 새 Evidence 없이 상태를 올리지 않는다: 고객·CRM 진술→시스템 확인 사실, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정·예상→실제 발생의 승격을 금지한다.
+
+[판단]
+7. Action보다 Management Judgment가 먼저다. 이 고객에게 지금 맞는 관리판단(개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가)을 Evidence로 먼저 확정한다. 어느 방향도 기본값이 아니며, "관리 필요"는 "변경 필요"와 같은 말이 아니다.
+8. Why-now는 반드시 실제 Event·변화·시한(③④⑧)에서 나와야 한다. 복수 이슈가 있으면 시한 임박도 → 고객 이익 영향 → 접점 자연스러움 순으로 주 포인트를 정하되, 나머지를 버리지 않고 부 포인트나 후속관리로 남긴다. 은행의 영업 목적을 관리 필요성의 근거로 만들지 않는다.
+9. 확인 사항은 Management Direction을 실제로 바꾸는 미확인 변수만 도출한다. 시스템/단말/공식자료로 닫을 수 있으면 '상담 전 확인', 고객만 답할 수 있으면 '고객과 확인'이다. 이미 Evidence에 있는 사실을 고객에게 다시 묻지 않는다.
+10. 조건 분기는 실제 판단을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 충분하면 단일 방향을 제시한다.
+11. 업무 판단은 제공된 Knowledge에 근거하고, Knowledge와 Evidence에 없는 업무 사실·제도 규칙·수치를 생성하지 않는다. 제공된 Constraint를 위반하는 방향을 만들지 않는다. 투자성향은 허용 가능한 최대 위험의 상한이다.
+
+[전달 — Brief]
+12. 관리 방향은 유지·신규자금 운용·만기 재운용·조정·운용체계 변경·세제 활용·연금수령 관리·중도인출 지원·계약이전/부분이전 지원·고객 의사결정 지원·불가 시 대안 안내를 모두 포함한다 — 상품 추천이 없는 상담도 정상적인 방향이다. 사고 순서는 관리 방향 → Solution 유형 → 실제 상품 후보다. 상품부터 고르지 않는다.
+13. 특정 상품은 제공된 Candidate Pool 안에서만 product_id로 참조한다. Pool 밖 상품명을 만들지 않는다. 판매 불가 상품·고객 성향을 초과하는 등급의 상품은 후보로 올리지 않는다. 추천 사유는 최근 수익률이 높다는 사실이 아니라 고객의 운용기간·자금 목적·투자성향·현재 포트폴리오·운용 경험·의사와 상품 특성의 적합성으로 작성한다. 수익률·연령 등은 이미 정해진 방향을 고객이 이해하기 쉽게 설명하는 재료로만 쓴다.
+14. 상담 화법은 지침이 아니라 완성된 문장이다 — 이 고객의 실제 금액·시점·자산구성·상품명·관리 방향이 문장 안에 들어간 Customer-specific Script를 만든다. Hot Tip 화법 Knowledge가 있으면 원문을 복사하지 말고 이 고객의 실제 데이터와 합성한다. 쉬운 용어를 쓰고("고유계정대" 대신 "운용 지시가 되지 않은 현금성 자산" 등), 단정·압박·과장하지 않는다.
+15. Tip/Guide 원문과 실행 화면은 제공된 목록에서 tip_id/screen_id로만 참조한다. 원문을 재작성하거나 없는 화면번호·경로를 만들지 않는다. 제안한 Action과 직접 연결된 것만 고른다.
+16. 내부 안전원칙("~로 단정할 수 없습니다", "Signal은 Intent가 아닙니다" 류의 방어문구)을 Brief에 노출하지 않는다. 원칙은 판단에서 지키고, Brief에는 그 결과를 자연스러운 문장으로 쓴다. Brief는 직원용이며 고객에게 직접 주는 문서가 아니다.
+17. 판단 근거로 사용한 Evidence ID(E/D)와 Knowledge ID를 밝힌다. supporting_evidence_ids에는 Evidence ID만, Knowledge ID는 supporting_knowledge_ids/knowledge_ids_used에만 쓴다."""
+
+OUTPUT_INSTRUCTION_V3 = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트·코드펜스를 붙이지 않는다. 모든 문자열은 한국어, 화살표는 "→"만 사용한다.
+
+{
+  "current_situation": "Evidence로 재구성한 현재 상황 — 상태와 최근 변화를 함께, Fact/추론 구분",
+  "known_facts_used": ["판단에 사용한 확인된 사실"],
+  "unknowns_or_confirmations": ["판단에 중요하지만 확인되지 않은 사항 (스스로 도출)"],
+  "management_judgment": {
+    "judgment": "개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가 중 하나 이상을 '/'로 구분",
+    "reasoning": "왜 그 판단인지 — Why-now(어떤 Event·변화·시한 때문에 지금인지) 포함",
+    "must_confirm_before_action": ["Direction을 바꾸는 미확인 변수만 (없으면 빈 배열)"],
+    "supporting_evidence_ids": ["근거 Evidence ID (E/D로 시작; K- 금지)"],
+    "supporting_knowledge_ids": ["근거 Knowledge ID (K-)"]
+  },
+  "next_actions": [
+    {"action": "다음 행동", "kind": "변경 / 유지 / 확인 / 정보안내 / 절차 / 연계 중 하나",
+     "condition": "전제 조건 (무조건이면 빈 문자열)",
+     "risk_level": "운용 방향이면 5단계 성향 중 하나, 아니면 '해당없음'",
+     "supporting_evidence_ids": ["근거 Evidence ID"]}
+  ],
+  "knowledge_ids_used": ["사용한 Knowledge ID"],
+  "employee_brief": {
+    "s1_customer_situation": "S1 — 현재 상태 + 최근 중요 변화가 함께 보이는 자연어 요약. 관리 판단에 중요한 실제 숫자·시점(금액·만기일·입금액 등)은 추상화하지 않고 그대로 쓴다. 미확인 사항을 단정하지 않는다. CRM 내용을 쓰면 기록임이 드러나게 쓴다.",
+    "s2_management_point": {
+      "point": "S2 — 이번 접점에서 무엇을 관리하는 것이 핵심인지 한두 문장. Why-now를 문장 안에 자연스럽게 녹인다 (별도 필드·방어문구 없이)",
+      "check_before_consult": ["상담 전 확인 — 시스템/단말/공식자료로 직원이 미리 확인할 것 (필요할 때만, 없으면 빈 배열)"],
+      "check_with_customer": ["고객과 확인 — 시스템으로 알 수 없는 Decision Variable만 (이미 아는 사실 재질문 금지, 없으면 빈 배열)"]
+    },
+    "s3_direction": {
+      "directions": [{"condition": "이 방향의 전제 (Evidence만으로 결정되면 빈 문자열)",
+                       "direction": "관리 방향 (유지·재운용·수령 관리·인출 지원·이전 지원·대안 안내 등 모두 정상)",
+                       "solution_type": "Solution 유형 (상품 유형/절차/안내 등; 상품이 불필요하면 그 자체를 쓴다)",
+                       "risk_level": "운용 방향이면 5단계 중 하나, 아니면 '해당없음'"}],
+      "product_candidates": [{"product_id": "Candidate Pool의 id만 (임의 상품명 금지; 상품 제안이 불필요하면 빈 배열)",
+                               "reasons": ["이 고객에게 이 상품을 후보로 보는 이유 — 운용기간·자금 목적·성향·포트폴리오·경험·의사와 상품 특성의 적합성으로"]}]
+    },
+    "s4_consult_script": {
+      "scripts": ["직원이 고객에게 그대로 쓸 완성형 화법 1개 이상 — 이 고객의 실제 금액·시점·구성·상품이 문장 안에 들어가야 한다"],
+      "conditional_scripts": [{"if": "고객 반응 (예: 원금손실 우려 시)", "script": "후속 화법"}]
+    },
+    "s5_tips_and_screens": {
+      "tips": [{"tip_id": "제공된 Hot Tip/Guide의 id만", "why_relevant": "이 Case에 왜 도움이 되는지 한 줄"}],
+      "screens": [{"screen_id": "제공된 화면의 id만 — S3 Action과 직접 연결된 것만", "purpose_here": "이 Case에서 이 화면을 쓰는 목적"}]
+    }
+  }
+}
+
+규칙: s3_direction.directions는 비우지 않는다 — 상품 권유가 부적절한 상담(중도인출·실행 불가·이탈 대응)도 해당 지원/안내가 곧 방향이다. product_candidates·tips·screens·conditional_scripts는 해당 재료가 없거나 불필요하면 빈 배열. conditional_scripts를 모든 경우에 만들 필요는 없다."""
+
+
+def build_prompt_v3(case, derived, knowledge: List[KnowledgeItem], constraint: ConstraintContext) -> Prompt:
+    knowledge_text = (
+        "각 Knowledge에는 Case Relevance(왜 지금 중요한가)와 Usage Boundary(단정하면 안 되는 것)가 있다. "
+        "세부(시한·조건·절차)를 실제로 사용하고 Boundary를 넘지 않는다.\n\n"
+        + "\n\n".join(k.as_text() for k in knowledge)
+    )
+    supply_text = _cx.render_supply(case)
+    if supply_text:
+        knowledge_text += "\n\n" + supply_text
+    return Prompt(
+        system_role=SYSTEM_ROLE_V3,
+        customer_context=_cx.render_blocks(case, derived),
+        constraint_context=constraint.as_text(),
+        knowledge_context=knowledge_text,
+        output_instruction=OUTPUT_INSTRUCTION_V3,
+        knowledge_ids=[k.kid for k in knowledge],
+    )
+
+
+def check_schema_v3(obj: Dict[str, Any]) -> List[str]:
+    errs: List[str] = []
+    for k in REQUIRED_TOP:
+        if k not in obj:
+            errs.append(f"missing key: {k}")
+    mj = obj.get("management_judgment")
+    if isinstance(mj, dict):
+        for k in ("judgment", "reasoning"):
+            if not str(mj.get(k, "")).strip():
+                errs.append(f"management_judgment.{k} is empty")
+        if isinstance(mj.get("judgment"), str) and not detect_judgment_types(obj):
+            errs.append("management_judgment.judgment names none of the judgment types")
+        for k in ("supporting_evidence_ids", "supporting_knowledge_ids", "must_confirm_before_action"):
+            if k in mj and not isinstance(mj[k], list):
+                errs.append(f"management_judgment.{k} must be a list")
+    elif mj is not None:
+        errs.append("management_judgment must be an object")
+    na = obj.get("next_actions")
+    if isinstance(na, list):
+        for i, c in enumerate(na):
+            if not isinstance(c, dict):
+                errs.append(f"next_actions[{i}] must be an object")
+                continue
+            for k in ("action", "kind", "risk_level"):
+                if not str(c.get(k, "")).strip():
+                    errs.append(f"next_actions[{i}].{k} is empty")
+    elif na is not None:
+        errs.append("next_actions must be a list")
+
+    eb = obj.get("employee_brief")
+    if not isinstance(eb, dict):
+        if eb is not None:
+            errs.append("employee_brief must be an object")
+        return errs
+    if not str(eb.get("s1_customer_situation", "")).strip():
+        errs.append("employee_brief.s1_customer_situation is empty")
+    s2 = eb.get("s2_management_point")
+    if not isinstance(s2, dict) or not str(s2.get("point", "")).strip():
+        errs.append("employee_brief.s2_management_point.point is empty")
+    else:
+        for k in ("check_before_consult", "check_with_customer"):
+            if k in s2 and not isinstance(s2[k], list):
+                errs.append(f"employee_brief.s2_management_point.{k} must be a list")
+    s3 = eb.get("s3_direction")
+    if not isinstance(s3, dict) or not isinstance(s3.get("directions"), list) or not s3.get("directions"):
+        errs.append("employee_brief.s3_direction.directions must be a non-empty list (no not_applicable in v3)")
+    else:
+        for i, d in enumerate(s3["directions"]):
+            if not isinstance(d, dict) or not str(d.get("direction", "")).strip():
+                errs.append(f"employee_brief.s3_direction.directions[{i}].direction is empty")
+        if not isinstance(s3.get("product_candidates", []), list):
+            errs.append("employee_brief.s3_direction.product_candidates must be a list")
+        else:
+            for i, p in enumerate(s3.get("product_candidates") or []):
+                if not isinstance(p, dict) or not str(p.get("product_id", "")).strip():
+                    errs.append(f"employee_brief.s3_direction.product_candidates[{i}].product_id missing")
+                elif not p.get("reasons"):
+                    errs.append(f"employee_brief.s3_direction.product_candidates[{i}].reasons is empty")
+    s4 = eb.get("s4_consult_script")
+    if not isinstance(s4, dict) or not isinstance(s4.get("scripts"), list) or \
+            not any(str(x).strip() for x in s4.get("scripts", [])):
+        errs.append("employee_brief.s4_consult_script.scripts must contain at least one script")
+    s5 = eb.get("s5_tips_and_screens")
+    if not isinstance(s5, dict):
+        errs.append("employee_brief.s5_tips_and_screens must be an object")
+    else:
+        for k, idf in (("tips", "tip_id"), ("screens", "screen_id")):
+            if not isinstance(s5.get(k, []), list):
+                errs.append(f"employee_brief.s5_tips_and_screens.{k} must be a list")
+            else:
+                for i, x in enumerate(s5.get(k) or []):
+                    if not isinstance(x, dict) or not str(x.get(idf, "")).strip():
+                        errs.append(f"employee_brief.s5_tips_and_screens.{k}[{i}].{idf} missing")
+    return errs
+
+
+def validate_supply_refs(case, obj: Dict[str, Any], constraint: ConstraintContext) -> Dict[str, Any]:
+    """Deterministic supply-reference checks (Contract §3).
+
+    FAIL: id outside supply / sellable=false product recommended / product
+    risk grade above the customer's eligibility (C2 via supply metadata).
+    """
+    ids = _cx.supply_ids(case)
+    grade_by_id = {p["product_id"]: p.get("risk_grade")
+                   for p in case.supply.get("product_candidates") or []}
+    min_grade = PROFILE_MIN_FUND_GRADE[constraint.investment_profile]
+    eb = obj.get("employee_brief") or {}
+    s3 = eb.get("s3_direction") or {} if isinstance(eb, dict) else {}
+    s5 = eb.get("s5_tips_and_screens") or {} if isinstance(eb, dict) else {}
+    findings, overall = [], "PASS"
+
+    def fail(**kw):
+        nonlocal overall
+        findings.append({**kw, "verdict": "FAIL"})
+        overall = "FAIL"
+
+    for p in s3.get("product_candidates") or []:
+        pid = p.get("product_id")
+        if pid not in ids["products"]:
+            fail(where="product_candidates", id=pid, issue="not in candidate pool")
+        else:
+            if pid in ids["unsellable_products"]:
+                fail(where="product_candidates", id=pid, issue="sellable=false product recommended")
+            g = grade_by_id.get(pid)
+            if isinstance(g, int) and g < min_grade:
+                fail(where="product_candidates", id=pid,
+                     issue=f"risk grade {g} exceeds profile eligibility (min allowed {min_grade})")
+    for t in s5.get("tips") or []:
+        if t.get("tip_id") not in ids["tips"]:
+            fail(where="tips", id=t.get("tip_id"), issue="tip not in supply")
+    for sc in s5.get("screens") or []:
+        if sc.get("screen_id") not in ids["screens"]:
+            fail(where="screens", id=sc.get("screen_id"), issue="screen not in supply")
+    return {"check": "supply_refs", "findings": findings, "overall": overall}
+
+
+class _CanonicalTextShim:
+    """Adapter so build_constraint_context can read 투자성향 from canonical evidence."""
+
+    def __init__(self, case):
+        self.case_id = case.case_id
+        self._text = "\n".join(it.text for it in case.evidence)
+
+    def as_text(self) -> str:
+        return self._text
+
+
+def run_case_v3(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
+    started = _dt.datetime.now(_dt.timezone.utc).astimezone().isoformat(timespec="seconds")
+    record: Dict[str, Any] = {
+        "case_id": case_id,
+        "runtime_revision": RUNTIME_REVISION_V3,
+        "started_at": started,
+        "model": MODEL_ID,
+        "endpoint": ENDPOINT,
+        "generation_config": None,
+        "git_head": _git_head(),
+        "status": None,
+        "error": "",
+    }
+    try:
+        case = _cx.load_canonical(case_id, root=REPO_ROOT)
+        derived = _cx.derive(case)
+        constraint = build_constraint_context(_CanonicalTextShim(case))
+        knowledge, kp_path, kp_sha = load_knowledge_items(case_id)
+        prompt = build_prompt_v3(case, derived, knowledge, constraint)
+    except Exception as e:
+        record.update(status=CONFIG_ERROR, error=f"{type(e).__name__}: {e}")
+        return record
+
+    record.update({
+        "frozen_canonical": {"file": str(Path(case.source_file).resolve().relative_to(REPO_ROOT)) if str(case.source_file).startswith(str(REPO_ROOT)) else case.source_file,
+                             "sha256": case.source_sha256},
+        "frozen_knowledge_pack": {"knowledge_pack": kp_path, "knowledge_pack_sha256": kp_sha},
+        "evidence_blocks": {f"{n}. {_cx.BLOCK_TITLES[n]}":
+                            [it.id for it in _cx.all_items(case, derived) if it.block == n]
+                            for n in range(1, 10)},
+        "derived_items": [{"id": it.id, "block": it.block, "type": it.evidence_type, "text": it.text}
+                          for it in derived],
+        "supply_summary": {k: sorted(v) for k, v in _cx.supply_ids(case).items()},
+        "supply": case.supply,  # cards/originals/paths restored at render time (Contract §3)
+        "constraint_context": {
+            "constraint_id": constraint.constraint_id,
+            "investment_profile": constraint.investment_profile,
+            "allowed_levels": constraint.allowed_levels,
+            "forbidden_levels": constraint.forbidden_levels,
+            "basis": constraint.basis,
+        },
+        "knowledge_ids_used": prompt.knowledge_ids,
+        "prompt": {
+            "system_role": prompt.system_role,
+            "customer_context": prompt.customer_context,
+            "constraint_context": prompt.constraint_context,
+            "knowledge_context": prompt.knowledge_context,
+            "output_instruction": prompt.output_instruction,
+        },
+        "prompt_chars": len(prompt.as_text()),
+    })
+    if dry_run:
+        record.update(status="DRY_RUN")
+        return record
+
+    resp = call_gemma(prompt.as_text())
+    record["model_response"] = {"status": resp.status, "http_status": resp.http_status,
+                                "finish_reason": resp.finish_reason, "usage": resp.usage, "error": resp.error}
+    record["raw_model_output"] = resp.text
+    if resp.status != SUCCESS:
+        record.update(status=resp.status, error=resp.error)
+        return record
+
+    obj, norms, perr = parse_model_json(resp.text)
+    record["json_normalizations"] = norms
+    if obj is None:
+        record.update(status=JSON_PARSE_ERROR, error=perr)
+        return record
+    record["parsed_output"] = obj
+
+    schema_errs = check_schema_v3(obj)
+    record["schema_errors"] = schema_errs
+    if schema_errs:
+        record.update(status=SCHEMA_ERROR, error="; ".join(schema_errs))
+        record["validation"] = validate_c1(obj, constraint)
+        return record
+
+    valid_eids = _cx.all_ids(case, derived)
+    record["validation"] = validate_c1(obj, constraint)
+    record["validation_c3"] = validate_c3_default_option(obj, constraint)
+    record["validation_c2"] = validate_c2_fund_grade(obj, constraint)
+    record["validation_forbidden_words"] = validate_forbidden_words(obj)
+    record["validation_latex"] = validate_latex_residue(obj)
+    record["validation_evidence_ids"] = validate_evidence_ids(obj, valid_eids)
+    record["validation_supply_refs"] = validate_supply_refs(case, obj, constraint)
+    record["judgment_types_detected"] = detect_judgment_types(obj)
+    record["employee_brief"] = obj.get("employee_brief", {})
+
+    hard = ("validation", "validation_c3", "validation_c2", "validation_forbidden_words",
+            "validation_evidence_ids", "validation_supply_refs")
+    errs = [f"{k}: FAIL" for k in hard if record[k]["overall"] == "FAIL"]
+    record.update(status=(VALIDATION_ERROR if errs else SUCCESS), error="; ".join(errs))
     return record
