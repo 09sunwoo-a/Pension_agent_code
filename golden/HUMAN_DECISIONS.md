@@ -13,6 +13,7 @@
 | HD-6 | 2026-09-01 | Architecture Revision #1 승인 — F-005 Action/Change Bias 재정의·교정, F-006 Knowledge Usage Context 전달, C2 validator; P0 RUN_002 Regression | 확정 |
 | HD-6.1 | 2026-08-31* | Employee Brief를 직원용 Target Output으로 승격 (Diagnostic → Recommendation Brief; REV-002 Step 3) | 확정 |
 | HD-7 | 2026-08-31* | Business 원칙 — 관리 필요성은 Customer Evidence에서만 출발 (REV-002 Step 3) | 확정 |
+| HD-8 | 2026-08-31* | REV-002 Step 6 — Regression 해석·Operational 보강 3건·REV-003 보류·P2 설계 착수·Answer Quality 축·한도 3필드 분리·REV-002 종료 조건 | 확정 |
 
 ---
 
@@ -100,3 +101,25 @@ HD-6에서 "Decision Meaning Preservation 확인용 Diagnostic Output"으로 규
 - 기존 D10(고객이익-영업압력 분리)·F-009(Marketing Trigger as Management Basis)와 정합 — 폐기가 아니라 명문화·정밀화다.
 - REV-002부터 TM Target·Campaign·Badge·LMS/SMS 등 Bank Signal은 Customer Reasoning Input에서 제거된다(Evidence Pack 8-섹션 — `design/EVIDENCE_PACK_SPEC.md`). 검증 축은 Evidence Provenance로 이동: Management Point는 실제 Customer Evidence(`supporting_evidence_ids`)로 추적 가능해야 하며, 근거 없는 관리 포인트는 REVIEW/FAIL.
 - 함께 확정된 Step 3 결정(Evidence Pack 8-섹션·Availability·Candidate Pool 원칙·화면값 3계층·Regression 8 Case)의 전체 기록은 `design/TARGET_CONCEPT.md` §6.
+
+## HD-8. REV-002 Step 6 결정 — Regression 해석·Operational 마무리·P2 방향 (2026-08-31)
+
+**Regression 해석**: REV-002는 성공한 Revision으로 확정한다. 유효 설계 효과로 기록: Decision Variable 14개 제거 후에도 Required Confirmation 자가 도출 / Snapshot+Timeline+Upcoming+Calculated 구조의 Fact 누락·시간맥락 개선 / DO 예상 기준일·실제 적용 분리로 확정 판단 감소 / REV-001 Judgment-first·Action Bias 방지 유지 / GC-04↔05 Pair 차이 유지 / 5-섹션 Brief·S4 화법·S5 구조 실출력 / Evidence Provenance 검증의 실제 오류 탐지. **핵심 잔여 병목은 `Structured Result → Employee Brief Semantic Preservation`으로 기록한다** — 구조화 판단에서는 불확실성·조건·출처가 유지되나 Brief 산문 변환에서 일부가 확정 Fact로 승격되는 문제 (단순 금지어 문제가 아님).
+
+**(a) Operational 보강 3건 — 전부 적용** (Semantic Revision 아님, Output Contract 보강):
+1. **Epistemic State 보존 (일반 원칙)**: Structured에서 미확인/추론/조건부/고객·CRM 진술/확인 필요 상태인 정보는 Brief에서도 동일 상태 유지. 금지 승격: 고객·CRM 진술→시스템 확인 Fact, 추론→확정, 조건 가능성→충족 확정, 확인 필요 수치→확정 판정, 예정/예상→실제 발생·적용 완료. CRM에 한정하지 않고 Digital Signal·Performance·Whole-Asset 등 모든 Evidence에 적용.
+2. **F-011 Provenance 슬롯**: supporting_evidence_ids = E-ID 전용; K-ID는 supporting_knowledge_ids/knowledge_ids_used 전용; 혼합 금지.
+3. **F-012 S5 출처**: 내부 K-ID를 직원용 출처로 노출 금지. 우선순위: 자료명 > SRC-ID > 화면번호+화면명 > 공식 가이드/부서명.
+- **선택 Regression**: GC-05·GC-11·GC-14만 재실행. 검증 목적 3가지 한정(불확실성 보존 / 슬롯 혼동 해소 / S5 출처 형식). 통과 시 REV-002 마무리 수정으로 확정.
+
+**(b) REV-003 보류**: F-006이 5/9→2/8 경미로 감소, 원인 혼재(Knowledge 부족 vs downstream 미활용) — 지금 구조 변경 시 귀속 불가. Candidate 유지. P2에서 조건/예외 반복 탈락·Pack 내 대안의 Solution 미전달·F-006/F-010 반복·동일 Knowledge 불안정 해석이 cross-case 재현되면 Human Gate 재상정.
+
+**(c) P2 Batch 3 설계 착수**: Case 작성·Freeze·RUN 전에 후보 설계안을 Human에 보고(각 후보: 목적·핵심 Evidence·의도된 충돌/유혹·Expected Judgment Boundary·Must Consider·Must Not Assume·Required Confirmation 예상·검증 Failure Pattern·기존 Case와의 비중복 사유). 우선 검증 영역: Whole-Asset 중심 / Digital Signal→Intent 승격 유혹 / CRM 과신 유혹 / Performance Comparison(단독 Trigger 금지 검증; Peer 제외 유지) / Multiple Upcoming Events·Conflicting Evidence 우선순위 / 이탈·부분대안(F-010 재검증).
+
+**Answer Quality — P2부터 Secondary Observation Axis 추가**: PASS/FAIL Gate 아님. 관찰축: Completeness / Prioritization / Solution Breadth / Explanation Quality / Actionability / Conversation Quality(S4) / Practical Utility(S5) / Conciseness·Signal-to-Noise. Observation으로만 수집, 반복 패턴 발견 시 별도 Failure Pattern 또는 Revision 후보로 상정.
+
+**(d) Availability 최종 갱신**: 당해년도 IRP 개인부담금 납입액·연금계좌 연 납입한도 잔여·연금계좌 세액공제 잔여한도 = **O 확정**. 단 세 값의 개념 분리 필수(별도 필드): `irp_personal_contribution_ytd`(해당 IRP 당해 개인부담금 실납입 — 퇴직급여 이전금 등과 합산 금지) / `pension_account_contribution_limit_remaining`(관계 법령상 합산 대상 연금계좌 기준 연간 납입 가능 잔여 — 단일 IRP 독립 한도로 해석 금지, ISA 전환 등 특례 존재 가능) / `pension_tax_credit_limit_remaining`(연금저축·퇴직연금 합산 세액공제 잔여 — 납입 가능 금액과 다른 개념). **추가 납입 가능 금액 ≠ 추가 세액공제 가능 금액; Agent가 한 값을 다른 값으로 추정 금지.** 세제 Rule은 Prompt 상수 금지 — Rule-derived 계산 시 rule_source·rule_as_of·적용 Rule ID 추적, Human 승인 공식 Source/Registry 근거만. 잔여 `?` = **개설 채널 1건** (Source 확인 전까지 유지, 임의 O 처리 금지).
+
+**R4 위험자산 한도**: Rule-derived 후보 유지하되 공식 rule_source 확보 전 deterministic Rule 비활성화. Hot Tip·설명자료만으로 확정 금지(HD-3). Source Traceability Gap 유지, 공식 근거 확보 시 별도 Human Decision 후 활성화.
+
+**REV-002 종료 조건**: ① Operational 3건 적용 ② GC-05/11/14 선택 Regression ③ 불확실성 보존 확인 ④ F-011 해소 확인 ⑤ F-012 해소 확인 ⑥ Availability Spec 갱신 ⑦ 결과·FAILURE_MAP 최종 기록 — 완료 시 종료. 선택 Regression에서 신규 Semantic Failure 미발견 시 종료 처리하며, 문구·형식 오류로 새 Revision 번호를 만들지 않는다.

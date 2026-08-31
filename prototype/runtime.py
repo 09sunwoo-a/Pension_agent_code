@@ -988,9 +988,20 @@ def build_calculated_facts(machine: Dict[str, Any]) -> List[Dict[str, Any]]:
             f"디폴트옵션 적용 예상 기준일: {expected.isoformat()} "
             f"({do_trig.get('type', '만기')} {do_trig['date']} + {weeks}주){status} "
             f"| rule_source=최초입금 2주 / 만기 4+2주 — 행내 기준 | rule_as_of={base}")
-    if machine.get("tax_credit_remaining") is not None:
+    # HD-8 6-2: 세 한도 개념 분리 — 서로 다른 값이며 상호 추정 금지.
+    # (irp_personal_contribution_ytd 는 raw Fact 이므로 input bullet 로 제공한다)
+    tax_credit = machine.get("pension_tax_credit_limit_remaining",
+                             machine.get("tax_credit_remaining"))
+    if tax_credit is not None:
         add("rule", "R",
-            f"세액공제 잔여한도: {int(machine['tax_credit_remaining']):,}원 "
+            f"연금계좌 세액공제 잔여한도(연금저축·퇴직연금 합산): {int(tax_credit):,}원 "
+            f"— 추가 납입 가능 금액과 다른 개념 "
+            f"| rule_source=시스템 산출값 수신(전처리 자체 계산 아님) | rule_as_of={base}")
+    if machine.get("pension_account_contribution_limit_remaining") is not None:
+        add("rule", "R",
+            f"연금계좌 연 납입한도 잔여(관계 법령상 합산 대상 연금계좌 기준): "
+            f"{int(machine['pension_account_contribution_limit_remaining']):,}원 "
+            f"— 이 IRP 하나의 독립 한도가 아니며, 세액공제 잔여한도와 다른 개념 "
             f"| rule_source=시스템 산출값 수신(전처리 자체 계산 아님) | rule_as_of={base}")
     return recs
 
@@ -1068,7 +1079,8 @@ SYSTEM_ROLE_V2 = """당신은 은행 직원의 개인형IRP 사후관리 판단�
 12. 행동 신호(조회·클릭 등)는 관심 가능성까지만 해석한다. 신호를 고객 의사로 승격하지 않는다.
 13. 수익률 비교(고객 보유수익률 vs 상품 자체 수익률 등)는 상황 이해와 상담 설명의 근거로 쓸 수 있으나, 수익률 비교 단독으로 교체·리밸런싱·위험 확대·특정 상품 가입의 필요성을 확정하지 않는다. 보유기간·자금성격·투자성향·고객 의사와 함께 해석한다.
 14. 관리 필요성은 고객의 Evidence에서 출발해야 한다. 은행의 영업 목적을 관리 필요성의 근거로 만들지 않는다.
-15. 조건 분기는 실제 Management Decision을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 방향이 충분히 결정되면 단일 추천 방향을 제시한다. 존재하는 분기를 누락하지도, 불필요한 분기를 만들어내지도 않는다."""
+15. 조건 분기는 실제 Management Decision을 바꾸는 미확인 변수가 있을 때만 만든다. Evidence만으로 방향이 충분히 결정되면 단일 추천 방향을 제시한다. 존재하는 분기를 누락하지도, 불필요한 분기를 만들어내지도 않는다.
+16. 구조화 판단에서 '미확인', '추론', '조건부', '고객 진술/CRM 기반', '확인 필요' 상태로 다룬 정보는 Employee Brief 산문에서도 같은 상태를 유지한다. 다음 승격을 금지한다: 고객·CRM 진술 → 시스템 확인 사실("무주택 기록" → "무주택자" 금지), 추론 → 확정 사실, 조건 충족 가능성 → 조건 충족 확정, 확인 필요 수치 → 확정 수치 판정("기준 초과 여부 확인 필요" → "초과" 금지), 예정·예상 → 실제 발생·적용 완료("적용 예상 시점 경과·적용 여부 미확인" → "적용 예정/미적용 상태" 금지). 이 원칙은 CRM에 한정되지 않고 행동 신호·수익률·계좌 밖 정보 등 모든 Evidence에 적용된다."""
 
 OUTPUT_INSTRUCTION_V2 = """다음 JSON 객체 하나만 출력한다. JSON 앞뒤에 다른 텍스트, 설명, 코드펜스를 붙이지 않는다. 모든 문자열 값은 한국어로 쓴다. 화살표가 필요하면 일반 문자 "→"만 쓴다(LaTeX 표기 금지). 키 순서대로 생각한다: 상황 → 사실/미확인 → 관리판단 → 다음 행동 → Employee Brief.
 
@@ -1080,7 +1092,8 @@ OUTPUT_INSTRUCTION_V2 = """다음 JSON 객체 하나만 출력한다. JSON 앞�
     "judgment": "다음 중 하나 이상을 '/'로 구분해 기재: 개입 필요 / 추가 확인 우선 / 현 상태 유지 가능 / 정보 안내 중심 / 고객 결정 지원 / 실행 불가",
     "reasoning": "왜 그 판단인지 — Evidence를 근거로",
     "must_confirm_before_action": ["Action 확정 전 먼저 확인할 것 (없으면 빈 배열)"],
-    "supporting_evidence_ids": ["이 판단의 근거 Evidence ID (예: E003)"]
+    "supporting_evidence_ids": ["이 판단의 근거 Evidence ID — E로 시작하는 Evidence ID만 기재한다 (예: E003). K-로 시작하는 Knowledge ID를 여기에 넣지 않는다"],
+    "supporting_knowledge_ids": ["이 판단의 근거 Knowledge ID만 기재 (예: K-001; 없으면 빈 배열)"]
   },
   "next_actions": [
     {
@@ -1107,11 +1120,14 @@ OUTPUT_INSTRUCTION_V2 = """다음 JSON 객체 하나만 출력한다. JSON 앞�
       "sequence": ["1) 상담 접근 순서를 번호 목록으로"],
       "scripts": ["직원이 고객에게 그대로 쓸 수 있는 설명 문구 1개 이상 (쉬운 용어, 단정·압박 금지)"]
     },
-    "s5_tips": [{"content": "관련 화면([번호] 화면명 용도), 업무 절차, 유의사항 등 실무 재료", "source": "출처 (Knowledge ID·자료명·화면 마스터 등; 제공된 재료에 없는 팁을 만들지 않는다)", "as_of": "시점 의존 수치인 경우 기준일, 아니면 빈 문자열"}]
+    "s5_tips": [{"content": "관련 화면([번호] 화면명 용도), 업무 절차, 유의사항 등 실무 재료", "source": "직원이 실제로 찾아갈 수 있는 출처 — 우선순위: 자료명 > SRC-ID > 화면번호+화면명 > 공식 가이드/부서명. K-로 시작하는 내부 Knowledge ID는 여기에 쓰지 않는다. 제공된 재료에 없는 팁을 만들지 않는다", "as_of": "시점 의존 수치인 경우 기준일, 아니면 빈 문자열"}]
   }
 }
 
-employee_brief 규칙: s3_direction은 상품 권유가 부적절한 상담(중도인출 지원, 실행 불가 안내, 이탈 대응 등)이면 directions를 빈 배열로 두고 not_applicable에 {"type": "...", "reason": "..."}를 기재한다. 그 외에는 not_applicable을 null로 둔다. s5_tips에 쓸 재료가 제공되지 않았으면 [{"content": "관련 행내 자료 없음 — 공식 화면/담당 부서 확인 필요", "source": "", "as_of": ""}]로 쓴다."""
+employee_brief 규칙:
+- s3_direction은 상품 권유가 부적절한 상담(중도인출 지원, 실행 불가 안내, 이탈 대응 등)이면 directions를 빈 배열로 두고 not_applicable에 {"type": "...", "reason": "..."}를 기재한다. 그 외에는 not_applicable을 null로 둔다.
+- s5_tips에 쓸 재료가 제공되지 않았으면 [{"content": "관련 행내 자료 없음 — 공식 화면/담당 부서 확인 필요", "source": "", "as_of": ""}]로 쓴다.
+- 불확실성 보존: 구조화 판단(unknowns, must_confirm, condition)에 있는 미확인·추론·조건부·고객 진술 기반 정보는 s1~s5 산문에서도 같은 상태로 쓴다. 확정 사실로 바꿔 쓰지 않는다(역할 원칙 16)."""
 
 
 def build_prompt_v2(pack: EvidencePack, constraint: ConstraintContext,
@@ -1156,6 +1172,8 @@ def check_schema_v2(obj: Dict[str, Any]) -> List[str]:
             errs.append("management_judgment.judgment names none of the judgment types")
         if not isinstance(mj.get("supporting_evidence_ids", []), list):
             errs.append("management_judgment.supporting_evidence_ids must be a list")
+        if not isinstance(mj.get("supporting_knowledge_ids", []), list):
+            errs.append("management_judgment.supporting_knowledge_ids must be a list")
     elif mj is not None:
         errs.append("management_judgment must be an object")
     na = obj.get("next_actions")
@@ -1288,6 +1306,24 @@ def validate_screen_survival(input_text: str, knowledge_text: str,
             "overall": "REVIEW" if missing else "PASS"}
 
 
+_KID_RE = re.compile(r"\bK-\d{3}\b")
+
+
+def validate_s5_sources(obj: Dict[str, Any]) -> Dict[str, Any]:
+    """REVIEW if an internal K-ID appears as a staff-facing S5 source (F-012,
+    HD-8 (a)-3 Output Contract). K-IDs live only in knowledge provenance
+    fields; S5 sources must be staff-traceable (자료명/SRC-ID/화면번호/부서)."""
+    eb = obj.get("employee_brief") or {}
+    findings = []
+    for i, t in enumerate(eb.get("s5_tips") or [] if isinstance(eb, dict) else []):
+        if isinstance(t, dict):
+            hits = _KID_RE.findall(str(t.get("source", "")))
+            if hits:
+                findings.append({"index": i, "kids": hits, "verdict": "REVIEW"})
+    return {"check": "s5_sources", "findings": findings,
+            "overall": "REVIEW" if findings else "PASS"}
+
+
 def validate_candidate_pool(machine: Dict[str, Any], obj: Dict[str, Any]) -> Dict[str, Any]:
     """FAIL if a product known NOT to be in the approved pool appears in S3.
 
@@ -1401,6 +1437,7 @@ def run_case_rev002(case_id: str, dry_run: bool = False) -> Dict[str, Any]:
     record["validation_evidence_ids"] = validate_evidence_ids(obj, pack.all_ids())
     record["validation_screen_survival"] = validate_screen_survival(
         prompt.customer_context, prompt.knowledge_context, obj)
+    record["validation_s5_sources"] = validate_s5_sources(obj)
     record["validation_candidate_pool"] = validate_candidate_pool(pack.machine, obj)
     record["judgment_types_detected"] = detect_judgment_types(obj)
     record["employee_brief"] = obj.get("employee_brief", {})

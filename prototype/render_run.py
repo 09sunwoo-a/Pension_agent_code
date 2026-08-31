@@ -142,6 +142,7 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
                        ("validation_latex", "LaTeX 잔재 (deterministic)"),
                        ("validation_evidence_ids", "Evidence ID Provenance (deterministic)"),
                        ("validation_screen_survival", "화면번호 생존 (deterministic)"),
+                       ("validation_s5_sources", "S5 출처 K-ID 금지 (deterministic)"),
                        ("validation_candidate_pool", "Candidate Pool (deterministic)")):
         v = rec.get(key)
         if v:
