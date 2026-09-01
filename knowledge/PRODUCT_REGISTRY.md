@@ -380,3 +380,153 @@ corpus 내 유일한 **sellable=false 명시 원천**. 원문 표 그대로(가�
 - 의미: 문서 시점 기준 **신규 판매 중단**(성과부진 사유) — 기존 보유 고객은 유지 중일 수 있으며, 판매 재개 가능성 언급 존재(L245). 위험등급·수익률은 이 원천에 없음.
 - Case 활용: sellable=false 상품 카드(미끼/보유상품 시나리오)의 실명 재료. 단 **As-of 불명이므로 "현재 판매중단"으로 단정 금지** — Case에서는 scenario 시점 명시(mock assumption provenance, HD-P2-GATE2 (4)) 또는 [04-12-17A] 조회 확인 경로와 함께 사용.
 - **Unconfirmed**: 각 펀드의 현재 판매 상태·위험등급·수익률 전부.
+
+### PRD-023. KB 코리아밸류업액티브
+
+| source | SRC-095 (국내주식) | authority | T2 | as_of | 2026-07-30 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "KB코리아밸류업액티브", "product_type": "주식형(국내)", "risk_grade": 2, "risk_level_label": "높은",
+  "return_recent": 1.0555, "return_period": "1Y", "return_as_of": "2026-07-30",
+  "features": "주주환원 및 기업가치 제고로 가치상승이 기대되는 국내주식에 투자", "sellable": null, "channels": [] }
+```
+- 보조: 1M -39.19% / 3M -15.44% / 표준편차 44.01 — **단기 변동성 매우 큼**. **Unconfirmed**: sellable·channels·보수.
+
+### PRD-024. 하나 파이팅 코리아
+
+| source | SRC-095 (국내주식) | authority | T2 | as_of | 2026-07-30 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "하나 파이팅 코리아", "product_type": "주식형(국내)", "risk_grade": 2, "risk_level_label": "높은",
+  "return_recent": 1.1025, "return_period": "1Y", "return_as_of": "2026-07-30",
+  "features": "국내주식을 주된 투자대상으로 하는 액티브 주식형 집합투자기구", "sellable": null, "channels": [] }
+```
+- 보조: 1M -32.40% / 3M -12.23% / 표준편차 38.64. **Unconfirmed**: sellable·channels·보수.
+
+### PRD-025. 유진 챔피언 단기채
+
+| source | SRC-094 (안정형·연금든든테마 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "유진 챔피언 단기채", "product_type": "채권형(단기채)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "잔존만기가 짧은 전단채 및 기업어음에 주로 투자하여 금리변동 리스크 관리",
+  "fee_note": "합성총보수 연0.3290%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels (원천에 보수·특징만 기재).
+
+### PRD-026. 하나 파워e단기채
+
+| source | SRC-094 (위험중립형 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "하나 파워e단기채", "product_type": "채권형(단기채)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "단기 회사채 및 기업어음에 주로 투자하여 시중금리 대비 초과수익을 추구",
+  "fee_note": "합성총보수 연0.1834%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-027. KB 글로벌 단기채(H)
+
+| source | SRC-094 (안정추구형·연금인컴테마 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "KB 글로벌 단기채(H)", "product_type": "채권형(해외·환헤지)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "전세계 달러표시 단기채권에 투자하여 안정적 수익추구",
+  "fee_note": "합성총보수 연0.6960%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-028. AB 글로벌고수익
+
+| source | SRC-094 (안정추구형·연금인컴테마 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "AB글로벌고수익", "product_type": "채권형(해외 하이일드)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "미국 및 이머징국가 기업발행 하이일드채권에 주로 투자하여 초과 수익 추구",
+  "fee_note": "합성총보수 연1.3670%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels. 하이일드 특성상 등급 확인 전 안정 지향 고객 연결 금지.
+
+### PRD-029. NH-Amundi 하나로단기채
+
+| source | SRC-094 (적극투자형 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "NH-Amundi 하나로단기채", "product_type": "채권형(단기채)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "단기 회사채 및 기업어음에 주로 투자하여 시중금리 대비 초과수익을 추구",
+  "fee_note": "합성총보수 연0.2939%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-030. 신한 누버거버먼 미국가치주(H)
+
+| source | SRC-094 (적극투자형 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "신한누버거버먼 미국가치주(H)", "product_type": "주식형(해외·환헤지)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "미국가치주 등에 주로 투자하는 누버거버먼 미국 라지캡밸류펀드에 투자하는 주식형펀드",
+  "fee_note": "합성총보수 연1.6100%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-031. 삼성 글로벌 배당성장주(H)
+
+| source | SRC-094 (공격투자형 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "삼성글로벌 배당성장주(H)", "product_type": "주식형(해외·환헤지)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "지속적으로 배당이 증가하는 선진국 중심의 배당성장주 및 밸류에이션 매력이 높은 고배당기업에 투자",
+  "fee_note": "합성총보수 연1.4213%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-032. 우리 단기채권
+
+| source | SRC-094 (연금든든테마 포트 편입) | authority | T2 | as_of | 2026-08 | status | ACTIVE | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+```json
+{ "name": "우리 단기채권", "product_type": "채권형(단기채)", "risk_grade": null, "risk_level_label": null,
+  "return_recent": null, "return_period": null, "return_as_of": null,
+  "features": "잔존만기 6개월 수준인 전단채 및 기업어음에 주로 투자하여 금리변동 리스크 관리",
+  "fee_note": "합성총보수 연0.3398%", "sellable": null, "channels": [] }
+```
+- **Unconfirmed**: 위험등급·수익률·sellable·channels.
+
+### PRD-033. 투자성향별·연금수령(예정) 월간 포트폴리오 (2026-08)
+
+| source | SRC-094 (전문) | authority | T2 | as_of | 2026-08 | status | ACTIVE (월간 갱신 자료 — 시점 경과 시 최신본 확인) | delivered_for | (B-3 전수 확장 Batch ⑤) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+- 성격: 행내 배포 월간 추천 **포트폴리오(상품 조합)** — 개별 상품이 아닌 조합 단위 자료. KB자산관리전략위원회 결과 + 블랙-리터만 모형 기반(원문 명시).
+- 구성(2026-08): ① 안정형 국내채권 100% (기대수익 2.4%/변동성 3.0%) ② 안정추구형 국내채권 80/해외채권 20 (2.4%/3.6%) ③ 위험중립형 국내 60/해외채권 15/해외혼합 25 (5.4%/4.9%) ④ 적극투자형 국내 30~35/해외채권 5~10/해외주식 60 (10.3%/9.7% — **원문 자체 비중 표기 불일치, 인용 금지**) ⑤ 공격투자형 국내 25/해외채권 5/해외주식 70 (11.7%/11.2%) / 연금든든테마(연금수령예정) 국내채권 100% / 연금인컴테마(연금수령) 국내 80/해외 20 (**표 합계 110% — 원문 오탈자 가능성, 인용 금지**).
+- 편입 상품 카드: PRD-005·007~010·012·025~032 참조 (비중은 본 포트폴리오 as-of 기준).
+
+**Limitation**:
+- 월간 제안 자료 — 특정 고객 적합성 판정 근거 아님(성향 라벨은 포트폴리오의 설계 타깃이며 권유 Eligibility는 SRC-096/C2가 규범). 기대수익률·변동성은 과거 데이터 통계 산출값 — 확정 수익 아님.
+- ④·연금인컴테마의 원문 표기 불일치 2건은 원문 그대로 보존 — 해당 수치 인용 금지(추출 노트 기록).
+
+### PRD-034. TDF 운용사×빈티지 위험자산 비중표 (2026-08)
+
+| source | SRC-094 (출생연도별 TDF 매핑·위험자산 비중 매트릭스) | authority | T2 | as_of | 2026-08 | status | PROVISIONAL (열 정렬 이미지 판독 — 원문 자체 ⟨판독불확실⟩ 표기) | delivered_for | (B-3 전수 확장 Batch ⑤ — OK-025 연계) | registered | 2026-09-01 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+
+- 성격: 16개 TDF 시리즈 × 빈티지(2020~2055)별 **위험자산 비중** 기준 자료 + 출생연도 매핑(출생년도+60 → 빈티지). 예: KB온국민 TDF2050 위험자산 74.5%, 한화 TDF2020 27.0% (2026-08 기준).
+- 용도: 고빈티지일수록 위험자산 비중이 높다는 구조 확인·C2/위험자산 판단 보조 — **개별 수치는 열 정렬 판독불확실로 확정 인용 금지**, 실제 비중은 원본 도표·상품 자료 확인.
+- "Glide Path 기준과 실제운용비율은 시황과 전략에 따라 다를 수 있음"(원문 각주).
