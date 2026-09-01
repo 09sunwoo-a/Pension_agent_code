@@ -11,6 +11,7 @@ Applied Change via CLI args. Output is written to stdout or --out.
 import argparse
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -290,6 +291,13 @@ def render(rec: dict, run_id: str, parent: str, applied: str, raw_rel: str) -> s
 
 
 def main():
+    # Windows cp949 콘솔/리다이렉트에서 한글 출력 깨짐 방지 (runtime 미의존 유지)
+    for _s in (sys.stdout, sys.stderr):
+        if _s is not None and (getattr(_s, "encoding", None) or "").lower().replace("-", "") != "utf8":
+            try:
+                _s.reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
     ap = argparse.ArgumentParser()
     ap.add_argument("record")
     ap.add_argument("--run-id", required=True)

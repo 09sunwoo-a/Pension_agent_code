@@ -22,6 +22,7 @@ OUT_DIR = Path(__file__).resolve().parent / "out"
 
 
 def main() -> int:
+    runtime.force_utf8_stdio()  # Windows cp949 콘솔에서 한글 출력 깨짐 방지
     ap = argparse.ArgumentParser(description="Run one Frozen Case against the Target Base LLM.")
     ap.add_argument("case_id", help="e.g. CASE_001")
     ap.add_argument("--dry-run", action="store_true", help="build the prompt only; do not call the API")
