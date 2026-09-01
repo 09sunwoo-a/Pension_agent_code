@@ -1,0 +1,1030 @@
+{
+  "case_id": "DEMO-C",
+  "pipeline": "DEMO_V0 (mock_pipeline 재사용)",
+  "started_at": "2026-09-01T04:40:34",
+  "model": "gemma-4-31b-it",
+  "git_head": "42872dedf495c47f9381edb1fe85b1bfef82b897",
+  "canonical_evidence": [
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 56세",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "age",
+        "years": 56
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "개인형IRP 가입일: 2020-06-15 (개인부담금 적립용)",
+      "as_of": null,
+      "data": {
+        "kind": "join_date",
+        "date": "2020-06-15"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 미포함 (IRP 계좌 기준)",
+      "as_of": null,
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E104",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "투자성향: 안정추구형 (분석일 2026-05-02, 유효) / 스타뱅킹 이용 중",
+      "as_of": "2026-05-02",
+      "data": {}
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 평가금액: 35,000,000원 (현금성자산 1,000,000원 포함)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "current_balance",
+        "cash": 1000000,
+        "total": 35000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "보유상품: KB 디폴트옵션 초저위험 지켜드림 24,000,000원 / 채권형 펀드 (위험등급 6등급) 10,000,000원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록 여부: 등록 (초저위험 지켜드림)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E204",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해년도 IRP 개인부담금 실납입액(irp_personal_contribution_ytd): 4,000,000원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "2026-08-02 기준 잔액 스냅샷: 현금성자산 1,000,000원 / 전체 평가금액 34,600,000원",
+      "as_of": "2026-08-02",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-02",
+        "cash": 1000000,
+        "total": 34600000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "최근 60일 IRP 입출금 거래: 정기 개인부담금 이체 외 없음",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E601",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-27 스타뱅킹 퇴직연금 정기예금 금리 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-27",
+      "data": {}
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당행 입출금계좌: 2026-08-18 입금 180,000,000원 — 적요 '퇴직급여((주)한성물산)'",
+      "as_of": "2026-08-18",
+      "data": {
+        "kind": "deposit",
+        "date": "2026-08-18",
+        "amount": 180000000,
+        "reason": "퇴직급여((주)한성물산) — 당행 입출금계좌 입금"
+      }
+    },
+    {
+      "id": "E702",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당행 입출금계좌 현재 잔액: 175,200,000원 (입금 이후 대규모 출금 없음 — 사용 계획 여부는 확인된 바 없음)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E703",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산(당행+연동): 260,000,000원 / 급여성 정기 입금: 2026-08-25 이후 관찰되지 않음 (재직·재취업 여부는 시스템 미확인, NULL)",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "derived_context": [
+    {
+      "id": "D001",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "입금 경과일: 2026-08-18 180,000,000원 (사유: 퇴직급여((주)한성물산) — 당행 입출금계좌 입금) → 기준일까지 14일 경과",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D002",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "최근 30일 전체 평가금액 증감: +400,000원 (34,600,000원 → 35,000,000원)",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D003",
+      "block": 1,
+      "evidence_type": "rule_derived",
+      "source_type": "rule_engine",
+      "text": "연금개시요건 충족 여부: 충족 (만 56세, 가입 6.2년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-01 | rule_id=PENSION-OPEN-01",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "constraint": {
+    "profile": "안정추구형",
+    "allowed": [
+      "안정형",
+      "안정추구형"
+    ],
+    "forbidden": [
+      "위험중립형",
+      "적극투자형",
+      "공격투자형"
+    ]
+  },
+  "knowledge_needs": [
+    {
+      "need_id": "KN-D01",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "rule_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "퇴직급여",
+        "과세이연",
+        "IRP이전",
+        "이전기한",
+        "퇴직급여를 일반 입출금계좌로 수령한 경우, IRP 계좌로 이전하여 과세이연을 적용받을 수 있는 법정 기한 및 절차"
+      ],
+      "need_text": "퇴직급여를 일반 입출금계좌로 수령한 경우, IRP 계좌로 이전하여 과세이연을 적용받을 수 있는 법정 기한 및 절차"
+    },
+    {
+      "need_id": "KN-D02",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "tax_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "연금개시",
+        "연금소득세",
+        "세제혜택",
+        "수령방식",
+        "연금개시 요건을 충족한 고객이 연금을 수령할 때 적용되는 연금소득세율 및 수령 방식별 세제 혜택"
+      ],
+      "need_text": "연금개시 요건을 충족한 고객이 연금을 수령할 때 적용되는 연금소득세율 및 수령 방식별 세제 혜택"
+    },
+    {
+      "need_id": "KN-D03",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "execution_path",
+      "authority_required": "T1/T2",
+      "topics": [
+        "스타뱅킹",
+        "상품변경",
+        "추가납입",
+        "실행경로",
+        "스타뱅킹 앱을 통한 퇴직연금 상품 변경 및 추가 납입을 위한 메뉴 진입 경로와 실행 절차"
+      ],
+      "need_text": "스타뱅킹 앱을 통한 퇴직연금 상품 변경 및 추가 납입을 위한 메뉴 진입 경로와 실행 절차"
+    }
+  ],
+  "knowledge_selection": {
+    "case_id": "DEMO-C",
+    "mode": "hybrid_knowledge",
+    "deterministic_candidates": [
+      "OK-014",
+      "OK-013"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "OK-014",
+        "OK-013"
+      ],
+      "removed": [],
+      "unmentioned_kept": [],
+      "reason": {},
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 578,
+        "candidatesTokenCount": 35,
+        "totalTokenCount": 1113,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 578
+          }
+        ],
+        "thoughtsTokenCount": 500,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "final_selected": [
+      {
+        "kid": "K-001",
+        "kind": "OK",
+        "registry_ref": "OK-014",
+        "need_ref": "KN-D01",
+        "matched": [
+          "과세이연"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-002",
+        "kind": "OK",
+        "registry_ref": "OK-013",
+        "need_ref": "KN-D02",
+        "matched": [
+          "연금개시 요건",
+          "수령방식"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-003",
+        "kind": "SYNTH_GAP",
+        "registry_ref": "GAP(KN-D03)",
+        "need_ref": "KN-D03",
+        "matched": [],
+        "flags": []
+      }
+    ],
+    "excluded": []
+  },
+  "management_decision": {
+    "customer_state_interpretation": "사실: 고객은 만 56세로 IRP 연금개시요건을 충족한 상태이며[E101, D003], 현재 IRP 계좌에는 평가금액 3,500만원(초저위험 디폴트옵션 및 6등급 채권형 펀드 보유)이 운용 중임[E201, E202]. 최근 2026-08-18 당행 입출금계좌로 퇴직급여 1.8억원이 입금되었으며 현재 약 1.75억원이 잔존함[D001, E701, E702]. 스타뱅킹을 통해 퇴직연금 정기예금 금리를 조회한 이력이 있음[E601]. 추론: 퇴직급여를 IRP가 아닌 일반 계좌로 수령한 상태이며, K-001에 따른 과세이연 처리 가능 기한(60일) 내에 있음(현재 약 14일 경과). 정기예금 금리 조회 행동은 퇴직금 운용에 대한 관심 가능성을 시사함.",
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "대규모 퇴직급여가 일반 입출금계좌로 입금되어[D001, E701], 이를 IRP로 이전하여 과세이연 및 퇴직소득세 환급을 받을 수 있는 법정 기한(60일) 내의 안내가 시급함[K-001]. 또한 이미 연금개시요건을 충족한 고객으로[D003], 퇴직금 입금 이후의 연금 수령 계획 확인이 필요함."
+    },
+    "required_confirmation": [
+      "입출금계좌 수령 퇴직급여의 IRP 이전 및 과세이연 처리 희망 여부",
+      "퇴직금 입금 이후의 연금 개시 희망 여부 및 수령 방식(기간/금액/자유인출) 선호도",
+      "이전 예정 자금에 대한 구체적인 운용 희망 방향(안정성 vs 수익성)"
+    ],
+    "management_direction": {
+      "directions": [
+        {
+          "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+          "direction": "K-001의 과세이연 처리 절차(정보 등록 → IRP 입금 → 환급 신청) 안내 및 실행 지원"
+        },
+        {
+          "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+          "direction": "K-002의 수령 방식 및 연금수령한도 안내를 통한 연금 설계 지원"
+        },
+        {
+          "condition": "이전 자산의 상품 교체 또는 신규 운용을 희망하는 경우",
+          "direction": "C1, C2, C3 제약 조건을 준수하여 안정형/안정추구형 범위 내의 상품 재료 검토"
+        }
+      ]
+    },
+    "product_need": {
+      "needed": true,
+      "solution_types": [
+        {
+          "solution_type": "퇴직금의 원금 보존 및 안정적 운용",
+          "characteristics": [
+            "정기예금",
+            "GIC",
+            "초저위험 디폴트옵션"
+          ],
+          "maturity": ""
+        },
+        {
+          "solution_type": "안정추구형 성향 내 추가 수익 추구",
+          "characteristics": [
+            "채권형 펀드(5등급/6등급)",
+            "저위험 디폴트옵션(알파드림)"
+          ],
+          "maturity": ""
+        }
+      ]
+    }
+  },
+  "product_selection": {
+    "case_id": "DEMO-C",
+    "mode": "hybrid_product",
+    "investment_profile": "안정추구형",
+    "deterministic_pool": [
+      "P01 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P02 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…",
+      "P03 무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+      "P04 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P05 무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+      "P06 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…",
+      "P07 무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "P01",
+        "P04",
+        "P06"
+      ],
+      "removed": [
+        "P02",
+        "P03",
+        "P05",
+        "P07"
+      ],
+      "unmentioned_kept": [],
+      "reason": {
+        "P02": "동일 유형(GIC) 및 동일 만기(3년)의 중복 후보",
+        "P03": "동일 유형(GIC) 및 동일 만기(3년)의 중복 후보",
+        "P05": "동일 유형(GIC) 및 동일 만기(3년)의 중복 후보",
+        "P07": "동일 유형(GIC) 및 동일 만기(3년)의 중복 후보"
+      },
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1041,
+        "candidatesTokenCount": 182,
+        "totalTokenCount": 2948,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1041
+          }
+        ],
+        "thoughtsTokenCount": 1725,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "none_reason": null,
+    "final_pool": [
+      "P01 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P04 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P06 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…"
+    ],
+    "det_excluded": [
+      {
+        "need": "PN-D01",
+        "prd": "PRD-019",
+        "name": "(개별 상품 미확보 — 유형 정보만)",
+        "reason": "실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보)"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-020",
+        "name": "Sh 수협은행 정기예금",
+        "reason": "수익률/기준일 미확보 — S3 카드 최소 필드 미달"
+      }
+    ]
+  },
+  "prompt_chars": {
+    "call1": 2753,
+    "call2": 7934,
+    "call3": 17930
+  },
+  "parsed_output": {
+    "current_situation": "만 56세의 연금개시요건 충족 고객으로[D003], 현재 IRP 계좌에 약 3,500만 원을 보유하고 있습니다[E201]. 최근 2026-08-18에 퇴직급여 180,000,000원이 IRP가 아닌 일반 입출금계좌로 입금되었으며[D001, E701], 현재 해당 계좌에 175,200,000원이 잔액으로 남아 있는 상태입니다[E702]. 2026-08-27에는 스타뱅킹에서 정기예금 금리를 조회한 이력이 관찰됩니다[E601].",
+    "known_facts_used": [
+      "만 56세 및 가입기간 6.2년으로 연금개시요건 충족",
+      "퇴직급여 1.8억 원의 일반 입출금계좌 수령 및 잔액 유지",
+      "IRP 평가금액 3,500만 원 및 디폴트옵션(초저위험) 등록 상태",
+      "투자성향 안정추구형"
+    ],
+    "unknowns_or_confirmations": [
+      "일반 계좌 수령 퇴직금의 IRP 이전 및 과세이연 처리 희망 여부",
+      "퇴직금 입금 이후의 연금 개시 희망 여부 및 선호 수령 방식",
+      "이전 예정 자금의 구체적인 운용 방향(원리금 보장 vs 추가 수익 추구)"
+    ],
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "퇴직급여 1.8억 원이 일반 계좌로 입금된 지 약 9일이 경과하였으며, 퇴직소득세 환급을 위한 과세이연 처리 법정 기한(60일) 내에 안내와 실행이 이루어져야 함[D001, E701, K-001]. 또한 연금 수령 자격을 갖춘 상태이므로[D003], 자금의 단순 운용뿐 아니라 인출 전략(연금 설계)에 대한 안내가 고객 이익에 직결되는 시점임.",
+      "must_confirm_before_action": [
+        "퇴직급여의 IRP 이전 및 과세이연 처리 희망 여부",
+        "연금 수령 희망 여부"
+      ],
+      "supporting_evidence_ids": [
+        "D001",
+        "D003",
+        "E701",
+        "E702"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001",
+        "K-002"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "퇴직금 IRP 이전 및 과세이연 처리 절차 안내 및 지원",
+        "kind": "절차",
+        "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "D001",
+          "E701"
+        ]
+      },
+      {
+        "action": "연금 수령 방식 안내 및 연금 설계 지원",
+        "kind": "정보안내",
+        "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "D003"
+        ]
+      },
+      {
+        "action": "안정추구형 범위 내 원리금보장상품 제안",
+        "kind": "변경",
+        "condition": "이전 자산의 신규 운용을 희망하는 경우",
+        "risk_level": "안정추구형",
+        "supporting_evidence_ids": [
+          "E104"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-002"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "고객님은 만 56세로 연금개시요건을 충족하신 상태이며, 기존 IRP에 3,500만 원을 운용 중입니다. 특히 지난 8월 18일, 퇴직급여 1억 8,000만 원이 IRP가 아닌 일반 입출금계좌로 입금되었으며, 현재 약 1억 7,520만 원이 그대로 남아 있습니다. 최근 앱을 통해 정기예금 금리를 조회하신 이력이 있어, 수령하신 퇴직금의 운용이나 절세 방안에 관심이 있으신 것으로 보입니다.",
+      "s2_management_point": {
+        "point": "일반 계좌로 수령한 퇴직금 1.8억 원을 60일 이내에 IRP로 이전하여 퇴직소득세를 환급받으실 수 있도록 안내하고, 연금 수령 자격 충족에 따른 최적의 인출 전략을 확인하는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 고객의 정확한 연금수령한도 및 예상 수령액 시뮬레이션 확인"
+        ],
+        "check_with_customer": [
+          "퇴직금의 IRP 이전 및 과세이연 처리 희망 여부",
+          "퇴직금 입금 이후의 연금 개시 희망 여부 및 선호 방식(기간/금액/자유인출)",
+          "이전 예정 자금의 운용 성향(원리금 보장 선호 여부)"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+            "direction": "과세이연 처리 지원",
+            "solution_type": "과세이연 처리 절차 안내 및 실행",
+            "risk_level": "해당없음"
+          },
+          {
+            "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+            "direction": "연금수령 관리",
+            "solution_type": "연금 수령 방식 및 한도 안내",
+            "risk_level": "해당없음"
+          },
+          {
+            "condition": "이전 자산의 운용을 희망하는 경우",
+            "direction": "신규자금 운용",
+            "solution_type": "원리금보장상품 제안",
+            "risk_level": "안정추구형"
+          }
+        ],
+        "product_candidates": [
+          {
+            "product_id": "P01",
+            "reasons": [
+              "고객의 안정추구형 성향에 부합하는 원리금보장상품이며, 3년의 운용기간과 예금자보호 혜택을 통해 퇴직금의 안정적 운용이 가능함"
+            ]
+          },
+          {
+            "product_id": "P04",
+            "reasons": [
+              "원리금보장상품으로서 안정성을 확보하면서, 5년의 상대적으로 긴 계약기간을 통해 안정적인 수익을 추구하는 고객에게 적합함"
+            ]
+          },
+          {
+            "product_id": "P06",
+            "reasons": [
+              "2년의 단기 운용을 희망할 경우 적합한 원리금보장상품으로, 안정추구형 성향의 고객이 부담 없이 선택 가능함"
+            ]
+          }
+        ]
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님 안녕하세요, 퇴직금 1억 8,000만 원이 일반 통장으로 입금되신 것을 보고 도움을 드리고자 연락드렸습니다. 혹시 퇴직금을 바로 사용하셔야 해서 일반 통장으로 받으신 걸까요?",
+          "만약 당장 사용하실 계획이 없으시다면, 퇴직금 지급일로부터 60일 이내에 IRP 계좌로 다시 입금하셔서 차감되었던 퇴직소득세를 환급받으실 수 있습니다. 8월 18일에 입금되셨으니 아직 기한이 남아 있어 지금 처리하시는 것이 유리합니다.",
+          "또한 고객님은 이미 연금 수령 요건을 충족하셨기 때문에, IRP로 이전하신 후 바로 연금으로 수령하시는 방법도 있습니다. 어떤 방식으로 수령하시는 것이 좋을지 함께 확인해 보시겠습니까?"
+        ],
+        "conditional_scripts": [
+          {
+            "if": "자금 운용을 희망하며 원금 손실을 우려하는 경우",
+            "script": "안정적인 운용을 원하신다면 고객님의 투자 성향에 맞춰 원리금이 보장되는 상품들을 추천해 드릴 수 있습니다. 예를 들어, 기간에 따라 2년에서 5년 정도 운용 가능한 보험사 이율보증형 상품들이 있어 안전하게 자산을 관리하실 수 있습니다."
+          },
+          {
+            "if": "연금 수령 방식에 대해 문의하는 경우",
+            "script": "연금은 매달 일정 금액을 받는 방식이나 정해진 기간 동안 나누어 받는 방식 등 다양하게 선택하실 수 있습니다. 고객님의 현재 자산 규모와 예상 수령 기간에 따라 세금이 달라질 수 있으니, 단말에서 예상 수령액을 먼저 시뮬레이션해 본 뒤 안내해 드리겠습니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [
+          {
+            "tip_id": "T01",
+            "why_relevant": "일반 계좌 수령 고객에게 상품 제안 전 자금 사용 계획을 먼저 확인하는 오프닝 화법이 필요함"
+          },
+          {
+            "tip_id": "T02",
+            "why_relevant": "단순 투자보다 인출 전략(세금 최적화)이 더 중요하다는 관점에서 접근하기 위함"
+          }
+        ],
+        "screens": [
+          {
+            "screen_id": "S01",
+            "purpose_here": "과세이연정보 신규 등록 요청"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "거래구분 '과세이연/계약이전입금'으로 IRP 재입금 처리"
+          },
+          {
+            "screen_id": "S03",
+            "purpose_here": "비대면 입금용 가상계좌번호 안내"
+          },
+          {
+            "screen_id": "S04",
+            "purpose_here": "과세이연계좌신고서 출력 및 환급 신청 지원"
+          },
+          {
+            "screen_id": "S05",
+            "purpose_here": "퇴직소득세 시뮬레이션 및 연금수령 예상액 조회"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "안정추구형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형"
+    ],
+    "forbidden_levels": [
+      "위험중립형",
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "퇴직금 IRP 이전 및 과세이연 처리 절차 안내 및 지원",
+        "kind": "절차",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "연금 수령 방식 안내 및 연금 설계 지원",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "안정추구형 범위 내 원리금보장상품 제안",
+        "kind": "변경",
+        "risk_level": "안정추구형",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "안정추구형",
+    "ineligible_portfolios": [
+      "뿔려드림",
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "안정추구형",
+    "allowed_min_grade": 5,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험",
+      "보통위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "status": "SUCCESS",
+  "error": "",
+  "llm_calls": [
+    {
+      "purpose": "CALL1_knowledge_need",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1573,
+        "candidatesTokenCount": 340,
+        "totalTokenCount": 2958,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1573
+          }
+        ],
+        "thoughtsTokenCount": 1045,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "knowledge_needs": [
+          {
+            "purpose": "rule_confirmation",
+            "topic": "퇴직급여를 일반 입출금계좌로 수령한 경우, IRP 계좌로 이전하여 과세이연을 적용받을 수 있는 법정 기한 및 절차",
+            "keywords": [
+              "퇴직급여",
+              "과세이연",
+              "IRP이전",
+              "이전기한"
+            ],
+            "supporting_evidence_ids": [
+              "D001",
+              "E701",
+              "E702"
+            ]
+          },
+          {
+            "purpose": "tax_confirmation",
+            "topic": "연금개시 요건을 충족한 고객이 연금을 수령할 때 적용되는 연금소득세율 및 수령 방식별 세제 혜택",
+            "keywords": [
+              "연금개시",
+              "연금소득세",
+              "세제혜택",
+              "수령방식"
+            ],
+            "supporting_evidence_ids": [
+              "D003",
+              "E101"
+            ]
+          },
+          {
+            "purpose": "execution_path",
+            "topic": "스타뱅킹 앱을 통한 퇴직연금 상품 변경 및 추가 납입을 위한 메뉴 진입 경로와 실행 절차",
+            "keywords": [
+              "스타뱅킹",
+              "상품변경",
+              "추가납입",
+              "실행경로"
+            ],
+            "supporting_evidence_ids": [
+              "E601"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "purpose": "CALL2_management_decision",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 4445,
+        "candidatesTokenCount": 904,
+        "totalTokenCount": 7269,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4445
+          }
+        ],
+        "thoughtsTokenCount": 1920,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "customer_state_interpretation": "사실: 고객은 만 56세로 IRP 연금개시요건을 충족한 상태이며[E101, D003], 현재 IRP 계좌에는 평가금액 3,500만원(초저위험 디폴트옵션 및 6등급 채권형 펀드 보유)이 운용 중임[E201, E202]. 최근 2026-08-18 당행 입출금계좌로 퇴직급여 1.8억원이 입금되었으며 현재 약 1.75억원이 잔존함[D001, E701, E702]. 스타뱅킹을 통해 퇴직연금 정기예금 금리를 조회한 이력이 있음[E601]. 추론: 퇴직급여를 IRP가 아닌 일반 계좌로 수령한 상태이며, K-001에 따른 과세이연 처리 가능 기한(60일) 내에 있음(현재 약 14일 경과). 정기예금 금리 조회 행동은 퇴직금 운용에 대한 관심 가능성을 시사함.",
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "대규모 퇴직급여가 일반 입출금계좌로 입금되어[D001, E701], 이를 IRP로 이전하여 과세이연 및 퇴직소득세 환급을 받을 수 있는 법정 기한(60일) 내의 안내가 시급함[K-001]. 또한 이미 연금개시요건을 충족한 고객으로[D003], 퇴직금 입금 이후의 연금 수령 계획 확인이 필요함."
+        },
+        "required_confirmation": [
+          "입출금계좌 수령 퇴직급여의 IRP 이전 및 과세이연 처리 희망 여부",
+          "퇴직금 입금 이후의 연금 개시 희망 여부 및 수령 방식(기간/금액/자유인출) 선호도",
+          "이전 예정 자금에 대한 구체적인 운용 희망 방향(안정성 vs 수익성)"
+        ],
+        "management_direction": {
+          "directions": [
+            {
+              "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+              "direction": "K-001의 과세이연 처리 절차(정보 등록 → IRP 입금 → 환급 신청) 안내 및 실행 지원"
+            },
+            {
+              "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+              "direction": "K-002의 수령 방식 및 연금수령한도 안내를 통한 연금 설계 지원"
+            },
+            {
+              "condition": "이전 자산의 상품 교체 또는 신규 운용을 희망하는 경우",
+              "direction": "C1, C2, C3 제약 조건을 준수하여 안정형/안정추구형 범위 내의 상품 재료 검토"
+            }
+          ]
+        },
+        "product_need": {
+          "needed": true,
+          "solution_types": [
+            {
+              "solution_type": "퇴직금의 원금 보존 및 안정적 운용",
+              "characteristics": [
+                "정기예금",
+                "GIC",
+                "초저위험 디폴트옵션"
+              ],
+              "maturity": ""
+            },
+            {
+              "solution_type": "안정추구형 성향 내 추가 수익 추구",
+              "characteristics": [
+                "채권형 펀드(5등급/6등급)",
+                "저위험 디폴트옵션(알파드림)"
+              ],
+              "maturity": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "purpose": "CALL3_final_brief",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 9655,
+        "candidatesTokenCount": 2631,
+        "totalTokenCount": 14002,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 9655
+          }
+        ],
+        "thoughtsTokenCount": 1716,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "current_situation": "만 56세의 연금개시요건 충족 고객으로[D003], 현재 IRP 계좌에 약 3,500만 원을 보유하고 있습니다[E201]. 최근 2026-08-18에 퇴직급여 180,000,000원이 IRP가 아닌 일반 입출금계좌로 입금되었으며[D001, E701], 현재 해당 계좌에 175,200,000원이 잔액으로 남아 있는 상태입니다[E702]. 2026-08-27에는 스타뱅킹에서 정기예금 금리를 조회한 이력이 관찰됩니다[E601].",
+        "known_facts_used": [
+          "만 56세 및 가입기간 6.2년으로 연금개시요건 충족",
+          "퇴직급여 1.8억 원의 일반 입출금계좌 수령 및 잔액 유지",
+          "IRP 평가금액 3,500만 원 및 디폴트옵션(초저위험) 등록 상태",
+          "투자성향 안정추구형"
+        ],
+        "unknowns_or_confirmations": [
+          "일반 계좌 수령 퇴직금의 IRP 이전 및 과세이연 처리 희망 여부",
+          "퇴직금 입금 이후의 연금 개시 희망 여부 및 선호 수령 방식",
+          "이전 예정 자금의 구체적인 운용 방향(원리금 보장 vs 추가 수익 추구)"
+        ],
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "퇴직급여 1.8억 원이 일반 계좌로 입금된 지 약 9일이 경과하였으며, 퇴직소득세 환급을 위한 과세이연 처리 법정 기한(60일) 내에 안내와 실행이 이루어져야 함[D001, E701, K-001]. 또한 연금 수령 자격을 갖춘 상태이므로[D003], 자금의 단순 운용뿐 아니라 인출 전략(연금 설계)에 대한 안내가 고객 이익에 직결되는 시점임.",
+          "must_confirm_before_action": [
+            "퇴직급여의 IRP 이전 및 과세이연 처리 희망 여부",
+            "연금 수령 희망 여부"
+          ],
+          "supporting_evidence_ids": [
+            "D001",
+            "D003",
+            "E701",
+            "E702"
+          ],
+          "supporting_knowledge_ids": [
+            "K-001",
+            "K-002"
+          ]
+        },
+        "next_actions": [
+          {
+            "action": "퇴직금 IRP 이전 및 과세이연 처리 절차 안내 및 지원",
+            "kind": "절차",
+            "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "D001",
+              "E701"
+            ]
+          },
+          {
+            "action": "연금 수령 방식 안내 및 연금 설계 지원",
+            "kind": "정보안내",
+            "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "D003"
+            ]
+          },
+          {
+            "action": "안정추구형 범위 내 원리금보장상품 제안",
+            "kind": "변경",
+            "condition": "이전 자산의 신규 운용을 희망하는 경우",
+            "risk_level": "안정추구형",
+            "supporting_evidence_ids": [
+              "E104"
+            ]
+          }
+        ],
+        "knowledge_ids_used": [
+          "K-001",
+          "K-002"
+        ],
+        "employee_brief": {
+          "s1_customer_situation": "고객님은 만 56세로 연금개시요건을 충족하신 상태이며, 기존 IRP에 3,500만 원을 운용 중입니다. 특히 지난 8월 18일, 퇴직급여 1억 8,000만 원이 IRP가 아닌 일반 입출금계좌로 입금되었으며, 현재 약 1억 7,520만 원이 그대로 남아 있습니다. 최근 앱을 통해 정기예금 금리를 조회하신 이력이 있어, 수령하신 퇴직금의 운용이나 절세 방안에 관심이 있으신 것으로 보입니다.",
+          "s2_management_point": {
+            "point": "일반 계좌로 수령한 퇴직금 1.8억 원을 60일 이내에 IRP로 이전하여 퇴직소득세를 환급받으실 수 있도록 안내하고, 연금 수령 자격 충족에 따른 최적의 인출 전략을 확인하는 것이 핵심입니다.",
+            "check_before_consult": [
+              "단말에서 고객의 정확한 연금수령한도 및 예상 수령액 시뮬레이션 확인"
+            ],
+            "check_with_customer": [
+              "퇴직금의 IRP 이전 및 과세이연 처리 희망 여부",
+              "퇴직금 입금 이후의 연금 개시 희망 여부 및 선호 방식(기간/금액/자유인출)",
+              "이전 예정 자금의 운용 성향(원리금 보장 선호 여부)"
+            ]
+          },
+          "s3_direction": {
+            "directions": [
+              {
+                "condition": "퇴직급여의 IRP 이전 및 과세이연을 희망하는 경우",
+                "direction": "과세이연 처리 지원",
+                "solution_type": "과세이연 처리 절차 안내 및 실행",
+                "risk_level": "해당없음"
+              },
+              {
+                "condition": "IRP 이전 후 연금 수령을 희망하는 경우",
+                "direction": "연금수령 관리",
+                "solution_type": "연금 수령 방식 및 한도 안내",
+                "risk_level": "해당없음"
+              },
+              {
+                "condition": "이전 자산의 운용을 희망하는 경우",
+                "direction": "신규자금 운용",
+                "solution_type": "원리금보장상품 제안",
+                "risk_level": "안정추구형"
+              }
+            ],
+            "product_candidates": [
+              {
+                "product_id": "P01",
+                "reasons": [
+                  "고객의 안정추구형 성향에 부합하는 원리금보장상품이며, 3년의 운용기간과 예금자보호 혜택을 통해 퇴직금의 안정적 운용이 가능함"
+                ]
+              },
+              {
+                "product_id": "P04",
+                "reasons": [
+                  "원리금보장상품으로서 안정성을 확보하면서, 5년의 상대적으로 긴 계약기간을 통해 안정적인 수익을 추구하는 고객에게 적합함"
+                ]
+              },
+              {
+                "product_id": "P06",
+                "reasons": [
+                  "2년의 단기 운용을 희망할 경우 적합한 원리금보장상품으로, 안정추구형 성향의 고객이 부담 없이 선택 가능함"
+                ]
+              }
+            ]
+          },
+          "s4_consult_script": {
+            "scripts": [
+              "고객님 안녕하세요, 퇴직금 1억 8,000만 원이 일반 통장으로 입금되신 것을 보고 도움을 드리고자 연락드렸습니다. 혹시 퇴직금을 바로 사용하셔야 해서 일반 통장으로 받으신 걸까요?",
+              "만약 당장 사용하실 계획이 없으시다면, 퇴직금 지급일로부터 60일 이내에 IRP 계좌로 다시 입금하셔서 차감되었던 퇴직소득세를 환급받으실 수 있습니다. 8월 18일에 입금되셨으니 아직 기한이 남아 있어 지금 처리하시는 것이 유리합니다.",
+              "또한 고객님은 이미 연금 수령 요건을 충족하셨기 때문에, IRP로 이전하신 후 바로 연금으로 수령하시는 방법도 있습니다. 어떤 방식으로 수령하시는 것이 좋을지 함께 확인해 보시겠습니까?"
+            ],
+            "conditional_scripts": [
+              {
+                "if": "자금 운용을 희망하며 원금 손실을 우려하는 경우",
+                "script": "안정적인 운용을 원하신다면 고객님의 투자 성향에 맞춰 원리금이 보장되는 상품들을 추천해 드릴 수 있습니다. 예를 들어, 기간에 따라 2년에서 5년 정도 운용 가능한 보험사 이율보증형 상품들이 있어 안전하게 자산을 관리하실 수 있습니다."
+              },
+              {
+                "if": "연금 수령 방식에 대해 문의하는 경우",
+                "script": "연금은 매달 일정 금액을 받는 방식이나 정해진 기간 동안 나누어 받는 방식 등 다양하게 선택하실 수 있습니다. 고객님의 현재 자산 규모와 예상 수령 기간에 따라 세금이 달라질 수 있으니, 단말에서 예상 수령액을 먼저 시뮬레이션해 본 뒤 안내해 드리겠습니다."
+              }
+            ]
+          },
+          "s5_tips_and_screens": {
+            "tips": [
+              {
+                "tip_id": "T01",
+                "why_relevant": "일반 계좌 수령 고객에게 상품 제안 전 자금 사용 계획을 먼저 확인하는 오프닝 화법이 필요함"
+              },
+              {
+                "tip_id": "T02",
+                "why_relevant": "단순 투자보다 인출 전략(세금 최적화)이 더 중요하다는 관점에서 접근하기 위함"
+              }
+            ],
+            "screens": [
+              {
+                "screen_id": "S01",
+                "purpose_here": "과세이연정보 신규 등록 요청"
+              },
+              {
+                "screen_id": "S02",
+                "purpose_here": "거래구분 '과세이연/계약이전입금'으로 IRP 재입금 처리"
+              },
+              {
+                "screen_id": "S03",
+                "purpose_here": "비대면 입금용 가상계좌번호 안내"
+              },
+              {
+                "screen_id": "S04",
+                "purpose_here": "과세이연계좌신고서 출력 및 환급 신청 지원"
+              },
+              {
+                "screen_id": "S05",
+                "purpose_here": "퇴직소득세 시뮬레이션 및 연금수령 예상액 조회"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "llm_call_count": {
+    "decision_level": 3,
+    "selection_prune": 2,
+    "total": 5
+  }
+}

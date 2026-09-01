@@ -1,0 +1,1013 @@
+{
+  "case_id": "DEMO-E",
+  "pipeline": "DEMO_V0 (mock_pipeline 재사용)",
+  "started_at": "2026-09-01T04:52:22",
+  "model": "gemma-4-31b-it",
+  "git_head": "42872dedf495c47f9381edb1fe85b1bfef82b897",
+  "canonical_evidence": [
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 47세",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "age",
+        "years": 47
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "개인형IRP 가입일: 2020-03-05 (개인부담금 적립용 — 세액공제 목적 납입 이력)",
+      "as_of": null,
+      "data": {
+        "kind": "join_date",
+        "date": "2020-03-05"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 미포함",
+      "as_of": null,
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E104",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "투자성향: 위험중립형 (분석일 2026-07-01, 유효) / 재직 중 (당행 급여이체 계속 관찰) / 스타뱅킹 이용 중",
+      "as_of": "2026-07-01",
+      "data": {}
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 평가금액: 80,000,000원 (현금성자산 10,000,000원 포함)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "current_balance",
+        "cash": 10000000,
+        "total": 80000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "보유상품: 채권형 펀드 (위험등급 5등급) 50,000,000원 / 시중은행 정기예금 (1년제) 20,000,000원 (만기 2027-02-10)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "maturity",
+        "date": "2027-02-10",
+        "amount": 20000000,
+        "product": "시중은행 정기예금 (1년제)"
+      }
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록 여부: 등록 (초저위험 지켜드림)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E204",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해년도 IRP 개인부담금 실납입액(irp_personal_contribution_ytd): 4,000,000원 / 최근 5년 연 6,000,000~7,000,000원 납입 이력",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E205",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "세액공제 미신청금액 등록 내역: 0건 (실제 미신청분 존재 여부는 별도 확인 필요)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "2026-08-02 기준 잔액 스냅샷: 현금성자산 10,000,000원 / 전체 평가금액 79,700,000원",
+      "as_of": "2026-08-02",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-02",
+        "cash": 10000000,
+        "total": 79700000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "최근 90일 IRP 입출금 거래: 정기 개인부담금 이체 외 없음",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E601",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-30 스타뱅킹 IRP 평가금액 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-30",
+      "data": {}
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 150,000,000원 / 주택 보유 여부: 당사 확인 불가 (NULL)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 2026-08-28 (콜센터 상담메모): \"IRP 해지 절차 문의 접수. 내년 초 전세 이사 예정이라 자금이 필요할 것 같다고 함.\" — 직원 작성, 발화 원문 보장 없음. 필요 금액·해지 확정 여부 기록 없음",
+      "as_of": "2026-08-28",
+      "data": {}
+    }
+  ],
+  "derived_context": [
+    {
+      "id": "D001",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "최근 30일 전체 평가금액 증감: +300,000원 (79,700,000원 → 80,000,000원)",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D002",
+      "block": 8,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "만기 시한: 시중은행 정기예금 (1년제) 20,000,000원 만기 2027-02-10 → D-162",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D003",
+      "block": 1,
+      "evidence_type": "rule_derived",
+      "source_type": "rule_engine",
+      "text": "연금개시요건 충족 여부: 미충족 (만 47세, 가입 6.5년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-01 | rule_id=PENSION-OPEN-01",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "constraint": {
+    "profile": "위험중립형",
+    "allowed": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden": [
+      "적극투자형",
+      "공격투자형"
+    ]
+  },
+  "knowledge_needs": [
+    {
+      "need_id": "KN-D01",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "procedure_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "IRP",
+        "중도인출",
+        "부분해지",
+        "인출사유",
+        "IRP 중도인출 가능 법정 사유 및 부분 해지 가능 여부 및 절차 확인"
+      ],
+      "need_text": "IRP 중도인출 가능 법정 사유 및 부분 해지 가능 여부 및 절차 확인"
+    },
+    {
+      "need_id": "KN-D02",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "tax_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "IRP",
+        "기타소득세",
+        "세액공제",
+        "해지과세",
+        "세액공제 납입금 및 운용수익 해지 시 기타소득세 적용 세율 및 과세 체계 확인"
+      ],
+      "need_text": "세액공제 납입금 및 운용수익 해지 시 기타소득세 적용 세율 및 과세 체계 확인"
+    },
+    {
+      "need_id": "KN-D03",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "rule_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "IRP",
+        "정기예금",
+        "만기처리",
+        "자산전환",
+        "IRP 내 정기예금 만기 시 처리 절차 및 자동 재예치/현금성자산 전환 규칙 확인"
+      ],
+      "need_text": "IRP 내 정기예금 만기 시 처리 절차 및 자동 재예치/현금성자산 전환 규칙 확인"
+    }
+  ],
+  "knowledge_selection": {
+    "case_id": "DEMO-E",
+    "mode": "hybrid_knowledge",
+    "deterministic_candidates": [
+      "OK-015",
+      "OK-008",
+      "OK-004"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "OK-015",
+        "OK-008",
+        "OK-004"
+      ],
+      "removed": [],
+      "unmentioned_kept": [],
+      "reason": {},
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 619,
+        "candidatesTokenCount": 42,
+        "totalTokenCount": 1490,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 619
+          }
+        ],
+        "thoughtsTokenCount": 829,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "final_selected": [
+      {
+        "kid": "K-001",
+        "kind": "OK",
+        "registry_ref": "OK-015",
+        "need_ref": "KN-D01",
+        "matched": [
+          "중도인출",
+          "법정 사유"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-002",
+        "kind": "OK",
+        "registry_ref": "OK-008",
+        "need_ref": "KN-D02",
+        "matched": [
+          "세액공제"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-003",
+        "kind": "OK",
+        "registry_ref": "OK-004",
+        "need_ref": "KN-D03",
+        "matched": [
+          "정기예금 만기",
+          "현금성자산"
+        ],
+        "flags": []
+      }
+    ],
+    "excluded": []
+  },
+  "management_decision": {
+    "customer_state_interpretation": "사실: 만 47세 고객으로 개인부담금 적립용 IRP(평가액 8,000만원)를 보유 중이며, 이 중 현금성자산 1,000만원과 2027-02-10 만기 예정인 정기예금 2,000만원, 채권형 펀드 5,000만원을 운용하고 있음 [E101, E201, E202, D002]. 최근 CRM 메모를 통해 내년 초 전세 이사 자금 마련을 위한 해지 절차 문의 이력이 확인됨 [E901]. 추론: 고객은 전세금 마련이라는 특정 목적을 위해 IRP 자산의 유동화(해지 또는 인출)를 검토 중인 것으로 보임.",
+    "management_judgment": {
+      "judgment": "추가 확인 우선 / 고객 결정 지원",
+      "reasoning": "CRM 메모[E901]를 통해 해지 문의가 있었으나, 이는 직원의 기록일 뿐 확정된 고객 의사가 아니며 구체적인 필요 금액이나 해지 여부가 명시되지 않음. 또한 IRP는 원칙적으로 중도인출이 불가하며 법정 사유(무주택자 전세금 등) 충족 시에만 제한적으로 가능하므로[K-001], 실제 인출 가능 여부와 세제 영향[K-002]에 대한 확인 및 안내가 선행되어야 함."
+    },
+    "required_confirmation": [
+      "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부 [K-001]",
+      "전체 해지 희망 여부 또는 특정 필요 금액에 따른 부분 인출 희망 여부 [K-001]",
+      "내년 초 자금 필요 시점과 정기예금 만기일(2027-02-10)의 일치 여부 [D002]"
+    ],
+    "management_direction": {
+      "directions": [
+        {
+          "condition": "법정 중도인출 사유 충족 및 부분 인출 희망 시",
+          "direction": "중도인출 가능 한도(최대 90%), 신청 시기, 구비서류 및 창구 접수 절차 안내 [K-001]"
+        },
+        {
+          "condition": "전체 해지 결정 시",
+          "direction": "세액공제 받은 납입금 및 운용수익에 대한 기타소득세(16.5%) 과세 체계 안내 [K-002]"
+        },
+        {
+          "condition": "계좌 유지 및 운용 방향 전환 시",
+          "direction": "보유 중인 현금성자산(1,000만원) 및 만기 예정 예금(2,000만원)의 재운용 방안 검토 [K-003]"
+        }
+      ]
+    },
+    "product_need": {
+      "needed": true,
+      "solution_types": [
+        {
+          "solution_type": "현금성자산 및 만기자금 재운용",
+          "characteristics": [
+            "채권형",
+            "TDF",
+            "정기예금",
+            "GIC"
+          ],
+          "maturity": ""
+        }
+      ]
+    }
+  },
+  "product_selection": {
+    "case_id": "DEMO-E",
+    "mode": "hybrid_product",
+    "investment_profile": "위험중립형",
+    "deterministic_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P02 신한 마음편한 TDF 시리즈",
+      "P03 한화 LIFEPLUS TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P09 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…",
+      "P10 무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+      "P11 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P12 무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+      "P13 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…",
+      "P14 무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P11",
+        "P13"
+      ],
+      "removed": [
+        "P01",
+        "P02",
+        "P03",
+        "P09",
+        "P10",
+        "P12",
+        "P14"
+      ],
+      "unmentioned_kept": [],
+      "reason": {
+        "P01": "TDF 유형 내 권유 가능 상품(P04)이 존재하며, 위험등급 및 상품 특성상 차별점이 없는 중복 후보임",
+        "P02": "TDF 유형 내 권유 가능 상품(P04)이 존재하며, 위험등급 및 상품 특성상 차별점이 없는 중복 후보임",
+        "P03": "TDF 유형 내 권유 가능 상품(P04)이 존재하며, 위험등급 및 상품 특성상 차별점이 없는 중복 후보임",
+        "P09": "GIC 유형 내 동일 만기 구조(3년)를 가진 단순 중복 후보임",
+        "P10": "GIC 유형 내 동일 만기 구조(3년)를 가진 단순 중복 후보임",
+        "P12": "GIC 유형 내 동일 만기 구조(3년)를 가진 단순 중복 후보임",
+        "P14": "GIC 유형 내 동일 만기 구조(3년)를 가진 단순 중복 후보임"
+      },
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1344,
+        "candidatesTokenCount": 340,
+        "totalTokenCount": 3302,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1344
+          }
+        ],
+        "thoughtsTokenCount": 1618,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "none_reason": null,
+    "final_pool": [
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P11 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P13 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…"
+    ],
+    "det_excluded": [
+      {
+        "need": "PN-D01",
+        "prd": "PRD-008",
+        "name": "한화 내일받는 단기국공채",
+        "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-009",
+        "name": "KB 스타 단기국공채",
+        "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-019",
+        "name": "(개별 상품 미확보 — 유형 정보만)",
+        "reason": "실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보)"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-020",
+        "name": "Sh 수협은행 정기예금",
+        "reason": "수익률/기준일 미확보 — S3 카드 최소 필드 미달"
+      }
+    ]
+  },
+  "prompt_chars": {
+    "call1": 2769,
+    "call2": 8759,
+    "call3": 19164
+  },
+  "parsed_output": {
+    "current_situation": "만 47세 고객으로 IRP 평가금액 8,000만 원을 보유 중이며, 이 중 현금성자산 1,000만 원과 만기가 2027-02-10인 정기예금 2,000만 원이 포함되어 있음(Fact). 최근 30일간 잔액이 30만 원 증가하였으나 정기 납입 외 특별한 거래는 관찰되지 않음(Fact). 2026-08-30에 평가금액 화면을 조회한 이력이 확인됨(Signal). 2026-08-28 CRM 기록에 따르면 내년 초 전세 이사 자금 마련을 위한 해지 절차 문의가 있었던 것으로 보이나(Fact), 구체적인 필요 금액이나 해지 확정 여부는 확인되지 않은 상태임(Unknown).",
+    "known_facts_used": [
+      "IRP 평가금액 8,000만 원 (현금성자산 1,000만 원, 정기예금 2,000만 원)",
+      "정기예금 만기일 2027-02-10",
+      "투자성향 위험중립형",
+      "연금개시요건 미충족 (만 47세)",
+      "CRM상 내년 초 전세 이사 예정으로 인한 해지 문의 기록"
+    ],
+    "unknowns_or_confirmations": [
+      "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부",
+      "전체 해지 희망 여부 또는 특정 필요 금액에 따른 부분 인출 희망 여부",
+      "실제 자금 필요 시점과 예금 만기일의 일치 여부"
+    ],
+    "management_judgment": {
+      "judgment": "추가 확인 우선 / 고객 결정 지원",
+      "reasoning": "CRM을 통해 해지 문의가 접수되었으나(E901), 이는 직원의 기록으로 고객의 확정된 의사로 단정할 수 없음. 특히 IRP는 원칙적으로 중도인출이 불가하며 법정 사유 충족 시에만 제한적으로 가능하므로(K-001), 무주택 전세금 등의 사유 충족 여부를 먼저 확인하여 '중도인출'과 '전체해지' 중 고객에게 유리한 방향을 안내해야 함. 또한 내년 초 자금 필요 시점과 정기예금 만기(2027-02-10)가 인접해 있어(D002) 이에 맞춘 자금 계획 지원이 필요함.",
+      "must_confirm_before_action": [
+        "무주택자 여부 및 법정 중도인출 사유 충족 여부",
+        "부분 인출 필요 금액 및 전체 해지 희망 여부"
+      ],
+      "supporting_evidence_ids": [
+        "E201",
+        "E202",
+        "D002",
+        "D003",
+        "E901"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001",
+        "K-002"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "법정 중도인출 사유 충족 여부 확인 및 절차 안내",
+        "kind": "확인",
+        "condition": "무주택자 전세금 등 법정 사유 충족 및 부분 인출 희망 시",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E901"
+        ]
+      },
+      {
+        "action": "해지 시 과세 체계(기타소득세 16.5%) 안내",
+        "kind": "정보안내",
+        "condition": "전체 해지 결정 시",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E901"
+        ]
+      },
+      {
+        "action": "현금성자산 및 만기예금 재운용 방안 제안",
+        "kind": "변경",
+        "condition": "계좌 유지 및 운용 방향 전환 시",
+        "risk_level": "위험중립형",
+        "supporting_evidence_ids": [
+          "E201",
+          "E202",
+          "D002"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-002",
+      "K-003"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "만 47세 위험중립형 고객으로, IRP에 8,000만 원을 보유 중이며 이 중 1,000만 원의 현금성자산과 2,000만 원의 정기예금(만기 2027-02-10)이 있습니다. 최근 CRM 기록에 따르면 내년 초 전세 이사 자금 마련을 위해 해지를 문의하신 이력이 있으나, 구체적인 필요 금액이나 해지 확정 여부는 확인되지 않은 상태입니다.",
+      "s2_management_point": {
+        "point": "내년 초 전세 자금 필요 시점과 예금 만기일이 인접한 상황에서, 무조건적인 해지보다 법정 사유를 통한 '중도인출' 가능 여부를 확인하여 고객의 세금 부담을 줄이고 자산 유지 가능성을 지원하는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 세액공제 미신청금액 등록 내역 재확인",
+          "최근 입금 내역 및 운용 지시 이력 확인"
+        ],
+        "check_with_customer": [
+          "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부",
+          "전체 해지 희망 여부 또는 부분 인출 필요 금액",
+          "자금 사용 예정일과 예금 만기일(2027-02-10)의 일치 여부"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "무주택자 전세금 등 법정 사유 충족 및 부분 인출 희망 시",
+            "direction": "중도인출 지원",
+            "solution_type": "중도인출 절차 및 구비서류 안내",
+            "risk_level": "해당없음"
+          },
+          {
+            "condition": "사유 미충족으로 전체 해지 결정 시",
+            "direction": "해지 지원 및 과세 안내",
+            "solution_type": "기타소득세 과세 체계 안내",
+            "risk_level": "해당없음"
+          },
+          {
+            "condition": "계좌 유지 및 운용 전환 희망 시",
+            "direction": "재운용 방안 제안",
+            "solution_type": "현금성자산 및 만기예금 교체 매매",
+            "risk_level": "위험중립형"
+          }
+        ],
+        "product_candidates": [
+          {
+            "product_id": "P04",
+            "reasons": [
+              "위험중립형 성향에 적합한 4등급 상품이며, 연금 목적의 중장기 운용에 적합한 TDF 구조를 가지고 있음"
+            ]
+          },
+          {
+            "product_id": "P08",
+            "reasons": [
+              "원리금보장 상품을 선호하며 예금 만기(2027-02-10) 이후 안정적인 수익을 추구하는 경우 적합한 대안임"
+            ]
+          }
+        ]
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님, 내년 초 전세 이사 자금으로 IRP 해지를 문의하신 것으로 확인되어 연락드렸습니다. 현재 보유하신 8,000만 원 중 일부만 필요하신 상황이라면, 무조건적인 해지보다 '법정 중도인출'이 가능한지 먼저 확인해 보시는 것이 세금 측면에서 훨씬 유리하실 수 있습니다.",
+          "IRP는 원칙적으로 중도인출이 어렵지만, 무주택자의 전세보증금 목적 등 특정 사유에 해당하시면 가능합니다. 혹시 현재 무주택자이신지, 그리고 구체적으로 어느 정도의 자금이 필요하신지 여쭤봐도 될까요?"
+        ],
+        "conditional_scripts": [
+          {
+            "if": "전체 해지를 희망하는 경우",
+            "script": "전체 해지를 진행하시게 되면, 그동안 세액공제를 받으신 납입금과 운용수익에 대해 16.5%의 기타소득세가 부과됩니다. 고객님의 정확한 예상 세금은 원천징수영수증의 결정세액 등을 통해 확인이 필요하므로, 함께 살펴봐 드리겠습니다."
+          },
+          {
+            "if": "계좌 유지를 결정하고 운용 방법을 고민하는 경우",
+            "script": "자금을 유지하시기로 하셨다면, 현재 운용 지시 없이 대기 중인 현금 1,000만 원과 내년 2월 10일에 만기 되는 예금 2,000만 원의 운용 방법을 함께 고민해 보겠습니다. 고객님의 위험중립형 성향에 맞춰 은퇴 시점까지 자동으로 자산 비중을 조절해 주는 TDF 펀드나, 안정적인 원리금보장 보험 상품 등을 후보로 살펴보실 수 있습니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [],
+        "screens": [
+          {
+            "screen_id": "S01",
+            "purpose_here": "해지 전 세액공제 미신청금액을 확인하여 과세 제외 처리 가능 여부 판단"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "중도인출 사유 확인 후 창구 접수 및 후선 처리 의뢰"
+          },
+          {
+            "screen_id": "S03",
+            "purpose_here": "연도별 납입액을 확인하여 세액공제 대상 금액 파악"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "위험중립형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden_levels": [
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "법정 중도인출 사유 충족 여부 확인 및 절차 안내",
+        "kind": "확인",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "해지 시 과세 체계(기타소득세 16.5%) 안내",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "현금성자산 및 만기예금 재운용 방안 제안",
+        "kind": "변경",
+        "risk_level": "위험중립형",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "위험중립형",
+    "ineligible_portfolios": [
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "위험중립형",
+    "allowed_min_grade": 4,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "status": "SUCCESS",
+  "error": "",
+  "llm_calls": [
+    {
+      "purpose": "CALL1_knowledge_need",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1568,
+        "candidatesTokenCount": 301,
+        "totalTokenCount": 3893,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1568
+          }
+        ],
+        "thoughtsTokenCount": 2024,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "knowledge_needs": [
+          {
+            "purpose": "procedure_confirmation",
+            "topic": "IRP 중도인출 가능 법정 사유 및 부분 해지 가능 여부 및 절차 확인",
+            "keywords": [
+              "IRP",
+              "중도인출",
+              "부분해지",
+              "인출사유"
+            ],
+            "supporting_evidence_ids": [
+              "E901"
+            ]
+          },
+          {
+            "purpose": "tax_confirmation",
+            "topic": "세액공제 납입금 및 운용수익 해지 시 기타소득세 적용 세율 및 과세 체계 확인",
+            "keywords": [
+              "IRP",
+              "기타소득세",
+              "세액공제",
+              "해지과세"
+            ],
+            "supporting_evidence_ids": [
+              "E102",
+              "E204",
+              "E901"
+            ]
+          },
+          {
+            "purpose": "rule_confirmation",
+            "topic": "IRP 내 정기예금 만기 시 처리 절차 및 자동 재예치/현금성자산 전환 규칙 확인",
+            "keywords": [
+              "IRP",
+              "정기예금",
+              "만기처리",
+              "자산전환"
+            ],
+            "supporting_evidence_ids": [
+              "D002"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "purpose": "CALL2_management_decision",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 5078,
+        "candidatesTokenCount": 804,
+        "totalTokenCount": 7657,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5078
+          }
+        ],
+        "thoughtsTokenCount": 1775,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "customer_state_interpretation": "사실: 만 47세 고객으로 개인부담금 적립용 IRP(평가액 8,000만원)를 보유 중이며, 이 중 현금성자산 1,000만원과 2027-02-10 만기 예정인 정기예금 2,000만원, 채권형 펀드 5,000만원을 운용하고 있음 [E101, E201, E202, D002]. 최근 CRM 메모를 통해 내년 초 전세 이사 자금 마련을 위한 해지 절차 문의 이력이 확인됨 [E901]. 추론: 고객은 전세금 마련이라는 특정 목적을 위해 IRP 자산의 유동화(해지 또는 인출)를 검토 중인 것으로 보임.",
+        "management_judgment": {
+          "judgment": "추가 확인 우선 / 고객 결정 지원",
+          "reasoning": "CRM 메모[E901]를 통해 해지 문의가 있었으나, 이는 직원의 기록일 뿐 확정된 고객 의사가 아니며 구체적인 필요 금액이나 해지 여부가 명시되지 않음. 또한 IRP는 원칙적으로 중도인출이 불가하며 법정 사유(무주택자 전세금 등) 충족 시에만 제한적으로 가능하므로[K-001], 실제 인출 가능 여부와 세제 영향[K-002]에 대한 확인 및 안내가 선행되어야 함."
+        },
+        "required_confirmation": [
+          "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부 [K-001]",
+          "전체 해지 희망 여부 또는 특정 필요 금액에 따른 부분 인출 희망 여부 [K-001]",
+          "내년 초 자금 필요 시점과 정기예금 만기일(2027-02-10)의 일치 여부 [D002]"
+        ],
+        "management_direction": {
+          "directions": [
+            {
+              "condition": "법정 중도인출 사유 충족 및 부분 인출 희망 시",
+              "direction": "중도인출 가능 한도(최대 90%), 신청 시기, 구비서류 및 창구 접수 절차 안내 [K-001]"
+            },
+            {
+              "condition": "전체 해지 결정 시",
+              "direction": "세액공제 받은 납입금 및 운용수익에 대한 기타소득세(16.5%) 과세 체계 안내 [K-002]"
+            },
+            {
+              "condition": "계좌 유지 및 운용 방향 전환 시",
+              "direction": "보유 중인 현금성자산(1,000만원) 및 만기 예정 예금(2,000만원)의 재운용 방안 검토 [K-003]"
+            }
+          ]
+        },
+        "product_need": {
+          "needed": true,
+          "solution_types": [
+            {
+              "solution_type": "현금성자산 및 만기자금 재운용",
+              "characteristics": [
+                "채권형",
+                "TDF",
+                "정기예금",
+                "GIC"
+              ],
+              "maturity": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "purpose": "CALL3_final_brief",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 10567,
+        "candidatesTokenCount": 2478,
+        "totalTokenCount": 14875,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 10567
+          }
+        ],
+        "thoughtsTokenCount": 1830,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "current_situation": "만 47세 고객으로 IRP 평가금액 8,000만 원을 보유 중이며, 이 중 현금성자산 1,000만 원과 만기가 2027-02-10인 정기예금 2,000만 원이 포함되어 있음(Fact). 최근 30일간 잔액이 30만 원 증가하였으나 정기 납입 외 특별한 거래는 관찰되지 않음(Fact). 2026-08-30에 평가금액 화면을 조회한 이력이 확인됨(Signal). 2026-08-28 CRM 기록에 따르면 내년 초 전세 이사 자금 마련을 위한 해지 절차 문의가 있었던 것으로 보이나(Fact), 구체적인 필요 금액이나 해지 확정 여부는 확인되지 않은 상태임(Unknown).",
+        "known_facts_used": [
+          "IRP 평가금액 8,000만 원 (현금성자산 1,000만 원, 정기예금 2,000만 원)",
+          "정기예금 만기일 2027-02-10",
+          "투자성향 위험중립형",
+          "연금개시요건 미충족 (만 47세)",
+          "CRM상 내년 초 전세 이사 예정으로 인한 해지 문의 기록"
+        ],
+        "unknowns_or_confirmations": [
+          "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부",
+          "전체 해지 희망 여부 또는 특정 필요 금액에 따른 부분 인출 희망 여부",
+          "실제 자금 필요 시점과 예금 만기일의 일치 여부"
+        ],
+        "management_judgment": {
+          "judgment": "추가 확인 우선 / 고객 결정 지원",
+          "reasoning": "CRM을 통해 해지 문의가 접수되었으나(E901), 이는 직원의 기록으로 고객의 확정된 의사로 단정할 수 없음. 특히 IRP는 원칙적으로 중도인출이 불가하며 법정 사유 충족 시에만 제한적으로 가능하므로(K-001), 무주택 전세금 등의 사유 충족 여부를 먼저 확인하여 '중도인출'과 '전체해지' 중 고객에게 유리한 방향을 안내해야 함. 또한 내년 초 자금 필요 시점과 정기예금 만기(2027-02-10)가 인접해 있어(D002) 이에 맞춘 자금 계획 지원이 필요함.",
+          "must_confirm_before_action": [
+            "무주택자 여부 및 법정 중도인출 사유 충족 여부",
+            "부분 인출 필요 금액 및 전체 해지 희망 여부"
+          ],
+          "supporting_evidence_ids": [
+            "E201",
+            "E202",
+            "D002",
+            "D003",
+            "E901"
+          ],
+          "supporting_knowledge_ids": [
+            "K-001",
+            "K-002"
+          ]
+        },
+        "next_actions": [
+          {
+            "action": "법정 중도인출 사유 충족 여부 확인 및 절차 안내",
+            "kind": "확인",
+            "condition": "무주택자 전세금 등 법정 사유 충족 및 부분 인출 희망 시",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E901"
+            ]
+          },
+          {
+            "action": "해지 시 과세 체계(기타소득세 16.5%) 안내",
+            "kind": "정보안내",
+            "condition": "전체 해지 결정 시",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E901"
+            ]
+          },
+          {
+            "action": "현금성자산 및 만기예금 재운용 방안 제안",
+            "kind": "변경",
+            "condition": "계좌 유지 및 운용 방향 전환 시",
+            "risk_level": "위험중립형",
+            "supporting_evidence_ids": [
+              "E201",
+              "E202",
+              "D002"
+            ]
+          }
+        ],
+        "knowledge_ids_used": [
+          "K-001",
+          "K-002",
+          "K-003"
+        ],
+        "employee_brief": {
+          "s1_customer_situation": "만 47세 위험중립형 고객으로, IRP에 8,000만 원을 보유 중이며 이 중 1,000만 원의 현금성자산과 2,000만 원의 정기예금(만기 2027-02-10)이 있습니다. 최근 CRM 기록에 따르면 내년 초 전세 이사 자금 마련을 위해 해지를 문의하신 이력이 있으나, 구체적인 필요 금액이나 해지 확정 여부는 확인되지 않은 상태입니다.",
+          "s2_management_point": {
+            "point": "내년 초 전세 자금 필요 시점과 예금 만기일이 인접한 상황에서, 무조건적인 해지보다 법정 사유를 통한 '중도인출' 가능 여부를 확인하여 고객의 세금 부담을 줄이고 자산 유지 가능성을 지원하는 것이 핵심입니다.",
+            "check_before_consult": [
+              "단말에서 세액공제 미신청금액 등록 내역 재확인",
+              "최근 입금 내역 및 운용 지시 이력 확인"
+            ],
+            "check_with_customer": [
+              "전세 이사 관련 무주택자 여부 및 법정 중도인출 사유 충족 여부",
+              "전체 해지 희망 여부 또는 부분 인출 필요 금액",
+              "자금 사용 예정일과 예금 만기일(2027-02-10)의 일치 여부"
+            ]
+          },
+          "s3_direction": {
+            "directions": [
+              {
+                "condition": "무주택자 전세금 등 법정 사유 충족 및 부분 인출 희망 시",
+                "direction": "중도인출 지원",
+                "solution_type": "중도인출 절차 및 구비서류 안내",
+                "risk_level": "해당없음"
+              },
+              {
+                "condition": "사유 미충족으로 전체 해지 결정 시",
+                "direction": "해지 지원 및 과세 안내",
+                "solution_type": "기타소득세 과세 체계 안내",
+                "risk_level": "해당없음"
+              },
+              {
+                "condition": "계좌 유지 및 운용 전환 희망 시",
+                "direction": "재운용 방안 제안",
+                "solution_type": "현금성자산 및 만기예금 교체 매매",
+                "risk_level": "위험중립형"
+              }
+            ],
+            "product_candidates": [
+              {
+                "product_id": "P04",
+                "reasons": [
+                  "위험중립형 성향에 적합한 4등급 상품이며, 연금 목적의 중장기 운용에 적합한 TDF 구조를 가지고 있음"
+                ]
+              },
+              {
+                "product_id": "P08",
+                "reasons": [
+                  "원리금보장 상품을 선호하며 예금 만기(2027-02-10) 이후 안정적인 수익을 추구하는 경우 적합한 대안임"
+                ]
+              }
+            ]
+          },
+          "s4_consult_script": {
+            "scripts": [
+              "고객님, 내년 초 전세 이사 자금으로 IRP 해지를 문의하신 것으로 확인되어 연락드렸습니다. 현재 보유하신 8,000만 원 중 일부만 필요하신 상황이라면, 무조건적인 해지보다 '법정 중도인출'이 가능한지 먼저 확인해 보시는 것이 세금 측면에서 훨씬 유리하실 수 있습니다.",
+              "IRP는 원칙적으로 중도인출이 어렵지만, 무주택자의 전세보증금 목적 등 특정 사유에 해당하시면 가능합니다. 혹시 현재 무주택자이신지, 그리고 구체적으로 어느 정도의 자금이 필요하신지 여쭤봐도 될까요?"
+            ],
+            "conditional_scripts": [
+              {
+                "if": "전체 해지를 희망하는 경우",
+                "script": "전체 해지를 진행하시게 되면, 그동안 세액공제를 받으신 납입금과 운용수익에 대해 16.5%의 기타소득세가 부과됩니다. 고객님의 정확한 예상 세금은 원천징수영수증의 결정세액 등을 통해 확인이 필요하므로, 함께 살펴봐 드리겠습니다."
+              },
+              {
+                "if": "계좌 유지를 결정하고 운용 방법을 고민하는 경우",
+                "script": "자금을 유지하시기로 하셨다면, 현재 운용 지시 없이 대기 중인 현금 1,000만 원과 내년 2월 10일에 만기 되는 예금 2,000만 원의 운용 방법을 함께 고민해 보겠습니다. 고객님의 위험중립형 성향에 맞춰 은퇴 시점까지 자동으로 자산 비중을 조절해 주는 TDF 펀드나, 안정적인 원리금보장 보험 상품 등을 후보로 살펴보실 수 있습니다."
+              }
+            ]
+          },
+          "s5_tips_and_screens": {
+            "tips": [],
+            "screens": [
+              {
+                "screen_id": "S01",
+                "purpose_here": "해지 전 세액공제 미신청금액을 확인하여 과세 제외 처리 가능 여부 판단"
+              },
+              {
+                "screen_id": "S02",
+                "purpose_here": "중도인출 사유 확인 후 창구 접수 및 후선 처리 의뢰"
+              },
+              {
+                "screen_id": "S03",
+                "purpose_here": "연도별 납입액을 확인하여 세액공제 대상 금액 파악"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "llm_call_count": {
+    "decision_level": 3,
+    "selection_prune": 2,
+    "total": 5
+  }
+}

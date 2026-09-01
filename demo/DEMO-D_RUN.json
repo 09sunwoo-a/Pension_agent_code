@@ -1,0 +1,1002 @@
+{
+  "case_id": "DEMO-D",
+  "pipeline": "DEMO_V0 (mock_pipeline 재사용)",
+  "started_at": "2026-09-01T04:45:43",
+  "model": "gemma-4-31b-it",
+  "git_head": "42872dedf495c47f9381edb1fe85b1bfef82b897",
+  "canonical_evidence": [
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 49세",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "age",
+        "years": 49
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "개인형IRP 가입일: 2017-08-21",
+      "as_of": null,
+      "data": {
+        "kind": "join_date",
+        "date": "2017-08-21"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 미포함",
+      "as_of": null,
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E104",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "투자성향: 위험중립형 (분석일 2026-06-20, 유효) / 재직 중 / 스타뱅킹 이용 중",
+      "as_of": "2026-06-20",
+      "data": {}
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 평가금액: 92,000,000원 (현금성자산 60,000,000원 포함)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "current_balance",
+        "cash": 60000000,
+        "total": 92000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "보유상품: 채권형 펀드 (위험등급 5등급) 32,000,000원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록 여부: 등록 — 사전지정 상품 KB 디폴트옵션 초저위험 지켜드림 (2024-05-13 등록)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "do_registration",
+        "registered": true,
+        "trigger_type": "만기",
+        "trigger_date": "2026-07-28"
+      }
+    },
+    {
+      "id": "E204",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해년도 IRP 개인부담금 실납입액(irp_personal_contribution_ytd): 0원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "2026-08-02 기준 잔액 스냅샷: 현금성자산 60,000,000원 / 전체 평가금액 91,300,000원",
+      "as_of": "2026-08-02",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-02",
+        "cash": 60000000,
+        "total": 91300000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "2026-07-28 정기예금 (1년제) 60,000,000원 만기상환 — 상환금은 현금성자산으로 대체 (이후 운용지시 이력 없음)",
+      "as_of": "2026-07-28",
+      "data": {
+        "kind": "deposit",
+        "date": "2026-07-28",
+        "amount": 60000000,
+        "reason": "정기예금 만기상환 — 현금성자산 대체"
+      }
+    },
+    {
+      "id": "E402",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "2026-08-25 디폴트옵션 적용 예정 안내 통지 발송 (만기 후 4주차 정기 통지 — 고객 열람 여부 미확인)",
+      "as_of": "2026-08-25",
+      "data": {}
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "최근 1년 IRP 상품 매매: 만기상환 외 매매 이력 없음",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E601",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-23 스타뱅킹 '운용상품 찾기' 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-23",
+      "data": {}
+    },
+    {
+      "id": "E602",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-26 스타뱅킹 '운용상품 찾기' 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-26",
+      "data": {}
+    },
+    {
+      "id": "E603",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-28 스타뱅킹 TDF 상품 상세 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-28",
+      "data": {}
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 180,000,000원 / 타 연금계좌: 당사 조회 범위 내 없음",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E801",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "사전지정운용(디폴트옵션) 실행예정내역 (시스템 조회값): 실행예정일 2026-09-08, 대상 대기자금 60,000,000원, 실행 시 매수 상품 = 사전지정 KB 디폴트옵션 초저위험 지켜드림",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "derived_context": [
+    {
+      "id": "D001",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "입금 경과일: 2026-07-28 60,000,000원 (사유: 정기예금 만기상환 — 현금성자산 대체) → 기준일까지 35일 경과",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D002",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "최근 30일 전체 평가금액 증감: +700,000원 (91,300,000원 → 92,000,000원)",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D003",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "현재 현금성자산 60,000,000원은 2026-07-28 '정기예금 만기상환 — 현금성자산 대체' 입금액과 금액이 일치한다 (산술 대조)",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D004",
+      "block": 8,
+      "evidence_type": "rule_derived",
+      "source_type": "rule_engine",
+      "text": "디폴트옵션 적용 예상 기준일: 2026-09-08 (만기 2026-07-28 + 6주), 도래까지 7일 | rule_source=최초입금 2주 / 만기 4+2주 — 행내 기준 | rule_as_of=2026-09-01 | rule_id=DO-CLOCK-01",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "D005",
+      "block": 1,
+      "evidence_type": "rule_derived",
+      "source_type": "rule_engine",
+      "text": "연금개시요건 충족 여부: 미충족 (만 49세, 가입 9.0년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-01 | rule_id=PENSION-OPEN-01",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "constraint": {
+    "profile": "위험중립형",
+    "allowed": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden": [
+      "적극투자형",
+      "공격투자형"
+    ]
+  },
+  "knowledge_needs": [
+    {
+      "need_id": "KN-D01",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "rule_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "디폴트옵션",
+        "사전지정운용",
+        "적용시점",
+        "운용지시",
+        "실행기한",
+        "디폴트옵션(사전지정운용제도)의 적용 시점 및 실행 전 운용지시 변경 가능 기한 확인"
+      ],
+      "need_text": "디폴트옵션(사전지정운용제도)의 적용 시점 및 실행 전 운용지시 변경 가능 기한 확인"
+    },
+    {
+      "need_id": "KN-D02",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "execution_path_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "IRP",
+        "상품매수",
+        "운용지시",
+        "스타뱅킹",
+        "실행경로",
+        "IRP 계좌 내 현금성 자산의 상품 매수 및 운용지시 변경을 위한 스타뱅킹 내 실행 경로 확인"
+      ],
+      "need_text": "IRP 계좌 내 현금성 자산의 상품 매수 및 운용지시 변경을 위한 스타뱅킹 내 실행 경로 확인"
+    },
+    {
+      "need_id": "KN-D03",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "rule_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "IRP",
+        "TDF",
+        "위험자산한도",
+        "투자제한",
+        "실적배당형",
+        "IRP 계좌 내 TDF 등 실적배당형 상품의 투자 한도 및 위험자산 편입 제한 비율 확인"
+      ],
+      "need_text": "IRP 계좌 내 TDF 등 실적배당형 상품의 투자 한도 및 위험자산 편입 제한 비율 확인"
+    }
+  ],
+  "knowledge_selection": {
+    "case_id": "DEMO-D",
+    "mode": "hybrid_knowledge",
+    "deterministic_candidates": [
+      "OK-005",
+      "OK-004",
+      "OK-012"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "OK-005",
+        "OK-012"
+      ],
+      "removed": [
+        "OK-004"
+      ],
+      "unmentioned_kept": [],
+      "reason": {
+        "OK-004": "KN-D02는 스타뱅킹 내 실행 경로 확인이 목적이나, 해당 Knowledge는 정기예금 만기 처리 규칙에 관한 내용으로 다루는 주제가 다름"
+      },
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 641,
+        "candidatesTokenCount": 115,
+        "totalTokenCount": 1991,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 641
+          }
+        ],
+        "thoughtsTokenCount": 1235,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "final_selected": [
+      {
+        "kid": "K-001",
+        "kind": "OK",
+        "registry_ref": "OK-005",
+        "need_ref": "KN-D01",
+        "matched": [
+          "디폴트옵션",
+          "적용시점"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-002",
+        "kind": "SYNTH_GAP",
+        "registry_ref": "GAP(KN-D02)",
+        "need_ref": "KN-D02",
+        "matched": [],
+        "flags": []
+      },
+      {
+        "kid": "K-003",
+        "kind": "OK",
+        "registry_ref": "OK-012",
+        "need_ref": "KN-D03",
+        "matched": [
+          "TDF"
+        ],
+        "flags": []
+      }
+    ],
+    "excluded": [
+      {
+        "need": "KN-D02",
+        "id": "OK-004",
+        "reason": "LLM_PRUNED"
+      }
+    ]
+  },
+  "management_decision": {
+    "customer_state_interpretation": "(사실) 2026-07-28 정기예금 만기상환금 60,000,000원이 현금성 자산으로 대체되어 대기 중이며[E401, D001], 2026-09-08에 사전지정된 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 자동 매수될 예정임[E801, D004]. (추론) 최근 스타뱅킹 내 '운용상품 찾기' 및 'TDF 상품 상세 화면'을 반복 조회한 이력[E601, E602, E603]이 있는 것으로 보아, 자동 매수 실행 전 자발적으로 상품을 선택하여 운용하고자 하는 관심이 있을 가능성이 높음.",
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "고액의 현금성 자산(6,000만 원)이 디폴트옵션 자동 실행 예정일(2026-09-08)을 7일 앞두고 있으며[E801, D004], 최근 TDF 상품 조회 등의 행동 신호[E603]가 관찰되어, 고객의 실제 운용 의사를 확인하고 적절한 상품 선택을 지원할 필요가 있음."
+    },
+    "required_confirmation": [
+      "디폴트옵션(초저위험) 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하는지 여부"
+    ],
+    "management_direction": {
+      "directions": [
+        {
+          "condition": "고객이 자발적인 운용 변경 의사를 밝힌 경우",
+          "direction": "투자성향(위험중립형) 내에서 허용되는 TDF 또는 상위 등급 디폴트옵션 포트폴리오 등으로의 교체매매 및 운용지시 지원"
+        },
+        {
+          "condition": "특별한 운용 의사가 없거나 안내만 원하는 경우",
+          "direction": "현재 설정된 디폴트옵션의 실행 예정 내용 및 일정 안내"
+        }
+      ]
+    },
+    "product_need": {
+      "needed": true,
+      "solution_types": [
+        {
+          "solution_type": "자발적 운용 변경 및 포트폴리오 다변화",
+          "characteristics": [
+            "TDF",
+            "채권형 펀드"
+          ],
+          "maturity": ""
+        },
+        {
+          "solution_type": "사전지정운용제도 변경을 통한 자동매수 상품 조정",
+          "characteristics": [
+            "알파드림",
+            "뿔려드림"
+          ],
+          "maturity": ""
+        }
+      ]
+    }
+  },
+  "product_selection": {
+    "case_id": "DEMO-D",
+    "mode": "hybrid_product",
+    "investment_profile": "위험중립형",
+    "deterministic_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P02 신한 마음편한 TDF 시리즈",
+      "P03 한화 LIFEPLUS TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "P01",
+        "P04"
+      ],
+      "removed": [
+        "P02",
+        "P03"
+      ],
+      "unmentioned_kept": [],
+      "reason": {
+        "P02": "P01과 상품 유형(TDF) 및 위험등급(3등급)이 동일한 중복 후보임",
+        "P03": "P01과 상품 유형(TDF) 및 위험등급(3등급)이 동일한 중복 후보임"
+      },
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 644,
+        "candidatesTokenCount": 120,
+        "totalTokenCount": 4147,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 644
+          }
+        ],
+        "thoughtsTokenCount": 3383,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "none_reason": null,
+    "final_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈"
+    ],
+    "det_excluded": []
+  },
+  "prompt_chars": {
+    "call1": 3124,
+    "call2": 9552,
+    "call3": 18913
+  },
+  "parsed_output": {
+    "current_situation": "2026-07-28 정기예금 만기로 발생한 6,000만 원이 현재 운용지시 없이 현금성 자산으로 대기 중인 상태입니다(Fact). 해당 자금은 사전 지정된 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 2026-09-08에 자동 매수될 예정이며(Fact), 최근 고객이 스타뱅킹을 통해 TDF 상품 상세 화면 등을 조회한 행동 신호가 관찰되어 운용 상품 변경에 대한 관심이 있는 것으로 추론됩니다(Inference).",
+    "known_facts_used": [
+      "현금성 자산 6,000만 원 보유 및 2026-07-28 정기예금 만기 상환으로 인한 발생",
+      "사전지정운용상품으로 'KB 디폴트옵션 초저위험 지켜드림' 등록됨",
+      "디폴트옵션 자동 실행 예정일 2026-09-08",
+      "고객 투자성향 위험중립형",
+      "최근 TDF 상품 상세 화면 조회 이력 확인"
+    ],
+    "unknowns_or_confirmations": [
+      "디폴트옵션 자동 매수 전, TDF 등 다른 상품으로 실제 운용 변경을 원하는지 여부"
+    ],
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "6,000만 원의 대기자금이 디폴트옵션 자동 실행 예정일(2026-09-08)을 7일 앞두고 있는 시점(Why-now)이며, 최근 TDF 상품을 조회한 행동 신호[E603]가 관찰되어 초저위험 상품으로 자동 운용되기 전 고객의 실제 의사를 확인하고 적합한 상품 선택을 지원할 필요가 있음",
+      "must_confirm_before_action": [
+        "디폴트옵션(초저위험) 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하는지 여부"
+      ],
+      "supporting_evidence_ids": [
+        "E201",
+        "E401",
+        "E603",
+        "E801",
+        "D003",
+        "D004"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "디폴트옵션 자동 매수 전 운용 변경 의사 확인",
+        "kind": "확인",
+        "condition": "",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E603",
+          "E801"
+        ]
+      },
+      {
+        "action": "위험중립형 성향에 적합한 TDF 또는 상위 등급 디폴트옵션 포트폴리오 제안 및 교체매매 지원",
+        "kind": "변경",
+        "condition": "고객이 자발적인 운용 변경 의사를 밝힌 경우",
+        "risk_level": "위험중립형",
+        "supporting_evidence_ids": [
+          "E104",
+          "E603"
+        ]
+      },
+      {
+        "action": "현재 설정된 디폴트옵션의 실행 예정 내용 및 일정 안내",
+        "kind": "정보안내",
+        "condition": "특별한 운용 의사가 없거나 안내만 원하는 경우",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E801",
+          "D004"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-003"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "지난 7월 28일 정기예금 만기로 발생한 6,000만 원이 현재 운용지시 없이 현금성 자산으로 대기 중입니다. 이 자금은 사전 지정하신 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 9월 8일에 자동 매수될 예정이며, 최근 고객님께서 스타뱅킹을 통해 TDF 상품 상세 화면 등을 조회하신 이력이 확인됩니다.",
+      "s2_management_point": {
+        "point": "9월 8일 디폴트옵션 자동 실행 전, 고객님의 실제 운용 의사를 확인하여 초저위험 상품 자동 매수 전 투자성향에 맞는 최적의 운용 방향을 지원하는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 디폴트옵션 실제 실행예정내역 및 대상 자금 재확인",
+          "TDF 후보 상품의 현재 판매 가능 여부 확인"
+        ],
+        "check_with_customer": [
+          "초저위험 디폴트옵션 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하시는지 여부"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "고객이 운용 변경 의사를 밝힌 경우",
+            "direction": "재운용",
+            "solution_type": "TDF 또는 상위 등급 디폴트옵션 포트폴리오 교체매매",
+            "risk_level": "위험중립형"
+          },
+          {
+            "condition": "특별한 운용 의사가 없는 경우",
+            "direction": "유지",
+            "solution_type": "현재 디폴트옵션 실행 일정 안내",
+            "risk_level": "해당없음"
+          }
+        ],
+        "product_candidates": [
+          {
+            "product_id": "P04",
+            "reasons": [
+              "고객의 투자성향(위험중립형) 내 허용되는 위험등급(4등급) 상품이며, 최근 고객이 TDF 상품을 직접 조회한 관심 신호가 관찰되어 적합함"
+            ]
+          }
+        ]
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님, 지난 7월 28일에 만기 되신 정기예금 6,000만 원이 현재 운용지시 없이 대기 중입니다. 이 자금은 사전 지정하신 '초저위험 지켜드림' 상품으로 9월 8일에 자동 매수될 예정인데요. 최근에 TDF 상품 등을 살펴보신 것으로 보여, 자동 매수 전에 혹시 다른 상품으로 운용 방향을 변경하고 싶으신지 여쭤보고자 연락드렸습니다."
+        ],
+        "conditional_scripts": [
+          {
+            "if": "운용 변경을 원하는 경우",
+            "script": "고객님의 위험중립형 투자성향과 최근 TDF에 관심을 가지신 점을 고려했을 때, 은퇴 시점에 맞춰 자산 비중을 조절해주는 TDF 상품들이 좋은 대안이 될 수 있습니다. 구체적인 상품 내용을 함께 살펴보시겠습니까?"
+          },
+          {
+            "if": "현재 상태 유지 또는 안내만 원하는 경우",
+            "script": "네, 알겠습니다. 그럼 별도의 운용지시가 없으시면 예정대로 9월 8일에 '초저위험 지켜드림' 상품으로 운용이 시작될 예정입니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [
+          {
+            "tip_id": "T01",
+            "why_relevant": "디폴트옵션의 신뢰도를 높이고 고객이 직접 투자성향에 맞는 상품을 선택하도록 주도권을 부여하는 화법으로 활용 가능"
+          },
+          {
+            "tip_id": "T03",
+            "why_relevant": "TDF 권유 시 고객의 투자성향과 은퇴년도를 고려하여 제안하는 노하우 적용"
+          }
+        ],
+        "screens": [
+          {
+            "screen_id": "S01",
+            "purpose_here": "디폴트옵션 실행예정내역 및 대상 금액 최종 확인"
+          },
+          {
+            "screen_id": "S04",
+            "purpose_here": "제안할 TDF 상품의 실시간 판매 가능 여부 확인"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "고객이 직접 운용을 결정할 경우 자동 매수 전 대기자금 처리"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "위험중립형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden_levels": [
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "디폴트옵션 자동 매수 전 운용 변경 의사 확인",
+        "kind": "확인",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "위험중립형 성향에 적합한 TDF 또는 상위 등급 디폴트옵션 포트폴리오 제안 및 교체매매 지원",
+        "kind": "변경",
+        "risk_level": "위험중립형",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "현재 설정된 디폴트옵션의 실행 예정 내용 및 일정 안내",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "위험중립형",
+    "ineligible_portfolios": [
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "위험중립형",
+    "allowed_min_grade": 4,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "status": "SUCCESS",
+  "error": "",
+  "llm_calls": [
+    {
+      "purpose": "CALL1_knowledge_need",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1839,
+        "candidatesTokenCount": 354,
+        "totalTokenCount": 4524,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1839
+          }
+        ],
+        "thoughtsTokenCount": 2331,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "knowledge_needs": [
+          {
+            "purpose": "rule_confirmation",
+            "topic": "디폴트옵션(사전지정운용제도)의 적용 시점 및 실행 전 운용지시 변경 가능 기한 확인",
+            "keywords": [
+              "디폴트옵션",
+              "사전지정운용",
+              "적용시점",
+              "운용지시",
+              "실행기한"
+            ],
+            "supporting_evidence_ids": [
+              "E402",
+              "E801",
+              "D004"
+            ]
+          },
+          {
+            "purpose": "execution_path_confirmation",
+            "topic": "IRP 계좌 내 현금성 자산의 상품 매수 및 운용지시 변경을 위한 스타뱅킹 내 실행 경로 확인",
+            "keywords": [
+              "IRP",
+              "상품매수",
+              "운용지시",
+              "스타뱅킹",
+              "실행경로"
+            ],
+            "supporting_evidence_ids": [
+              "E601",
+              "E602",
+              "E603"
+            ]
+          },
+          {
+            "purpose": "rule_confirmation",
+            "topic": "IRP 계좌 내 TDF 등 실적배당형 상품의 투자 한도 및 위험자산 편입 제한 비율 확인",
+            "keywords": [
+              "IRP",
+              "TDF",
+              "위험자산한도",
+              "투자제한",
+              "실적배당형"
+            ],
+            "supporting_evidence_ids": [
+              "E104",
+              "E603"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "purpose": "CALL2_management_decision",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 5374,
+        "candidatesTokenCount": 677,
+        "totalTokenCount": 8069,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5374
+          }
+        ],
+        "thoughtsTokenCount": 2018,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "customer_state_interpretation": "(사실) 2026-07-28 정기예금 만기상환금 60,000,000원이 현금성 자산으로 대체되어 대기 중이며[E401, D001], 2026-09-08에 사전지정된 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 자동 매수될 예정임[E801, D004]. (추론) 최근 스타뱅킹 내 '운용상품 찾기' 및 'TDF 상품 상세 화면'을 반복 조회한 이력[E601, E602, E603]이 있는 것으로 보아, 자동 매수 실행 전 자발적으로 상품을 선택하여 운용하고자 하는 관심이 있을 가능성이 높음.",
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "고액의 현금성 자산(6,000만 원)이 디폴트옵션 자동 실행 예정일(2026-09-08)을 7일 앞두고 있으며[E801, D004], 최근 TDF 상품 조회 등의 행동 신호[E603]가 관찰되어, 고객의 실제 운용 의사를 확인하고 적절한 상품 선택을 지원할 필요가 있음."
+        },
+        "required_confirmation": [
+          "디폴트옵션(초저위험) 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하는지 여부"
+        ],
+        "management_direction": {
+          "directions": [
+            {
+              "condition": "고객이 자발적인 운용 변경 의사를 밝힌 경우",
+              "direction": "투자성향(위험중립형) 내에서 허용되는 TDF 또는 상위 등급 디폴트옵션 포트폴리오 등으로의 교체매매 및 운용지시 지원"
+            },
+            {
+              "condition": "특별한 운용 의사가 없거나 안내만 원하는 경우",
+              "direction": "현재 설정된 디폴트옵션의 실행 예정 내용 및 일정 안내"
+            }
+          ]
+        },
+        "product_need": {
+          "needed": true,
+          "solution_types": [
+            {
+              "solution_type": "자발적 운용 변경 및 포트폴리오 다변화",
+              "characteristics": [
+                "TDF",
+                "채권형 펀드"
+              ],
+              "maturity": ""
+            },
+            {
+              "solution_type": "사전지정운용제도 변경을 통한 자동매수 상품 조정",
+              "characteristics": [
+                "알파드림",
+                "뿔려드림"
+              ],
+              "maturity": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "purpose": "CALL3_final_brief",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 10137,
+        "candidatesTokenCount": 2068,
+        "totalTokenCount": 14174,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 10137
+          }
+        ],
+        "thoughtsTokenCount": 1969,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "current_situation": "2026-07-28 정기예금 만기로 발생한 6,000만 원이 현재 운용지시 없이 현금성 자산으로 대기 중인 상태입니다(Fact). 해당 자금은 사전 지정된 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 2026-09-08에 자동 매수될 예정이며(Fact), 최근 고객이 스타뱅킹을 통해 TDF 상품 상세 화면 등을 조회한 행동 신호가 관찰되어 운용 상품 변경에 대한 관심이 있는 것으로 추론됩니다(Inference).",
+        "known_facts_used": [
+          "현금성 자산 6,000만 원 보유 및 2026-07-28 정기예금 만기 상환으로 인한 발생",
+          "사전지정운용상품으로 'KB 디폴트옵션 초저위험 지켜드림' 등록됨",
+          "디폴트옵션 자동 실행 예정일 2026-09-08",
+          "고객 투자성향 위험중립형",
+          "최근 TDF 상품 상세 화면 조회 이력 확인"
+        ],
+        "unknowns_or_confirmations": [
+          "디폴트옵션 자동 매수 전, TDF 등 다른 상품으로 실제 운용 변경을 원하는지 여부"
+        ],
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "6,000만 원의 대기자금이 디폴트옵션 자동 실행 예정일(2026-09-08)을 7일 앞두고 있는 시점(Why-now)이며, 최근 TDF 상품을 조회한 행동 신호[E603]가 관찰되어 초저위험 상품으로 자동 운용되기 전 고객의 실제 의사를 확인하고 적합한 상품 선택을 지원할 필요가 있음",
+          "must_confirm_before_action": [
+            "디폴트옵션(초저위험) 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하는지 여부"
+          ],
+          "supporting_evidence_ids": [
+            "E201",
+            "E401",
+            "E603",
+            "E801",
+            "D003",
+            "D004"
+          ],
+          "supporting_knowledge_ids": [
+            "K-001"
+          ]
+        },
+        "next_actions": [
+          {
+            "action": "디폴트옵션 자동 매수 전 운용 변경 의사 확인",
+            "kind": "확인",
+            "condition": "",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E603",
+              "E801"
+            ]
+          },
+          {
+            "action": "위험중립형 성향에 적합한 TDF 또는 상위 등급 디폴트옵션 포트폴리오 제안 및 교체매매 지원",
+            "kind": "변경",
+            "condition": "고객이 자발적인 운용 변경 의사를 밝힌 경우",
+            "risk_level": "위험중립형",
+            "supporting_evidence_ids": [
+              "E104",
+              "E603"
+            ]
+          },
+          {
+            "action": "현재 설정된 디폴트옵션의 실행 예정 내용 및 일정 안내",
+            "kind": "정보안내",
+            "condition": "특별한 운용 의사가 없거나 안내만 원하는 경우",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E801",
+              "D004"
+            ]
+          }
+        ],
+        "knowledge_ids_used": [
+          "K-001",
+          "K-003"
+        ],
+        "employee_brief": {
+          "s1_customer_situation": "지난 7월 28일 정기예금 만기로 발생한 6,000만 원이 현재 운용지시 없이 현금성 자산으로 대기 중입니다. 이 자금은 사전 지정하신 'KB 디폴트옵션 초저위험 지켜드림' 상품으로 9월 8일에 자동 매수될 예정이며, 최근 고객님께서 스타뱅킹을 통해 TDF 상품 상세 화면 등을 조회하신 이력이 확인됩니다.",
+          "s2_management_point": {
+            "point": "9월 8일 디폴트옵션 자동 실행 전, 고객님의 실제 운용 의사를 확인하여 초저위험 상품 자동 매수 전 투자성향에 맞는 최적의 운용 방향을 지원하는 것이 핵심입니다.",
+            "check_before_consult": [
+              "단말에서 디폴트옵션 실제 실행예정내역 및 대상 자금 재확인",
+              "TDF 후보 상품의 현재 판매 가능 여부 확인"
+            ],
+            "check_with_customer": [
+              "초저위험 디폴트옵션 자동 매수 전, TDF 또는 다른 위험수준의 상품으로 운용 변경을 원하시는지 여부"
+            ]
+          },
+          "s3_direction": {
+            "directions": [
+              {
+                "condition": "고객이 운용 변경 의사를 밝힌 경우",
+                "direction": "재운용",
+                "solution_type": "TDF 또는 상위 등급 디폴트옵션 포트폴리오 교체매매",
+                "risk_level": "위험중립형"
+              },
+              {
+                "condition": "특별한 운용 의사가 없는 경우",
+                "direction": "유지",
+                "solution_type": "현재 디폴트옵션 실행 일정 안내",
+                "risk_level": "해당없음"
+              }
+            ],
+            "product_candidates": [
+              {
+                "product_id": "P04",
+                "reasons": [
+                  "고객의 투자성향(위험중립형) 내 허용되는 위험등급(4등급) 상품이며, 최근 고객이 TDF 상품을 직접 조회한 관심 신호가 관찰되어 적합함"
+                ]
+              }
+            ]
+          },
+          "s4_consult_script": {
+            "scripts": [
+              "고객님, 지난 7월 28일에 만기 되신 정기예금 6,000만 원이 현재 운용지시 없이 대기 중입니다. 이 자금은 사전 지정하신 '초저위험 지켜드림' 상품으로 9월 8일에 자동 매수될 예정인데요. 최근에 TDF 상품 등을 살펴보신 것으로 보여, 자동 매수 전에 혹시 다른 상품으로 운용 방향을 변경하고 싶으신지 여쭤보고자 연락드렸습니다."
+            ],
+            "conditional_scripts": [
+              {
+                "if": "운용 변경을 원하는 경우",
+                "script": "고객님의 위험중립형 투자성향과 최근 TDF에 관심을 가지신 점을 고려했을 때, 은퇴 시점에 맞춰 자산 비중을 조절해주는 TDF 상품들이 좋은 대안이 될 수 있습니다. 구체적인 상품 내용을 함께 살펴보시겠습니까?"
+              },
+              {
+                "if": "현재 상태 유지 또는 안내만 원하는 경우",
+                "script": "네, 알겠습니다. 그럼 별도의 운용지시가 없으시면 예정대로 9월 8일에 '초저위험 지켜드림' 상품으로 운용이 시작될 예정입니다."
+              }
+            ]
+          },
+          "s5_tips_and_screens": {
+            "tips": [
+              {
+                "tip_id": "T01",
+                "why_relevant": "디폴트옵션의 신뢰도를 높이고 고객이 직접 투자성향에 맞는 상품을 선택하도록 주도권을 부여하는 화법으로 활용 가능"
+              },
+              {
+                "tip_id": "T03",
+                "why_relevant": "TDF 권유 시 고객의 투자성향과 은퇴년도를 고려하여 제안하는 노하우 적용"
+              }
+            ],
+            "screens": [
+              {
+                "screen_id": "S01",
+                "purpose_here": "디폴트옵션 실행예정내역 및 대상 금액 최종 확인"
+              },
+              {
+                "screen_id": "S04",
+                "purpose_here": "제안할 TDF 상품의 실시간 판매 가능 여부 확인"
+              },
+              {
+                "screen_id": "S02",
+                "purpose_here": "고객이 직접 운용을 결정할 경우 자동 매수 전 대기자금 처리"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "llm_call_count": {
+    "decision_level": 3,
+    "selection_prune": 2,
+    "total": 5
+  }
+}
