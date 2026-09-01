@@ -1,0 +1,12 @@
+# 에디터가 파일을 열고 저장할 때 UTF-8 · LF를 유지하도록 강제한다.
+# (VS Code / JetBrains / Visual Studio / Notepad++ 등 대부분 지원)
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+[*.py]
+indent_style = space
+indent_size = 4
