@@ -1,0 +1,1059 @@
+{
+  "case_id": "DEMO-A",
+  "pipeline": "DEMO_V0 (mock_pipeline 재사용)",
+  "started_at": "2026-09-01T04:29:21",
+  "model": "gemma-4-31b-it",
+  "git_head": "9e8db6ce54622e93b16e1e8bbe8c7251ddbe77db",
+  "canonical_evidence": [
+    {
+      "id": "E101",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "고객 연령: 만 51세",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "age",
+        "years": 51
+      }
+    },
+    {
+      "id": "E102",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "개인형IRP 가입일: 2018-04-09 (적립용 — 개인부담금 납입 계좌)",
+      "as_of": null,
+      "data": {
+        "kind": "join_date",
+        "date": "2018-04-09"
+      }
+    },
+    {
+      "id": "E103",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "퇴직급여 포함 여부: 미포함",
+      "as_of": null,
+      "data": {
+        "kind": "retirement_benefit",
+        "included": false
+      }
+    },
+    {
+      "id": "E104",
+      "block": 1,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "투자성향: 위험중립형 (분석일 2026-03-10, 유효) / 재직 중 / 스타뱅킹 이용 중",
+      "as_of": "2026-03-10",
+      "data": {}
+    },
+    {
+      "id": "E201",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "IRP 평가금액: 70,000,000원 (현금성자산 20,000,000원 포함)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "current_balance",
+        "cash": 20000000,
+        "total": 70000000
+      }
+    },
+    {
+      "id": "E202",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "보유상품: 마이다스 기본 TDF (위험등급 4등급) 30,000,000원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E203",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "보유상품: 시중은행 정기예금 (1년제) 20,000,000원 (만기 2027-05-15, 가입 시 약정금리 연 3.2%)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "maturity",
+        "date": "2027-05-15",
+        "amount": 20000000,
+        "product": "시중은행 정기예금 (1년제)"
+      }
+    },
+    {
+      "id": "E204",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "디폴트옵션 등록 여부: 등록 (KB 디폴트옵션 저위험 알파드림2)",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "do_registration",
+        "registered": true
+      }
+    },
+    {
+      "id": "E205",
+      "block": 2,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "당해년도 IRP 개인부담금 실납입액(irp_personal_contribution_ytd): 3,000,000원",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E301",
+      "block": 3,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "2026-08-02 기준 잔액 스냅샷: 현금성자산 20,000,000원 / 전체 평가금액 69,200,000원",
+      "as_of": "2026-08-02",
+      "data": {
+        "kind": "balance_snapshot",
+        "date": "2026-08-02",
+        "cash": 20000000,
+        "total": 69200000
+      }
+    },
+    {
+      "id": "E401",
+      "block": 4,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "최근 90일 IRP 입출금 거래: 없음 (정기 개인부담금 이체 외)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E501",
+      "block": 5,
+      "evidence_type": "fact",
+      "source_type": "transaction",
+      "text": "최근 1년 IRP 상품 매매: 2026-02-10 정기예금 만기 재운용 매수 1회",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E601",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-24 스타뱅킹 IRP 수익률 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-24",
+      "data": {}
+    },
+    {
+      "id": "E602",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-27 스타뱅킹 IRP 수익률 화면 조회 (실행 이력 없음)",
+      "as_of": "2026-08-27",
+      "data": {}
+    },
+    {
+      "id": "E603",
+      "block": 6,
+      "evidence_type": "signal",
+      "source_type": "digital_behavior",
+      "text": "2026-08-29 스타뱅킹 '연금 세액공제' 안내 콘텐츠 조회 (실행 이력 없음)",
+      "as_of": "2026-08-29",
+      "data": {}
+    },
+    {
+      "id": "E701",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "총 금융자산: 310,000,000원 (당행 수신 50,000,000원 포함)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E702",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "타행 ISA 계좌: 잔액 80,000,000원, 만기 2026-09-26 (마이데이터 연동 정보)",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E703",
+      "block": 7,
+      "evidence_type": "fact",
+      "source_type": "account_system",
+      "text": "연금계좌 연간 납입 가능 잔여한도: 15,000,000원 / 연금계좌 세액공제 잔여한도(연금저축·퇴직연금 합산): 6,000,000원 — 두 값은 서로 다른 개념이며 상호 추정 금지",
+      "as_of": "2026-09-01",
+      "data": {}
+    },
+    {
+      "id": "E801",
+      "block": 8,
+      "evidence_type": "fact",
+      "source_type": "external_account",
+      "text": "타행 ISA 80,000,000원 만기 2026-09-26",
+      "as_of": "2026-09-01",
+      "data": {
+        "kind": "maturity",
+        "date": "2026-09-26",
+        "amount": 80000000,
+        "product": "타행 ISA"
+      }
+    },
+    {
+      "id": "E901",
+      "block": 9,
+      "evidence_type": "fact",
+      "source_type": "crm",
+      "text": "[CRM] 2026-04-11 (창구 상담메모): \"연말쯤 여유자금이 좀 생길 것 같다\" — 직원 작성, 발화 원문 보장 없음",
+      "as_of": "2026-04-11",
+      "data": {}
+    }
+  ],
+  "derived_context": [
+    {
+      "id": "D001",
+      "block": 3,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "최근 30일 전체 평가금액 증감: +800,000원 (69,200,000원 → 70,000,000원)",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D002",
+      "block": 8,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "만기 시한: 시중은행 정기예금 (1년제) 20,000,000원 만기 2027-05-15 → D-256",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D003",
+      "block": 8,
+      "evidence_type": "arithmetic_derived",
+      "source_type": "rule_engine",
+      "text": "만기 시한: 타행 ISA 80,000,000원 만기 2026-09-26 → D-25",
+      "as_of": null,
+      "data": {}
+    },
+    {
+      "id": "D004",
+      "block": 1,
+      "evidence_type": "rule_derived",
+      "source_type": "rule_engine",
+      "text": "연금개시요건 충족 여부: 미충족 (만 51세, 가입 8.4년, 퇴직급여 포함 N) | rule_source=만55세 이상 + 가입 5년 이상(퇴직급여 포함 시 55세만) — 행내 공식 기준 | rule_as_of=2026-09-01 | rule_id=PENSION-OPEN-01",
+      "as_of": "2026-09-01",
+      "data": {}
+    }
+  ],
+  "constraint": {
+    "profile": "위험중립형",
+    "allowed": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden": [
+      "적극투자형",
+      "공격투자형"
+    ]
+  },
+  "knowledge_needs": [
+    {
+      "need_id": "KN-D01",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "tax_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "세액공제",
+        "IRP한도",
+        "납입한도",
+        "소득기준",
+        "IRP 개인부담금 세액공제 한도 및 소득 수준별 공제율 기준 확인"
+      ],
+      "need_text": "IRP 개인부담금 세액공제 한도 및 소득 수준별 공제율 기준 확인"
+    },
+    {
+      "need_id": "KN-D02",
+      "origin": "LLM-generated (Demo CALL1)",
+      "purpose": "procedure_confirmation",
+      "authority_required": "T1/T2",
+      "topics": [
+        "ISA만기",
+        "IRP전환",
+        "전환입금",
+        "추가공제",
+        "ISA 만기 자금의 IRP 전환 입금 절차 및 전환 시 추가 세액공제 혜택 확인"
+      ],
+      "need_text": "ISA 만기 자금의 IRP 전환 입금 절차 및 전환 시 추가 세액공제 혜택 확인"
+    }
+  ],
+  "knowledge_selection": {
+    "case_id": "DEMO-A",
+    "mode": "hybrid_knowledge",
+    "deterministic_candidates": [
+      "OK-008",
+      "OK-001"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "OK-008",
+        "OK-001"
+      ],
+      "removed": [],
+      "unmentioned_kept": [],
+      "reason": {},
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 485,
+        "candidatesTokenCount": 30,
+        "totalTokenCount": 951,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 485
+          }
+        ],
+        "thoughtsTokenCount": 436,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "final_selected": [
+      {
+        "kid": "K-001",
+        "kind": "OK",
+        "registry_ref": "OK-008",
+        "need_ref": "KN-D01",
+        "matched": [
+          "세액공제"
+        ],
+        "flags": []
+      },
+      {
+        "kid": "K-002",
+        "kind": "OK",
+        "registry_ref": "OK-001",
+        "need_ref": "KN-D02",
+        "matched": [
+          "ISA만기",
+          "전환입금"
+        ],
+        "flags": []
+      }
+    ],
+    "excluded": []
+  },
+  "management_decision": {
+    "customer_state_interpretation": "사실: 만 51세 위험중립형 고객으로, IRP 계좌 내 현금성 자산 2,000만원이 미운용 상태이며[E201], 타행 ISA 만기자금 8,000만원의 만기가 25일 앞으로 다가온 상태임[E702, D003]. 최근 스타뱅킹을 통해 IRP 수익률 및 연금 세액공제 콘텐츠를 조회한 이력이 있음[E601, E602, E603]. 추론: ISA 만기 자금의 활용 방안 및 IRP 내 미운용 자산의 운용, 그리고 세액공제 혜택 확대에 관심을 가지고 있을 가능성이 높음.",
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "IRP 내 상당액의 현금성 자산(2,000만원)이 방치되어 있으며[E201], 단기간 내 타행 ISA 만기(D-25)라는 주요 자금 이벤트가 예정되어 있음[D003]. 또한 고객이 직접 세액공제 콘텐츠를 조회[E603]하는 등 명확한 관심 신호가 포착되었으므로, ISA 만기자금 전환을 통한 세액공제 혜택 안내 및 미운용 자산의 포트폴리오 재구성이 필요한 시점임."
+    },
+    "required_confirmation": [
+      "원천징수영수증 상의 결정세액 확인 (세액공제 실효성 판단 근거, K-001)",
+      "타행 ISA 만기자금의 IRP 전환 입금 의사 및 규모 확인 (K-002)"
+    ],
+    "management_direction": {
+      "directions": [
+        {
+          "condition": "",
+          "direction": "ISA 만기자금의 IRP 전환 입금을 통한 추가 세액공제 혜택(전환금액 10%, 최대 300만원) 안내 및 절차 지원 (K-002)"
+        },
+        {
+          "condition": "",
+          "direction": "IRP 내 현금성 자산(2,000만원)에 대해 고객의 투자성향(위험중립형) 및 허용 위험등급(4~6등급)에 부합하는 상품으로의 재운용 제안 (E104, C1, C2)"
+        },
+        {
+          "condition": "결정세액이 공제 예상액보다 적을 경우",
+          "direction": "단순 납입보다는 실효 공제액을 고려한 최적 납입 금액 가이드 제공 (K-001)"
+        }
+      ]
+    },
+    "product_need": {
+      "needed": true,
+      "solution_types": [
+        {
+          "solution_type": "미운용 현금 및 ISA 전환자금 운용",
+          "characteristics": [
+            "TDF",
+            "채권형",
+            "정기예금",
+            "GIC"
+          ],
+          "maturity": ""
+        }
+      ]
+    }
+  },
+  "product_selection": {
+    "case_id": "DEMO-A",
+    "mode": "hybrid_product",
+    "investment_profile": "위험중립형",
+    "deterministic_pool": [
+      "P01 KB 온국민 TDF 시리즈",
+      "P02 신한 마음편한 TDF 시리즈",
+      "P03 한화 LIFEPLUS TDF 시리즈",
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P09 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,3년…",
+      "P10 무배당 메리츠화재 이율보증형보험3(개인형IRP,3년)",
+      "P11 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P12 무배당 한화생명 신탁계공용 이율보증형 3년 퇴직적…",
+      "P13 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…",
+      "P14 무배당 교보생명 신탁계공용 이율보증형보험(DC/IR…)"
+    ],
+    "llm_prune": {
+      "ok": true,
+      "keep": [
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P11",
+        "P13"
+      ],
+      "removed": [
+        "P01",
+        "P02",
+        "P03",
+        "P09",
+        "P10",
+        "P12",
+        "P14"
+      ],
+      "unmentioned_kept": [],
+      "reason": {
+        "P01": "TDF 유형 내 동일 위험등급(3등급) 및 권유 불가 중복 후보",
+        "P02": "TDF 유형 내 동일 위험등급(3등급) 및 권유 불가 중복 후보",
+        "P03": "TDF 유형 내 동일 위험등급(3등급) 및 권유 불가 중복 후보",
+        "P09": "GIC 유형 내 동일 만기 구조(3년) 중복 후보",
+        "P10": "GIC 유형 내 동일 만기 구조(3년) 중복 후보",
+        "P12": "GIC 유형 내 동일 만기 구조(3년) 중복 후보",
+        "P14": "GIC 유형 내 동일 만기 구조(3년) 중복 후보"
+      },
+      "model_status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1343,
+        "candidatesTokenCount": 282,
+        "totalTokenCount": 4237,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1343
+          }
+        ],
+        "thoughtsTokenCount": 2612,
+        "serviceTier": "standard"
+      }
+    },
+    "fallback": null,
+    "none_reason": null,
+    "final_pool": [
+      "P04 마이다스 기본 TDF 시리즈",
+      "P05 키움 더드림 단기채",
+      "P06 한국투자 크레딧 포커스 ESG",
+      "P07 교보악사 Tomorrow 장기우량K-1호",
+      "P08 DB손해보험 무배당 스마트 퇴직연금 이율보증형…",
+      "P11 무배당 메리츠화재 이율보증형보험3(개인형IRP,5년)",
+      "P13 KB손해보험 퇴직연금 이율보증형보험(DC/IRP,2년…"
+    ],
+    "det_excluded": [
+      {
+        "need": "PN-D01",
+        "prd": "PRD-008",
+        "name": "한화 내일받는 단기국공채",
+        "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-009",
+        "name": "KB 스타 단기국공채",
+        "reason": "risk_grade 미확인 (원리금보장형 아님) — C2 검증 불가 카드"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-019",
+        "name": "(개별 상품 미확보 — 유형 정보만)",
+        "reason": "실명 상품 아님 (유형 정보만 — 개별 상품 데이터 미확보)"
+      },
+      {
+        "need": "PN-D01",
+        "prd": "PRD-020",
+        "name": "Sh 수협은행 정기예금",
+        "reason": "수익률/기준일 미확보 — S3 카드 최소 필드 미달"
+      }
+    ]
+  },
+  "prompt_chars": {
+    "call1": 3082,
+    "call2": 8063,
+    "call3": 18682
+  },
+  "parsed_output": {
+    "current_situation": "만 51세 고객으로 IRP 평가금액 7,000만원 중 2,000만원이 현금성 자산으로 보유 중이며[E201], 최근 스타뱅킹에서 IRP 수익률과 연금 세액공제 안내 콘텐츠를 반복 조회하는 관심 신호가 관찰됨[E601, E602, E603]. 또한 2026-09-26에 타행 ISA 계좌(8,000만원)의 만기가 도래(D-25)하는 상황임[E702, D003]. CRM 기록상으로는 지난 4월경 연말 여유자금 발생 가능성을 언급한 바 있음[E901].",
+    "known_facts_used": [
+      "IRP 평가금액 7,000만원 (현금성 자산 2,000만원 포함)",
+      "타행 ISA 8,000만원 만기일 2026-09-26 (D-25)",
+      "고객 투자성향 위험중립형",
+      "당해년도 IRP 개인부담금 300만원 납입 및 세액공제 잔여한도 600만원"
+    ],
+    "unknowns_or_confirmations": [
+      "원천징수영수증 상의 결정세액 (실제 세액공제 환급 가능액 판단 근거)",
+      "타행 ISA 만기자금의 IRP 전환 입금 의사 및 희망 금액"
+    ],
+    "management_judgment": {
+      "judgment": "개입 필요 / 추가 확인 우선",
+      "reasoning": "타행 ISA 만기가 25일 앞으로 다가와 60일 이내 전환 입금을 통한 추가 세액공제 혜택을 받을 수 있는 적기이며[D003, K-002], 고객이 최근 세액공제 콘텐츠를 조회하는 등 명확한 관심 신호를 보임[E603]. 또한 IRP 내 2,000만원의 현금성 자산이 운용 지시 없이 보유 중이므로 포트폴리오 재구성이 필요함[E201].",
+      "must_confirm_before_action": [
+        "원천징수영수증 상의 결정세액 확인",
+        "ISA 만기자금 전환 입금 의사 확인"
+      ],
+      "supporting_evidence_ids": [
+        "E201",
+        "E603",
+        "E702",
+        "D003"
+      ],
+      "supporting_knowledge_ids": [
+        "K-001",
+        "K-002"
+      ]
+    },
+    "next_actions": [
+      {
+        "action": "ISA 만기자금의 IRP 전환 입금 혜택 안내 및 절차 지원",
+        "kind": "정보안내",
+        "condition": "",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E702",
+          "D003"
+        ]
+      },
+      {
+        "action": "IRP 내 현금성 자산(2,000만원)의 재운용 제안",
+        "kind": "변경",
+        "condition": "",
+        "risk_level": "위험중립형",
+        "supporting_evidence_ids": [
+          "E201",
+          "E104"
+        ]
+      },
+      {
+        "action": "결정세액 기반 최적 납입 금액 가이드 제공",
+        "kind": "정보안내",
+        "condition": "결정세액이 공제 예상액보다 적은 경우",
+        "risk_level": "해당없음",
+        "supporting_evidence_ids": [
+          "E205",
+          "E703"
+        ]
+      }
+    ],
+    "knowledge_ids_used": [
+      "K-001",
+      "K-002"
+    ],
+    "employee_brief": {
+      "s1_customer_situation": "고객님은 현재 IRP에 7,000만원을 보유 중이며, 이 중 2,000만원은 입금 이후 추가 매매나 운용지시가 확인되지 않은 현금성 자산 상태입니다. 최근 스타뱅킹을 통해 IRP 수익률과 세액공제 관련 내용을 여러 차례 조회하셨으며, 특히 9월 26일에 타행 ISA 계좌의 만기(8,000만원)가 예정되어 있어 세제 혜택에 관심이 높으신 상황으로 보입니다. 지난 4월 상담 시에도 연말 여유자금 가능성을 언급하신 기록이 있습니다.",
+      "s2_management_point": {
+        "point": "25일 후 도래하는 ISA 만기자금의 IRP 전환을 통한 세액공제 극대화와 IRP 내 미운용 자산 2,000만원의 효율적 운용을 지원하는 것이 핵심입니다.",
+        "check_before_consult": [
+          "단말에서 고객의 연금계좌 납입 가능 잔여한도 및 세액공제 잔여한도 확인",
+          "현재 가입 가능한 퇴직연금 상품 라인업 및 판매 가능 여부 확인"
+        ],
+        "check_with_customer": [
+          "원천징수영수증 상의 결정세액 확인 (실효 공제액 판단 목적)",
+          "타행 ISA 만기자금을 IRP로 전환하여 입금하실 의사가 있는지 확인"
+        ]
+      },
+      "s3_direction": {
+        "directions": [
+          {
+            "condition": "",
+            "direction": "ISA 만기자금의 IRP 전환 입금 안내 및 지원",
+            "solution_type": "세제 혜택 안내 및 입금 절차 지원",
+            "risk_level": "해당없음"
+          },
+          {
+            "condition": "",
+            "direction": "현금성 자산의 포트폴리오 재구성을 통한 재운용",
+            "solution_type": "투자성향 부합 상품 제안",
+            "risk_level": "위험중립형"
+          },
+          {
+            "condition": "결정세액이 낮아 전액 공제가 어려운 경우",
+            "direction": "실효 공제액을 고려한 납입 금액 조정 안내",
+            "solution_type": "납입 금액 최적화 가이드",
+            "risk_level": "해당없음"
+          }
+        ],
+        "product_candidates": [
+          {
+            "product_id": "P04",
+            "reasons": [
+              "고객의 투자성향(위험중립형)에 부합하는 보통위험(4등급) 상품이며, 이미 일부 보유 중인 TDF 상품으로 운용 경험이 있어 추가 비중 확대에 적합함"
+            ]
+          },
+          {
+            "product_id": "P08",
+            "reasons": [
+              "원리금보장상품을 선호하거나 안정적인 수익을 추구하는 경우 적합하며, 위험중립형 성향 내에서 안정적인 자산 배분 수단으로 활용 가능"
+            ]
+          }
+        ]
+      },
+      "s4_consult_script": {
+        "scripts": [
+          "고객님, 최근에 앱으로 연금 세액공제 내용을 살펴보신 것 같아 도움을 드리고자 연락드렸습니다. 마침 9월 26일에 만기가 되시는 타행 ISA 자금 8,000만원이 있으신데, 이 자금을 만기 후 60일 이내에 IRP로 전환하시면 기존 한도 외에 추가로 최대 300만원까지 세액공제 혜택을 더 받으실 수 있습니다.",
+          "또한, 현재 IRP 계좌에 운용 지시가 되지 않은 현금성 자산 2,000만원이 있으신데요. 고객님의 위험중립형 성향에 맞춰, 기존에 보유하신 마이다스 기본 TDF(P04)의 비중을 높이시거나, 안정적인 이율보증형 보험(P08) 등으로 운용하여 효율을 높여보시는 것을 추천드립니다.",
+          "다만, 실제로 세액공제를 얼마나 환급받으실 수 있는지는 원천징수영수증상의 '결정세액'에 따라 달라질 수 있습니다. 정확한 혜택 금액을 확인해 드릴 수 있도록 영수증 내용을 함께 살펴봐도 될까요?"
+        ],
+        "conditional_scripts": [
+          {
+            "if": "원금 손실에 대한 우려를 표하는 경우",
+            "script": "그렇다면 위험등급이 매우 낮은 채권형 펀드(P05)나 원리금보장형 상품인 GIC(P08) 위주로 구성하여 안정성을 높이는 방향으로 안내해 드리겠습니다."
+          },
+          {
+            "if": "ISA 전환 입금 절차가 복잡하다고 느끼는 경우",
+            "script": "타행에서 해지하신 후 저희 은행 IRP로 입금만 하시면 전산으로 확인이 가능하여 별도의 증빙서류 없이 편리하게 처리하실 수 있도록 도와드리겠습니다."
+          }
+        ]
+      },
+      "s5_tips_and_screens": {
+        "tips": [
+          {
+            "tip_id": "T01",
+            "why_relevant": "타행 ISA 만기자금의 IRP 전환 입금 시 증빙서류 불필요 및 추가 세액공제 혜택에 대한 실무적 안내 근거로 활용"
+          }
+        ],
+        "screens": [
+          {
+            "screen_id": "S01",
+            "purpose_here": "고객의 세금우대 관련 조회 및 ISA 전환 가능 금액 확인"
+          },
+          {
+            "screen_id": "S02",
+            "purpose_here": "ISA 만기자금 입금 처리 시 입금가능금액 자동조회 및 실행"
+          },
+          {
+            "screen_id": "S03",
+            "purpose_here": "당해년도 개인부담금 납입 가능 한도 확인 및 변경"
+          },
+          {
+            "screen_id": "S04",
+            "purpose_here": "재운용 제안 상품(P04, P08 등)의 현재 판매 가능 여부 최종 확인"
+          },
+          {
+            "screen_id": "S05",
+            "purpose_here": "고객이 직접 비대면으로 ISA 만기자금을 입금할 수 있도록 경로 안내"
+          }
+        ]
+      }
+    }
+  },
+  "schema_errors": [],
+  "validation": {
+    "constraint_id": "C1",
+    "investment_profile": "위험중립형",
+    "allowed_levels": [
+      "안정형",
+      "안정추구형",
+      "위험중립형"
+    ],
+    "forbidden_levels": [
+      "적극투자형",
+      "공격투자형"
+    ],
+    "candidates": [
+      {
+        "index": 0,
+        "action": "ISA 만기자금의 IRP 전환 입금 혜택 안내 및 절차 지원",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      },
+      {
+        "index": 1,
+        "action": "IRP 내 현금성 자산(2,000만원)의 재운용 제안",
+        "kind": "변경",
+        "risk_level": "위험중립형",
+        "verdict": "PASS"
+      },
+      {
+        "index": 2,
+        "action": "결정세액 기반 최적 납입 금액 가이드 제공",
+        "kind": "정보안내",
+        "risk_level": "해당없음",
+        "verdict": "PASS"
+      }
+    ],
+    "overall": "PASS"
+  },
+  "validation_c3": {
+    "constraint_id": "C3",
+    "investment_profile": "위험중립형",
+    "ineligible_portfolios": [
+      "모두드림"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_c2": {
+    "constraint_id": "C2",
+    "investment_profile": "위험중립형",
+    "allowed_min_grade": 4,
+    "ineligible_labels": [
+      "매우높은위험",
+      "높은위험",
+      "다소높은위험"
+    ],
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_forbidden_words": {
+    "check": "forbidden_words",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_latex": {
+    "check": "latex_residue",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_evidence_ids": {
+    "check": "evidence_ids",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_supply_refs": {
+    "check": "supply_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "validation_screen_refs": {
+    "check": "screen_refs",
+    "findings": [],
+    "overall": "PASS"
+  },
+  "status": "SUCCESS",
+  "error": "",
+  "llm_calls": [
+    {
+      "purpose": "CALL1_knowledge_need",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 1832,
+        "candidatesTokenCount": 210,
+        "totalTokenCount": 3076,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1832
+          }
+        ],
+        "thoughtsTokenCount": 1034,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "knowledge_needs": [
+          {
+            "purpose": "tax_confirmation",
+            "topic": "IRP 개인부담금 세액공제 한도 및 소득 수준별 공제율 기준 확인",
+            "keywords": [
+              "세액공제",
+              "IRP한도",
+              "납입한도",
+              "소득기준"
+            ],
+            "supporting_evidence_ids": [
+              "E603",
+              "E703"
+            ]
+          },
+          {
+            "purpose": "procedure_confirmation",
+            "topic": "ISA 만기 자금의 IRP 전환 입금 절차 및 전환 시 추가 세액공제 혜택 확인",
+            "keywords": [
+              "ISA만기",
+              "IRP전환",
+              "전환입금",
+              "추가공제"
+            ],
+            "supporting_evidence_ids": [
+              "E702",
+              "D003"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "purpose": "CALL2_management_decision",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 4775,
+        "candidatesTokenCount": 740,
+        "totalTokenCount": 7038,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 4775
+          }
+        ],
+        "thoughtsTokenCount": 1523,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "customer_state_interpretation": "사실: 만 51세 위험중립형 고객으로, IRP 계좌 내 현금성 자산 2,000만원이 미운용 상태이며[E201], 타행 ISA 만기자금 8,000만원의 만기가 25일 앞으로 다가온 상태임[E702, D003]. 최근 스타뱅킹을 통해 IRP 수익률 및 연금 세액공제 콘텐츠를 조회한 이력이 있음[E601, E602, E603]. 추론: ISA 만기 자금의 활용 방안 및 IRP 내 미운용 자산의 운용, 그리고 세액공제 혜택 확대에 관심을 가지고 있을 가능성이 높음.",
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "IRP 내 상당액의 현금성 자산(2,000만원)이 방치되어 있으며[E201], 단기간 내 타행 ISA 만기(D-25)라는 주요 자금 이벤트가 예정되어 있음[D003]. 또한 고객이 직접 세액공제 콘텐츠를 조회[E603]하는 등 명확한 관심 신호가 포착되었으므로, ISA 만기자금 전환을 통한 세액공제 혜택 안내 및 미운용 자산의 포트폴리오 재구성이 필요한 시점임."
+        },
+        "required_confirmation": [
+          "원천징수영수증 상의 결정세액 확인 (세액공제 실효성 판단 근거, K-001)",
+          "타행 ISA 만기자금의 IRP 전환 입금 의사 및 규모 확인 (K-002)"
+        ],
+        "management_direction": {
+          "directions": [
+            {
+              "condition": "",
+              "direction": "ISA 만기자금의 IRP 전환 입금을 통한 추가 세액공제 혜택(전환금액 10%, 최대 300만원) 안내 및 절차 지원 (K-002)"
+            },
+            {
+              "condition": "",
+              "direction": "IRP 내 현금성 자산(2,000만원)에 대해 고객의 투자성향(위험중립형) 및 허용 위험등급(4~6등급)에 부합하는 상품으로의 재운용 제안 (E104, C1, C2)"
+            },
+            {
+              "condition": "결정세액이 공제 예상액보다 적을 경우",
+              "direction": "단순 납입보다는 실효 공제액을 고려한 최적 납입 금액 가이드 제공 (K-001)"
+            }
+          ]
+        },
+        "product_need": {
+          "needed": true,
+          "solution_types": [
+            {
+              "solution_type": "미운용 현금 및 ISA 전환자금 운용",
+              "characteristics": [
+                "TDF",
+                "채권형",
+                "정기예금",
+                "GIC"
+              ],
+              "maturity": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "purpose": "CALL3_final_brief",
+      "status": "SUCCESS",
+      "usage": {
+        "promptTokenCount": 10401,
+        "candidatesTokenCount": 2520,
+        "totalTokenCount": 14310,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 10401
+          }
+        ],
+        "thoughtsTokenCount": 1389,
+        "serviceTier": "standard"
+      },
+      "finish_reason": "STOP",
+      "error": "",
+      "parsed": {
+        "current_situation": "만 51세 고객으로 IRP 평가금액 7,000만원 중 2,000만원이 현금성 자산으로 보유 중이며[E201], 최근 스타뱅킹에서 IRP 수익률과 연금 세액공제 안내 콘텐츠를 반복 조회하는 관심 신호가 관찰됨[E601, E602, E603]. 또한 2026-09-26에 타행 ISA 계좌(8,000만원)의 만기가 도래(D-25)하는 상황임[E702, D003]. CRM 기록상으로는 지난 4월경 연말 여유자금 발생 가능성을 언급한 바 있음[E901].",
+        "known_facts_used": [
+          "IRP 평가금액 7,000만원 (현금성 자산 2,000만원 포함)",
+          "타행 ISA 8,000만원 만기일 2026-09-26 (D-25)",
+          "고객 투자성향 위험중립형",
+          "당해년도 IRP 개인부담금 300만원 납입 및 세액공제 잔여한도 600만원"
+        ],
+        "unknowns_or_confirmations": [
+          "원천징수영수증 상의 결정세액 (실제 세액공제 환급 가능액 판단 근거)",
+          "타행 ISA 만기자금의 IRP 전환 입금 의사 및 희망 금액"
+        ],
+        "management_judgment": {
+          "judgment": "개입 필요 / 추가 확인 우선",
+          "reasoning": "타행 ISA 만기가 25일 앞으로 다가와 60일 이내 전환 입금을 통한 추가 세액공제 혜택을 받을 수 있는 적기이며[D003, K-002], 고객이 최근 세액공제 콘텐츠를 조회하는 등 명확한 관심 신호를 보임[E603]. 또한 IRP 내 2,000만원의 현금성 자산이 운용 지시 없이 보유 중이므로 포트폴리오 재구성이 필요함[E201].",
+          "must_confirm_before_action": [
+            "원천징수영수증 상의 결정세액 확인",
+            "ISA 만기자금 전환 입금 의사 확인"
+          ],
+          "supporting_evidence_ids": [
+            "E201",
+            "E603",
+            "E702",
+            "D003"
+          ],
+          "supporting_knowledge_ids": [
+            "K-001",
+            "K-002"
+          ]
+        },
+        "next_actions": [
+          {
+            "action": "ISA 만기자금의 IRP 전환 입금 혜택 안내 및 절차 지원",
+            "kind": "정보안내",
+            "condition": "",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E702",
+              "D003"
+            ]
+          },
+          {
+            "action": "IRP 내 현금성 자산(2,000만원)의 재운용 제안",
+            "kind": "변경",
+            "condition": "",
+            "risk_level": "위험중립형",
+            "supporting_evidence_ids": [
+              "E201",
+              "E104"
+            ]
+          },
+          {
+            "action": "결정세액 기반 최적 납입 금액 가이드 제공",
+            "kind": "정보안내",
+            "condition": "결정세액이 공제 예상액보다 적은 경우",
+            "risk_level": "해당없음",
+            "supporting_evidence_ids": [
+              "E205",
+              "E703"
+            ]
+          }
+        ],
+        "knowledge_ids_used": [
+          "K-001",
+          "K-002"
+        ],
+        "employee_brief": {
+          "s1_customer_situation": "고객님은 현재 IRP에 7,000만원을 보유 중이며, 이 중 2,000만원은 입금 이후 추가 매매나 운용지시가 확인되지 않은 현금성 자산 상태입니다. 최근 스타뱅킹을 통해 IRP 수익률과 세액공제 관련 내용을 여러 차례 조회하셨으며, 특히 9월 26일에 타행 ISA 계좌의 만기(8,000만원)가 예정되어 있어 세제 혜택에 관심이 높으신 상황으로 보입니다. 지난 4월 상담 시에도 연말 여유자금 가능성을 언급하신 기록이 있습니다.",
+          "s2_management_point": {
+            "point": "25일 후 도래하는 ISA 만기자금의 IRP 전환을 통한 세액공제 극대화와 IRP 내 미운용 자산 2,000만원의 효율적 운용을 지원하는 것이 핵심입니다.",
+            "check_before_consult": [
+              "단말에서 고객의 연금계좌 납입 가능 잔여한도 및 세액공제 잔여한도 확인",
+              "현재 가입 가능한 퇴직연금 상품 라인업 및 판매 가능 여부 확인"
+            ],
+            "check_with_customer": [
+              "원천징수영수증 상의 결정세액 확인 (실효 공제액 판단 목적)",
+              "타행 ISA 만기자금을 IRP로 전환하여 입금하실 의사가 있는지 확인"
+            ]
+          },
+          "s3_direction": {
+            "directions": [
+              {
+                "condition": "",
+                "direction": "ISA 만기자금의 IRP 전환 입금 안내 및 지원",
+                "solution_type": "세제 혜택 안내 및 입금 절차 지원",
+                "risk_level": "해당없음"
+              },
+              {
+                "condition": "",
+                "direction": "현금성 자산의 포트폴리오 재구성을 통한 재운용",
+                "solution_type": "투자성향 부합 상품 제안",
+                "risk_level": "위험중립형"
+              },
+              {
+                "condition": "결정세액이 낮아 전액 공제가 어려운 경우",
+                "direction": "실효 공제액을 고려한 납입 금액 조정 안내",
+                "solution_type": "납입 금액 최적화 가이드",
+                "risk_level": "해당없음"
+              }
+            ],
+            "product_candidates": [
+              {
+                "product_id": "P04",
+                "reasons": [
+                  "고객의 투자성향(위험중립형)에 부합하는 보통위험(4등급) 상품이며, 이미 일부 보유 중인 TDF 상품으로 운용 경험이 있어 추가 비중 확대에 적합함"
+                ]
+              },
+              {
+                "product_id": "P08",
+                "reasons": [
+                  "원리금보장상품을 선호하거나 안정적인 수익을 추구하는 경우 적합하며, 위험중립형 성향 내에서 안정적인 자산 배분 수단으로 활용 가능"
+                ]
+              }
+            ]
+          },
+          "s4_consult_script": {
+            "scripts": [
+              "고객님, 최근에 앱으로 연금 세액공제 내용을 살펴보신 것 같아 도움을 드리고자 연락드렸습니다. 마침 9월 26일에 만기가 되시는 타행 ISA 자금 8,000만원이 있으신데, 이 자금을 만기 후 60일 이내에 IRP로 전환하시면 기존 한도 외에 추가로 최대 300만원까지 세액공제 혜택을 더 받으실 수 있습니다.",
+              "또한, 현재 IRP 계좌에 운용 지시가 되지 않은 현금성 자산 2,000만원이 있으신데요. 고객님의 위험중립형 성향에 맞춰, 기존에 보유하신 마이다스 기본 TDF(P04)의 비중을 높이시거나, 안정적인 이율보증형 보험(P08) 등으로 운용하여 효율을 높여보시는 것을 추천드립니다.",
+              "다만, 실제로 세액공제를 얼마나 환급받으실 수 있는지는 원천징수영수증상의 '결정세액'에 따라 달라질 수 있습니다. 정확한 혜택 금액을 확인해 드릴 수 있도록 영수증 내용을 함께 살펴봐도 될까요?"
+            ],
+            "conditional_scripts": [
+              {
+                "if": "원금 손실에 대한 우려를 표하는 경우",
+                "script": "그렇다면 위험등급이 매우 낮은 채권형 펀드(P05)나 원리금보장형 상품인 GIC(P08) 위주로 구성하여 안정성을 높이는 방향으로 안내해 드리겠습니다."
+              },
+              {
+                "if": "ISA 전환 입금 절차가 복잡하다고 느끼는 경우",
+                "script": "타행에서 해지하신 후 저희 은행 IRP로 입금만 하시면 전산으로 확인이 가능하여 별도의 증빙서류 없이 편리하게 처리하실 수 있도록 도와드리겠습니다."
+              }
+            ]
+          },
+          "s5_tips_and_screens": {
+            "tips": [
+              {
+                "tip_id": "T01",
+                "why_relevant": "타행 ISA 만기자금의 IRP 전환 입금 시 증빙서류 불필요 및 추가 세액공제 혜택에 대한 실무적 안내 근거로 활용"
+              }
+            ],
+            "screens": [
+              {
+                "screen_id": "S01",
+                "purpose_here": "고객의 세금우대 관련 조회 및 ISA 전환 가능 금액 확인"
+              },
+              {
+                "screen_id": "S02",
+                "purpose_here": "ISA 만기자금 입금 처리 시 입금가능금액 자동조회 및 실행"
+              },
+              {
+                "screen_id": "S03",
+                "purpose_here": "당해년도 개인부담금 납입 가능 한도 확인 및 변경"
+              },
+              {
+                "screen_id": "S04",
+                "purpose_here": "재운용 제안 상품(P04, P08 등)의 현재 판매 가능 여부 최종 확인"
+              },
+              {
+                "screen_id": "S05",
+                "purpose_here": "고객이 직접 비대면으로 ISA 만기자금을 입금할 수 있도록 경로 안내"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "llm_call_count": {
+    "decision_level": 3,
+    "selection_prune": 2,
+    "total": 5
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "case_id": "DEMO-E",
+  "base_date": "2026-09-01",
+  "evidence": [
+    {"id": "E101", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "고객 연령: 만 47세", "as_of": "2026-09-01", "data": {"kind": "age", "years": 47}},
+    {"id": "E102", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "개인형IRP 가입일: 2020-03-05 (개인부담금 적립용 — 세액공제 목적 납입 이력)", "data": {"kind": "join_date", "date": "2020-03-05"}},
+    {"id": "E103", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "퇴직급여 포함 여부: 미포함", "data": {"kind": "retirement_benefit", "included": false}},
+    {"id": "E104", "block": 1, "evidence_type": "fact", "source_type": "account_system",
+     "text": "투자성향: 위험중립형 (분석일 2026-07-01, 유효) / 재직 중 (당행 급여이체 계속 관찰) / 스타뱅킹 이용 중", "as_of": "2026-07-01"},
+    {"id": "E201", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "IRP 평가금액: 80,000,000원 (현금성자산 10,000,000원 포함)", "as_of": "2026-09-01",
+     "data": {"kind": "current_balance", "cash": 10000000, "total": 80000000}},
+    {"id": "E202", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "보유상품: 채권형 펀드 (위험등급 5등급) 50,000,000원 / 시중은행 정기예금 (1년제) 20,000,000원 (만기 2027-02-10)",
+     "as_of": "2026-09-01",
+     "data": {"kind": "maturity", "date": "2027-02-10", "amount": 20000000, "product": "시중은행 정기예금 (1년제)"}},
+    {"id": "E203", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "디폴트옵션 등록 여부: 등록 (초저위험 지켜드림)", "as_of": "2026-09-01",
+     "data": {"kind": "do_registration", "registered": true}},
+    {"id": "E204", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "당해년도 IRP 개인부담금 실납입액(irp_personal_contribution_ytd): 4,000,000원 / 최근 5년 연 6,000,000~7,000,000원 납입 이력", "as_of": "2026-09-01"},
+    {"id": "E205", "block": 2, "evidence_type": "fact", "source_type": "account_system",
+     "text": "세액공제 미신청금액 등록 내역: 0건 (실제 미신청분 존재 여부는 별도 확인 필요)", "as_of": "2026-09-01"},
+    {"id": "E301", "block": 3, "evidence_type": "fact", "source_type": "account_system",
+     "text": "2026-08-02 기준 잔액 스냅샷: 현금성자산 10,000,000원 / 전체 평가금액 79,700,000원",
+     "as_of": "2026-08-02",
+     "data": {"kind": "balance_snapshot", "date": "2026-08-02", "cash": 10000000, "total": 79700000}},
+    {"id": "E401", "block": 4, "evidence_type": "fact", "source_type": "transaction",
+     "text": "최근 90일 IRP 입출금 거래: 정기 개인부담금 이체 외 없음", "as_of": "2026-09-01"},
+    {"id": "E601", "block": 6, "evidence_type": "signal", "source_type": "digital_behavior",
+     "text": "2026-08-30 스타뱅킹 IRP 평가금액 화면 조회 (실행 이력 없음)", "as_of": "2026-08-30"},
+    {"id": "E701", "block": 7, "evidence_type": "fact", "source_type": "external_account",
+     "text": "총 금융자산: 150,000,000원 / 주택 보유 여부: 당사 확인 불가 (NULL)", "as_of": "2026-09-01"},
+    {"id": "E901", "block": 9, "evidence_type": "fact", "source_type": "crm",
+     "text": "[CRM] 2026-08-28 (콜센터 상담메모): \"IRP 해지 절차 문의 접수. 내년 초 전세 이사 예정이라 자금이 필요할 것 같다고 함.\" — 직원 작성, 발화 원문 보장 없음. 필요 금액·해지 확정 여부 기록 없음", "as_of": "2026-08-28"}
+  ],
+  "supply": {
+    "product_candidates": [],
+    "hot_tips": [
+      {"tip_id": "T01", "kind": "official_guide",
+       "title": "해지 의사 고객 거절유형 대응 — 필요액 기준 부분 대안 (연금개시 요건 충족 고객 사례)",
+       "body": "[고객] 1억원 정도 쓸 곳이 있어서 그냥 해지하려고요. [키키행원] 1억원만 필요하신 거라면 해지보다 연금개시한 다음 인출하시는 게 훨씬 유리합니다. 연금수령한도 내에서 인출하시면 퇴직소득세를 30% 할인받기 때문이죠. 연금개시를 해서 1억원만 인출하시면 이후 퇴직소득세는 계속 할인받으실 수 있고, 남은 자산은 세금 차감없이 계속 운용가능하고, 또 필요한 만큼 자유롭게 인출하실 수 있어요.",
+       "source": "TALK-012 / SRC-011 연수교재 — T2 행내 가이드 (연금개시 요건을 충족한 퇴직금 수령 고객 사례 — 요건 미충족 고객에게 그대로 적용 불가)"}
+    ],
+    "screens": [
+      {"screen_id": "S01", "surface": "staff", "screen_no": "[06-12-622]", "screen_name": "세액공제 미신청금액 등록/전환 신청",
+       "actions": "계약해지·연금개시 전 세액공제 미신청금액을 납입연도별 등록 (미공제 원금 과세제외 처리 전제)"},
+      {"screen_id": "S02", "surface": "staff", "screen_no": "[06-12-501]", "screen_name": "후선업무 의뢰등록",
+       "actions": "중도인출 창구 접수 후 후선 처리 의뢰"},
+      {"screen_id": "S03", "surface": "staff", "screen_no": "[04-12-644]", "screen_name": "거래내역 조회",
+       "actions": "납입·입금 내역 확인 (연도별 납입액 파악 보조)"}
+    ]
+  }
+}
