@@ -19,6 +19,7 @@
 - `golden/`: Golden Set(Domain Map · Capability Map · Case Candidates), 확정 Human Decision, Batch Summary (`P0_BATCH_SUMMARY.md`, `REVISION_001_REGRESSION.md`, `P1_BATCH2_SUMMARY.md`)
 - `cases/`: 실제 Case (CASE_001 = Baseline / GC-00; Golden P0 Case는 `cases/GC-xx/`)
 - `prototype/`: Gemma 4 최소 Runtime
+- `demo_isa_brief_pipeline.py`: 기획자 설명용 데모 — 타행 ISA 만기 D-3 고객 화면이 DATA → Context → Knowledge 검색 → LLM 추론 → 검증 → 화면으로 만들어지는 과정을 한 파일로 실행 (`python3 demo_isa_brief_pipeline.py --mock`)
 
 ## Important Principle
 
