@@ -136,7 +136,7 @@ Revision Status: `OBSERVED` (수정 없음, 축적 중) · `GATED` (Human Gate �
 
 - **Pattern**: S1~S3 또는 Knowledge Pack에서 Unknown / Knowledge Gap / T3 단독 / PROVISIONAL / Conditional 상태로 유지된 내용이 **S4 상담 화법 생성 과정에서 원인 설명·사실·추천 방향으로 확정 승격**되는 Failure. Pack이 정확한 상태(Gap·Authority Boundary가 명시 공급됨)에서도 발생하므로 Selection Failure가 아니라 Decision Agent의 Consumption/Semantic Preservation Failure다.
 - **Severity**: P3 (Meaning Preservation) — 승격된 내용이 판단·방향을 실질로 바꾸면 P1 상향.
-- **Cases Observed**: GC-20·GC-21·GC-25 (P2 Batch 3 RUN_001, 3/8 — 당시 FC-1 Candidate) / **P3 실 RUN 재현**: GC-21 selector(KG-001 동봉에도 "매수 시점" 원인 화법 생성)·GC-25 manual+selector(KG-004 동봉에도 7/1 확정 서술 + "세금을 최대한 줄이는 방법") — `design/P3_RUN_COMPARISON.md` §2.
+- **Cases Observed**: GC-20·GC-21·GC-25 (P2 Batch 3 RUN_001, 3/8 — 당시 FC-1 Candidate) / **P3 실 RUN 재현**: GC-21 selector(KG-001 동봉에도 "매수 시점" 원인 화법 생성)·GC-25 manual+selector(KG-004 동봉에도 7/1 확정 서술 + "세금을 최대한 줄이는 방법") — `design/archive/P3_RUN_COMPARISON.md` §2.
 - **정식 부여 근거**: P2 1회 + P3 실 RUN 재현으로 재현 관찰 요건 충족 (P2_BATCH3_SUMMARY §2 원칙).
 - **Candidate Layer**: LLM Reasoning (S4 화법 합성 압력) · Prompt (SYSTEM_ROLE 원칙 19).
 - **대응 (2026-08-31, 최소)**: SYSTEM_ROLE_V3 원칙 19에 (d) 미확인 정보의 질문/확인 문장 변환(가능성 화법으로 원인 대체 금지 포함)·(e) T3 단독 시점 규칙의 확정 서술·방향 확정 금지 보강. **deterministic keyword blacklist는 만들지 않음** — 문맥 의존 표현이므로 SYSTEM_ROLE/OUTPUT instruction + Evaluator semantic gate로 관리 (Human 지시).

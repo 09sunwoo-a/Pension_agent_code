@@ -14,7 +14,7 @@
 # [v1 보존] Customer Evidence Pack Spec — Input 명세 (8-섹션 확정본)
 
 - Status: **HUMAN CONFIRMED — Step 3 결정 반영 (2026-08-31)**. Availability는 Human이 결정 2-1~2-8로 확정했다. 초안 대비 삭제·수정 내역은 문서 말미 §7 변경 기록.
-- 근거: `design/evidence/` (P0/P1 역추적 · Excel 필드). 모든 필드는 실제 Case에서 판단에 쓰였거나 결핍이 오판을 유발했거나 Excel에 실존하는 것만 수록.
+- 근거: `design/archive/evidence/` (P0/P1 역추적 · Excel 필드). 모든 필드는 실제 Case에서 판단에 쓰였거나 결핍이 오판을 유발했거나 Excel에 실존하는 것만 수록.
 - JSON Schema·DB·Parser는 범위 밖(Step 4에서 결정).
 
 표기: 유형 = **F**(Fact) / **A**(Arithmetic Derived — §4) / **R**(Rule-derived Fact — §4, `rule_source`·`rule_as_of` 필수) / **S**(Signal) / **CS**(Customer-stated 계열). `Av` = Availability: **O**(확보 가능 — Human 확정) / `?`(미확정 잔여 — §6). `Δ` = 변화량 제공.

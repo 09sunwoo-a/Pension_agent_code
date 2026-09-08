@@ -1,5 +1,6 @@
 # P2 Batch 3 — Case 후보 설계안 + 상세 Case Design
 
+- **종료 (2026-08-31)**: Gate ② 승인(`golden/HUMAN_DECISIONS.md` HD-P2-GATE2) 후 GC-18~25 작성·RUN·EVAL 완료, Batch 종료 판정은 `golden/P2_BATCH3_SUMMARY.md` §7. 아래 Status 줄은 Gate ② 이전 시점의 기록이다.
 - Status: **상세 설계 단계 (Phase G — HD-PRE-P2-GATE1, 2026-08-31).** Gate ①이 Gap Decision(G1~G4) 반영을 조건으로 승인되어 상세 Case Design(§4)까지 진행. **Case 작성(canonical.json)·Freeze·RUN/EVAL은 Gate ② Human 승인 전 금지, 기존 Frozen Artifact 수정 금지** 유지.
 - 작성: 2026-08-31 (§1~§3 초안 동일 / §4 상세 설계는 Gate ① 이후). 근거: HD-8 4-1 우선 검증 영역 6개 + `golden/GOLDEN_SET_DRAFT.md` §7 Coverage Gap + `golden/REV002_REGRESSION.md` 잔여 관찰 + Diagnostic Pilot(DIAG-01~03) 관찰.
 - 공통 사항 (HD-PRE-P2-INPUT 4-1 반영 — 구 input_v2 계획 대체): 전 Case는 **v3 Canonical 3-Layer**(`cases/<CASE>/canonical.json` 9-Block + `knowledge_pack.md` + supply 계약, `design/CANONICAL_CONTRACTS.md`)로 작성한다. 전 Case에 **Answer Quality Secondary Observation Axis**(HD-8 5: Completeness / Prioritization / Solution Breadth / Explanation Quality / Actionability / Conversation Quality / Practical Utility / Conciseness)를 EVAL 관찰 항목으로 부착한다 — Gate 아님, Observation 전용. 추가로 **SG-1~3 Semantic Gate**(`design/INTERPRETATION_DESIGN.md` Gate ① 보강)를 전 Case EVAL 판정 기준에 포함한다.

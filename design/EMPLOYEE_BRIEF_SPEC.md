@@ -28,7 +28,7 @@
 # [v1 보존] Employee Brief Spec — 5-섹션 Output 명세 (확정본)
 
 - Status: **HUMAN CONFIRMED — Step 3 결정 반영 (2026-08-31)**. 5-섹션 구조 승인(결정 3-1), S3 분기 규칙 수정(3-2), Candidate Pool(3-3), Evidence Trace(3-4), Validator 수정(3-5·3-6), S5 수동 동봉(3-7), Regression 8 Case(5).
-- 근거: `design/evidence/BRIEF_SECTION_AUDIT.md`(18 Case 전수 감사) · `SCREENS_HOTTIPS_INVENTORY.md` · `P1_CASE_EVIDENCE.md`. 필수/금지 요소는 실제 발생 사례가 있는 것만.
+- 근거: `design/archive/evidence/BRIEF_SECTION_AUDIT.md`(18 Case 전수 감사) · `SCREENS_HOTTIPS_INVENTORY.md` · `P1_CASE_EVIDENCE.md`. 필수/금지 요소는 실제 발생 사례가 있는 것만.
 - Brief 성격: **직원용 Recommendation Brief** (HD-6 갱신 — Target Output으로 승격; 단 운영 검증 완료를 의미하지 않으며 REV-002/P2 Regression·직원 검증 대상). 입장을 갖고 커밋하되 불확실성은 필요한 분기로 유지. 고객 직접 제공 문서 아님. 내부 판단 라벨 비노출.
 
 감사 요약 (18 Case, 최신 RUN): S1 재배치(단 F-001 5건 전부 S1) · S2 재배치 · S3 재배치+검증 신설(F-008 발생 지점) · S4 순서 재배치+**화법 신규(0/18)** · S5 **사실상 신규**(화면번호 Brief 생존 1/18, Hot Tip·출처 0/18).

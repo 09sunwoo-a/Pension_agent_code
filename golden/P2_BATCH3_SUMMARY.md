@@ -82,4 +82,4 @@ current_situation은 관찰 서술("운용 지시가 확인되지 않아 남아 
 - ① 핵심 Failure 4건 전부 해소 확인 (§6) ② 신규 Critical Semantic Failure 없음 — GC-22 Control의 금지어 재발은 비승격적(제도 일반론) 어휘 사용으로 Critical Semantic이 아니며, 의미 축 후퇴도 없음.
 - **Human 인지 필요 예외 1건**: GC-22 RUN_002 금지어 FAIL — F-001 대체 어휘 규범이 "제도 목적 설명" 문맥을 커버하지 못하는 관찰. 지시(Failure Evidence 기반 최소 수정·deterministic 과추가 금지)에 따라 추가 교정하지 않고 기록만 남김. 필요 시 후속 판단 대상.
 - FC-1·FC-2는 Candidate Cluster로 `cases/FAILURE_MAP.md`에 기록 (정식 F-번호 미부여 — 이후 재현 시 부여 검토).
-- 추가 Case 설계·새 P2 Batch·대규모 Architecture 개선 없이 종료. 다음 단계 인수인계: `design/HANDOFF_P3_INTEGRATION.md`.
+- 추가 Case 설계·새 P2 Batch·대규모 Architecture 개선 없이 종료. 다음 단계 인수인계: `design/archive/HANDOFF_P3_INTEGRATION.md`.

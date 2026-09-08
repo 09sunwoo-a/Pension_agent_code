@@ -2,7 +2,7 @@
 
 `prototype/out/`(git 제외) 에 떨어진 record 중 P3 실험 보고가 인용하는 것만 손으로 옮겨둔 폴더다.
 코드가 여기에 쓰지 않는다 — `selector.py`·`product_selector.py`·`hybrid_selector.py`·`run_case.py` 는
-전부 `out/` 에 쓴다. 보고서: `design/P3A_SELECTION_REPORT.md` · `P3B_SELECTION_REPORT.md` ·
+전부 `out/` 에 쓴다. 보고서: `design/archive/P3A_SELECTION_REPORT.md` · `P3B_SELECTION_REPORT.md` ·
 `P3_RUN_COMPARISON.md` · `P3_HYBRID_INTEGRATION_REPORT.md`.
 
 | 접두 | 무엇 | 재생성 |

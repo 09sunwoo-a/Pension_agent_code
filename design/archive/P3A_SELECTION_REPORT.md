@@ -1,6 +1,6 @@
 # P3-A Minimal Knowledge Selection — 구현·비교 결과 (2026-08-31)
 
-- 범위: `design/HANDOFF_P3_INTEGRATION.md` §6의 최소 침습 경로 — `load_knowledge_items(case_id)` 하나를 Minimal Selection Layer로 대체(옵트인). Canonical 3-Layer / SYSTEM_ROLE_V3 / OUTPUT_INSTRUCTION_V3 / Hard Constraint / Validator / RUN·EVAL 체계 **무변경**.
+- 범위: `design/archive/HANDOFF_P3_INTEGRATION.md` §6의 최소 침습 경로 — `load_knowledge_items(case_id)` 하나를 Minimal Selection Layer로 대체(옵트인). Canonical 3-Layer / SYSTEM_ROLE_V3 / OUTPUT_INSTRUCTION_V3 / Hard Constraint / Validator / RUN·EVAL 체계 **무변경**.
 - 구현물: `prototype/selector.py` (Selection Layer) + `design/P3A_KNOWLEDGE_NEEDS.md` (Human-defined Need 전사) + `prototype/runtime.py`의 dispatch 1곳.
 - Frozen 불변: 기존 knowledge_pack.md·RUN·EVAL·canonical.json 무수정. 환경변수 `P3A_KNOWLEDGE_SELECTION=1`일 때만 Selector 경로 — 기본 경로는 기존과 동일 동작 확인(GC-22 dry-run 비교).
 

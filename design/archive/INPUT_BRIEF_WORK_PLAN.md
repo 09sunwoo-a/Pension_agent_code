@@ -1,13 +1,13 @@
 # Input·Brief 개편 작업 계획 (Customer Evidence Pack + Employee Brief Target Concept)
 
 - Status: **COMPLETE — Step 1~6 전부 완료, REV-002 종료 (2026-08-31, HD-8)**. Regression PASS 4·PARTIAL 4·FAIL 0 + Operational 보강 3건 + 선택 Regression 검증 통과. 잔여: F-012 형식(validator 상시 검출, P2 관찰)·Av `?` 개설 채널 1건·R4 Gap. 현재 Gate 상태(HD-PRE-P2-INPUT 이후): Pre-P2 Input Architecture = **Direction Approved**(9-Block·3-Layer, `PRE_P2_REFINEMENT_PROPOSAL.md`) / Employee Brief = **별도 Human Design Gate PENDING**(다음 Human Prompt 대기) / GC-18~25 = HOLD(재분류 방향만 승인) / Runtime·Schema·Parser 구현 금지 / P2 RUN·EVAL 시작 금지 / REV-003 Candidate 보류(HD-8 (b)).
-  - Step 1 산출물: `design/evidence/` 5건 (P0 회수본 · P1 역추적 · Excel 필드 · Brief 감사 · 화면/Hot Tip 인벤토리)
-  - Step 2 산출물: `design/TARGET_CONCEPT.md` · `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md` (전부 Draft)
+  - Step 1 산출물: `design/archive/evidence/` 5건 (P0 회수본 · P1 역추적 · Excel 필드 · Brief 감사 · 화면/Hot Tip 인벤토리)
+  - Step 2 산출물: `design/archive/TARGET_CONCEPT.md` · `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md` (전부 Draft)
   - **Step 3 결정 완료 (2026-08-31)**: Evidence Pack 8-섹션 확정(Bank Signals 삭제), Availability 확정, Candidate Pool 원칙, 화면값 3계층, Missing→Evidence Missing/Decision Variable 분리, Calculated Fact 2분류, HD-6.1·HD-7 기록, Regression 8 Case(GC-17 추가). 결정 기록: `TARGET_CONCEPT.md` §6, `golden/HUMAN_DECISIONS.md` HD-6.1·HD-7
   - **Step 4 완료 (2026-08-31)**: REV-002 runtime 구현 (`prototype/runtime.py`·`render_run.py`·`REVISIONS.md` REV-002)
   - **Step 5 완료 (2026-08-31)**: input_v2 8건 → RUN → EVAL — **PASS 4 · PARTIAL 4 · FAIL 0** (개선 2·유지 4·후퇴 2). 결과: `golden/REV002_REGRESSION.md`, `cases/FAILURE_MAP.md` "REV-002 Regression" 절
   - 다음: **Step 6 — Human 결정** (후퇴 2건·F-011/F-012 처리, REV-003 여부, P2 Batch 3, Av `?` 2건·R4 rule_source)
-- 승계 세션용 자족 요약본: `design/HANDOFF_INPUT_BRIEF_PLAN.md` (저장소 없이 읽어도 이해되도록 쓴 인수인계 문서)
+- 승계 세션용 자족 요약본: `design/archive/HANDOFF_INPUT_BRIEF_PLAN.md` (저장소 없이 읽어도 이해되도록 쓴 인수인계 문서)
 - 착수 조건: **Human의 명시적 착수 지시가 있을 때까지 어떤 Step도 시작하지 않는다.** 이 문서 작성 자체는 Human 지시로 수행되었다.
 - 이 문서의 목적: 다른 Agent Session이 이 계획을 이어받아 수행할 수 있도록 (1) 합의된 Target Concept, (2) 이번 대화에서 이미 내려진 설계 판단, (3) 작업 순서와 Human Gate, (4) 후속 로드맵을 기록한다.
 - Target Concept 은 **Working Hypothesis** 다 — 확정 스펙이 아니며, Step 1~2 의 증거 작업과 Step 3 Human Gate 에서 다듬는다.
@@ -124,7 +124,7 @@ Brief 는 "판단 요약"이 아니라 **직원의 업무 흐름을 미러링한
 
 ### Step 2. Spec 초안 3건 — Agent 자율, Draft 상태
 
-1. `design/TARGET_CONCEPT.md` — §1 전체(파이프라인·관리기회 정의·Business 경계)를 증거와 함께 정식화. Draft
+1. `design/archive/TARGET_CONCEPT.md` — §1 전체(파이프라인·관리기회 정의·Business 경계)를 증거와 함께 정식화. Draft
 2. `design/EVIDENCE_PACK_SPEC.md` — 9개 섹션별 필드 후보 표: `필드 | 섹션 | Fact/Calculated/Signal | as_of | 변화량 | 근거 Case | Availability(?)` + Calculated Fact 산식 목록 + Missing 고정 슬롯 목록. **Availability 는 Human 답변 없이 확정 금지 — `?` 유지**
 3. `design/EMPLOYEE_BRIEF_SPEC.md` — 5개 섹션별 필수/금지 요소, Judgment 결과별 변형(유지·확인우선·불가 Case 의 Brief 형태), 섹션별 평가 축·실패 모드
 

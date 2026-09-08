@@ -1,7 +1,7 @@
 # Target Concept — Customer Evidence Pack · 판단 파이프라인 · Employee Brief (REV-002 대상)
 
 - Status: **HUMAN CONFIRMED — Step 3 Human Gate 결정 반영 (2026-08-31)**. 기본 방향 승인(결정 1-1), Evidence Pack 8-섹션 확정(1-2), 실증 표현 정교화(1-3), 화면 조회값 3계층(1-4), Candidate Pool 원칙(1-5) 반영. 결정 전문은 Step 3 지시 기록, 요약은 §6.
-- 근거: `design/evidence/` 5건. 상세 명세: `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md`. 계획: `design/INPUT_BRIEF_WORK_PLAN.md`.
+- 근거: `design/archive/evidence/` 5건. 상세 명세: `design/EVIDENCE_PACK_SPEC.md` · `design/EMPLOYEE_BRIEF_SPEC.md`. 계획: `design/archive/INPUT_BRIEF_WORK_PLAN.md`.
 
 ---
 

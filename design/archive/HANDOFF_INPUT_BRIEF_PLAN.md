@@ -105,4 +105,4 @@ REV-002 완료 후: ① REV-003(Knowledge 세부 조건 구조화 — Regression
 - 동결된 Case·RUN·EVAL 소급 수정 금지 (append-only).
 - 보류 항목(Retrieval, Multi-Agent, 자동 Evaluator 등)을 이 작업 중 무단 도입 금지.
 - 확정된 Human Decision(HD-1~6) 재질문 금지.
-- 상세 근거·파일 경로는 저장소의 `design/INPUT_BRIEF_WORK_PLAN.md`(본 계획의 상세판), `AGENTS.md` §20(운영 규칙), `golden/HUMAN_DECISIONS.md`, `cases/FAILURE_MAP.md`, `golden/P1_BATCH2_SUMMARY.md`를 본다.
+- 상세 근거·파일 경로는 저장소의 `design/archive/INPUT_BRIEF_WORK_PLAN.md`(본 계획의 상세판), `AGENTS.md` §20(운영 규칙), `golden/HUMAN_DECISIONS.md`, `cases/FAILURE_MAP.md`, `golden/P1_BATCH2_SUMMARY.md`를 본다.

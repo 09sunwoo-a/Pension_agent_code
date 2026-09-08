@@ -928,5 +928,5 @@ Verdict: PASS / PARTIAL / FAIL — 정의는 `AGENTS.md` §20.6. Evaluation Arti
 
 ## Appendix B. 작업 메모
 
-- Source 추출 산출물(폴더별 상세 발췌·file:line 참조·폴더 종합)은 `golden/source_extracts/` 에 보관했다. 이는 Golden 설계의 근거 추적용 작업 산출물이며 Source Corpus·Knowledge Base 가 아니다(Registry 에 등록하지 않음). 불필요하면 삭제해도 본 Draft 의 의미는 유지된다.
+- Source 추출 산출물(폴더별 상세 발췌·file:line 참조·폴더 종합)은 `golden/source_extracts/` 에 보관했다. 이는 Golden 설계의 근거 추적용 작업 산출물이며 Source Corpus·Knowledge Base 가 아니다(Registry 에 등록하지 않음). 불필요하면 삭제해도 본 Draft 의 의미는 유지된다. **→ 2026-09-08 삭제됨** (커밋 531e59d 까지의 이력에 남아 있다: `git show 531e59d:golden/source_extracts/_EXTRACTION_BRIEF.md` 등).
 - Human Gate ①~③ 는 2026-08-30 확정(§11). 다음 단계는 P0 8 Case 를 `cases/GC-xx/` 에 `templates/case/case.md` 형식으로 구체화·Freeze 하고 Batch 를 실행하는 것이다(`AGENTS.md` §20). 실행에 필요한 최소 Input/Parser/Serialization 확장과 HD-2 Validator 구현은 Execution-enabling Runtime Change 로 자율 수행한다(HD-5.1); Output Decision Model 변경·새 Constraint 설계·새 Retrieval Architecture 는 Batch 중 수행하지 않는다.

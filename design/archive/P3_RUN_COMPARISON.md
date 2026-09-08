@@ -1,7 +1,7 @@
 # P3 실 RUN 비교 — P3-A·P3-B Selector pack vs Human pack (2026-08-31)
 
 - 실행: GEMINI_API_KEY 확보 후 gemma-4-31b-it 실호출. **양 모드(A=Human pack / B=Selector pack) 동일 시점 신규 RUN**으로 비교 — Frozen RUN_001/002와의 직접 대조는 모델 비결정성 혼입을 피하기 위해 참고로만 사용. Frozen `cases/*/runs` 무수정.
-- 기록: `prototype/p3_runs/` (run record 14건 + selection log 8건 — 전 프롬프트·원출력 포함). GC-21 selector 1회 네트워크 절단(IncompleteRead) 재시도 — P2 GC-02/07 timeout 재실행 관례와 동일 처리.
+- 기록: `design/archive/p3_runs/` (run record 14건 + selection log 8건 — 전 프롬프트·원출력 포함). GC-21 selector 1회 네트워크 절단(IncompleteRead) 재시도 — P2 GC-02/07 timeout 재실행 관례와 동일 처리.
 - 이 문서는 P3-A(`P3A_SELECTION_REPORT.md` §4~6)·P3-B(`P3B_SELECTION_REPORT.md` §6~8)의 "RUN 미검증" 잔여 축을 닫는다.
 
 ## 1. Deterministic 결과 (14 RUN)

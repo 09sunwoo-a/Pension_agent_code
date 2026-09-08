@@ -104,7 +104,7 @@ HD-6에서 "Decision Meaning Preservation 확인용 Diagnostic Output"으로 규
 
 - 기존 D10(고객이익-영업압력 분리)·F-009(Marketing Trigger as Management Basis)와 정합 — 폐기가 아니라 명문화·정밀화다.
 - REV-002부터 TM Target·Campaign·Badge·LMS/SMS 등 Bank Signal은 Customer Reasoning Input에서 제거된다(Evidence Pack 8-섹션 — `design/EVIDENCE_PACK_SPEC.md`). 검증 축은 Evidence Provenance로 이동: Management Point는 실제 Customer Evidence(`supporting_evidence_ids`)로 추적 가능해야 하며, 근거 없는 관리 포인트는 REVIEW/FAIL.
-- 함께 확정된 Step 3 결정(Evidence Pack 8-섹션·Availability·Candidate Pool 원칙·화면값 3계층·Regression 8 Case)의 전체 기록은 `design/TARGET_CONCEPT.md` §6.
+- 함께 확정된 Step 3 결정(Evidence Pack 8-섹션·Availability·Candidate Pool 원칙·화면값 3계층·Regression 8 Case)의 전체 기록은 `design/archive/TARGET_CONCEPT.md` §6.
 
 ## HD-8. REV-002 Step 6 결정 — Regression 해석·Operational 마무리·P2 방향 (2026-08-31)
 

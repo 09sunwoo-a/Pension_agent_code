@@ -44,7 +44,7 @@ def main() -> int:
     if "constraint_context" in record:
         cc = record["constraint_context"]
         print(f"C1          : {cc['investment_profile']} → allowed {cc['allowed_levels']} / forbidden {cc['forbidden_levels']}")
-        print(f"knowledge   : {', '.join(record['knowledge_ids_used'])}  (fields: {', '.join(record['knowledge_fields_sent'])})")
+        print(f"knowledge   : {', '.join(record['knowledge_ids_used'])}  (fields: {', '.join(record.get('knowledge_fields_sent', []))})")
         print(f"prompt size : {record['prompt_chars']} chars")
     if args.show_prompt and "prompt" in record:
         p = record["prompt"]
