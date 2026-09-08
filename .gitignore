@@ -1,0 +1,10 @@
+# Runtime 산출물 — prototype/run_case.py·selector.py 등이 쓰는 로컬 Run record
+prototype/out/
+
+# Python
+__pycache__/
+*.pyc
+
+# 로컬 환경
+.env
+.DS_Store

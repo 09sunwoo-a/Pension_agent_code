@@ -1,6 +1,6 @@
 # P1 Case Evidence — Customer 데이터 역추적 (병렬 설계 세션 Step 1)
 
-- Status: **DRAFT / Working Document** — OLD_INVENTORY_DRAFT.md §1(P0 8 Case + CASE_001)과 같은 방법·형식으로 P1 9 Case를 추출.
+- Status: **DRAFT / Working Document** — P0_CUSTOMER_CONTEXT_INVENTORY.md §1(P0 8 Case + CASE_001)과 같은 방법·형식으로 P1 9 Case를 추출.
 - 대상: GC-02, GC-05, GC-07, GC-08, GC-09, GC-11, GC-13, GC-15, GC-17 (각 case.md §2·§3 / RUN_001 / EVAL_001).
 - 규칙: 모든 항목은 case.md·RUN·EVAL의 실제 내용에서만. 근거 없는 추측 없음.
 - RUN 결과 참고: PASS = GC-02·05·11·13·15 / PARTIAL = GC-07·08·09·17. (P1 RUN은 전부 Gemma 4 REV-001, Critical Mistake 0건 — P0 대비 오판(F-001/F-002/F-009)이 크게 줄어 **미사용(F-003)·경미 F-001("방치")·F-010(분기 축소)** 쪽으로 실패 유형이 이동했다.)
@@ -60,4 +60,4 @@
 
 ---
 
-> 이 문서는 OLD_INVENTORY_DRAFT.md §2 이하(Data Item·Domain·Required/Optional)의 P1 반영 개정을 위한 원자료다. Availability는 여전히 사용자 확인 전(`?`).
+> 이 문서는 P0_CUSTOMER_CONTEXT_INVENTORY.md §2 이하(Data Item·Domain·Required/Optional)의 P1 반영 개정을 위한 원자료다. Availability는 여전히 사용자 확인 전(`?`).

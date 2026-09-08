@@ -1,7 +1,7 @@
 # Source Extraction Brief (for 개인형IRP 사후관리 Agent Golden Set 설계)
 
 You are reading part of a Korean bank's internal corpus about 개인형IRP (individual retirement pension) customer management.
-Repository root: /Users/leesunwoo/clone-test/Pension_agent_code
+Repository root: (이 저장소의 루트)
 Source index: sources/source_registry.md  (maps SRC-xxx IDs to file paths — use it to label each file with its SRC id)
 
 Goal: NOT a summary. Extract *business knowledge a competent IRP after-care employee uses*, so that evaluation cases (Golden Set) can be designed. Read every assigned file fully (use sed -n / cat in chunks). Write the result to the output file given to you, in Korean, markdown.
