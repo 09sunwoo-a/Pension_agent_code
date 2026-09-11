@@ -1,0 +1,29 @@
+# 모든 텍스트 파일은 UTF-8 · LF로 저장소에 보관한다.
+# Windows에서 clone/checkout 하더라도 인코딩은 절대 변환되지 않으며,
+# 줄바꿈만 core.autocrlf 설정에 따라 처리된다.
+* text=auto
+
+# 텍스트 파일 명시 (저장소 내부는 항상 LF)
+*.md   text eol=lf
+*.py   text eol=lf
+*.json text eol=lf
+*.txt  text eol=lf
+*.html text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.csv  text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+
+# 바이너리 파일 — 어떤 변환도 하지 않는다.
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.pdf  binary
+*.xlsx binary
+*.xls  binary
+*.docx binary
+*.pptx binary
+*.zip  binary

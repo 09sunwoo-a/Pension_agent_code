@@ -53,6 +53,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
@@ -72,6 +73,24 @@ API_KEY_ENV = "GEMINI_API_KEY"
 HTTP_TIMEOUT_SEC = 300  # network read timeout only (Operational; no generation setting)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def force_utf8_stdio() -> None:
+    """stdout/stderr를 UTF-8로 강제한다.
+
+    Windows 콘솔/리다이렉트 환경은 기본 인코딩이 cp949라서 한글·특수문자
+    (→, · 등) 출력 시 UnicodeEncodeError 또는 깨짐이 발생할 수 있다.
+    모든 CLI 진입점에서 가장 먼저 호출한다.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if stream is None:
+            continue
+        enc = (getattr(stream, "encoding", None) or "").lower().replace("-", "")
+        if enc != "utf8":
+            try:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass  # 재설정 불가 환경(파이프 등)에서는 조용히 넘어간다
 
 # Run status vocabulary (kept as plain strings on purpose)
 CONFIG_ERROR = "CONFIG_ERROR"

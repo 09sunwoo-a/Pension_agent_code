@@ -402,6 +402,7 @@ def render_md(r: Dict[str, Any], path: Path) -> None:
 
 
 if __name__ == "__main__":
+    runtime.force_utf8_stdio()  # Windows cp949 콘솔에서 한글 출력 깨짐 방지
     cid = sys.argv[1] if len(sys.argv) > 1 else "MOCK_001"
     rec = run_mock(cid)
     print(f"status: {rec.get('status')} | calls: {rec.get('llm_call_count')}")
